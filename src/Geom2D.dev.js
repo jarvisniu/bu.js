@@ -1,19 +1,21 @@
+;(function() {
+    var libs = [
 
-var libs = [
+        "Geom2D",
 
-    "Geom2D",
+        "shapes/Point",
+        "shapes/Line",
+        "shapes/Circle",
+        "shapes/Triangle",
+        "shapes/Fan",
+        "shapes/Bow",
+        "shapes/Polygon",
 
-    "shapes/Point",
-    "shapes/Line",
-    "shapes/Circle",
-    "shapes/Triangle",
-    "shapes/Fan",
-    "shapes/Bow",
-    "shapes/Polygon",
+        "renderer/Renderer",
+    ];
 
-    "renderer/Renderer",
-];
-
-for (var i in libs) {
-    document.write('<script src="../../src/' + libs[i] + '.js"></script>');
-}
+    for (var i in libs) {
+        if (libs.hasOwnProperty(i))
+            document.write('<script src="../../src/' + libs[i] + '.js"></script>');
+    }
+})();

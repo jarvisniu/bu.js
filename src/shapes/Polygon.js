@@ -45,7 +45,7 @@ Geom2D.Polygon = function (points) {
                 ));
         } else {
             this.points.splice(insertIndex, 0, point);
-            // TODO
+            // TODO add lines and triangles
         }
     };
 
