@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Draw Polygon</title>
+    <script src="../../lib/Za.EventListenerPattern.js"></script>
+    <script src="../../src/Geom2D.dev.js"></script>
+    <script type="text/javascript">
+
+        var renderer;
+        var polygon;
+        var mousePos = new Geom2D.Point();
+
+        function init() {
+            // renderer
+            renderer = new Geom2D.Renderer();
+            document.body.appendChild(renderer.dom);
+
+            // polygon
+            var points = [];
+            polygon = new Geom2D.Polygon(points);
+            renderer.append(polygon);
+
+            // events
+            renderer.dom.addEventListener("mousemove", onMouseMove);
+            renderer.dom.addEventListener("mousedown", onMouseDown);
+        }
+
+        function onMouseMove(e) {
+            mousePos.set(e.offsetX, e.offsetY);
+        }
+
+        function onMouseDown(e) {
+            polygon.addPoint(mousePos.clone());
+        }
+
+        document.addEventListener("DOMContentLoaded", init);
+    </script>
+</head>
+<body>
+    <div>Click to add point to the polygon.</div>
+</body>
+</html>

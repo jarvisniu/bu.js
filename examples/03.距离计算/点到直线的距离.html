@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Distance from point to line</title>
+    <script src="../../lib/Za.EventListenerPattern.js"></script>
+    <script src="../../src/Geom2D.dev.js"></script>
+    <script type="text/javascript">
+
+        var renderer;
+        var line, lineVertical;
+        var mousePos = new Geom2D.Point();
+
+        function init() {
+            renderer = new Geom2D.Renderer();
+            line = createLine();
+            renderer.append(line);
+
+            lineVertical = new Geom2D.Line();
+            lineVertical.strokeStyle = "blue";
+            lineVertical.points[1].label = "T";
+            renderer.append(lineVertical);
+
+            document.body.appendChild(renderer.dom);
+            renderer.dom.addEventListener("mouseup", onMouseUp);
+            renderer.dom.addEventListener("mousemove", onMouseMove);
+        }
+        document.addEventListener("DOMContentLoaded", init);
+
+        function createLine() {
+            var x1 = Math.random() * renderer.width;
+            var y1 = Math.random() * renderer.height;
+            var x2 = Math.random() * renderer.width;
+            var y2 = Math.random() * renderer.height;
+            var _line = new Geom2D.Line(x1, y1, x2, y2);
+            _line.points[0].label = "A";
+            _line.points[1].label = "B";
+            return _line;
+        }
+
+        function onMouseMove(e) {
+            mousePos.x = e.offsetX;
+            mousePos.y = e.offsetY;
+
+            var dist = line.distanceTo(mousePos);
+            lineVertical.points[0].copy(mousePos);
+            line.footPointFrom(mousePos, lineVertical.points[1]);
+            lineVertical.points[0].label = "distance: " + Math.round(dist);
+        }
+
+        function onMouseUp(e) {
+            line = renderer.shapes[0] = createLine();
+        }
+    </script>
+</head>
+<body>
+    <div>Move cursor to measure distance. Click to change another line.</div>
+</body>
+</html>
