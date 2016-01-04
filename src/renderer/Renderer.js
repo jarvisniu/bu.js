@@ -5,8 +5,8 @@ Geom2D.Renderer = function(w, h) {
 
     Za.EventListenerPattern.apply(this);
 
-    w = w || 480;
-    h = h || 320;
+    w = w || 800;
+    h = h || 450;
 
     // constants
     var POINT_SIZE = 2;

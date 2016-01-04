@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delaunay Triangulation</title>
+    <script src="../../lib/Za.dev.js"></script>
+    <script src="../../src/Geom2D.dev.js"></script>
+    <script>
+
+        var POINT_COUNT = 64;
+        var LINE_COUNT = 50;
+
+        var renderer;
+        var points = [];
+        var lines = [];
+
+        function init() {
+            renderer = new Geom2D.Renderer();
+            document.body.appendChild(renderer.dom);
+            generatePoints();
+            document.getElementById("btnRandom").onclick = randomLines;
+            document.getElementById("btnAll").onclick = allLines;
+            document.getElementById("btnNoCross").onclick = noCrossLines;
+            document.getElementById("btnDelaunay").onclick = delaunayLines;
+        }
+
+        function generatePoints() {
+            for ( var i = 0; i < POINT_COUNT; i++ ) {
+                var x = Math.rand(20, renderer.width - 40);
+                var y = Math.rand(20, renderer.height - 40);
+                points[i] = new Geom2D.Point(x, y);
+                points[i].label = i;
+
+                renderer.append(points[i]);
+            }
+        }
+
+        // generate lines
+        function randomLines() {
+            lines.clear();
+            for (var i = 0; i < LINE_COUNT; i++) {
+                var p1 = points[Math.floor(Math.rand(POINT_COUNT))];
+                var p2 = points[Math.floor(Math.rand(POINT_COUNT))];
+                var line = new Geom2D.Line(p1, p2);
+                line.strokeStyle = "#08f";
+                lines.push(line);
+                renderer.append(line);
+            }
+        }
+
+        function allLines() {
+            lines.clear();
+            for (var i = 0; i < POINT_COUNT; i++) {
+                for (var j = i + 1; j < POINT_COUNT; j++) {
+                    var line = new Geom2D.Line(points[i], points[j]);
+                    line.strokeStyle = "rgba(0, 0, 0, 0.1)";
+                    lines.push(line);
+                    renderer.append(line);
+                }
+            }
+        }
+
+        function noCrossLines() {
+            lines.clear();
+            for ( var i = 0; i < POINT_COUNT; i++ ) {
+                for ( var j = i + 1; j < POINT_COUNT; j++ ) {
+                    var line = new Geom2D.Line(points[i], points[j]);
+                    line.strokeStyle = "orange";
+                    if ( ! isLineCrossWithAny( line, lines ) ) {
+                        lines.push( line );
+                        renderer.append(line);
+                        // console.log("Add: ", i, j);
+                    } else {
+                        // console.log("Not add: ", i, j);
+                    }
+                }
+            }
+        }
+
+        function delaunayLines() {
+            lines.clear();
+            for (var i = 0; i < POINT_COUNT; i++) {
+                for (var j = i + 1; j < POINT_COUNT; j++) {
+                    lines.push(new Geom2D.Line(points[i], points[j]));
+                }
+            }
+
+
+            for ( var i = 0; i < lines.length; i++ ) {
+                while(lineTryKillOthers(lines[i], lines))
+                    lineTryKillOthers(lines[i], lines);
+            }
+
+            for(var i = 0; i < lines.length; i++) {
+                renderer.append(lines[i]);
+            }
+        }
+
+        // geometry algorithm
+        function isLineCrossWithAny(line, lines) {
+            for ( var i = 0; i < lines.length; i ++ ) {
+                if ( line.isCrossWithLine(lines[i]) ) {
+                    // console.log("crossed with line: [" + lineGroup[i].p1.index + " - " + lineGroup[i].p2.index + "]");
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function lineTryKillOthers(line, lines) {
+            // step 1: To see whether itself will be killed
+            for( var i = 0; i < lines.length; i ++ ) {
+                if ( line.isCrossWithLine(lines[i]) && line.length > lines[i].length ) {
+                    // console.log("[" + line.p1.index + "-" + line.p2.index + "] suicide by [" + lines[i].p1.index + "-" + lines[i].p2.index + "]");
+                    lines.splice(lines.indexOf(line), 1); // willBeenKilled
+                    return true;
+                }
+            }
+
+            // console.log("[" + line.p1.index + "-" + line.p2.index + "] killing its crosses.");
+            for ( var i = 0; i < lines.length; i ++ ) {
+                if ( line.isCrossWithLine(lines[i]) ) {
+                    // console.log("    [" + lines[i].p1.index + "-" + lines[i].p2.index + "] be killing");
+                    lines.splice(i, 1);
+                }
+            }
+            return false;
+        }
+
+        document.addEventListener("DOMContentLoaded", init);
+    </script>
+</head>
+<body>
+    <div>Delaunay Triangulation</div>
+    <div>
+        <button id="btnRandom">Random</button>
+        <button id="btnAll">All</button>
+        <button id="btnNoCross">No Cross</button>
+        <button id="btnDelaunay">Delaunay</button>
+    </div>
+</body>
+</html>

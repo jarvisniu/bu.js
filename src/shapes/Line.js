@@ -51,6 +51,7 @@ Geom2D.Line = function (p1, p2) {
         return Math.abs(a * point.x + b - point.y) / Math.sqrt(a * a + 1);
     };
 
+    // 这个是自己推导的
     this.distanceTo2 = function(point) {
         var p1 = _self.points[0];
         var p2 = _self.points[1];
@@ -79,7 +80,34 @@ Geom2D.Line = function (p1, p2) {
     };
 
     // with line
-    //this.crossPointWith = function(line) {
+
+    // 求与另一条直线求交点
+    //this.getCrossPointWith = function(line) {
     //    return new Geom2D.Point();
     //};
+
+    // whether cross with another line
+    this.isCrossWithLine = function (line) {
+
+        var x1 = this.points[0].x, y1 = this.points[0].y,
+            x2 = this.points[1].x, y2 = this.points[1].y,
+            x3 = line.points[0].x, y3 = line.points[0].y,
+            x4 = line.points[1].x, y4 = line.points[1].y;
+        var d = (y2 - y1) * (x4 - x3) - (y4 - y3) * (x2 - x1);
+        if (d == 0) {
+            return false;
+        } else {
+            var x0 = ((x2 - x1) * (x4 - x3) * (y3 - y1) + (y2 - y1) * (x4 - x3) * x1 - (y4 - y3) * (x2 - x1) * x3) / d;
+            var y0 = ((y2 - y1) * (y4 - y3) * (x3 - x1) + (x2 - x1) * (y4 - y3) * y1 - (x4 - x3) * (y2 - y1) * y3) / -d;
+            x0 = Math.round4(x0); y0 = Math.round4(y0);
+            x1 = Math.round4(x1); y1 = Math.round4(y1);
+            x2 = Math.round4(x2); y2 = Math.round4(y2);
+            x3 = Math.round4(x3); y3 = Math.round4(y3);
+            x4 = Math.round4(x4); y4 = Math.round4(y4);
+            return (x0 - x1) * (x0 - x2) < 0 &&
+                (x0 - x3) * (x0 - x4) < 0 &&
+                (y0 - y1) * (y0 - y2) < 0 &&
+                (y0 - y3) * (y0 - y4) < 0 ;
+        }
+    }
 };
