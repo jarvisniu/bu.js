@@ -42,6 +42,7 @@ Geom2D.Renderer = function(w, h) {
         _dom.style.border = "solid 1px gray";
         _dom.style.cursor = "crosshair";
         _dom.style.background = "#eee";
+        _dom.oncontextmenu = function() { return false; };
 
         _context = _dom.getContext("2d");
 

@@ -19,6 +19,12 @@ Geom2D.Line = function (p1, p2) {
     this.length = Math.sqrt( dX * dX + dY * dY );
     //this.midpoint = new Geom2D.Point();
 
+    // edit
+    this.set = function (p1, p2) {
+        _self.points[0].copy(p1);
+        _self.points[1].copy(p2);
+    };
+
     // with point
     this.isTwoPointsSameSide = function(p1, p2) {
 

@@ -12,6 +12,8 @@
         "shapes/Polygon",
         "shapes/Polyline",
 
+        "morph/PolylineMorph",
+
         "renderer/Renderer",
     ];
 

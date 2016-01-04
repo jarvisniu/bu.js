@@ -2,6 +2,7 @@
 var Geom2D = Geom2D || {};
 
 Geom2D.Point = function (x, y) {
+
     this.x = x || 0;
     this.y = y || 0;
     this.label = null;
@@ -20,6 +21,7 @@ Geom2D.Point = function (x, y) {
     this.copy = function (point) {
         this.x = point.x;
         this.y = point.y;
+        this.label = point.label;
     };
 
     // set value from x, y
@@ -32,4 +34,16 @@ Geom2D.Point = function (x, y) {
     this.distanceTo = function (point) {
         return Math.bevel(this.x - point.x, this.y - point.y);
     };
+};
+
+Geom2D.Point.interpolate = function(p1, p2, k, p3) {
+
+    var x = p1.x + (p2.x - p1.x) * k;
+    var y = p1.y + (p2.y - p1.y) * k;
+
+    if (p3) {
+        p3.set(x, y);
+    } else {
+        return new Geom2D.Point(x, y);
+    }
 };
