@@ -27,7 +27,7 @@ Geom2D.Polygon = function (points) {
 
     // edit
     this.addPoint = function(point, insertIndex) {
-        if (insertIndex == undefined) {
+        if (insertIndex === undefined) {
             // add point
             this.points.push(point);
             // add line

@@ -17,7 +17,7 @@ Geom2D.Line = function (p1, p2) {
 
     this.points = [p1, p2];  // TODO need clone?
     this.length = Math.sqrt( dX * dX + dY * dY );
-    this.midpoint = new Geom2D.Point();
+    //this.midpoint = new Geom2D.Point();
 
     // with point
     this.isTwoPointsSameSide = function(p1, p2) {

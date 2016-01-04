@@ -10,6 +10,7 @@
         "shapes/Fan",
         "shapes/Bow",
         "shapes/Polygon",
+        "shapes/Polyline",
 
         "renderer/Renderer",
     ];

@@ -27,4 +27,9 @@ Geom2D.Point = function (x, y) {
         this.x = x;
         this.y = y;
     };
+
+    // relation with point
+    this.distanceTo = function (point) {
+        return Math.bevel(this.x - point.x, this.y - point.y);
+    };
 };

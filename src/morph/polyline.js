@@ -1,7 +1,7 @@
 function Polyline() {
 
-	var points = [];
 	var _self = this;
+	var points = [];
 
 	this.length = 0;
 
@@ -36,9 +36,9 @@ function Polyline() {
 		}
 
 		_self.length = len;
-		// console.log("Polyling length = " + len);
+		// console.log("Polyline length = " + len);
 
-	};
+	}
 
 	// be sure to calc the length before using this
 	function calcPointPositions() {
@@ -55,7 +55,7 @@ function Polyline() {
 
 		}
 
-	};
+	}
 
 }
 

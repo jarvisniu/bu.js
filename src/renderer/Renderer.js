@@ -149,6 +149,16 @@ Geom2D.Renderer = function(w, h) {
         drawPoints(polygon.points);
     }
 
+    function drawPolyline(polyline) {
+        _context.beginPath();
+        for (var i = 0; i < polyline.points.length; i ++ ) {
+            _context.lineTo(polyline.points[i].x, polyline.points[i].y);
+        }
+        _context.stroke();
+
+        drawPoints(polyline.points);
+    }
+
     function drawShapes() {
         for (var i = 0; i < _self.shapes.length; i++) {
             var shape = _self.shapes[i];
@@ -179,6 +189,8 @@ Geom2D.Renderer = function(w, h) {
                 drawBow(shape);
             } else if (shape instanceof Geom2D.Polygon) {
                 drawPolygon(shape);
+            } else if (shape instanceof Geom2D.Polyline) {
+                drawPolyline(shape);
             } else {
                 console.log("drawShapes(): unknown shape: ", shape);
             }

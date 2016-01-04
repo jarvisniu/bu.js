@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Draw Polyline</title>
+    <script src="../../lib/Za.dev.js"></script>
+    <script src="../../src/Geom2D.dev.js"></script>
+    <script type="text/javascript">
+
+        var renderer;
+        var polyline;
+        var mousePos = new Geom2D.Point();
+
+        function init() {
+            // renderer
+            renderer = new Geom2D.Renderer();
+            document.body.appendChild(renderer.dom);
+
+            // polyline
+            var points = [];
+            polyline = new Geom2D.Polyline(points);
+            renderer.append(polyline);
+
+            // events
+            renderer.dom.addEventListener("mousemove", onMouseMove);
+            renderer.dom.addEventListener("mousedown", onMouseDown);
+        }
+
+        function onMouseMove(e) {
+            mousePos.set(e.offsetX, e.offsetY);
+        }
+
+        function onMouseDown(e) {
+            polyline.addPoint(mousePos.clone());
+        }
+
+        document.addEventListener("DOMContentLoaded", init);
+    </script>
+</head>
+<body>
+    <div>Click to add point to the polyline.</div>
+</body>
+</html>
