@@ -13,9 +13,16 @@ Geom2D.Circle = function(cx, cy, r) {
 
     this.centralPoint = new Geom2D.Point(cx, cy);
 
+    // edit
+    this.setCenter = function (point) {
+        this.centralPoint.copy(point);
+        this.cx = point.x;
+        this.cy = point.y;
+    };
+
     this.containsPoint = function(p) {
         var dx = p.x - this.cx,
             dy = p.y - this.cy;
-        return Math.sqrt(dx * dx + dy * dy) < this.radius;
+        return Math.bevel(dx, dy) < this.radius;
     };
 };

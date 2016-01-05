@@ -18,6 +18,7 @@
         "morph/PolylineMorph",
 
         "reactor/DrawCircleReactor",
+        "reactor/DrawCircleReactor2",
 
         "renderer/Renderer",
     ];

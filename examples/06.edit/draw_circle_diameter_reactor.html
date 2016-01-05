@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Draw Circle 2</title>
+    <script src="../../lib/Za.dev.js"></script>
+    <script src="../../src/Geom2D.dev.js"></script>
+    <script type="text/javascript">
+
+        var renderer;
+        var drawCircleReactor;
+
+        function init() {
+
+            renderer = new Geom2D.Renderer();
+            document.body.appendChild(renderer.dom);
+
+            drawCircleReactor = new Geom2D.DrawCircleReactor2(renderer);
+            drawCircleReactor.enable();
+        }
+
+        document.addEventListener("DOMContentLoaded", init);
+    </script>
+</head>
+<body>
+
+<div>Drag to draw a circle.</div>
+
+</body>
+</html>

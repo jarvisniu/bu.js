@@ -1,8 +1,8 @@
 /**
- * Draw circle by dragging the radius
+ * Draw circle by dragging the diameter
  */
 
-Geom2D.DrawCircleReactor = function (renderer) {
+Geom2D.DrawCircleReactor2 = function (renderer) {
 
     // variables
     var mousePosDown = new Geom2D.Point();
@@ -55,8 +55,9 @@ Geom2D.DrawCircleReactor = function (renderer) {
         // change radius
         if (buttonDown) {
             mousePos.set(e.offsetX, e.offsetY);
-            circle.radius = mousePos.distanceTo(mousePosDown);
-            line.points[1].copy(mousePos);
+            circle.radius = mousePos.distanceTo(mousePosDown) / 2;
+            line.setPoint2(mousePos);
+            circle.setCenter(line.midpoint);
         }
     }
 

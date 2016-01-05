@@ -16,17 +16,44 @@ Geom2D.Line = function (p1, p2) {
     }
 
     var _self = this;
-    var dX = p2.x - p1.x,
-        dY = p2.y - p1.y;
 
-    this.points = [p1, p2];  // TODO need clone?
-    this.length = Math.sqrt( dX * dX + dY * dY );
-    //this.midpoint = new Geom2D.Point();
+    this.points = [p1, p2];  // TODO set to read only
+    this.length = 0;
+    this.midpoint = new Geom2D.Point();
+
+    function init() {
+        _self.set(p1, p2);
+    }
+
+    function onPointChange() {
+        var dX = p2.x - p1.x,
+            dY = p2.y - p1.y;
+
+        _self.length = Math.bevel( dX, dY );
+        _self.midpoint.set(p1.x + dX / 2, p1.y + dY / 2);
+    }
 
     // edit
     this.set = function (p1, p2) {
-        _self.points[0].copy(p1);
-        _self.points[1].copy(p2);
+
+        this.points[0].copy(p1);
+        this.points[1].copy(p2);
+
+        onPointChange();
+    };
+
+    this.setPoint1 = function (p1) {
+
+        this.points[0].copy(p1);
+
+        onPointChange();
+    };
+
+    this.setPoint2 = function (p2) {
+
+        this.points[1].copy(p2);
+
+        onPointChange();
     };
 
     // with point
@@ -120,4 +147,6 @@ Geom2D.Line = function (p1, p2) {
                 (y0 - y3) * (y0 - y4) < 0 ;
         }
     }
+
+    init();
 };
