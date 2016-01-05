@@ -2,6 +2,8 @@
  * Draw circle by dragging the diameter
  */
 
+var Geom2D = Geom2D || {};
+
 Geom2D.DrawCircleReactor2 = function (renderer) {
 
     // variables

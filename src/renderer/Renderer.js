@@ -11,7 +11,7 @@ Geom2D.Renderer = function(w, h) {
     h = h || 450;
 
     // constants
-    var POINT_SIZE = 2;
+    var POINT_SIZE = 4;
 
     // variables
     var _self = this;
@@ -78,13 +78,14 @@ Geom2D.Renderer = function(w, h) {
                 POINT_SIZE
             );
         }
+
         if (point.label != null) {
             //console.log("drawPoint(): " + point.label + ", x: " + point.x + ", y: " + point.y);
             var style = _context.fillStyle;
             _context.fillStyle = "black";
             _context.fillText (
                 point.label,
-                point.x - POINT_SIZE / 2 + 6,
+                point.x - POINT_SIZE / 2 + 9,
                 point.y - POINT_SIZE / 2 + 6);
             _context.fillStyle = style;
         }

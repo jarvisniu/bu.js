@@ -4,6 +4,7 @@ var Geom2D = Geom2D || {};
 Geom2D.Point = function (x, y) {
 
     Geom2D.Colorful.apply(this);
+    this.stroke(false);  // point has no stroke by default
 
     this.type = "Point";
 
@@ -37,6 +38,15 @@ Geom2D.Point = function (x, y) {
     // relation with point
     this.distanceTo = function (point) {
         return Math.bevel(this.x - point.x, this.y - point.y);
+    };
+
+    this.isNear = function (target, dist) {
+        dist = dist || Geom2D.DEFAULT_NEAR_DIST;
+        if (target.type == "Point") {
+            return this.distanceTo(target) < dist;
+        } else if (target.type == "Line") {
+            // TODO is this point near a line
+        }
     };
 };
 
