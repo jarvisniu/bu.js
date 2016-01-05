@@ -8,7 +8,7 @@ Geom2D.Renderer = function(w, h) {
     this.type = "Renderer";
 
     w = w || 800;
-    h = h || 450;
+    h = h || 600;
 
     // constants
     var POINT_SIZE = 4;
@@ -102,13 +102,21 @@ Geom2D.Renderer = function(w, h) {
 
     function drawLine(line) {
 
-        _context.beginPath();
-        _context.lineTo(line.points[0].x, line.points[0].y);
-        _context.lineTo(line.points[1].x, line.points[1].y);
-        _context.closePath();
-
         if (line.strokeStyle != null) {
             _context.strokeStyle = line.strokeStyle;
+            if (!line.dashStyle) {
+                _context.beginPath();
+                _context.lineTo(line.points[0].x, line.points[0].y);
+                _context.lineTo(line.points[1].x, line.points[1].y);
+                _context.closePath();
+
+            } else {
+                _context.dashedLine(
+                    line.points[0].x, line.points[0].y,
+                    line.points[1].x, line.points[1].y,
+                    line.dashStyle
+                );
+            }
             _context.stroke();
         }
 
@@ -120,6 +128,7 @@ Geom2D.Renderer = function(w, h) {
         _context.beginPath();
         _context.arc(circle.cx, circle.cy, circle.radius, 0, Math.PI * 2);
         _context.closePath();
+        // TODO add dashed arc support
 
         if (circle.fillStyle != null) {
             _context.fillStyle = circle.fillStyle;
@@ -145,8 +154,17 @@ Geom2D.Renderer = function(w, h) {
             _context.fillStyle = triangle.fillStyle;
             _context.fill();
         }
+
         if (triangle.strokeStyle != null) {
             _context.strokeStyle = triangle.strokeStyle;
+            if (triangle.dashStyle) {
+                _context.beginPath();  // clear prev lineTo
+                var pts = triangle.points;
+                _context.dashedLine(pts[0].x, pts[0].y, pts[1].x, pts[1].y, triangle.dashStyle);
+                _context.dashedLine(pts[1].x, pts[1].y, pts[2].x, pts[2].y, triangle.dashStyle);
+                _context.dashedLine(pts[2].x, pts[2].y, pts[0].x, pts[0].y, triangle.dashStyle);
+
+            }
             _context.stroke();
         }
 
@@ -167,12 +185,23 @@ Geom2D.Renderer = function(w, h) {
 
         if (rectangle.strokeStyle != null) {
             _context.strokeStyle = rectangle.strokeStyle;
-            _context.strokeRect (
-                rectangle.position.x,
-                rectangle.position.y,
-                rectangle.size.width,
-                rectangle.size.height
-            );
+            if (!triangle.dashStyle) {
+                _context.strokeRect (
+                    rectangle.position.x,
+                    rectangle.position.y,
+                    rectangle.size.width,
+                    rectangle.size.height
+                );
+            } else {
+                _context.beginPath();
+                var pt1 = rectangle.position;
+                var pt3 = rectangle.rightBottomPoint;
+                _context.dashedLine(pt1.x, pt1.y, pt3.x, pt1.y, rectangle.dashStyle);
+                _context.dashedLine(pt3.x, pt1.y, pt3.x, pt3.y, rectangle.dashStyle);
+                _context.dashedLine(pt3.x, pt3.y, pt1.x, pt3.y, rectangle.dashStyle);
+                _context.dashedLine(pt1.x, pt3.y, pt1.x, pt1.y, rectangle.dashStyle);
+                _context.stroke();
+            }
         }
 
         drawPoints(rectangle.points);
@@ -184,6 +213,7 @@ Geom2D.Renderer = function(w, h) {
         _context.arc(fan.cx, fan.cy, fan.radius, fan.aFrom, fan.aTo);
         _context.lineTo(fan.cx, fan.cy);
         _context.closePath();
+        // TODO dashed arc
 
         if (fan.fillStyle != null) {
             _context.fillStyle = fan.fillStyle;
@@ -202,6 +232,7 @@ Geom2D.Renderer = function(w, h) {
         _context.beginPath();
         _context.arc(bow.cx, bow.cy, bow.radius, bow.aFrom, bow.aTo);
         _context.closePath();
+        // TODO dashed arc
 
         if (bow.fillStyle != null) {
             _context.fillStyle = bow.fillStyle;
@@ -229,6 +260,18 @@ Geom2D.Renderer = function(w, h) {
         }
         if (polygon.strokeStyle != null) {
             _context.strokeStyle = polygon.strokeStyle;
+
+            if (triangle.dashStyle) {
+                _context.beginPath();
+                var pts = polygon.points;
+                var len = polygon.points.length;
+                for (i = 0; i < len - 1; i ++ ) {
+                    _context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, polygon.dashStyle);
+                }
+                _context.dashedLine(pts[len - 1].x, pts[len - 1].y, pts[0].x, pts[0].y, polygon.dashStyle);
+
+                _context.stroke();
+            }
             _context.stroke();
         }
 
@@ -237,13 +280,19 @@ Geom2D.Renderer = function(w, h) {
 
     function drawPolyline(polyline) {
 
-        _context.beginPath();
-        for (var i = 0; i < polyline.points.length; i ++ ) {
-            _context.lineTo(polyline.points[i].x, polyline.points[i].y);
-        }
-
         if (polyline.strokeStyle != null) {
             _context.strokeStyle = polyline.strokeStyle;
+            _context.beginPath();
+            if (!polyline.dashStyle) {
+                for (var i = 0; i < polyline.points.length; i++) {
+                    _context.lineTo(polyline.points[i].x, polyline.points[i].y);
+                }
+            } else {
+                var pts = polyline.points;
+                for (i = 0; i < pts.length - 1; i ++ ) {
+                    _context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, polyline.dashStyle);
+                }
+            }
             _context.stroke();
         }
 
@@ -287,3 +336,32 @@ Geom2D.Renderer = function(w, h) {
     init();
 
 };
+
+// add draw dashed line feature to the canvas rendering context
+// See: http://stackoverflow.com/questions/4576724/dotted-stroke-in-canvas
+(function(){
+    var CP = window.CanvasRenderingContext2D && CanvasRenderingContext2D.prototype;
+    if (CP.lineTo) {
+        CP.dashedLine = function(x, y, x2, y2, da) {
+            if (!da) da = Geom2D.Colorful.DEFAULT_DASH_STYLE;
+            this.save();
+            var dx = x2 - x, dy = y2 - y;
+            var len = Math.bevel(dx, dy);
+            var rot = Math.atan2(dy, dx);
+            this.translate(x, y);
+            this.moveTo(0, 0);
+            this.rotate(rot);
+            var dc = da.length;
+            var di = 0, draw = true;
+            x = 0;
+            while (len > x) {
+                x += da[di++ % dc];
+                if (x > len) x = len;
+                draw ? this.lineTo(x, 0): this.moveTo(x, 0);
+                draw = !draw;
+            }
+            this.restore();
+            return this;
+        }
+    }
+})();
