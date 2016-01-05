@@ -36,8 +36,13 @@ Geom2D.Line = function (p1, p2) {
     // edit
     this.set = function (p1, p2) {
 
-        this.points[0].copy(p1);
-        this.points[1].copy(p2);
+        if (arguments.length == 2) {
+            this.points[0].copy(p1);
+            this.points[1].copy(p2);
+        } else if(arguments.length == 4) {
+            this.points[0].set(arguments[0], arguments[1]);
+            this.points[1].set(arguments[2], arguments[3]);
+        }
 
         onPointChange();
     };
