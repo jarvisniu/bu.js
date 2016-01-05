@@ -15,4 +15,8 @@ shapes/Polyline
 
 morph/PolylineMorph
 
+reactor/MovePointReactor
+reactor/DrawCircleReactor
+reactor/DrawCircleReactor2
+
 renderer/Renderer

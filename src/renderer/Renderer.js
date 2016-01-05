@@ -43,6 +43,7 @@ Geom2D.Renderer = function(w, h) {
         _dom.oncontextmenu = function() { return false; };
 
         _context = _dom.getContext("2d");
+        //_context.textBaseline = 'top';
 
         setInterval(tick, 1000 / fps);
     }

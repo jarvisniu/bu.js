@@ -18,7 +18,7 @@ def buildVersion(file):
         filename = filename.strip()
         if len(filename) > 0:
             jsText = open(srcDir + filename + libExt, encoding="utf-8").read()
-            libContent += "\n// File: " + filename + libExt + "\n"
+            libContent += "\n// File: " + filename + libExt + "\n" * 2
             libContent += jsText
     open(buildDir + jsName, "w", encoding="utf-8").write(libContent)
 
