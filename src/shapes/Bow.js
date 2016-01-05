@@ -2,6 +2,9 @@
 var Geom2D = Geom2D || {};
 
 Geom2D.Bow = function(cx, cy, r, aFrom, aTo) {
+
+    Geom2D.Colorful.apply(this);
+
     this.cx = cx;
     this.cy = cy;
     this.radius = r;

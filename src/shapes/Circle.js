@@ -2,6 +2,9 @@
 var Geom2D = Geom2D || {};
 
 Geom2D.Circle = function(cx, cy, r) {
+
+    Geom2D.Colorful.apply(this);
+
     this.cx = cx;
     this.cy = cy;
     this.radius = r;

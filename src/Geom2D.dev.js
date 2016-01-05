@@ -1,7 +1,10 @@
 ;(function() {
+
     var libs = [
 
         "Geom2D",
+
+        "Colorful",
 
         "shapes/Point",
         "shapes/Line",
@@ -21,4 +24,5 @@
         if (libs.hasOwnProperty(i))
             document.write('<script src="../../src/' + libs[i] + '.js"></script>');
     }
+
 })();

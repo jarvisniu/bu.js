@@ -36,9 +36,9 @@
 			mousePos.y = e.offsetY;
 
 			if (circle.containsPoint(mousePos))
-				circle.fillStyle = "yellow";
+				circle.fillStyle = Geom2D.Colorful.DEFAULT_FILL_STYLE_HOVER;
 			else
-				circle.fillStyle = null;
+				circle.fill();
 		}
 
 		function onMouseUp(e) {

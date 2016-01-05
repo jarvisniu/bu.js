@@ -3,6 +3,8 @@ var Geom2D = Geom2D || {};
 
 Geom2D.Polyline = function (points) {
 
+    Geom2D.Colorful.apply(this);
+
     var _self = this;
     var pointNormalizedPos = [];
 

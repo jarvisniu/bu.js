@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>Triangle Contains Point</title>
-	<script src="../../lib/Za.EventListenerPattern.js"></script>
+    <meta charset="utf-8">
+    <title>Triangle Contains Point</title>
+    <script src="../../lib/Za.EventListenerPattern.js"></script>
     <script src="../../src/Geom2D.dev.js"></script>
-	<script type="text/javascript">
+    <script type="text/javascript">
 
-		var renderer;
+        var renderer;
         var triangle;
         var mousePos = new Geom2D.Point();
 
-		function init() {
+        function init() {
             renderer = new Geom2D.Renderer();
-			triangle = generateTriangle();
+            triangle = generateTriangle();
             renderer.append(triangle);
 
             document.body.appendChild(renderer.dom);
             renderer.dom.addEventListener("mouseup", onMouseUp);
             renderer.dom.addEventListener("mousemove", onMouseMove);
-		}
-		document.addEventListener("DOMContentLoaded", init);
+        }
+        document.addEventListener("DOMContentLoaded", init);
 
-		function onMouseMove(e) {
-			mousePos.x = e.offsetX;
-			mousePos.y = e.offsetY;
+        function onMouseMove(e) {
+            mousePos.x = e.offsetX;
+            mousePos.y = e.offsetY;
 
             if( triangle.containsPoint(mousePos))
                 triangle.fillStyle = "yellow";
             else
-                triangle.fillStyle = null;
-		}
+                triangle.fill();
+        }
 
-		function onMouseUp(e) {
+        function onMouseUp(e) {
             triangle = renderer.shapes[0] = generateTriangle();
-		}
+        }
 
-		function generateTriangle() {
+        function generateTriangle() {
             var points = [];
-			for (var i = 0; i < 3; i++) {
-				points[i] = new Geom2D.Point(
-					Math.random() * (renderer.width - 60) + 30,
-					Math.random() * (renderer.height - 60) + 30
-				);
-			}
+            for (var i = 0; i < 3; i++) {
+                points[i] = new Geom2D.Point(
+                    Math.random() * (renderer.width - 60) + 30,
+                    Math.random() * (renderer.height - 60) + 30
+                );
+            }
             var _triangle = new Geom2D.Triangle(points[0], points[1], points[2]);
             _triangle.points[0].label = "A";
             _triangle.points[1].label = "B";
             _triangle.points[2].label = "C";
             return _triangle;
-		}
-	</script>
+        }
+    </script>
 </head>
 <body>
     <div>Move cursor to test. Click to change another triangle.</div>

@@ -12,6 +12,7 @@
         var mousePos = new Geom2D.Point();
 
         function init() {
+
             renderer = new Geom2D.Renderer();
             fan = generateFan();
             renderer.append(fan);
@@ -19,17 +20,19 @@
             document.body.appendChild(renderer.dom);
             renderer.dom.addEventListener("mouseup", onMouseUp);
             renderer.dom.addEventListener("mousemove", onMouseMove);
+
         }
         document.addEventListener("DOMContentLoaded", init);
 
         function onMouseMove(e) {
+
             mousePos.x = e.offsetX;
             mousePos.y = e.offsetY;
 
             if (fan.containsPoint(mousePos))
                 fan.fillStyle = "yellow";
             else
-                fan.fillStyle = null;
+                fan.fill();
         }
 
         function onMouseUp(e) {
