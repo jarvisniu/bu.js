@@ -5,11 +5,13 @@
         "Geom2D",
 
         "Colorful",
+        "core/Size",
 
         "shapes/Point",
         "shapes/Line",
         "shapes/Circle",
         "shapes/Triangle",
+        "shapes/Rectangle",
         "shapes/Fan",
         "shapes/Bow",
         "shapes/Polygon",

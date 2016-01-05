@@ -152,6 +152,31 @@ Geom2D.Renderer = function(w, h) {
         drawPoints(triangle.points);
     }
 
+    function drawRectangle(rectangle) {
+
+        if (rectangle.fillStyle != null) {
+            _context.fillStyle = rectangle.fillStyle;
+            _context.fillRect (
+                rectangle.position.x,
+                rectangle.position.y,
+                rectangle.size.width,
+                rectangle.size.height
+            );
+        }
+
+        if (rectangle.strokeStyle != null) {
+            _context.strokeStyle = rectangle.strokeStyle;
+            _context.strokeRect (
+                rectangle.position.x,
+                rectangle.position.y,
+                rectangle.size.width,
+                rectangle.size.height
+            );
+        }
+
+        drawPoints(rectangle.points);
+    }
+
     function drawFan(fan) {
 
         _context.beginPath();
@@ -229,21 +254,23 @@ Geom2D.Renderer = function(w, h) {
             var shape = _self.shapes[i];
 
             // draw shape
-            if (shape instanceof Geom2D.Point) {
+            if (shape.type == "Point") {
                 drawPoint(shape);
-            } else if (shape instanceof Geom2D.Line) {
+            } else if (shape.type == "Line") {
                 drawLine(shape);
-            } else if (shape instanceof Geom2D.Circle) {
+            } else if (shape.type == "Circle") {
                 drawCircle(shape);
-            } else if (shape instanceof Geom2D.Triangle) {
+            } else if (shape.type == "Triangle") {
                 drawTriangle(shape);
-            } else if (shape instanceof Geom2D.Fan) {
+            } else if (shape.type == "Rectangle") {
+                drawRectangle(shape);
+            } else if (shape.type == "Fan") {
                 drawFan(shape);
-            } else if (shape instanceof Geom2D.Bow) {
+            } else if (shape.type == "Bow") {
                 drawBow(shape);
-            } else if (shape instanceof Geom2D.Polygon) {
+            } else if (shape.type == "Polygon") {
                 drawPolygon(shape);
-            } else if (shape instanceof Geom2D.Polyline) {
+            } else if (shape.type == "Polyline") {
                 drawPolyline(shape);
             } else {
                 console.log("drawShapes(): unknown shape: ", shape);
