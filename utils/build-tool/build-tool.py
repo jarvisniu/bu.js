@@ -1,5 +1,5 @@
 # build tool
-# Jarvis Niu - http://github.com/jarvisniu/Geom2D
+# Jarvis Niu - http://github.com/jarvisniu/
 
 import os
 
