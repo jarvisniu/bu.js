@@ -5,6 +5,8 @@ Geom2D.Circle = function(cx, cy, r) {
 
     Geom2D.Colorful.apply(this);
 
+    this.type = "Circle";
+
     this.cx = cx;
     this.cy = cy;
     this.radius = r;

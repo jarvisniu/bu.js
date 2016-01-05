@@ -5,6 +5,8 @@ Geom2D.Triangle = function (p1, p2, p3) {
 
     Geom2D.Colorful.apply(this);
 
+    this.type = "Triangle";
+
     this.points = [p1, p2, p3];
 
     this.lines = [

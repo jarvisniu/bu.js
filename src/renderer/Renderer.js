@@ -5,6 +5,8 @@ Geom2D.Renderer = function(w, h) {
 
     Za.EventListenerPattern.apply(this);
 
+    this.type = "Renderer";
+
     w = w || 800;
     h = h || 450;
 

@@ -5,6 +5,8 @@ Geom2D.Line = function (p1, p2) {
 
     Geom2D.Colorful.apply(this);
 
+    this.type = "Line";
+
     if (arguments.length == 4) {
         p1 = new Geom2D.Point(arguments[0], arguments[1]);
         p2 = new Geom2D.Point(arguments[2], arguments[3]);

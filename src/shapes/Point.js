@@ -5,6 +5,8 @@ Geom2D.Point = function (x, y) {
 
     Geom2D.Colorful.apply(this);
 
+    this.type = "Point";
+
     this.x = x || 0;
     this.y = y || 0;
     this.label = null;

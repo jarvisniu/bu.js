@@ -5,6 +5,8 @@ Geom2D.Polyline = function (points) {
 
     Geom2D.Colorful.apply(this);
 
+    this.type = "Polyline";
+
     var _self = this;
     var pointNormalizedPos = [];
 

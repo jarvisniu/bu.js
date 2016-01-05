@@ -3,6 +3,8 @@ var Geom2D = Geom2D || {};
 
 Geom2D.PolylineMorph = function (lineA, lineB) {
 
+	this.type = "PolylineMorph";
+
     // variables
     var _self = this;
 	var polylineA = lineA;

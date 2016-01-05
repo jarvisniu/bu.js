@@ -5,6 +5,8 @@ Geom2D.Polygon = function (points) {
 
     Geom2D.Colorful.apply(this);
 
+    this.type = "Polygon";
+
     var _self = this;
 
     this.points = points;
