@@ -4,8 +4,8 @@
 
         "Geom2D",
 
-        "Colorful",
         "core/Size",
+        "core/Colorful",
 
         "shapes/Point",
         "shapes/Line",
