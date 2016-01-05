@@ -3,9 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Draw Circle</title>
+    <script src="../../lib/Za.dev.js"></script>
+    <script src="../../src/Geom2D.dev.js"></script>
+    <script type="text/javascript">
+
+        var renderer;
+        var circle, line;
+        var mousePosDown = new Geom2D.Point();
+        var mousePos = new Geom2D.Point();
+        var buttonDown = false;
+
+        function init() {
+            // renderer
+            renderer = new Geom2D.Renderer();
+            document.body.appendChild(renderer.dom);
+
+            // events
+            renderer.dom.addEventListener("mousedown", onMouseDown);
+            renderer.dom.addEventListener("mousemove", onMouseMove);
+            renderer.dom.addEventListener("mouseup", onMouseUp);
+        }
+
+        function onMouseDown(e) {
+            // add
+            mousePosDown.set(e.offsetX, e.offsetY);
+
+            circle = new Geom2D.Circle(mousePosDown.x, mousePosDown.y, 1);
+            renderer.append(circle);
+
+            line = new Geom2D.Line(mousePosDown.x, mousePosDown.y, mousePosDown.x, mousePosDown.y);
+            line.stroke("#f44");
+            renderer.append(line);
+
+            buttonDown = true;
+        }
+
+        function onMouseMove(e) {
+            // change radius
+            if (buttonDown) {
+                mousePos.set(e.offsetX, e.offsetY);
+                circle.radius = mousePos.distanceTo(mousePosDown);
+                line.points[1].copy(mousePos);
+            }
+        }
+
+        function onMouseUp(e) {
+            buttonDown = false;
+        }
+
+        document.addEventListener("DOMContentLoaded", init);
+    </script>
 </head>
 <body>
-    拖拽、两点画圆
-    圆心-边点、直径两端点
+
+<div>Drag to draw a circle.</div>
+
 </body>
 </html>

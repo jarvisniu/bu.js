@@ -30,5 +30,5 @@ Geom2D.Colorful = function() {
 };
 
 Geom2D.Colorful.DEFAULT_STROKE_STYLE = "#048";
-Geom2D.Colorful.DEFAULT_FILL_STYLE = "#48b";
-Geom2D.Colorful.DEFAULT_FILL_STYLE_HOVER = "#fb0";
+Geom2D.Colorful.DEFAULT_FILL_STYLE = "rgba(64, 128, 192, 0.5)";
+Geom2D.Colorful.DEFAULT_FILL_STYLE_HOVER = "rgba(255, 192, 0, 0.5)";
