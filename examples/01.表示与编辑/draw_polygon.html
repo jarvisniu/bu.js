@@ -28,6 +28,11 @@
 
         function onMouseMove(e) {
             mousePos.set(e.offsetX, e.offsetY);
+
+            if (polygon.containsPoint(mousePos))
+                polygon.fillStyle = "yellow";
+            else
+                polygon.fill();
         }
 
         function onMouseDown(e) {

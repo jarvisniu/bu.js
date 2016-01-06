@@ -185,7 +185,7 @@ Geom2D.Renderer = function(w, h) {
 
         if (rectangle.strokeStyle != null) {
             _context.strokeStyle = rectangle.strokeStyle;
-            if (!triangle.dashStyle) {
+            if (!rectangle.dashStyle) {
                 _context.strokeRect (
                     rectangle.position.x,
                     rectangle.position.y,
@@ -261,7 +261,7 @@ Geom2D.Renderer = function(w, h) {
         if (polygon.strokeStyle != null) {
             _context.strokeStyle = polygon.strokeStyle;
 
-            if (triangle.dashStyle) {
+            if (polygon.dashStyle) {
                 _context.beginPath();
                 var pts = polygon.points;
                 var len = polygon.points.length;
