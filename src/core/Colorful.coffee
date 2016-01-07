@@ -1,9 +1,9 @@
 # Add color to the shapes
 
 Geom2D.Colorful = () ->
-	@strokeStyle = Geom2D.Colorful.DEFAULT_STROKE_STYLE;
-	@fillStyle = Geom2D.Colorful.DEFAULT_FILL_STYLE;
-	@dashStyle = false;
+	@strokeStyle = Geom2D.Colorful.DEFAULT_STROKE_STYLE
+	@fillStyle = Geom2D.Colorful.DEFAULT_FILL_STYLE
+	@dashStyle = false
 
 	@stroke = (v) ->
 		switch v

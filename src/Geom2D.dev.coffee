@@ -1,5 +1,4 @@
 (=>
-
 	libs = [
 		"Geom2D",
 
@@ -26,6 +25,4 @@
 	]
 
 	for lib in libs
-	  document.write '<script src="../../src/' + lib + '.js"></script>'
-
-)()
+		document.write '<script src="../../src/' + lib + '.js"></script>')()

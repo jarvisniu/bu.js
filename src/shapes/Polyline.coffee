@@ -35,7 +35,6 @@ class Geom2D.Polyline
 			@length = len
 
 	calcPointNormalizedPos: () ->
-		console.log("calcPointNormalizedPos");
 		currPos = 0
 		@pointNormalizedPos[0] = 0
 		for i in [1 ... @points.length]

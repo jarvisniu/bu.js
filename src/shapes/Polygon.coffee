@@ -5,8 +5,8 @@ class Geom2D.Polygon
 	constructor: (@points = []) ->
 		Geom2D.Colorful.apply @
 		@type = "Polygon"
-		@lines = [];
-		@triangles = [];
+		@lines = []
+		@triangles = []
 
 		# init lines
 		if @points.length > 1
@@ -17,7 +17,7 @@ class Geom2D.Polygon
 		# init triangles
 		if @points.length > 2
 			for i in [1 ... @points.length - 1]
-				@triangles.push(new Geom2D.Triangle(@points[0], @points[i], @points[i + 1]));
+				@triangles.push(new Geom2D.Triangle(@points[0], @points[i], @points[i + 1]))
 
 	# edit
 
@@ -49,4 +49,4 @@ class Geom2D.Polygon
 		for triangle in @triangles
 			if triangle.containsPoint p
 				return true
-		return false;
+		return false
