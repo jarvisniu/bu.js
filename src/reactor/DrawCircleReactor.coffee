@@ -53,4 +53,3 @@ class Geom2D.DrawCircleReactor
 		@renderer.dom.removeEventListener "mousedown", @onMouseDown
 		@renderer.dom.removeEventListener "mousemove", @onMouseMove
 		@renderer.dom.removeEventListener "mouseup", @onMouseUp
-

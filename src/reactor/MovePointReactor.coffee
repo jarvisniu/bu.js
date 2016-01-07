@@ -63,4 +63,3 @@ class Geom2D.MovePointReactor
 		@renderer.dom.removeEventListener "mousedown", @onMouseDown
 		@renderer.dom.removeEventListener "mousemove", @onMouseMove
 		@renderer.dom.removeEventListener "mouseup", @onMouseUp
-
