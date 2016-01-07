@@ -106,4 +106,3 @@ class Geom2D.Line
 			 (x0 - x3) * (x0 - x4) < 0 and
 			 (y0 - y1) * (y0 - y2) < 0 and
 			 (y0 - y3) * (y0 - y4) < 0
-
