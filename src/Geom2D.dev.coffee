@@ -19,7 +19,7 @@
 
 		"reactor/MovePointReactor",
 		"reactor/DrawCircleReactor",
-		"reactor/DrawCircleReactor2",
+		"reactor/DrawCircleDiameterReactor",
 
 		"renderer/Renderer",
 	]

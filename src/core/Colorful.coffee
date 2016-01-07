@@ -6,24 +6,27 @@ Geom2D.Colorful = () ->
 	@dashStyle = false
 
 	@stroke = (v) ->
+		v = true if not v?
 		switch v
-			when true or null then @strokeStyle = Geom2D.Colorful.DEFAULT_STROKE_STYLE
+			when true then @strokeStyle = Geom2D.Colorful.DEFAULT_STROKE_STYLE
 			when false then @strokeStyle = null
 			else
 				@strokeStyle = v
 
 	@fill = (v) ->
+		v = true if not v?
 		switch v
 			when false then @fillStyle = null
-			when true or null then @fillStyle = Geom2D.Colorful.DEFAULT_FILL_STYLE
+			when true then @fillStyle = Geom2D.Colorful.DEFAULT_FILL_STYLE
 			else
 				@fillStyle = v
 
 	@dash = (v) ->
+		v = true if not v?
 		v = [v, v] if typeof v is "number"
 		switch v
 			when false then @dashStyle = null
-			when true or null then @dashStyle = Geom2D.Colorful.DEFAULT_FILL_STYLE
+			when true then @dashStyle = Geom2D.Colorful.DEFAULT_DASH_STYLE
 			else
 				@dashStyle = v
 

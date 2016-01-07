@@ -5,10 +5,14 @@ class Geom2D.Line
 	constructor: (p1, p2, p3, p4) ->
 		Geom2D.Colorful.apply @
 		@type = "Line"
+
 		if arguments.length == 2
-			@points = [ p1, p2 ]
-		else  # len == 4
+			@points = [ p1.clone(), p2.clone() ]
+		else if arguments.length == 4
 			@points = [ new Geom2D.Point(p1, p2), new Geom2D.Point(p3, p4) ]
+		else # len == 0
+ 			@points = [ new Geom2D.Point(), new Geom2D.Point() ]
+
 		@midpoint = new Geom2D.Point()
 		@onPointChange()
 

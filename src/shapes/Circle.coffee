@@ -2,7 +2,7 @@
 
 class Geom2D.Circle
 
-	constructor: (@cx, @cy, @radius) ->
+	constructor: (@cx = 0, @cy = 0, @radius = 1) ->
 		Geom2D.Colorful.apply @
 		@type = "Circle"
 		@centralPoint = new Geom2D.Point(@cx, @cy)
