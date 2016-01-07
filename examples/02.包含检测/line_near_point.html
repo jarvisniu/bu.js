@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Triangle Contains Point</title>
+    <script src="../../lib/Za.dev.js"></script>
+    <script src="../../src/Geom2D.dev.js"></script>
+    <script type="text/javascript">
+
+        var renderer;
+        var line;
+        var mousePos = new Geom2D.Point();
+
+        function init() {
+            renderer = new Geom2D.Renderer();
+            line = new Geom2D.Line(
+                    Math.rand(renderer.width),
+                    Math.rand(renderer.height),
+                    Math.rand(renderer.width),
+                    Math.rand(renderer.height)
+            );
+            renderer.append(line);
+
+            document.body.appendChild(renderer.dom);
+            renderer.dom.addEventListener("mouseup", onMouseUp);
+            renderer.dom.addEventListener("mousemove", onMouseMove);
+        }
+        document.addEventListener("DOMContentLoaded", init);
+
+        function onMouseMove(e) {
+            mousePos.x = e.offsetX;
+            mousePos.y = e.offsetY;
+
+            if (mousePos.isNear(line))
+                line.stroke("yellow");
+            else
+                line.stroke();
+        }
+
+        function onMouseUp(e) {
+            line = renderer.shapes[0] = new Geom2D.Line(
+                    Math.rand(renderer.width),
+                    Math.rand(renderer.height),
+                    Math.rand(renderer.width),
+                    Math.rand(renderer.height)
+            );
+        }
+    </script>
+</head>
+<body>
+    <div>Move cursor to test. Click to change another line.</div>
+    <div>Not full implemented now.</div>
+</body>
+</html>
