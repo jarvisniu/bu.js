@@ -3,6 +3,7 @@ build/
 
 src/core/*.js
 src/shapes/*.js
+src/renderer/*.js
 src/morph/*.js
 src/reactor/*.js
 src/*.js

@@ -14,7 +14,7 @@ a javascript 2D geometry library 一个JavaScript的2D库
 
 ## Code Layout 代码结构
 
-`shapes/` represent shapes like circle, triangle 表示圆、三角形等各种形状
-`renderer` render the shapes to the screen 把形状渲染到屏幕上
-`morph` shape morph 形状变形
-`reactor` deal with the mouse logic 处理鼠标逻辑
+`shapes/` represent shapes like circle, triangle 表示圆、三角形等各种形状  
+`renderer` render the shapes to the screen 把形状渲染到屏幕上  
+`morph` shape morph 形状变形  
+`reactor` deal with the mouse logic 处理鼠标逻辑  
