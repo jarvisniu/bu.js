@@ -1,6 +1,6 @@
 # namespace and constants
 
-Geom2D =
+@Geom2D =
 	version: "0.0.1"
 
 	# constants
