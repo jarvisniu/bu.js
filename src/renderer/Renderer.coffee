@@ -4,19 +4,27 @@ class Geom2D.Renderer
 
 	POINT_SIZE = 4
 
-	constructor: (@width = 800, @height = 600) ->
+	constructor: (options) ->
 		Za.EventListenerPattern.apply @
+
+		# default options
+		@width = 800
+		@height = 600
+		@fps = 60
+
+		if options?
+			@width = options.width if options.width?
+			@height = options.height if options.height?
+			@fps = options.fps if options.fps?
+
 		@type = "Renderer"
 		_self = @
-
-		# constants
 
 		# variables
 		@dom = document.createElement("canvas");
 		@context = @dom.getContext("2d")
 		@context.textBaseline = 'top';
 
-		fps = 60
 		tickCount = 0
 
 		# API
@@ -37,13 +45,14 @@ class Geom2D.Renderer
 			clearCanvas();
 			@drawShapes();
 
-		setInterval(tick, 1000 / fps);
+		setInterval(tick, 1000 / @fps);
 		clearCanvas = =>
 			@context.clearRect(0, 0, _self.width, _self.height)
 
 
 	append: (shape) ->
 		@shapes.push shape
+
 
 	drawShapes: =>
 		for shape in @shapes
@@ -60,43 +69,47 @@ class Geom2D.Renderer
 				else
 					console.log("drawShapes(): unknown shape: ", shape)
 
+
 	drawPoint: (point) ->
 		if point.fillStyle?
 			@context.fillStyle = point.fillStyle
 			@context.fillRect(
-				point.x - POINT_SIZE / 2
-				point.y - POINT_SIZE / 2
-				POINT_SIZE
-				POINT_SIZE
+					point.x - POINT_SIZE / 2
+					point.y - POINT_SIZE / 2
+					POINT_SIZE
+					POINT_SIZE
 			)
 
 		if point.strokeStyle?
 			@context.strokeStyle = point.strokeStyle
 			@context.strokeRect(
-				point.x - POINT_SIZE / 2
-				point.y - POINT_SIZE / 2
-				POINT_SIZE
-				POINT_SIZE
+					point.x - POINT_SIZE / 2
+					point.y - POINT_SIZE / 2
+					POINT_SIZE
+					POINT_SIZE
 			)
 
 		if point.label?
-# console.log("drawPoint(): " + point.label + ", x: " + point.x + ", y: " + point.y);
+			# console.log("drawPoint(): " + point.label + ", x: " + point.x + ", y: " + point.y);
 			style = @context.fillStyle
 			@context.fillStyle = "black"
 			@context.fillText(
-				point.label
-				point.x - POINT_SIZE / 2 + 9
-				point.y - POINT_SIZE / 2 + 6
+					point.label
+					point.x - POINT_SIZE / 2 + 9
+					point.y - POINT_SIZE / 2 + 6
 			)
 			@context.fillStyle = style
+
 
 	drawPoints: (points) ->
 		for point in points
 			@drawPoint point
 
+
 	drawLine: (line) ->
 		if line.strokeStyle?
 			@context.strokeStyle = line.strokeStyle
+			@context.lineWidth = line.lineWidth
 			if line.dashStyle
 				@context.dashedLine(
 						line.points[0].x, line.points[0].y,
@@ -112,6 +125,7 @@ class Geom2D.Renderer
 			@context.stroke()
 		@drawPoints(line.points)
 
+
 	drawCircle: (circle) ->
 		@context.beginPath();
 		@context.arc(circle.cx, circle.cy, circle.radius, 0, Math.PI * 2);
@@ -124,8 +138,10 @@ class Geom2D.Renderer
 
 		if circle.strokeStyle?
 			@context.strokeStyle = circle.strokeStyle
+			@context.lineWidth = circle.lineWidth
 			@context.stroke()
 		@drawPoint(circle.centralPoint)
+
 
 	drawTriangle: (triangle) ->
 		@context.beginPath()
@@ -140,6 +156,7 @@ class Geom2D.Renderer
 
 		if triangle.strokeStyle?
 			@context.strokeStyle = triangle.strokeStyle
+			@context.lineWidth = triangle.lineWidth
 			if triangle.dashStyle
 				@context.beginPath(); # clear prev lineTo
 				pts = triangle.points
@@ -149,18 +166,20 @@ class Geom2D.Renderer
 			@context.stroke()
 		@drawPoints(triangle.points)
 
+
 	drawRectangle: (rectangle) ->
 		if rectangle.fillStyle?
 			@context.fillStyle = rectangle.fillStyle
 			@context.fillRect(
-				rectangle.position.x
-				rectangle.position.y
-				rectangle.size.width
-				rectangle.size.height
+					rectangle.position.x
+					rectangle.position.y
+					rectangle.size.width
+					rectangle.size.height
 			)
 
 		if rectangle.strokeStyle?
 			@context.strokeStyle = rectangle.strokeStyle
+			@context.lineWidth = rectangle.lineWidth
 			if not rectangle.dashStyle
 				@context.strokeRect(
 						rectangle.position.x
@@ -178,6 +197,7 @@ class Geom2D.Renderer
 				@context.stroke()
 		@drawPoints(rectangle.points)
 
+
 	drawFan: (fan) ->
 		@context.beginPath()
 		@context.arc(fan.cx, fan.cy, fan.radius, fan.aFrom, fan.aTo)
@@ -191,12 +211,13 @@ class Geom2D.Renderer
 
 		if fan.strokeStyle?
 			@context.strokeStyle = fan.strokeStyle
+			@context.lineWidth = fan.lineWidth
 			@context.stroke()
 
 		@drawPoints(fan.string.points)
 
-	drawBow: (bow) ->
 
+	drawBow: (bow) ->
 		@context.beginPath()
 		@context.arc(bow.cx, bow.cy, bow.radius, bow.aFrom, bow.aTo)
 		@context.closePath()
@@ -208,12 +229,13 @@ class Geom2D.Renderer
 
 		if bow.strokeStyle?
 			@context.strokeStyle = bow.strokeStyle
+			@context.lineWidth = bow.lineWidth
 			@context.stroke()
 
 		@drawPoints(bow.string.points)
 
-	drawPolygon: (polygon) ->
 
+	drawPolygon: (polygon) ->
 		@context.beginPath()
 		for point in polygon.points
 			@context.lineTo(point.x, point.y)
@@ -225,6 +247,7 @@ class Geom2D.Renderer
 
 		if polygon.strokeStyle?
 			@context.strokeStyle = polygon.strokeStyle
+			@context.lineWidth = polygon.lineWidth
 			len = polygon.points.length
 			if polygon.dashStyle && len > 0
 				@context.beginPath()
@@ -236,9 +259,11 @@ class Geom2D.Renderer
 			@context.stroke()
 		@drawPoints(polygon.points)
 
+
 	drawPolyline: (polyline) ->
 		if polyline.strokeStyle?
 			@context.strokeStyle = polyline.strokeStyle
+			@context.lineWidth = polyline.lineWidth
 			@context.beginPath();
 			if not polyline.dashStyle
 				for point in polyline.points
@@ -250,9 +275,10 @@ class Geom2D.Renderer
 			@context.stroke()
 		@drawPoints(polyline.points)
 
-# add draw dashed line feature to the canvas rendering context
+
+# Add draw dashed line feature to the canvas rendering context
 # See: http://stackoverflow.com/questions/4576724/dotted-stroke-in-canvas
-( =>
+(=>
 	CP = window.CanvasRenderingContext2D and CanvasRenderingContext2D.prototype
 	if CP.lineTo?
 		CP.dashedLine = (x, y, x2, y2, da) ->
@@ -279,5 +305,4 @@ class Geom2D.Renderer
 					@moveTo(x, 0)
 				draw = not draw
 			@restore()
-			return @
-)()
+			return @)()

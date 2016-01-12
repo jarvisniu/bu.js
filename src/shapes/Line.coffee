@@ -6,12 +6,12 @@ class Geom2D.Line
 		Geom2D.Colorful.apply @
 		@type = "Line"
 
-		if arguments.length == 2
-			@points = [ p1.clone(), p2.clone() ]
-		else if arguments.length == 4
-			@points = [ new Geom2D.Point(p1, p2), new Geom2D.Point(p3, p4) ]
-		else # len == 0
- 			@points = [ new Geom2D.Point(), new Geom2D.Point() ]
+		if arguments.length < 2
+			@points = [new Geom2D.Point(), new Geom2D.Point()]
+		else if arguments.length < 4
+			@points = [p1.clone(), p2.clone()]
+		else  # len >= 4
+			@points = [new Geom2D.Point(p1, p2), new Geom2D.Point(p3, p4)]
 
 		@midpoint = new Geom2D.Point()
 		@onPointChange()
@@ -24,9 +24,9 @@ class Geom2D.Line
 
 	set: (args...) ->
 		if args.length == 2
-			@points = [ args[0], args[1] ]
+			@points = [args[0], args[1]]
 		else  # len == 4
-			@points = [ new Geom2D.Point(args[0], args[1]), new Geom2D.Point(args[2], args[3]) ]
+			@points = [new Geom2D.Point(args[0], args[1]), new Geom2D.Point(args[2], args[3])]
 		@onPointChange()
 		@
 
@@ -81,7 +81,7 @@ class Geom2D.Line
 		x = (m - A * B) / (A * A + 1)
 		y = A * x + B
 
-		if footPoint != null
+		if footPoint?
 			footPoint.set(x, y)
 		else
 			return new Geom2D.Point(x, y)
@@ -107,6 +107,6 @@ class Geom2D.Line
 			x0 = ((x2 - x1) * (x4 - x3) * (y3 - y1) + (y2 - y1) * (x4 - x3) * x1 - (y4 - y3) * (x2 - x1) * x3) / d
 			y0 = ((y2 - y1) * (y4 - y3) * (x3 - x1) + (x2 - x1) * (y4 - y3) * y1 - (x4 - x3) * (y2 - y1) * y3) / -d
 		return (x0 - x1) * (x0 - x2) < 0 and
-			 (x0 - x3) * (x0 - x4) < 0 and
-			 (y0 - y1) * (y0 - y2) < 0 and
-			 (y0 - y3) * (y0 - y4) < 0
+						(x0 - x3) * (x0 - x4) < 0 and
+						(y0 - y1) * (y0 - y2) < 0 and
+						(y0 - y3) * (y0 - y4) < 0
