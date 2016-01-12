@@ -15,6 +15,8 @@
 		"shapes/Polygon",
 		"shapes/Polyline",
 
+		"drawable/PointText",
+
 		"morph/PolylineMorph",
 
 		"reactor/MovePointReactor",

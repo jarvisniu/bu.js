@@ -1,9 +1,10 @@
 .idea/
 build/
 
+src/*.js
 src/core/*.js
 src/shapes/*.js
+src/drawable/*.js
 src/renderer/*.js
 src/morph/*.js
 src/reactor/*.js
-src/*.js

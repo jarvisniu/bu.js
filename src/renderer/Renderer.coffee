@@ -21,9 +21,9 @@ class Geom2D.Renderer
 		_self = @
 
 		# variables
-		@dom = document.createElement("canvas");
+		@dom = document.createElement("canvas")
 		@context = @dom.getContext("2d")
-		@context.textBaseline = 'top';
+		@context.textBaseline = 'top'
 
 		tickCount = 0
 
@@ -42,10 +42,10 @@ class Geom2D.Renderer
 		tick = =>
 			tickCount += 1
 			_self.triggerEvent "update", {"tickCount": tickCount}
-			clearCanvas();
-			@drawShapes();
+			clearCanvas()
+			@drawShapes()
 
-		setInterval(tick, 1000 / @fps);
+		setInterval(tick, 1000 / @fps)
 		clearCanvas = =>
 			@context.clearRect(0, 0, _self.width, _self.height)
 
@@ -66,6 +66,7 @@ class Geom2D.Renderer
 				when "Bow" then @drawBow(shape)
 				when "Polygon" then @drawPolygon(shape)
 				when "Polyline" then @drawPolyline(shape)
+				when "PointText" then @drawPointText(shape)
 				else
 					console.log("drawShapes(): unknown shape: ", shape)
 
@@ -90,7 +91,7 @@ class Geom2D.Renderer
 			)
 
 		if point.label?
-			# console.log("drawPoint(): " + point.label + ", x: " + point.x + ", y: " + point.y);
+			# console.log("drawPoint(): " + point.label + ", x: " + point.x + ", y: " + point.y)
 			style = @context.fillStyle
 			@context.fillStyle = "black"
 			@context.fillText(
@@ -127,9 +128,9 @@ class Geom2D.Renderer
 
 
 	drawCircle: (circle) ->
-		@context.beginPath();
-		@context.arc(circle.cx, circle.cy, circle.radius, 0, Math.PI * 2);
-		@context.closePath();
+		@context.beginPath()
+		@context.arc(circle.cx, circle.cy, circle.radius, 0, Math.PI * 2)
+		@context.closePath()
 		# TODO add dashed arc support
 
 		if circle.fillStyle?
@@ -158,7 +159,7 @@ class Geom2D.Renderer
 			@context.strokeStyle = triangle.strokeStyle
 			@context.lineWidth = triangle.lineWidth
 			if triangle.dashStyle
-				@context.beginPath(); # clear prev lineTo
+				@context.beginPath()  # clear prev lineTo
 				pts = triangle.points
 				@context.dashedLine(pts[0].x, pts[0].y, pts[1].x, pts[1].y, triangle.dashStyle)
 				@context.dashedLine(pts[1].x, pts[1].y, pts[2].x, pts[2].y, triangle.dashStyle)
@@ -264,16 +265,29 @@ class Geom2D.Renderer
 		if polyline.strokeStyle?
 			@context.strokeStyle = polyline.strokeStyle
 			@context.lineWidth = polyline.lineWidth
-			@context.beginPath();
+			@context.beginPath()
 			if not polyline.dashStyle
 				for point in polyline.points
 					@context.lineTo(point.x, point.y)
 			else
-				pts = polyline.points;
+				pts = polyline.points
 				for i in [ 0 ... pts.length - 1]
 					@context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, polyline.dashStyle)
 			@context.stroke()
 		@drawPoints(polyline.points)
+
+
+	drawPointText: (pointText) ->
+		@context.textAlign = pointText.textAlign
+		@context.textBaseline = pointText.textBaseline
+		@context.font = pointText.font
+		if pointText.strokeStyle?
+			@context.strokeStyle = pointText.strokeStyle
+			@context.lineWidth = pointText.lineWidth
+			@context.strokeText(pointText.text, pointText.x, pointText.y)
+		if pointText.fillStyle?
+			@context.fillStyle = pointText.fillStyle
+			@context.fillText(pointText.text, pointText.x, pointText.y)
 
 
 # Add draw dashed line feature to the canvas rendering context
