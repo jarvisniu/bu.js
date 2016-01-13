@@ -30,7 +30,7 @@
             mousePos.set(e.offsetX, e.offsetY);
 
             if (polygon.containsPoint(mousePos))
-                polygon.fillStyle = "yellow";
+                polygon.fillStyle = Geom2D.DEFAULT_FILL_STYLE_HOVER;
             else
                 polygon.fill();
         }

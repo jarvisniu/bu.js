@@ -32,7 +32,7 @@
             mousePos.y = e.offsetY;
 
             if (mousePos.isNear(line))
-                line.stroke("yellow");
+                line.stroke(Geom2D.DEFAULT_FILL_STYLE_HOVER);
             else
                 line.stroke();
         }

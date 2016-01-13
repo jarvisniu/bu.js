@@ -36,7 +36,7 @@
 			mousePos.y = e.offsetY;
 
 			if (circle.containsPoint(mousePos))
-				circle.fillStyle = Geom2D.Colorful.DEFAULT_FILL_STYLE_HOVER;
+				circle.fill(Geom2D.DEFAULT_FILL_STYLE_HOVER);
 			else
 				circle.fill();
 		}
