@@ -71,33 +71,33 @@ class Geom2D.Renderer
 					console.log("drawShapes(): unknown shape: ", shape)
 
 
-	drawPoint: (point) ->
-		if point.fillStyle?
-			@context.fillStyle = point.fillStyle
+	drawPoint: (shape) ->
+		if shape.fillStyle?
+			@context.fillStyle = shape.fillStyle
 			@context.fillRect(
-					point.x - POINT_SIZE / 2
-					point.y - POINT_SIZE / 2
+					shape.x - POINT_SIZE / 2
+					shape.y - POINT_SIZE / 2
 					POINT_SIZE
 					POINT_SIZE
 			)
 
-		if point.strokeStyle?
-			@context.strokeStyle = point.strokeStyle
+		if shape.strokeStyle?
+			@context.strokeStyle = shape.strokeStyle
 			@context.strokeRect(
-					point.x - POINT_SIZE / 2
-					point.y - POINT_SIZE / 2
+					shape.x - POINT_SIZE / 2
+					shape.y - POINT_SIZE / 2
 					POINT_SIZE
 					POINT_SIZE
 			)
 
-		if point.label?
-			# console.log("drawPoint(): " + point.label + ", x: " + point.x + ", y: " + point.y)
+		if shape.label?
+			# console.log("drawPoint(): " + shape.label + ", x: " + shape.x + ", y: " + shape.y)
 			style = @context.fillStyle
 			@context.fillStyle = "black"
 			@context.fillText(
-					point.label
-					point.x - POINT_SIZE / 2 + 9
-					point.y - POINT_SIZE / 2 + 6
+					shape.label
+					shape.x - POINT_SIZE / 2 + 9
+					shape.y - POINT_SIZE / 2 + 6
 			)
 			@context.fillStyle = style
 
@@ -107,187 +107,187 @@ class Geom2D.Renderer
 			@drawPoint point
 
 
-	drawLine: (line) ->
-		if line.strokeStyle?
-			@context.strokeStyle = line.strokeStyle
-			@context.lineWidth = line.lineWidth
-			if line.dashStyle
+	drawLine: (shape) ->
+		if shape.strokeStyle?
+			@context.strokeStyle = shape.strokeStyle
+			@context.lineWidth = shape.lineWidth
+			if shape.dashStyle
 				@context.dashedLine(
-						line.points[0].x, line.points[0].y,
-						line.points[1].x, line.points[1].y,
-						line.dashStyle, line.dashDelta
+						shape.points[0].x, shape.points[0].y,
+						shape.points[1].x, shape.points[1].y,
+						shape.dashStyle, shape.dashDelta
 				)
 			else
 				@context.beginPath()
-				@context.lineTo(line.points[0].x, line.points[0].y)
-				@context.lineTo(line.points[1].x, line.points[1].y)
+				@context.lineTo(shape.points[0].x, shape.points[0].y)
+				@context.lineTo(shape.points[1].x, shape.points[1].y)
 				@context.closePath()
 
 			@context.stroke()
-		@drawPoints(line.points)
+		@drawPoints(shape.points)
 
 
-	drawCircle: (circle) ->
+	drawCircle: (shape) ->
 		@context.beginPath()
-		@context.arc(circle.cx, circle.cy, circle.radius, 0, Math.PI * 2)
+		@context.arc(shape.cx, shape.cy, shape.radius, 0, Math.PI * 2)
 		@context.closePath()
 		# TODO add dashed arc support
 
-		if circle.fillStyle?
-			@context.fillStyle = circle.fillStyle
+		if shape.fillStyle?
+			@context.fillStyle = shape.fillStyle
 			@context.fill()
 
-		if circle.strokeStyle?
-			@context.strokeStyle = circle.strokeStyle
-			@context.lineWidth = circle.lineWidth
+		if shape.strokeStyle?
+			@context.strokeStyle = shape.strokeStyle
+			@context.lineWidth = shape.lineWidth
 			@context.stroke()
-		@drawPoint(circle.centralPoint)
+		@drawPoint(shape.centralPoint)
 
 
-	drawTriangle: (triangle) ->
+	drawTriangle: (shape) ->
 		@context.beginPath()
-		@context.lineTo(triangle.points[0].x, triangle.points[0].y)
-		@context.lineTo(triangle.points[1].x, triangle.points[1].y)
-		@context.lineTo(triangle.points[2].x, triangle.points[2].y)
+		@context.lineTo(shape.points[0].x, shape.points[0].y)
+		@context.lineTo(shape.points[1].x, shape.points[1].y)
+		@context.lineTo(shape.points[2].x, shape.points[2].y)
 		@context.closePath()
 
-		if triangle.fillStyle?
-			@context.fillStyle = triangle.fillStyle
+		if shape.fillStyle?
+			@context.fillStyle = shape.fillStyle
 			@context.fill()
 
-		if triangle.strokeStyle?
-			@context.strokeStyle = triangle.strokeStyle
-			@context.lineWidth = triangle.lineWidth
-			if triangle.dashStyle
+		if shape.strokeStyle?
+			@context.strokeStyle = shape.strokeStyle
+			@context.lineWidth = shape.lineWidth
+			if shape.dashStyle
 				@context.beginPath()  # clear prev lineTo
-				pts = triangle.points
-				@context.dashedLine(pts[0].x, pts[0].y, pts[1].x, pts[1].y, triangle.dashStyle, triangle.dashDelta)
-				@context.dashedLine(pts[1].x, pts[1].y, pts[2].x, pts[2].y, triangle.dashStyle, triangle.dashDelta)
-				@context.dashedLine(pts[2].x, pts[2].y, pts[0].x, pts[0].y, triangle.dashStyle, triangle.dashDelta)
+				pts = shape.points
+				@context.dashedLine(pts[0].x, pts[0].y, pts[1].x, pts[1].y, shape.dashStyle, shape.dashDelta)
+				@context.dashedLine(pts[1].x, pts[1].y, pts[2].x, pts[2].y, shape.dashStyle, shape.dashDelta)
+				@context.dashedLine(pts[2].x, pts[2].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashDelta)
 			@context.stroke()
-		@drawPoints(triangle.points)
+		@drawPoints(shape.points)
 
 
-	drawRectangle: (rectangle) ->
-		if rectangle.fillStyle?
-			@context.fillStyle = rectangle.fillStyle
+	drawRectangle: (shape) ->
+		if shape.fillStyle?
+			@context.fillStyle = shape.fillStyle
 			@context.fillRect(
-					rectangle.position.x
-					rectangle.position.y
-					rectangle.size.width
-					rectangle.size.height
+					shape.position.x
+					shape.position.y
+					shape.size.width
+					shape.size.height
 			)
 
-		if rectangle.strokeStyle?
-			@context.strokeStyle = rectangle.strokeStyle
-			@context.lineWidth = rectangle.lineWidth
-			if not rectangle.dashStyle
+		if shape.strokeStyle?
+			@context.strokeStyle = shape.strokeStyle
+			@context.lineWidth = shape.lineWidth
+			if not shape.dashStyle
 				@context.strokeRect(
-						rectangle.position.x
-						rectangle.position.y
-						rectangle.size.width
-						rectangle.size.height)
+						shape.position.x
+						shape.position.y
+						shape.size.width
+						shape.size.height)
 			else
 				@context.beginPath()
-				pt1 = rectangle.position
-				pt3 = rectangle.rightBottomPoint
-				@context.dashedLine(pt1.x, pt1.y, pt3.x, pt1.y, rectangle.dashStyle, rectangle.dashDelta)
-				@context.dashedLine(pt3.x, pt1.y, pt3.x, pt3.y, rectangle.dashStyle, rectangle.dashDelta)
-				@context.dashedLine(pt3.x, pt3.y, pt1.x, pt3.y, rectangle.dashStyle, rectangle.dashDelta)
-				@context.dashedLine(pt1.x, pt3.y, pt1.x, pt1.y, rectangle.dashStyle, rectangle.dashDelta)
+				pt1 = shape.position
+				pt3 = shape.rightBottomPoint
+				@context.dashedLine(pt1.x, pt1.y, pt3.x, pt1.y, shape.dashStyle, shape.dashDelta)
+				@context.dashedLine(pt3.x, pt1.y, pt3.x, pt3.y, shape.dashStyle, shape.dashDelta)
+				@context.dashedLine(pt3.x, pt3.y, pt1.x, pt3.y, shape.dashStyle, shape.dashDelta)
+				@context.dashedLine(pt1.x, pt3.y, pt1.x, pt1.y, shape.dashStyle, shape.dashDelta)
 				@context.stroke()
-		@drawPoints(rectangle.points)
+		@drawPoints(shape.points)
 
 
-	drawFan: (fan) ->
+	drawFan: (shape) ->
 		@context.beginPath()
-		@context.arc(fan.cx, fan.cy, fan.radius, fan.aFrom, fan.aTo)
-		@context.lineTo(fan.cx, fan.cy)
+		@context.arc(shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo)
+		@context.lineTo(shape.cx, shape.cy)
 		@context.closePath()
 		# TODO dashed arc
 
-		if fan.fillStyle?
-			@context.fillStyle = fan.fillStyle
+		if shape.fillStyle?
+			@context.fillStyle = shape.fillStyle
 			@context.fill()
 
-		if fan.strokeStyle?
-			@context.strokeStyle = fan.strokeStyle
-			@context.lineWidth = fan.lineWidth
+		if shape.strokeStyle?
+			@context.strokeStyle = shape.strokeStyle
+			@context.lineWidth = shape.lineWidth
 			@context.stroke()
 
-		@drawPoints(fan.string.points)
+		@drawPoints(shape.string.points)
 
 
-	drawBow: (bow) ->
+	drawBow: (shape) ->
 		@context.beginPath()
-		@context.arc(bow.cx, bow.cy, bow.radius, bow.aFrom, bow.aTo)
+		@context.arc(shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo)
 		@context.closePath()
 		# TODO dashed arc
 
-		if bow.fillStyle?
-			@context.fillStyle = bow.fillStyle
+		if shape.fillStyle?
+			@context.fillStyle = shape.fillStyle
 			@context.fill()
 
-		if bow.strokeStyle?
-			@context.strokeStyle = bow.strokeStyle
-			@context.lineWidth = bow.lineWidth
+		if shape.strokeStyle?
+			@context.strokeStyle = shape.strokeStyle
+			@context.lineWidth = shape.lineWidth
 			@context.stroke()
 
-		@drawPoints(bow.string.points)
+		@drawPoints(shape.string.points)
 
 
-	drawPolygon: (polygon) ->
+	drawPolygon: (shape) ->
 		@context.beginPath()
-		for point in polygon.points
+		for point in shape.points
 			@context.lineTo(point.x, point.y)
 		@context.closePath()
 
-		if polygon.fillStyle?
-			@context.fillStyle = polygon.fillStyle
+		if shape.fillStyle?
+			@context.fillStyle = shape.fillStyle
 			@context.fill()
 
-		if polygon.strokeStyle?
-			@context.strokeStyle = polygon.strokeStyle
-			@context.lineWidth = polygon.lineWidth
-			len = polygon.points.length
-			if polygon.dashStyle && len > 0
+		if shape.strokeStyle?
+			@context.strokeStyle = shape.strokeStyle
+			@context.lineWidth = shape.lineWidth
+			len = shape.points.length
+			if shape.dashStyle && len > 0
 				@context.beginPath()
-				pts = polygon.points
+				pts = shape.points
 				for i in [0 ... len - 1]
-					@context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, polygon.dashStyle, polygon.dashDelta)
-				@context.dashedLine(pts[len - 1].x, pts[len - 1].y, pts[0].x, pts[0].y, polygon.dashStyle, polygon.dashDelta)
+					@context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashDelta)
+				@context.dashedLine(pts[len - 1].x, pts[len - 1].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashDelta)
 				@context.stroke()
 			@context.stroke()
-		@drawPoints(polygon.points)
+		@drawPoints(shape.points)
 
 
-	drawPolyline: (polyline) ->
-		if polyline.strokeStyle?
-			@context.strokeStyle = polyline.strokeStyle
-			@context.lineWidth = polyline.lineWidth
+	drawPolyline: (shape) ->
+		if shape.strokeStyle?
+			@context.strokeStyle = shape.strokeStyle
+			@context.lineWidth = shape.lineWidth
 			@context.beginPath()
-			if not polyline.dashStyle
-				for point in polyline.points
+			if not shape.dashStyle
+				for point in shape.points
 					@context.lineTo(point.x, point.y)
 			else
-				pts = polyline.points
+				pts = shape.points
 				for i in [ 0 ... pts.length - 1]
-					@context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, polyline.dashStyle, polyline.dashDelta)
+					@context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashDelta)
 			@context.stroke()
-		@drawPoints(polyline.points)
+		@drawPoints(shape.points)
 
 
-	drawPointText: (pointText) ->
-		@context.textAlign = pointText.textAlign
-		@context.textBaseline = pointText.textBaseline
-		@context.font = pointText.font
-		if pointText.strokeStyle?
-			@context.strokeStyle = pointText.strokeStyle
-			@context.lineWidth = pointText.lineWidth
-			@context.strokeText(pointText.text, pointText.x, pointText.y)
-		if pointText.fillStyle?
-			@context.fillStyle = pointText.fillStyle
-			@context.fillText(pointText.text, pointText.x, pointText.y)
+	drawPointText: (shape) ->
+		@context.textAlign = shape.textAlign
+		@context.textBaseline = shape.textBaseline
+		@context.font = shape.font
+		if shape.strokeStyle?
+			@context.strokeStyle = shape.strokeStyle
+			@context.lineWidth = shape.lineWidth
+			@context.strokeText(shape.text, shape.x, shape.y)
+		if shape.fillStyle?
+			@context.fillStyle = shape.fillStyle
+			@context.fillText(shape.text, shape.x, shape.y)
 
 
 # Add draw dashed line feature to the canvas rendering context
