@@ -4,7 +4,9 @@ Geom2D.Colorful = () ->
 	@strokeStyle = Geom2D.DEFAULT_STROKE_STYLE
 	@fillStyle = Geom2D.DEFAULT_FILL_STYLE
 	@dashStyle = false
+
 	@lineWidth = 1
+	@dashDelta = 0
 
 	@stroke = (v) ->
 		v = true if not v?

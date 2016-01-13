@@ -115,7 +115,7 @@ class Geom2D.Renderer
 				@context.dashedLine(
 						line.points[0].x, line.points[0].y,
 						line.points[1].x, line.points[1].y,
-						line.dashStyle
+						line.dashStyle, line.dashDelta
 				)
 			else
 				@context.beginPath()
@@ -161,9 +161,9 @@ class Geom2D.Renderer
 			if triangle.dashStyle
 				@context.beginPath()  # clear prev lineTo
 				pts = triangle.points
-				@context.dashedLine(pts[0].x, pts[0].y, pts[1].x, pts[1].y, triangle.dashStyle)
-				@context.dashedLine(pts[1].x, pts[1].y, pts[2].x, pts[2].y, triangle.dashStyle)
-				@context.dashedLine(pts[2].x, pts[2].y, pts[0].x, pts[0].y, triangle.dashStyle)
+				@context.dashedLine(pts[0].x, pts[0].y, pts[1].x, pts[1].y, triangle.dashStyle, triangle.dashDelta)
+				@context.dashedLine(pts[1].x, pts[1].y, pts[2].x, pts[2].y, triangle.dashStyle, triangle.dashDelta)
+				@context.dashedLine(pts[2].x, pts[2].y, pts[0].x, pts[0].y, triangle.dashStyle, triangle.dashDelta)
 			@context.stroke()
 		@drawPoints(triangle.points)
 
@@ -191,10 +191,10 @@ class Geom2D.Renderer
 				@context.beginPath()
 				pt1 = rectangle.position
 				pt3 = rectangle.rightBottomPoint
-				@context.dashedLine(pt1.x, pt1.y, pt3.x, pt1.y, rectangle.dashStyle)
-				@context.dashedLine(pt3.x, pt1.y, pt3.x, pt3.y, rectangle.dashStyle)
-				@context.dashedLine(pt3.x, pt3.y, pt1.x, pt3.y, rectangle.dashStyle)
-				@context.dashedLine(pt1.x, pt3.y, pt1.x, pt1.y, rectangle.dashStyle)
+				@context.dashedLine(pt1.x, pt1.y, pt3.x, pt1.y, rectangle.dashStyle, rectangle.dashDelta)
+				@context.dashedLine(pt3.x, pt1.y, pt3.x, pt3.y, rectangle.dashStyle, rectangle.dashDelta)
+				@context.dashedLine(pt3.x, pt3.y, pt1.x, pt3.y, rectangle.dashStyle, rectangle.dashDelta)
+				@context.dashedLine(pt1.x, pt3.y, pt1.x, pt1.y, rectangle.dashStyle, rectangle.dashDelta)
 				@context.stroke()
 		@drawPoints(rectangle.points)
 
@@ -254,8 +254,8 @@ class Geom2D.Renderer
 				@context.beginPath()
 				pts = polygon.points
 				for i in [0 ... len - 1]
-					@context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, polygon.dashStyle)
-				@context.dashedLine(pts[len - 1].x, pts[len - 1].y, pts[0].x, pts[0].y, polygon.dashStyle)
+					@context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, polygon.dashStyle, polygon.dashDelta)
+				@context.dashedLine(pts[len - 1].x, pts[len - 1].y, pts[0].x, pts[0].y, polygon.dashStyle, polygon.dashDelta)
 				@context.stroke()
 			@context.stroke()
 		@drawPoints(polygon.points)
@@ -272,7 +272,7 @@ class Geom2D.Renderer
 			else
 				pts = polyline.points
 				for i in [ 0 ... pts.length - 1]
-					@context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, polyline.dashStyle)
+					@context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, polyline.dashStyle, polyline.dashDelta)
 			@context.stroke()
 		@drawPoints(polyline.points)
 
@@ -295,8 +295,9 @@ class Geom2D.Renderer
 (=>
 	CP = window.CanvasRenderingContext2D and CanvasRenderingContext2D.prototype
 	if CP.lineTo?
-		CP.dashedLine = (x, y, x2, y2, da) ->
+		CP.dashedLine = (x, y, x2, y2, da, delta) ->
 			da = Geom2D.Colorful.DEFAULT_DASH_STYLE if not da?
+			delta = 0 if not delta?
 			@save()
 			dx = x2 - x
 			dy = y2 - y
@@ -308,7 +309,14 @@ class Geom2D.Renderer
 			dc = da.length
 			di = 0
 			draw = true
-			x = 0
+
+			lenU = 0
+			for i in da
+				lenU += i
+			delta %= lenU
+			x = delta
+
+			# TODO need a small fix
 			while len > x
 				di += 1
 				x += da[di % dc]

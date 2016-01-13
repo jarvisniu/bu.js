@@ -9,6 +9,7 @@
 
         var renderer;
         var line, triangle, rectangle, polyline, polygon;
+        var isFlowOn = false;
 
         function init() {
             // renderer
@@ -62,14 +63,29 @@
             polyline.dash();
             polyline.stroke("purple");
             renderer.append(polyline);
+
+            $("#btnStrokeFlow").on("click", function () {
+                isFlowOn = !isFlowOn;
+            });
+
+            setInterval(tickFlow, 1000 / 30);
         }
 
+        function tickFlow() {
+            if(isFlowOn) {
+                line.dashDelta += 1;
+                rectangle.dashDelta += 2;
+                polyline.dashDelta += 2;
+                polygon.dashDelta += 2;
+                triangle.dashDelta += 2;
+            }
+        }
 
-        document.addEventListener("DOMContentLoaded", init);
+        $.ready(init);
     </script>
 </head>
 <body>
-
+<button id="btnStrokeFlow">Stroke Flow</button>
 <div>Dashed line stroke examples.</div>
 
 </body>
