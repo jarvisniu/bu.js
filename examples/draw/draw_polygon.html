@@ -24,6 +24,15 @@
             // events
             renderer.dom.addEventListener("mousemove", onMouseMove);
             renderer.dom.addEventListener("mousedown", onMouseDown);
+
+            $("#btnAdd").on("click", function() {
+                console.log("123");
+                var x = Math.rand(renderer.width);
+                var y = Math.rand(renderer.height);
+                var n = $("#txtN")[0].value;
+                var r = $("#txtRadius")[0].value;
+                renderer.append(new Geom2D.Polygon(x, y, n, { radius: r}));
+            });
         }
 
         function onMouseMove(e) {
@@ -43,6 +52,19 @@
     </script>
 </head>
 <body>
-    <div>Click to add point to the polygon.</div>
+    <div>Click to add point to the default polygon.</div>
+    <div style="margin: 8px 0;">
+        Or add regular polygon whose
+        <label>
+            n=
+            <input type="text" id="txtN" style="width: 40px" value="6">
+        </label>
+        and
+        <label>
+            radius=
+            <input type="text" id="txtRadius" style="width: 40px" value="50">
+        </label>
+        <button id="btnAdd">Add</button>
+    </div>
 </body>
 </html>

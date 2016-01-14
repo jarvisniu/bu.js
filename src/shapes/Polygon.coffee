@@ -2,11 +2,31 @@
 
 class Geom2D.Polygon
 
-	constructor: (@points = []) ->
+	###
+    constructors
+    1. Polygon(points)
+    2. Polygon(x, y, n, options): to generate regular polygon
+    	options: radius, angle
+	###
+	constructor: (points) ->
 		Geom2D.Colorful.apply @
 		@type = "Polygon"
+		@points = []
 		@lines = []
 		@triangles = []
+
+		options = Geom2D.combineOptions arguments, {
+			radius: 100
+			angle: 0
+		}
+
+		if points instanceof Array
+			@points = points if points?
+		else
+			x = arguments[0]
+			y = arguments[1]
+			n = arguments[2]
+			@points = Geom2D.Polygon.generateRegularPoints(x, y, n, options)
 
 		# init lines
 		if @points.length > 1
@@ -35,13 +55,13 @@ class Geom2D.Polygon
 			# add triangle
 			if @points.length > 2
 				@triangles.push(new Geom2D.Triangle(
-				  @points[0]
-				  @points[@points.length - 2]
-				  @points[@points.length - 1]
+						@points[0]
+						@points[@points.length - 2]
+						@points[@points.length - 1]
 				))
 		else
 			@points.splice(insertIndex, 0, point)
-			# TODO add lines and triangles
+	# TODO add lines and triangles
 
 	# point related
 
@@ -50,3 +70,16 @@ class Geom2D.Polygon
 			if triangle.containsPoint p
 				return true
 		return false
+
+	@generateRegularPoints = (cx, cy, n, options) ->
+		angleDelta = options.angle
+		r = options.radius
+		points = []
+		angleSection = Math.PI * 2 / n
+		for i in [0 ... n]
+			a = i * angleSection + angleDelta
+			x = cx + r * Math.cos(a)
+			y = cy + r * Math.sin(a)
+			points[i] = new Geom2D.Point x, y
+		console.log cx, cy, n, options, points
+		return points
