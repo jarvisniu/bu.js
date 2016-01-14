@@ -81,5 +81,4 @@ class Geom2D.Polygon
 			x = cx + r * Math.cos(a)
 			y = cy + r * Math.sin(a)
 			points[i] = new Geom2D.Point x, y
-		console.log cx, cy, n, options, points
 		return points

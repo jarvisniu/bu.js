@@ -11,6 +11,7 @@ class Geom2D.Renderer
 		@width = 800
 		@height = 600
 		@fps = 60
+		@isDrawVertexes = true
 
 		if options?
 			@width = options.width if options.width?
@@ -102,9 +103,10 @@ class Geom2D.Renderer
 			@context.fillStyle = style
 
 
-	drawPoints: (points) ->
-		for point in points
-			@drawPoint point
+	drawVertexes: (points) ->
+		if @isDrawVertexes
+			for point in points
+				@drawPoint point
 
 
 	drawLine: (shape) ->
@@ -124,7 +126,7 @@ class Geom2D.Renderer
 				@context.closePath()
 
 			@context.stroke()
-		@drawPoints(shape.points)
+		@drawVertexes(shape.points)
 
 
 	drawCircle: (shape) ->
@@ -165,7 +167,7 @@ class Geom2D.Renderer
 				@context.dashedLine(pts[1].x, pts[1].y, pts[2].x, pts[2].y, shape.dashStyle, shape.dashDelta)
 				@context.dashedLine(pts[2].x, pts[2].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashDelta)
 			@context.stroke()
-		@drawPoints(shape.points)
+		@drawVertexes(shape.points)
 
 
 	drawRectangle: (shape) ->
@@ -196,7 +198,7 @@ class Geom2D.Renderer
 				@context.dashedLine(pt3.x, pt3.y, pt1.x, pt3.y, shape.dashStyle, shape.dashDelta)
 				@context.dashedLine(pt1.x, pt3.y, pt1.x, pt1.y, shape.dashStyle, shape.dashDelta)
 				@context.stroke()
-		@drawPoints(shape.points)
+		@drawVertexes(shape.points)
 
 
 	drawFan: (shape) ->
@@ -215,7 +217,7 @@ class Geom2D.Renderer
 			@context.lineWidth = shape.lineWidth
 			@context.stroke()
 
-		@drawPoints(shape.string.points)
+		@drawVertexes(shape.string.points)
 
 
 	drawBow: (shape) ->
@@ -233,7 +235,7 @@ class Geom2D.Renderer
 			@context.lineWidth = shape.lineWidth
 			@context.stroke()
 
-		@drawPoints(shape.string.points)
+		@drawVertexes(shape.string.points)
 
 
 	drawPolygon: (shape) ->
@@ -258,7 +260,7 @@ class Geom2D.Renderer
 				@context.dashedLine(pts[len - 1].x, pts[len - 1].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashDelta)
 				@context.stroke()
 			@context.stroke()
-		@drawPoints(shape.points)
+		@drawVertexes(shape.points)
 
 
 	drawPolyline: (shape) ->
@@ -274,7 +276,7 @@ class Geom2D.Renderer
 				for i in [ 0 ... pts.length - 1]
 					@context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashDelta)
 			@context.stroke()
-		@drawPoints(shape.points)
+		@drawVertexes(shape.points)
 
 
 	drawPointText: (shape) ->
