@@ -10,13 +10,26 @@
         }
         html, body {
             height: 100%;
+            font-family: "Calibri Light", Calibri, Arial, sans-serif;
         }
 
         #side {
             position: absolute;
-            width: 250px;
+            padding: 20px;
+            width: 210px;
             height: 100%;
             border-right: solid #bbb 2px;
+        }
+
+        h1 {
+            font-size: 32px;
+            padding-bottom: 16px;
+        }
+
+        h2 {
+            padding: 16px 0;
+            color: #666;
+            font-size: 20px;
         }
 
         #container {
@@ -27,11 +40,13 @@
 
         #side a {
             display: block;
-            padding: 4px 8px;
+            padding: 2px 0;
+            text-decoration: none;
+            color: #28B;
         }
 
-        #side h2 {
-            padding: 8px;
+        #side a:hover {
+            text-decoration: underline;
         }
 
         #container iframe {
@@ -42,6 +57,7 @@
 </head>
 <body>
     <div id="side">
+        <h1>Geom2D Examples</h1>
         <h2>表示与编辑</h2>
         <a target="web" href="01.表示与编辑/dashed_stroke.html">Dashed Lines</a>
         <a target="web" href="01.表示与编辑/draw_circle.html">Draw Circle</a>
