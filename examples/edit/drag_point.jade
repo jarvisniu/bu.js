@@ -1,0 +1,37 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title Drag Point
+    script(src="../../lib/za_geom2d.min.js")
+    script(src="../../src/Geom2D.dev.js")
+    script(type="text/javascript").
+
+      var renderer;
+      var movePointReactor;
+
+      var POINT_COUNT = 10;
+      var points = [];
+
+      $.ready(init);
+
+      function init() {
+        renderer = new Geom2D.Renderer();
+        renderer.dom.style.cursor = "default";
+        document.body.appendChild(renderer.dom);
+
+        movePointReactor = new Geom2D.MovePointReactor(renderer);
+        movePointReactor.enable();
+
+        for (var i = 0; i < POINT_COUNT; i++) {
+          points[i] = new Geom2D.Point(
+                  Math.rand(renderer.width),
+                  Math.rand(renderer.height)
+          );
+          points[i].label = "P" + i;
+          renderer.append(points[i]);
+        }
+
+      }
+  body
+    div Drag a point to move it.

@@ -1,0 +1,57 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title Draw Circle
+    script(src="../../lib/za_geom2d.min.js")
+    script(src="../../src/Geom2D.dev.js")
+    script(type="text/javascript").
+
+      var renderer;
+      var circle, line;
+
+      var isButtonDown = false;
+      var mousePosDown = new Geom2D.Point();
+      var mousePos = new Geom2D.Point();
+
+      $.ready(init);
+
+      function init() {
+        // renderer
+        renderer = new Geom2D.Renderer();
+        document.body.appendChild(renderer.dom);
+        // bind events
+        renderer.dom.addEventListener("mousedown", onMouseDown);
+        renderer.dom.addEventListener("mousemove", onMouseMove);
+        renderer.dom.addEventListener("mouseup", onMouseUp);
+      }
+
+      function onMouseDown(e) {
+        // add circle
+        mousePosDown.set(e.offsetX, e.offsetY);
+
+        circle = new Geom2D.Circle(mousePosDown.x, mousePosDown.y, 1);
+        renderer.append(circle);
+
+        line = new Geom2D.Line(mousePosDown.x, mousePosDown.y, mousePosDown.x, mousePosDown.y);
+        line.stroke("#f44");
+        renderer.append(line);
+
+        isButtonDown = true;
+      }
+
+      function onMouseMove(e) {
+        // change radius
+        if (isButtonDown) {
+          mousePos.set(e.offsetX, e.offsetY);
+          circle.radius = mousePos.distanceTo(mousePosDown);
+          line.points[1].copy(mousePos);
+        }
+      }
+
+      function onMouseUp(e) {
+        isButtonDown = false;
+      }
+
+  body
+    div Drag to draw a circle.

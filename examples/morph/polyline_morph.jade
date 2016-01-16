@@ -1,0 +1,60 @@
+doctype html
+html(lang="en")
+  head
+    title Morph
+    meta(charset="utf-8")
+    script(src="../../lib/za_geom2d.min.js")
+    script(src="../../src/Geom2D.dev.js")
+    script(type="text/javascript").
+
+      var renderer;
+      var polylineA, polylineB;
+      var polylineMorph;
+      var time = 0;
+
+      $.ready(init);
+
+      function init() {
+        renderer = new Geom2D.Renderer();
+        document.body.appendChild(renderer.dom);
+        renderer.dom.addEventListener("mousedown", onMouseDown);
+
+        polylineA = new Geom2D.Polyline();
+        polylineA.addPoint(new Geom2D.Point(100, 300));
+        polylineA.addPoint(new Geom2D.Point(250, 100));
+        polylineA.addPoint(new Geom2D.Point(400, 300));
+
+        polylineB = new Geom2D.Polyline();
+        polylineB.strokeStyle = "red";
+        polylineB.addPoint(new Geom2D.Point(100, 400));
+        polylineB.addPoint(new Geom2D.Point(400, 400));
+
+        polylineMorph = new Geom2D.PolylineMorph(polylineA, polylineB);
+        polylineMorph.polyline.strokeStyle = "purple";
+
+        renderer.append(polylineA);
+        renderer.append(polylineB);
+        renderer.append(polylineMorph.polyline);
+
+        setInterval(animate, 1000 / 60);
+      }
+
+      function onMouseDown(e) {
+        if (e.button == 0) {
+          polylineA.addPoint(new Geom2D.Point(e.offsetX, e.offsetY));
+        } else {
+          polylineB.addPoint(new Geom2D.Point(e.offsetX, e.offsetY));
+        }
+        polylineMorph.update();
+      }
+
+      function animate() {
+        if (time < 1)
+          time += 0.01;
+        else
+          time = 0;
+        polylineMorph.setTime(time);
+      }
+
+  body
+    div Click (left/right button) to add points to the lines.

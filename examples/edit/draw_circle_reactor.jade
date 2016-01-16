@@ -1,0 +1,23 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title Draw Circle Reactor
+    script(src="../../lib/za_geom2d.min.js")
+    script(src="../../src/Geom2D.dev.js")
+    script(type='text/javascript').
+      var renderer;
+      var drawCircleReactor;
+
+      function init() {
+
+        renderer = new Geom2D.Renderer();
+        document.body.appendChild(renderer.dom);
+
+        drawCircleReactor = new Geom2D.DrawCircleReactor(renderer);
+        drawCircleReactor.enable();
+      }
+
+      $.ready(init);
+  body
+    div Drag to draw a circle.

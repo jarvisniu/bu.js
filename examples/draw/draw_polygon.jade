@@ -1,0 +1,60 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title Draw Polygon
+    script(src="../../lib/za_geom2d.min.js")
+    script(src="../../src/Geom2D.dev.js")
+    script(type="text/javascript").
+
+      var renderer;
+      var polygon;
+      var mousePos = new Geom2D.Point();
+
+      $.ready(init);
+
+      function init() {
+        // renderer
+        renderer = new Geom2D.Renderer();
+        document.body.appendChild(renderer.dom);
+        // polygon
+        var points = [];
+        polygon = new Geom2D.Polygon(points);
+        renderer.append(polygon);
+        // events
+        renderer.dom.addEventListener("mousemove", onMouseMove);
+        renderer.dom.addEventListener("mousedown", onMouseDown);
+        $("#btnAdd").on("click", function () {
+          console.log("123");
+          var x = Math.rand(renderer.width);
+          var y = Math.rand(renderer.height);
+          var n = $("#txtN")[0].value;
+          var r = $("#txtRadius")[0].value;
+          renderer.append(new Geom2D.Polygon(x, y, n, {radius: r}));
+        });
+      }
+
+      function onMouseMove(e) {
+        mousePos.set(e.offsetX, e.offsetY);
+        if (polygon.containsPoint(mousePos))
+          polygon.fillStyle = Geom2D.DEFAULT_FILL_STYLE_HOVER;
+        else
+          polygon.fill();
+      }
+
+      function onMouseDown(e) {
+        polygon.addPoint(mousePos.clone());
+      }
+
+  body
+    div Click to add point to the default polygon.
+    div(style="margin: 8px 0;")
+      | Or add regular polygon whose
+      label
+        | n=
+        input#txtN(type="text", style="width: 40px", value="6")
+      | and
+      label
+        | radius=
+        input#txtRadius(type="text", style="width: 40px", value="50")
+      button#btnAdd Add

@@ -1,0 +1,51 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    title Circle Contains Point
+    script(src="../../lib/za_geom2d.min.js")
+    script(src="../../src/Geom2D.dev.js")
+    script(type="text/javascript").
+
+      var renderer;
+      var circle;
+      var mousePos = new Geom2D.Point();
+
+      $.ready(init);
+
+      function init() {
+        renderer = new Geom2D.Renderer();
+        circle = createCircle();
+        renderer.append(circle);
+        document.body.appendChild(renderer.dom);
+
+        renderer.dom.addEventListener("mouseup", onMouseUp);
+        renderer.dom.addEventListener("mousemove", onMouseMove);
+      }
+
+      function createCircle() {
+        var cx = Math.random() * 480;
+        var cy = Math.random() * 320;
+        var r = Math.random() * 200 + 20;
+
+        var _circle = new Geom2D.Circle(cx, cy, r);
+        _circle.centralPoint.label = "O";
+        return _circle;
+      }
+
+      function onMouseMove(e) {
+        mousePos.x = e.offsetX;
+        mousePos.y = e.offsetY;
+
+        if (circle.containsPoint(mousePos))
+          circle.fill(Geom2D.DEFAULT_FILL_STYLE_HOVER);
+        else
+          circle.fill();
+      }
+
+      function onMouseUp(e) {
+        circle = renderer.shapes[0] = createCircle();
+      }
+
+  body
+    div Move cursor to test. Click to change another circle.
