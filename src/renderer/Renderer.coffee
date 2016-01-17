@@ -27,6 +27,7 @@ class Geom2D.Renderer
 		@context.textBaseline = 'top'
 
 		tickCount = 0
+		@isRunning = true;
 
 		# API
 		@shapes = []
@@ -41,6 +42,8 @@ class Geom2D.Renderer
 		@dom.oncontextmenu = => false
 
 		tick = =>
+			return if not _self.isRunning
+
 			tickCount += 1
 			_self.triggerEvent "update", {"tickCount": tickCount}
 			clearCanvas()
@@ -49,6 +52,16 @@ class Geom2D.Renderer
 		setInterval(tick, 1000 / @fps)
 		clearCanvas = =>
 			@context.clearRect(0, 0, _self.width, _self.height)
+
+
+	pause: =>
+		@isRunning = false
+
+	continue: =>
+		@isRunning = true
+
+	toggle: =>
+		@isRunning = not @isRunning
 
 
 	append: (shape) ->
