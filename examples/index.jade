@@ -4,31 +4,49 @@ html(lang="en")
     meta(charset="utf-8")
     title Demos
     link(rel="stylesheet" href="index.css")
-  body
+    script(type="text/javascript").
+
+      var hashPath, frame;
+
+      document.addEventListener("DOMContentLoaded", init);
+
+      function init() {
+        frame = document.querySelector("iframe");
+        window.addEventListener("hashchange", onHashChanged);
+        onHashChanged();
+      }
+
+      function onHashChanged() {
+        hashPath = location.hash.replace("#!/", "");
+        if (hashPath.length > 0)
+          frame.src = hashPath;
+      }
+
+body
     #side
       h1 Geom2D Examples
       h2 Draw
-      a(target="web", href="draw/dashed_stroke.html") Dashed Lines
-      a(target="web", href="draw/draw_circle.html") Draw Circle
-      a(target="web", href="draw/draw_polygon.html") Draw Polygon
-      a(target="web", href="draw/draw_polyline.html") Draw Polyline
+      a(href="#!/draw/dashed_stroke.html") Dashed Lines
+      a(href="#!/draw/draw_circle.html") Draw Circle
+      a(href="#!/draw/draw_polygon.html") Draw Polygon
+      a(href="#!/draw/draw_polyline.html") Draw Polyline
       h2 Contain Test
-      a(target="web", href="contain/line_near_point.html") Point Near Line
-      a(target="web", href="contain/triangle_contain_point.html") Triangle Contains Point
-      a(target="web", href="contain/polygon_contain_point.html") Polygon Contains Point
-      a(target="web", href="contain/circle_contain_point.html") Circle Contains Point
-      a(target="web", href="contain/bow_contain_point.html") Bow Contains Point
-      a(target="web", href="contain/fan_contain_point.html") Fan Contains Point
-      a(target="web", href="contain/rectangle_contain_point.html") Rectangle Contains Point
+      a(href="#!/contain/line_near_point.html") Point Near Line
+      a(href="#!/contain/triangle_contain_point.html") Triangle Contains Point
+      a(href="#!/contain/polygon_contain_point.html") Polygon Contains Point
+      a(href="#!/contain/circle_contain_point.html") Circle Contains Point
+      a(href="#!/contain/bow_contain_point.html") Bow Contains Point
+      a(href="#!/contain/fan_contain_point.html") Fan Contains Point
+      a(href="#!/contain/rectangle_contain_point.html") Rectangle Contains Point
       h2 Distance
-      a(target="web", href="distance/point_to_line_distance.html") Point To Line Distance
+      a(href="#!/distance/point_to_line_distance.html") Point To Line Distance
       h2 Net
-      a(target="web", href="net/delaunay_triangulation.html") Delaunay Triangulation
+      a(href="#!/net/delaunay_triangulation.html") Delaunay Triangulation
       h2 Morph
-      a(target="web", href="morph/polyline_morph.html") Polyline Morph
+      a(href="#!/morph/polyline_morph.html") Polyline Morph
       h2 Edit
-      a(target="web", href="edit/drag_point.html") Drag Point
-      a(target="web", href="edit/draw_circle_reactor.html") Drag To Draw Circle
-      a(target="web", href="edit/draw_circle_diameter_reactor.html") Drag Diameter to Draw Circle
+      a(href="#!/edit/drag_point.html") Drag Point
+      a(href="#!/edit/draw_circle_reactor.html") Drag To Draw Circle
+      a(href="#!/edit/draw_circle_diameter_reactor.html") Drag Diameter to Draw Circle
     #container
       iframe(name="web", src="about:blank", frameborder="0")
