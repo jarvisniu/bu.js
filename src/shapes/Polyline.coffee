@@ -1,5 +1,4 @@
 # polyline shape
-# TODO: rewrite this by class
 
 class Geom2D.Polyline
 
