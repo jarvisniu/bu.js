@@ -191,12 +191,14 @@ class Geom2D.Renderer
 						shape.size.height)
 			else
 				@context.beginPath()
-				pt1 = shape.position
-				pt3 = shape.rightBottomPoint
-				@context.dashedLine(pt1.x, pt1.y, pt3.x, pt1.y, shape.dashStyle, shape.dashDelta)
-				@context.dashedLine(pt3.x, pt1.y, pt3.x, pt3.y, shape.dashStyle, shape.dashDelta)
-				@context.dashedLine(pt3.x, pt3.y, pt1.x, pt3.y, shape.dashStyle, shape.dashDelta)
-				@context.dashedLine(pt1.x, pt3.y, pt1.x, pt1.y, shape.dashStyle, shape.dashDelta)
+				xL = shape.position.x
+				xR = shape.pointRB.x
+				yT = shape.position.y
+				yB = shape.pointRB.y
+				@context.dashedLine(xL, yT, xR, yT, shape.dashStyle, shape.dashDelta)
+				@context.dashedLine(xR, yT, xR, yB, shape.dashStyle, shape.dashDelta)
+				@context.dashedLine(xR, yB, xL, yB, shape.dashStyle, shape.dashDelta)
+				@context.dashedLine(xL, yB, xL, yT, shape.dashStyle, shape.dashDelta)
 				@context.stroke()
 		@drawVertexes(shape.points)
 
