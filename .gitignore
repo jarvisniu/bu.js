@@ -1,6 +1,8 @@
 .idea/
 build/
 
+*.html
+
 src/*.js
 src/core/*.js
 src/shapes/*.js
