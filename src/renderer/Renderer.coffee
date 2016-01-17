@@ -81,6 +81,7 @@ class Geom2D.Renderer
 				when "Polygon" then @drawPolygon(shape)
 				when "Polyline" then @drawPolyline(shape)
 				when "PointText" then @drawPointText(shape)
+				when "Image" then @drawImage(shape)
 				else
 					console.log("drawShapes(): unknown shape: ", shape)
 
@@ -305,6 +306,11 @@ class Geom2D.Renderer
 		if shape.fillStyle?
 			@context.fillStyle = shape.fillStyle
 			@context.fillText(shape.text, shape.x, shape.y)
+
+
+	drawImage: (shape) ->
+		if shape.loaded
+			@context.drawImage(shape.image, shape.position.x, shape.position.y, shape.size.width, shape.size.height);
 
 
 # Add draw dashed line feature to the canvas rendering context

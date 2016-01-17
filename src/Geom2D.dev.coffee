@@ -16,6 +16,7 @@
 		"shapes/Polyline",
 
 		"drawable/PointText",
+		"drawable/Image",
 
 		"morph/PolylineMorph",
 
