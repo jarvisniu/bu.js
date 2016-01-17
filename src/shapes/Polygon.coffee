@@ -39,6 +39,16 @@ class Geom2D.Polygon
 			for i in [1 ... @points.length - 1]
 				@triangles.push(new Geom2D.Triangle(@points[0], @points[i], @points[i + 1]))
 
+	# detect
+
+	isSimple: () ->
+		len = @lines.length
+		for i in [0...len]
+			for j in [i + 1...len]
+				if @lines[i].isCrossWithLine(@lines[j])
+					return false
+		return true
+
 	# edit
 
 	addPoint: (point, insertIndex) ->

@@ -96,7 +96,23 @@ class Geom2D.Line
 
 	# line related
 
-	# TODO getCrossPointWith: (line) ->
+	getCrossPointWith: (line) ->
+		p1 = @points[0]
+		p2 = @points[1]
+		q1 = line.points[0]
+		q2 = line.points[1]
+
+		a1 = p2.y - p1.y
+		b1 = p1.x - p2.x
+		c1 = (a1 * p1.x) + (b1 * p1.y)
+		a2 = q2.y - q1.y
+		b2 = q1.x - q2.x
+		c2 = (a2 * q1.x) + (b2 * q1.y)
+		det = (a1 * b2) - (a2 * b1)
+
+		console.log a1, b1, c1, a2, b2, c2, det
+
+		return new Geom2D.Point ((b2 * c1) - (b1 * c2)) / det, ((a1 * c2) - (a2 * c1)) / det
 
 	# whether cross with another line
 	isCrossWithLine: (line) ->
@@ -118,3 +134,24 @@ class Geom2D.Line
 						(x0 - x3) * (x0 - x4) < 0 and
 						(y0 - y1) * (y0 - y2) < 0 and
 						(y0 - y3) * (y0 - y4) < 0
+
+	# TODO test
+	isCrossWithLine2: (line) ->
+		p1 = @points[0]
+		p2 = @points[1]
+		q1 = line.points[0]
+		q2 = line.points[1]
+
+		dx = p2.x - p1.x
+		dy = p2.y - p1.y
+		da = q2.x - q1.x
+		db = q2.y - q1.y
+
+		# segments are parallel
+		if da * dy - db * dx == 0
+			return false
+
+		s = (dx * (q1.y - p1.y) + dy * (p1.x - q1.x)) / (da * dy - db * dx)
+		t = (da * (p1.y - q1.y) + db * (q1.x - p1.x)) / (db * dx - da * dy)
+
+		return s >= 0 && s <= 1 and t >= 0 && t <= 1
