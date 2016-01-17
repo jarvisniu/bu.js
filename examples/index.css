@@ -6,23 +6,26 @@
 html, body {
     height: 100%;
     font-family: "Calibri Light", Calibri, Arial, sans-serif;
+    overflow: hidden;
 }
 
 #side {
     position: absolute;
+    overflow-y: scroll;
+    box-sizing: border-box;
     padding: 20px;
-    width: 210px;
+    width: 250px;
     height: 100%;
     border-right: solid #bbb 2px;
 }
 
 h1 {
     font-size: 32px;
-    padding-bottom: 16px;
+    padding-bottom: 8px;
 }
 
 h2 {
-    padding: 16px 0;
+    padding: 12px 0;
     color: #666;
     font-size: 20px;
 }
@@ -30,7 +33,7 @@ h2 {
 #container {
     padding-left: 250px;
     width: calc(100% - 250px);
-    height: calc(100% - 2px);
+    height: 100%;
 }
 
 #side a {
