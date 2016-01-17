@@ -18,3 +18,13 @@ Geom2D.combineOptions = (args, defaultOptions) ->
 		for i of lastArg
 			options[i] = lastArg[i]
 	return options
+
+# calculate the average number of several numbers
+# you can pass several numbers or a Array of numbers
+Geom2D.average = ()->
+	ns = arguments
+	ns = arguments[0] if typeof arguments[0] is "object"
+	sum = 0
+	for i in ns
+		sum += i
+	sum / ns.length
