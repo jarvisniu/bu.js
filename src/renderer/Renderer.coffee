@@ -25,6 +25,7 @@ class Geom2D.Renderer
 		@dom = document.createElement("canvas")
 		@context = @dom.getContext("2d")
 		@context.textBaseline = 'top'
+		@clipMeter = new ClipMeter() if ClipMeter?
 
 		tickCount = 0
 		@isRunning = true;
@@ -44,10 +45,12 @@ class Geom2D.Renderer
 		tick = =>
 			return if not _self.isRunning
 
+			_self.clipMeter.start() if @clipMeter?
 			tickCount += 1
 			_self.triggerEvent "update", {"tickCount": tickCount}
 			clearCanvas()
-			@drawShapes()
+			_self.drawShapes()
+			_self.clipMeter.tick() if @clipMeter?
 
 		setInterval(tick, 1000 / @fps)
 		clearCanvas = =>
