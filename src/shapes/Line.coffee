@@ -22,21 +22,29 @@ class Geom2D.Line
 
 	# edit
 
-	set: (args...) ->
-		if args.length == 2
-			@points = [args[0], args[1]]
-		else  # len == 4
-			@points = [new Geom2D.Point(args[0], args[1]), new Geom2D.Point(args[2], args[3])]
+	set: (a1, a2, a3, a4) ->
+		if p4?
+			@points[0].set(a1, a2)
+			@points[1].set(a3, a4)
+		else
+			@points[0] = a1
+			@points[1] = a2
 		@onPointChange()
 		@
 
-	setPoint1: (p1) ->
-		@points[0].copy(p1)
+	setPoint1: (a1, a2) ->
+		if p2?
+			@points[0].set(a1, a2)
+		else
+			@points[0].copy(a1)
 		@onPointChange()
 		@
 
-	setPoint2: (p2) ->
-		@points[1].copy(p2)
+	setPoint2: (a1, a2) ->
+		if p2?
+			@points[1].set(a1, a2)
+		else
+			@points[1].copy(a1)
 		@onPointChange()
 		@
 
