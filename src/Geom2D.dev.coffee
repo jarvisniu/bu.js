@@ -3,6 +3,7 @@
 		"Geom2D",
 
 		"core/Size",
+		"core/AABB",
 		"core/Colorful",
 
 		"shapes/Point",

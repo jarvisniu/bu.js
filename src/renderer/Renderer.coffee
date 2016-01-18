@@ -160,7 +160,8 @@ class Geom2D.Renderer
 			@context.strokeStyle = shape.strokeStyle
 			@context.lineWidth = shape.lineWidth
 			@context.stroke()
-		@drawPoint(shape.centralPoint)
+		@drawPoint shape.centralPoint
+		@drawAABB shape.aabb
 
 
 	drawTriangle: (shape) ->
@@ -316,13 +317,23 @@ class Geom2D.Renderer
 			@context.drawImage(shape.image, shape.position.x, shape.position.y, shape.size.width, shape.size.height);
 
 
+	drawAABB: (aabb) ->
+		@context.strokeStyle = aabb.strokeStyle
+		@context.beginPath()
+		@context.dashedLine(aabb.x1, aabb.y1, aabb.x2, aabb.y1, aabb.dashStyle, aabb.dashDelta)
+		@context.dashedLine(aabb.x2, aabb.y1, aabb.x2, aabb.y2, aabb.dashStyle, aabb.dashDelta)
+		@context.dashedLine(aabb.x2, aabb.y2, aabb.x1, aabb.y2, aabb.dashStyle, aabb.dashDelta)
+		@context.dashedLine(aabb.x1, aabb.y2, aabb.x1, aabb.y1, aabb.dashStyle, aabb.dashDelta)
+		@context.stroke()
+
+
 # Add draw dashed line feature to the canvas rendering context
 # See: http://stackoverflow.com/questions/4576724/dotted-stroke-in-canvas
 (=>
 	CP = window.CanvasRenderingContext2D and CanvasRenderingContext2D.prototype
 	if CP.lineTo?
 		CP.dashedLine = (x, y, x2, y2, da, delta) ->
-			da = Geom2D.Colorful.DEFAULT_DASH_STYLE if not da?
+			da = Geom2D.DEFAULT_DASH_STYLE if not da?
 			delta = 0 if not delta?
 			@save()
 			dx = x2 - x

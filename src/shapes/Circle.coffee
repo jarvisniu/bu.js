@@ -6,6 +6,9 @@ class Geom2D.Circle
 		Geom2D.Colorful.apply @
 		@type = "Circle"
 		@centralPoint = new Geom2D.Point(@cx, @cy)
+		@aabb = new Geom2D.AABB
+
+		@aabb.expandByCircle @
 
 	# edit
 	setCenter: (p) ->
@@ -14,8 +17,17 @@ class Geom2D.Circle
 		@cy = p.y
 		return @
 
+	setRadius: (r) ->
+		@radius = r
+		@aabb.clear()
+		@aabb.expandByCircle @
+		return @
+
 	# point related
 	containsPoint: (p) ->
-		dx = p.x - @cx
-		dy = p.y - @cy
-		return Math.bevel(dx, dy) < @radius
+		if @aabb.containsPoint p
+			dx = p.x - @cx
+			dy = p.y - @cy
+			Math.bevel(dx, dy) < @radius
+		else
+			false

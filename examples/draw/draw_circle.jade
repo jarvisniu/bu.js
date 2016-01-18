@@ -44,7 +44,7 @@ html(lang="en")
         // change radius
         if (isButtonDown) {
           mousePos.set(e.offsetX, e.offsetY);
-          circle.radius = mousePos.distanceTo(mousePosDown);
+          circle.setRadius(mousePos.distanceTo(mousePosDown));
           line.points[1].copy(mousePos);
         }
       }
