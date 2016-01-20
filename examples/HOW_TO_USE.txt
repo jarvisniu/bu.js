@@ -1,2 +1,0 @@
-You should compile .jade to .html and .coffee to .js before run the examples.
-Goto /utils/build-tool/ and use the shell scripts.
