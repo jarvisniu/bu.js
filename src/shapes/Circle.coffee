@@ -5,14 +5,14 @@ class Geom2D.Circle extends Geom2D.Object2D
 	constructor: (@cx = 0, @cy = 0, @radius = 1) ->
 		super()
 		@type = "Circle"
-		@centralPoint = new Geom2D.Point(@cx, @cy)
+		@center = new Geom2D.Point(@cx, @cy)
 		@bounds = new Geom2D.Bounds
 
 		@bounds.expandByCircle @
 
 	# edit
 	setCenter: (p) ->
-		@centralPoint.copy p
+		@center.copy p
 		@cx = p.x
 		@cy = p.y
 		return @

@@ -32,7 +32,7 @@ class Geom2D.Bounds
 			@y2 = v.y if v.y > @y2
 
 	expandByCircle: (c) ->
-		cp = c.centralPoint
+		cp = c.center
 		r = c.radius
 		if @isEmpty
 			@isEmpty = false

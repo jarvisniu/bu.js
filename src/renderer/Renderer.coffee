@@ -166,7 +166,7 @@ class Geom2D.Renderer
 			@context.strokeStyle = shape.strokeStyle
 			@context.lineWidth = shape.lineWidth
 			@context.stroke()
-		@drawPoint shape.centralPoint
+		@drawPoint shape.center
 		@drawBounds shape.bounds
 
 
