@@ -14,7 +14,9 @@ html
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer();
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
         line = new Geom2D.Line(
                 Math.rand(renderer.width),
                 Math.rand(renderer.height),
@@ -22,7 +24,6 @@ html
                 Math.rand(renderer.height)
         );
         renderer.append(line);
-        document.body.appendChild(renderer.dom);
 
         renderer.dom.addEventListener("mouseup", onMouseUp);
         renderer.dom.addEventListener("mousemove", onMouseMove);
@@ -50,3 +51,4 @@ html
   body
     div Move cursor to test. Click to change another line.
     div Not full implemented now.
+    div#container

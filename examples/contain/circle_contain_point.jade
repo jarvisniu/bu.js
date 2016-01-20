@@ -14,10 +14,11 @@ html
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer();
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
         circle = createCircle();
         renderer.append(circle);
-        document.body.appendChild(renderer.dom);
 
         renderer.dom.addEventListener("mouseup", onMouseUp);
         renderer.dom.addEventListener("mousemove", onMouseMove);
@@ -49,3 +50,4 @@ html
 
   body
     div Move cursor to test. Click to change another circle.
+    div#container

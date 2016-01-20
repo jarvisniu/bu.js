@@ -14,10 +14,11 @@ html
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer();
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
         fan = generateFan();
         renderer.append(fan);
-        document.body.appendChild(renderer.dom);
 
         renderer.dom.addEventListener("mouseup", onMouseUp);
         renderer.dom.addEventListener("mousemove", onMouseMove);
@@ -52,3 +53,4 @@ html
 
   body
     div Move cursor to test. Click to change another fan.
+    div#container

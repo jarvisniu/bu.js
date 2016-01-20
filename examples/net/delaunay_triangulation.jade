@@ -18,8 +18,9 @@ html(lang="en")
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer();
-        document.body.appendChild(renderer.dom);
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
         generatePoints();
         document.getElementById("btnRandom").onclick = randomLines;
         document.getElementById("btnAll").onclick = allLines;
@@ -132,3 +133,4 @@ body
     button#btnAll All
     button#btnNoCross No Cross
     button#btnDelaunay Delaunay
+  div#container

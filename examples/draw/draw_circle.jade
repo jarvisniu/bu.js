@@ -18,8 +18,9 @@ html(lang="en")
 
       function init() {
         // renderer
-        renderer = new Geom2D.Renderer();
-        document.body.appendChild(renderer.dom);
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
         // bind events
         renderer.dom.addEventListener("mousedown", onMouseDown);
         renderer.dom.addEventListener("mousemove", onMouseMove);
@@ -55,3 +56,4 @@ html(lang="en")
 
   body
     div Drag to draw a circle.
+    div#container

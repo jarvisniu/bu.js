@@ -11,8 +11,9 @@ html(lang="en")
 
       function init() {
 
-        renderer = new Geom2D.Renderer();
-        document.body.appendChild(renderer.dom);
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
 
         drawCircleReactor = new Geom2D.DrawCircleReactor(renderer);
         drawCircleReactor.enable();
@@ -21,3 +22,4 @@ html(lang="en")
       $.ready(init);
   body
     div Drag to draw a circle.
+    div#container

@@ -14,10 +14,11 @@ html
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer();
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
         polygon = createPolygon();
         renderer.append(polygon);
-        document.body.appendChild(renderer.dom);
         renderer.dom.addEventListener("mouseup", onMouseUp);
         renderer.dom.addEventListener("mousemove", onMouseMove);
       }
@@ -56,3 +57,4 @@ html
       | Move cursor to test. Click to change another polygon.
       br
       | If the polygon is not simple, the test may not be valid.
+    div#container

@@ -14,14 +14,15 @@ html
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer();
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
         line = createLine();
         renderer.append(line);
         lineVertical = new Geom2D.Line();
         lineVertical.dash();
         lineVertical.points[1].label = "T";
         renderer.append(lineVertical);
-        document.body.appendChild(renderer.dom);
         renderer.dom.addEventListener("mouseup", onMouseUp);
         renderer.dom.addEventListener("mousemove", onMouseMove);
       }
@@ -52,3 +53,4 @@ html
 
   body
     div Move cursor to measure distance. Click to change another line.
+    div#container

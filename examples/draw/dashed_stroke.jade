@@ -14,8 +14,9 @@ html(lang="en")
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer();
-        document.body.appendChild(renderer.dom);
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
 
         // init line
         line = new Geom2D.Line(
@@ -90,3 +91,4 @@ html(lang="en")
   body
     button#btnStrokeFlow Stroke Flow
     div Dashed line stroke examples.
+    div#container

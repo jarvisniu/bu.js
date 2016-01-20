@@ -15,8 +15,9 @@ html(lang="en")
 
       function init() {
         // renderer
-        renderer = new Geom2D.Renderer();
-        document.body.appendChild(renderer.dom);
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
         // polygon
         var points = [];
         polygon = new Geom2D.Polygon(points);
@@ -58,3 +59,4 @@ html(lang="en")
         | radius=
         input#txtRadius(type="text", style="width: 40px", value="50")
       button#btnAdd Add
+    div#container

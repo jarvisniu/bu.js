@@ -16,9 +16,10 @@ html(lang="en")
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer();
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
         renderer.dom.style.cursor = "default";
-        document.body.appendChild(renderer.dom);
 
         movePointReactor = new Geom2D.MovePointReactor(renderer);
         movePointReactor.enable();
@@ -35,3 +36,4 @@ html(lang="en")
       }
   body
     div Drag a point to move it.
+    div#container

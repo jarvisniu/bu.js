@@ -15,8 +15,9 @@ html(lang="en")
 
       function init() {
         // renderer
-        renderer = new Geom2D.Renderer();
-        document.body.appendChild(renderer.dom);
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
         // polyline
         var points = [];
         polyline = new Geom2D.Polyline(points);
@@ -36,3 +37,4 @@ html(lang="en")
 
   body
     div Click to add point to the polyline.
+    div#container

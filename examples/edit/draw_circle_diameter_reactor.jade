@@ -12,10 +12,12 @@ html(lang="en")
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer();
-        document.body.appendChild(renderer.dom);
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
         drawCircleReactor = new Geom2D.DrawCircleDiameterReactor(renderer);
         drawCircleReactor.enable();
       }
   body
     div Drag to draw a circle.
+    div#container

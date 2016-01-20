@@ -14,14 +14,15 @@ html(lang="en")
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer();
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
         rectangle = new Geom2D.Rectangle(
                 Math.rand(renderer.width),
                 Math.rand(renderer.height),
                 Math.rand(renderer.width / 2),
                 Math.rand(renderer.height / 2));
         renderer.append(rectangle);
-        document.body.appendChild(renderer.dom);
 
         renderer.dom.addEventListener("mouseup", onMouseUp);
         renderer.dom.addEventListener("mousemove", onMouseMove);
@@ -47,3 +48,5 @@ html(lang="en")
 
   body
     div Move cursor to test. Click to change another circle.
+    div#container
+

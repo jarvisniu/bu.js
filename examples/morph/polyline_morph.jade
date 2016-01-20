@@ -15,8 +15,9 @@ html(lang="en")
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer();
-        document.body.appendChild(renderer.dom);
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
         renderer.dom.addEventListener("mousedown", onMouseDown);
 
         polylineA = new Geom2D.Polyline();
@@ -58,3 +59,4 @@ html(lang="en")
 
   body
     div Click (left/right button) to add points to the lines.
+    div#container

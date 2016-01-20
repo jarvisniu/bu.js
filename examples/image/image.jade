@@ -14,8 +14,9 @@ html(lang="en")
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer();
-        document.body.appendChild(renderer.dom);
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
 
         image = new Geom2D.Image(imageUrl, Math.rand(renderer.width), Math.rand(renderer.height));
         renderer.append(image);
@@ -23,3 +24,4 @@ html(lang="en")
       }
   body
     div this is a bitmap image loaded from a png file
+    div#container
