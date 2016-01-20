@@ -4,28 +4,34 @@ class Geom2D.Renderer
 
 	POINT_SIZE = 4
 
-	constructor: (options) ->
+	constructor: () ->
 		Za.EventListenerPattern.apply @
-
-		# default options
-		@width = 800
-		@height = 600
-		@fps = 60
-		@isDrawVertexes = true
-
-		if options?
-			@width = options.width if options.width?
-			@height = options.height if options.height?
-			@fps = options.fps if options.fps?
 
 		@type = "Renderer"
 		_self = @
+
+		options = Geom2D.combineOptions(arguments, {
+			width: 800
+			height: 600
+			fps: 60
+		})
+		@width = options.width
+		@height = options.height
+		@fps = options.fps
+		@container = options.container
+
+		@isDrawVertexes = true
 
 		# variables
 		@dom = document.createElement("canvas")
 		@context = @dom.getContext("2d")
 		@context.textBaseline = 'top'
 		@clipMeter = new ClipMeter() if ClipMeter?
+
+		# init
+		if @container?
+			@container = document.querySelector(@container) if typeof @container is "string"
+			@container.appendChild @dom
 
 		tickCount = 0
 		@isRunning = true;

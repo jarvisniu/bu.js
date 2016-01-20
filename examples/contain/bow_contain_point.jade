@@ -14,10 +14,11 @@ html
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer();
+        renderer = new Geom2D.Renderer({
+          container: "#container"
+        });
         bow = generateBow();
         renderer.append(bow);
-        document.body.appendChild(renderer.dom);
 
         renderer.dom.addEventListener("mouseup", onMouseUp);
         renderer.dom.addEventListener("mousemove", onMouseMove);
@@ -33,7 +34,7 @@ html
           bow.fill();
       }
 
-      function onMouseUp(e) {
+      function onMouseUp() {
         bow = renderer.shapes[0] = generateBow();
       }
 
@@ -42,13 +43,14 @@ html
         var cy = Math.random() * (renderer.height - 60) + 30;
         var r = Math.random() * 200 + 20;
         var aFrom = Math.random() * Math.PI * 2;
-        var aTo = aFrom + Math.random() * Math.PI * 2;
+        var aTo = aFrom + Math.random() * Math.PI + Math.PI / 2;
 
-        var _bow = new Geom2D.Bow(cx, cy, r, aFrom, aTo);
-        _bow.string.points[0].label = "A";
-        _bow.string.points[1].label = "B";
-        return _bow;
+        var bow = new Geom2D.Bow(cx, cy, r, aFrom, aTo);
+        bow.string.points[0].label = "A";
+        bow.string.points[1].label = "B";
+        return bow;
       }
 
   body
     div Move cursor to test. Click to change another bow.
+    div#container
