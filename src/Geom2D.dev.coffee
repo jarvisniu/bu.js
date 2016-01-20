@@ -2,6 +2,8 @@
 	libs = [
 		"Geom2D",
 
+		"math/Vector",
+
 		"core/Object2D",
 		"core/Size",
 		"core/AABB",

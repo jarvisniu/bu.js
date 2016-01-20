@@ -1,12 +1,6 @@
 .idea/
 build/
 
+*.js
+*.js.map
 *.html
-
-src/*.js
-src/core/*.js
-src/shapes/*.js
-src/drawable/*.js
-src/renderer/*.js
-src/morph/*.js
-src/reactor/*.js

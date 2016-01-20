@@ -7,9 +7,9 @@ class Geom2D.Object2D
 
 		@visible = yes
 
-		@position = new Geom2D.Point()
+		@position = new Geom2D.Vector()
 		@rotation = 0
-		@scale = new Geom2D.Point(1, 1)
-		@skew = new Geom2D.Point()
+		@scale = new Geom2D.Vector(1, 1)
+		@skew = new Geom2D.Vector()
 
 		@children = []
