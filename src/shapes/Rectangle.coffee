@@ -1,9 +1,9 @@
 # rectangle shape
 
-class Geom2D.Rectangle
+class Geom2D.Rectangle extends Geom2D.Object2D
 
 	constructor: (x, y, width, height) ->
-		Geom2D.Colorful.apply @
+		super()
 		@type = "Rectangle"
 
 		@position = new Geom2D.Point(x, y)

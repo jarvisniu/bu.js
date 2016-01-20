@@ -2,6 +2,7 @@
 	libs = [
 		"Geom2D",
 
+		"core/Object2D",
 		"core/Size",
 		"core/AABB",
 		"core/Colorful",

@@ -1,6 +1,6 @@
 # draw text by a point
 
-class Geom2D.PointText
+class Geom2D.PointText extends Geom2D.Object2D
 
 	###
 	options.align:
@@ -14,8 +14,8 @@ class Geom2D.PointText
     for example: text is in the right top of the point, then align="+-"
 	###
 	constructor: (@text, @x, @y, options) ->
+		super()
 		@type = "PointText"
-		Geom2D.Colorful.apply @
 		@strokeStyle = null # no stroke by default
 		@fillStyle = Geom2D.DEFAULT_TEXT_FILL_STYLE
 

@@ -1,9 +1,9 @@
 # point shape
 
-class Geom2D.Point
+class Geom2D.Point extends Geom2D.Object2D
 
 	constructor: (@x = 0, @y = 0) ->
-		Geom2D.Colorful.apply @
+		super()
 		@stroke no  # point has no stroke by default
 		@type = "Point"
 		@label = null

@@ -1,9 +1,9 @@
 # triangle shape
 
-class Geom2D.Triangle
+class Geom2D.Triangle extends Geom2D.Object2D
 
 	constructor: (p1, p2, p3) ->
-		Geom2D.Colorful.apply @
+		super()
 		@type = "Triangle"
 		@lines = [
 			new Geom2D.Line(p1, p2)

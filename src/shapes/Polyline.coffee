@@ -1,9 +1,9 @@
 # polyline shape
 
-class Geom2D.Polyline
+class Geom2D.Polyline extends Geom2D.Object2D
 
 	constructor: (@points = []) ->
-		Geom2D.Colorful.apply @
+		super()
 		@type = "Polyline"
 		@lines = []
 		@length = 0

@@ -1,9 +1,9 @@
 # Fan shape
 
-class Geom2D.Fan
+class Geom2D.Fan extends Geom2D.Object2D
 
 	constructor: (@cx, @cy, @radius, @aFrom, @aTo) ->
-		Geom2D.Colorful.apply @
+		super()
 		@type = "Fan"
 		@centralPoint = new Geom2D.Point(@cx, @cy)
 		@string = new Geom2D.Line(

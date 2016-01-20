@@ -1,9 +1,8 @@
 # Bow shape
-class Geom2D.Bow
+class Geom2D.Bow extends Geom2D.Object2D
 
 	constructor: (@cx, @cy, @radius, @aFrom, @aTo) ->
-		Geom2D.Colorful.apply @
-
+		super()
 		[@aFrom, @aTo] = [@aTo, @aFrom] if @aFrom > @aTo
 
 		@type = "Bow"

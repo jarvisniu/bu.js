@@ -1,8 +1,9 @@
 # draw bitmap
 
-class Geom2D.Image
+class Geom2D.Image extends Geom2D.Object2D
 
 	constructor: (@url, x, y, width, height) ->
+		super()
 		self = @
 		@type = "Image"
 

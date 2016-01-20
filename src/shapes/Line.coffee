@@ -1,9 +1,9 @@
 # line shape
 
-class Geom2D.Line
+class Geom2D.Line extends Geom2D.Object2D
 
 	constructor: (p1, p2, p3, p4) ->
-		Geom2D.Colorful.apply @
+		super()
 		@type = "Line"
 
 		if arguments.length < 2

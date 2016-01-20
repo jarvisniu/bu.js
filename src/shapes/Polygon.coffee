@@ -1,6 +1,6 @@
 # polygon shape
 
-class Geom2D.Polygon
+class Geom2D.Polygon extends Geom2D.Object2D
 
 	###
     constructors
@@ -9,7 +9,7 @@ class Geom2D.Polygon
     	options: radius, angle
 	###
 	constructor: (points) ->
-		Geom2D.Colorful.apply @
+		super()
 		@type = "Polygon"
 		@points = []
 		@lines = []

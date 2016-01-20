@@ -1,9 +1,9 @@
 # Circle shape
 
-class Geom2D.Circle
+class Geom2D.Circle extends Geom2D.Object2D
 
 	constructor: (@cx = 0, @cy = 0, @radius = 1) ->
-		Geom2D.Colorful.apply @
+		super()
 		@type = "Circle"
 		@centralPoint = new Geom2D.Point(@cx, @cy)
 		@aabb = new Geom2D.AABB
