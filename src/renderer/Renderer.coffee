@@ -167,7 +167,7 @@ class Geom2D.Renderer
 			@context.lineWidth = shape.lineWidth
 			@context.stroke()
 		@drawPoint shape.centralPoint
-		@drawAABB shape.aabb
+		@drawBounds shape.bounds
 
 
 	drawTriangle: (shape) ->
@@ -323,13 +323,13 @@ class Geom2D.Renderer
 			@context.drawImage(shape.image, shape.position.x, shape.position.y, shape.size.width, shape.size.height);
 
 
-	drawAABB: (aabb) ->
-		@context.strokeStyle = aabb.strokeStyle
+	drawBounds: (bounds) ->
+		@context.strokeStyle = bounds.strokeStyle
 		@context.beginPath()
-		@context.dashedLine(aabb.x1, aabb.y1, aabb.x2, aabb.y1, aabb.dashStyle, aabb.dashDelta)
-		@context.dashedLine(aabb.x2, aabb.y1, aabb.x2, aabb.y2, aabb.dashStyle, aabb.dashDelta)
-		@context.dashedLine(aabb.x2, aabb.y2, aabb.x1, aabb.y2, aabb.dashStyle, aabb.dashDelta)
-		@context.dashedLine(aabb.x1, aabb.y2, aabb.x1, aabb.y1, aabb.dashStyle, aabb.dashDelta)
+		@context.dashedLine(bounds.x1, bounds.y1, bounds.x2, bounds.y1, bounds.dashStyle, bounds.dashDelta)
+		@context.dashedLine(bounds.x2, bounds.y1, bounds.x2, bounds.y2, bounds.dashStyle, bounds.dashDelta)
+		@context.dashedLine(bounds.x2, bounds.y2, bounds.x1, bounds.y2, bounds.dashStyle, bounds.dashDelta)
+		@context.dashedLine(bounds.x1, bounds.y2, bounds.x1, bounds.y1, bounds.dashStyle, bounds.dashDelta)
 		@context.stroke()
 
 

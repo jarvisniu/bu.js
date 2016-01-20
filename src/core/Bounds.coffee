@@ -1,17 +1,16 @@
 ## axis aligned bounding box
 
-class Geom2D.AABB
+class Geom2D.Bounds
 
 	constructor: () ->
-		@type = "AABB"
 		@x1 = @y1 = @x2 = @y2 = 0
 		@isEmpty = true
 
 		@point1 = new Geom2D.Point
 		@point2 = new Geom2D.Point
 
-		@strokeStyle = Geom2D.DEFAULT_AABB_STROKE_STYLE
-		@dashStyle = Geom2D.DEFAULT_AABB_DASH_STYLE
+		@strokeStyle = Geom2D.DEFAULT_BOUND_STROKE_STYLE
+		@dashStyle = Geom2D.DEFAULT_BOUND_DASH_STYLE
 		@dashDelta = 0
 
 	containsPoint: (p) ->

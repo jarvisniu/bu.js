@@ -6,7 +6,7 @@
 
 		"core/Object2D",
 		"core/Size",
-		"core/AABB",
+		"core/Bounds",
 		"core/Colorful",
 
 		"shapes/Point",

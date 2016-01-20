@@ -18,9 +18,9 @@
 	# texts related
 	DEFAULT_TEXT_FILL_STYLE:    "black"
 
-	# AABB related
-	DEFAULT_AABB_STROKE_STYLE:  "#444"
-	DEFAULT_AABB_DASH_STYLE:    [6, 6]
+	# bounds related
+	DEFAULT_BOUND_STROKE_STYLE:  "#444"
+	DEFAULT_BOUND_DASH_STYLE:    [6, 6]
 
 	# computation related
 	DEFAULT_NEAR_DIST: 5

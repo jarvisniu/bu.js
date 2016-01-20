@@ -6,9 +6,9 @@ class Geom2D.Circle extends Geom2D.Object2D
 		super()
 		@type = "Circle"
 		@centralPoint = new Geom2D.Point(@cx, @cy)
-		@aabb = new Geom2D.AABB
+		@bounds = new Geom2D.Bounds
 
-		@aabb.expandByCircle @
+		@bounds.expandByCircle @
 
 	# edit
 	setCenter: (p) ->
@@ -19,13 +19,13 @@ class Geom2D.Circle extends Geom2D.Object2D
 
 	setRadius: (r) ->
 		@radius = r
-		@aabb.clear()
-		@aabb.expandByCircle @
+		@bounds.clear()
+		@bounds.expandByCircle @
 		return @
 
 	# point related
 	containsPoint: (p) ->
-		if @aabb.containsPoint p
+		if @bounds.containsPoint p
 			dx = p.x - @cx
 			dy = p.y - @cy
 			Math.bevel(dx, dy) < @radius
