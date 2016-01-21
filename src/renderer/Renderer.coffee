@@ -320,7 +320,15 @@ class Geom2D.Renderer
 
 	drawImage: (shape) ->
 		if shape.loaded
-			@context.drawImage(shape.image, shape.position.x, shape.position.y, shape.size.width, shape.size.height);
+			@context.save()
+			w = shape.size.width * shape.scale.x
+			h = shape.size.height * shape.scale.y
+			dx = -w * shape.pivot.x
+			dy = -h * shape.pivot.y
+			@context.translate shape.position.x, shape.position.y
+			@context.rotate shape.rotation
+			@context.drawImage shape.image, dx, dy, w, h
+			@context.restore()
 
 
 	drawBounds: (bounds) ->
@@ -347,7 +355,6 @@ class Geom2D.Renderer
 			len = Math.bevel(dx, dy)
 			rot = Math.atan2(dy, dx)
 			@translate(x, y)
-			@moveTo(0, 0)
 			@rotate(rot)
 			dc = da.length
 			di = 0
@@ -359,6 +366,7 @@ class Geom2D.Renderer
 			delta %= lenU
 			x = delta
 
+			@moveTo(0, 0)
 			# TODO need a small fix
 			while len > x
 				di += 1

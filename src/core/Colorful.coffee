@@ -15,6 +15,7 @@ Geom2D.Colorful = () ->
 			when false then @strokeStyle = null
 			else
 				@strokeStyle = v
+		@
 
 	@fill = (v) ->
 		v = true if not v?
@@ -23,6 +24,7 @@ Geom2D.Colorful = () ->
 			when true then @fillStyle = Geom2D.DEFAULT_FILL_STYLE
 			else
 				@fillStyle = v
+		@
 
 	@dash = (v) ->
 		v = true if not v?
@@ -32,3 +34,4 @@ Geom2D.Colorful = () ->
 			when true then @dashStyle = Geom2D.DEFAULT_DASH_STYLE
 			else
 				@dashStyle = v
+		@

@@ -10,6 +10,7 @@ html(lang="en")
       var renderer;
       var imageUrl = "../textures/bunny.png";
       var image;
+      var speedX = 4, speedY = 4;
 
       $.ready(init);
 
@@ -18,9 +19,18 @@ html(lang="en")
           container: "#container"
         });
 
-        image = new Geom2D.Image(imageUrl, Math.rand(renderer.width), Math.rand(renderer.height));
+        image = new Geom2D.Image(imageUrl, 300, 200);
+        image.rotation = Math.PI / 6;
+        image.scale.x = image.scale.y = 2;
         renderer.append(image);
 
+        setInterval(function() {
+          image.rotation += 0.04;
+          if (image.position.x > renderer.width - 40 || image.position.x < 40) speedX = -speedX;
+          if (image.position.y > renderer.height - 40 || image.position.y < 40) speedY = -speedY;
+          image.position.x += speedX;
+          image.position.y += speedY;
+        }, 1000 / 60);
       }
   body
     div this is a bitmap image loaded from a png file

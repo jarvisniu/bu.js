@@ -18,6 +18,9 @@
 	# texts related
 	DEFAULT_TEXT_FILL_STYLE:    "black"
 
+	# image related
+	DEFAULT_IMAGE_SIZE: 20
+
 	# bounds related
 	DEFAULT_BOUND_STROKE_STYLE:  "#444"
 	DEFAULT_BOUND_DASH_STYLE:    [6, 6]
