@@ -31,8 +31,8 @@ class Geom2D.DrawCircleDiameterReactor
 			if buttonDown
 				mousePos.set e.offsetX, e.offsetY
 				line.setPoint2(mousePos)
-				circle.setRadius mousePos.distanceTo(mousePosDown) / 2
-				circle.setCenter line.midpoint
+				circle.radius = mousePos.distanceTo(mousePosDown) / 2
+				circle.center = line.midpoint
 
 		@onMouseUp = =>
 			buttonDown = false

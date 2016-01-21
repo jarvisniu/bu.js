@@ -30,7 +30,7 @@ class Geom2D.DrawCircleReactor
 		@onMouseMove = (e) ->
 			if buttonDown
 				mousePos.set e.offsetX, e.offsetY
-				circle.setRadius mousePos.distanceTo mousePosDown
+				circle.radius = mousePos.distanceTo mousePosDown
 				line.setPoint1 mousePos
 
 		@onMouseUp = =>

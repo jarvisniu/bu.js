@@ -2,32 +2,46 @@
 
 class Geom2D.Circle extends Geom2D.Object2D
 
-	constructor: (@cx = 0, @cy = 0, @radius = 1) ->
+	constructor: (cx = 0, cy = 0, @_radius = 1) ->
 		super()
 		@type = "Circle"
-		@center = new Geom2D.Point(@cx, @cy)
-		@bounds = new Geom2D.Bounds
+		@_center = new Geom2D.Point(cx, cy)
+		@bounds = null  # for accelerate contain test
 
-		@bounds.expandByCircle @
+	# property
 
-	# edit
-	setCenter: (p) ->
-		@center.copy p
-		@cx = p.x
-		@cy = p.y
-		return @
+	@property "cx",
+		get: ->  @_center.x
+		set: (val) ->
+			@_center.x = val
+			@triggerEvent("centerChanged", @)
 
-	setRadius: (r) ->
-		@radius = r
-		@bounds.clear()
-		@bounds.expandByCircle @
-		return @
+	@property "cy",
+		get: ->  @_center.y
+		set: (val) ->
+			@_center.y = val
+			@triggerEvent("centerChanged", @)
+
+	@property "center",
+		get: ->  @_center
+		set: (val) ->
+			@_center = val
+			@cx = val.x
+			@cy = val.y
+			@triggerEvent("centerChanged", @)
+
+	@property "radius",
+		get: ->  @_radius
+		set: (val) ->
+			@_radius = val
+			@triggerEvent("radiusChanged", @)
+			@
 
 	# point related
 	containsPoint: (p) ->
-		if @bounds.containsPoint p
+		if @bounds? and not @bounds.containsPoint p
+			return no
+		else
 			dx = p.x - @cx
 			dy = p.y - @cy
-			Math.bevel(dx, dy) < @radius
-		else
-			false
+			return Math.bevel(dx, dy) < @radius

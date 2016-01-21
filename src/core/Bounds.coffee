@@ -2,7 +2,8 @@
 
 class Geom2D.Bounds
 
-	constructor: () ->
+	constructor: (@target) ->
+		@type = "Bounds"
 		@x1 = @y1 = @x2 = @y2 = 0
 		@isEmpty = true
 
@@ -12,6 +13,18 @@ class Geom2D.Bounds
 		@strokeStyle = Geom2D.DEFAULT_BOUND_STROKE_STYLE
 		@dashStyle = Geom2D.DEFAULT_BOUND_DASH_STYLE
 		@dashDelta = 0
+
+		self = @
+
+		switch @target.type
+			when "Circle"
+				@expandByCircle(@target)
+				@target.on "centerChanged", ->
+					self.clear()
+					self.expandByCircle self.target
+				@target.on "radiusChanged", ->
+					self.clear()
+					self.expandByCircle self.target
 
 	containsPoint: (p) ->
 		@x1 < p.x && @x2 > p.x && @y1 < p.y && @y2 > p.y

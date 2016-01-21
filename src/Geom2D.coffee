@@ -25,6 +25,10 @@
 	# computation related
 	DEFAULT_NEAR_DIST: 5
 
+# polyfill
+
+Function::property = (prop, desc) ->
+	Object.defineProperty @prototype, prop, desc
 
 Geom2D.combineOptions = (args, defaultOptions) ->
 	options = defaultOptions or {}

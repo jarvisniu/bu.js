@@ -91,6 +91,7 @@ class Geom2D.Renderer
 				when "Polyline" then @drawPolyline(shape)
 				when "PointText" then @drawPointText(shape)
 				when "Image" then @drawImage(shape)
+				when "Bounds" then @drawBounds(shape)
 				else
 					console.log("drawShapes(): unknown shape: ", shape)
 
@@ -167,7 +168,6 @@ class Geom2D.Renderer
 			@context.lineWidth = shape.lineWidth
 			@context.stroke()
 		@drawPoint shape.center
-		@drawBounds shape.bounds
 
 
 	drawTriangle: (shape) ->
