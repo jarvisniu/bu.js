@@ -97,6 +97,8 @@ class Geom2D.Renderer
 
 
 	drawPoint: (shape) ->
+		@context.globalAlpha = shape.opacity
+
 		if shape.fillStyle?
 			@context.fillStyle = shape.fillStyle
 			@context.fillRect(
@@ -134,6 +136,8 @@ class Geom2D.Renderer
 
 
 	drawLine: (shape) ->
+		@context.globalAlpha = shape.opacity
+
 		if shape.strokeStyle?
 			@context.strokeStyle = shape.strokeStyle
 			@context.lineWidth = shape.lineWidth
@@ -154,6 +158,8 @@ class Geom2D.Renderer
 
 
 	drawCircle: (shape) ->
+		@context.globalAlpha = shape.opacity
+
 		@context.beginPath()
 		@context.arc(shape.cx, shape.cy, shape.radius, 0, Math.PI * 2)
 		@context.closePath()
@@ -171,6 +177,8 @@ class Geom2D.Renderer
 
 
 	drawTriangle: (shape) ->
+		@context.globalAlpha = shape.opacity
+
 		@context.beginPath()
 		@context.lineTo(shape.points[0].x, shape.points[0].y)
 		@context.lineTo(shape.points[1].x, shape.points[1].y)
@@ -195,6 +203,8 @@ class Geom2D.Renderer
 
 
 	drawRectangle: (shape) ->
+		@context.globalAlpha = shape.opacity
+
 		if shape.fillStyle?
 			@context.fillStyle = shape.fillStyle
 			@context.fillRect(
@@ -228,6 +238,8 @@ class Geom2D.Renderer
 
 
 	drawFan: (shape) ->
+		@context.globalAlpha = shape.opacity
+
 		@context.beginPath()
 		@context.arc(shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo)
 		@context.lineTo(shape.cx, shape.cy)
@@ -247,6 +259,8 @@ class Geom2D.Renderer
 
 
 	drawBow: (shape) ->
+		@context.globalAlpha = shape.opacity
+
 		@context.beginPath()
 		@context.arc(shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo)
 		@context.closePath()
@@ -265,6 +279,8 @@ class Geom2D.Renderer
 
 
 	drawPolygon: (shape) ->
+		@context.globalAlpha = shape.opacity
+
 		@context.beginPath()
 		for point in shape.points
 			@context.lineTo(point.x, point.y)
@@ -291,6 +307,7 @@ class Geom2D.Renderer
 
 	drawPolyline: (shape) ->
 		if shape.strokeStyle?
+			@context.globalAlpha = shape.opacity
 			@context.strokeStyle = shape.strokeStyle
 			@context.lineWidth = shape.lineWidth
 			@context.beginPath()
@@ -306,6 +323,7 @@ class Geom2D.Renderer
 
 
 	drawPointText: (shape) ->
+		@context.globalAlpha = shape.opacity
 		@context.textAlign = shape.textAlign
 		@context.textBaseline = shape.textBaseline
 		@context.font = shape.font
@@ -321,6 +339,7 @@ class Geom2D.Renderer
 	drawImage: (shape) ->
 		if shape.loaded
 			@context.save()
+			@context.globalAlpha = shape.opacity
 			w = shape.size.width * shape.scale.x
 			h = shape.size.height * shape.scale.y
 			dx = -w * shape.pivot.x

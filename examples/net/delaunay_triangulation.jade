@@ -92,6 +92,7 @@ html(lang="en")
             lineTryKillOthers(lines[i], lines);
         }
         for (var i = 0; i < lines.length; i++) {
+          lines[i].strokeStyle = "#808";
           renderer.append(lines[i]);
         }
       }
@@ -127,10 +128,10 @@ html(lang="en")
       }
 
 body
-  div Delaunay Triangulation
   div
     button#btnRandom Random
     button#btnAll All
     button#btnNoCross No Cross
     button#btnDelaunay Delaunay
+  div Delaunay Triangulation
   div#container
