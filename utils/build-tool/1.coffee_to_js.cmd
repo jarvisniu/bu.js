@@ -1,1 +1,1 @@
-coffee -cb ../../src/
+coffee -bcm ../../src/

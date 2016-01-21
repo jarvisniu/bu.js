@@ -12,7 +12,7 @@ class Geom2D.MovePointReactor
 
 		hoveredPoint = null
 
-		# create new circles every time
+		# record the delta
 		@onMouseDown = (e) ->
 			mousePosDown.set e.offsetX, e.offsetY
 
@@ -23,14 +23,14 @@ class Geom2D.MovePointReactor
 				)
 			buttonDown = true
 
-		# change radius
+		# change x, y
 		@onMouseMove = (e) ->
 			mousePos.set e.offsetX, e.offsetY
 			if buttonDown
 				hoveredPoint.set(
 					mousePos.x - mousePosDownDelta.x
 					mousePos.y - mousePosDownDelta.y
-				)
+				) if hoveredPoint?
 			else
 				if hoveredPoint?
 				    if not hoveredPoint.isNear(mousePos)
