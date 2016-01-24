@@ -1,1 +1,0 @@
-java -jar compiler/compiler.jar --js ../../build/geom2d.js --js_output_file ../../build/geom2d.min.js
