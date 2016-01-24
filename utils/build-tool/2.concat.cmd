@@ -1,2 +1,1 @@
-cd concat-tool
-python concat-tool.py
+coffee concat-tool\concat-tool.coffee
