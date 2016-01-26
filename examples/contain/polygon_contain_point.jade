@@ -4,17 +4,17 @@ html
     meta(charset="utf-8")
     title Polygon Contains Point
     script(src="../../lib/za_geom2d.min.js")
-    script(src="../../src/Geom2D.dev.js")
+    script(src="../../src/Bu.dev.js")
     script(type="text/javascript").
 
       var renderer;
       var polygon;
-      var mousePos = new Geom2D.Point();
+      var mousePos = new Bu.Point();
 
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer({
+        renderer = new Bu.Renderer({
           container: "#container"
         });
         polygon = createPolygon();
@@ -31,11 +31,11 @@ html
           var x = Math.random() * renderer.width;
           var y = Math.random() * renderer.height;
 
-          var _point = new Geom2D.Point(x, y);
+          var _point = new Bu.Point(x, y);
           _point.label = "P" + i;
           points.push(_point);
         }
-        return new Geom2D.Polygon(points);
+        return new Bu.Polygon(points);
       }
 
       function onMouseMove(e) {
@@ -43,7 +43,7 @@ html
         mousePos.y = e.offsetY;
 
         if (polygon.containsPoint(mousePos))
-          polygon.fillStyle = Geom2D.DEFAULT_FILL_STYLE_HOVER;
+          polygon.fillStyle = Bu.DEFAULT_FILL_STYLE_HOVER;
         else
           polygon.fill();
       }

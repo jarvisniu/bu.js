@@ -4,7 +4,7 @@ html(lang="en")
     title Morph
     meta(charset="utf-8")
     script(src="../../lib/za_geom2d.min.js")
-    script(src="../../src/Geom2D.dev.js")
+    script(src="../../src/Bu.dev.js")
     script(type="text/javascript").
 
       var renderer;
@@ -15,22 +15,22 @@ html(lang="en")
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer({
+        renderer = new Bu.Renderer({
           container: "#container"
         });
         renderer.dom.addEventListener("mousedown", onMouseDown);
 
-        polylineA = new Geom2D.Polyline();
-        polylineA.addPoint(new Geom2D.Point(100, 300));
-        polylineA.addPoint(new Geom2D.Point(250, 100));
-        polylineA.addPoint(new Geom2D.Point(400, 300));
+        polylineA = new Bu.Polyline();
+        polylineA.addPoint(new Bu.Point(100, 300));
+        polylineA.addPoint(new Bu.Point(250, 100));
+        polylineA.addPoint(new Bu.Point(400, 300));
 
-        polylineB = new Geom2D.Polyline();
+        polylineB = new Bu.Polyline();
         polylineB.strokeStyle = "red";
-        polylineB.addPoint(new Geom2D.Point(100, 400));
-        polylineB.addPoint(new Geom2D.Point(400, 400));
+        polylineB.addPoint(new Bu.Point(100, 400));
+        polylineB.addPoint(new Bu.Point(400, 400));
 
-        polylineMorph = new Geom2D.PolylineMorph(polylineA, polylineB);
+        polylineMorph = new Bu.PolylineMorph(polylineA, polylineB);
         polylineMorph.polyline.strokeStyle = "purple";
 
         renderer.append(polylineA);
@@ -42,9 +42,9 @@ html(lang="en")
 
       function onMouseDown(e) {
         if (e.button == 0) {
-          polylineA.addPoint(new Geom2D.Point(e.offsetX, e.offsetY));
+          polylineA.addPoint(new Bu.Point(e.offsetX, e.offsetY));
         } else {
-          polylineB.addPoint(new Geom2D.Point(e.offsetX, e.offsetY));
+          polylineB.addPoint(new Bu.Point(e.offsetX, e.offsetY));
         }
         polylineMorph.update();
       }

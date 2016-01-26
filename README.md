@@ -1,7 +1,7 @@
-Geom2D
-======
+Bu.js
+=====
 
-a javascript 2D geometry library 一个JavaScript的2D库
+a javascript 2D library 一个JavaScript的2D库
 
 
 ## Content 内容

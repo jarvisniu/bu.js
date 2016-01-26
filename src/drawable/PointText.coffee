@@ -1,6 +1,6 @@
 # draw text by a point
 
-class Geom2D.PointText extends Geom2D.Object2D
+class Bu.PointText extends Bu.Object2D
 
 	###
 	options.align:
@@ -17,7 +17,7 @@ class Geom2D.PointText extends Geom2D.Object2D
 		super()
 		@type = "PointText"
 		@strokeStyle = null # no stroke by default
-		@fillStyle = Geom2D.DEFAULT_TEXT_FILL_STYLE
+		@fillStyle = Bu.DEFAULT_TEXT_FILL_STYLE
 
 		@align = "00"
 		@fontFamily = "SimSun"

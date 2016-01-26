@@ -1,6 +1,6 @@
 # the size of rectangle, Bounds etc.
 
-class Geom2D.Size
+class Bu.Size
 	constructor: (@width, @height) ->
 		@type = "Size"
 

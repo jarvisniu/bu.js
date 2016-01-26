@@ -4,18 +4,18 @@ html(lang="en")
     meta(charset="utf-8")
     title Draw Circle Reactor
     script(src="../../lib/za_geom2d.min.js")
-    script(src="../../src/Geom2D.dev.js")
+    script(src="../../src/Bu.dev.js")
     script(type='text/javascript').
       var renderer;
       var drawCircleReactor;
 
       function init() {
 
-        renderer = new Geom2D.Renderer({
+        renderer = new Bu.Renderer({
           container: "#container"
         });
 
-        drawCircleReactor = new Geom2D.DrawCircleReactor(renderer);
+        drawCircleReactor = new Bu.DrawCircleReactor(renderer);
         drawCircleReactor.enable();
       }
 

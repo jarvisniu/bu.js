@@ -1,14 +1,14 @@
 # move a point by dragging it
 
-class Geom2D.MovePointReactor
+class Bu.MovePointReactor
 
 	constructor: (@renderer) ->
 		@enabled = false
 
 		buttonDown = false
-		mousePos = new Geom2D.Point()
-		mousePosDown = new Geom2D.Point()
-		mousePosDownDelta = new Geom2D.Point()
+		mousePos = new Bu.Point()
+		mousePosDown = new Bu.Point()
+		mousePosDownDelta = new Bu.Point()
 
 		hoveredPoint = null
 

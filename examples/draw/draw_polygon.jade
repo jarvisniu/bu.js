@@ -4,23 +4,23 @@ html(lang="en")
     meta(charset="utf-8")
     title Draw Polygon
     script(src="../../lib/za_geom2d.min.js")
-    script(src="../../src/Geom2D.dev.js")
+    script(src="../../src/Bu.dev.js")
     script(type="text/javascript").
 
       var renderer;
       var polygon;
-      var mousePos = new Geom2D.Point();
+      var mousePos = new Bu.Point();
 
       $.ready(init);
 
       function init() {
         // renderer
-        renderer = new Geom2D.Renderer({
+        renderer = new Bu.Renderer({
           container: "#container"
         });
         // polygon
         var points = [];
-        polygon = new Geom2D.Polygon(points);
+        polygon = new Bu.Polygon(points);
         renderer.append(polygon);
         // events
         renderer.dom.addEventListener("mousemove", onMouseMove);
@@ -31,14 +31,14 @@ html(lang="en")
           var y = Math.rand(renderer.height);
           var n = $("#txtN")[0].value;
           var r = $("#txtRadius")[0].value;
-          renderer.append(new Geom2D.Polygon(x, y, n, {radius: r}));
+          renderer.append(new Bu.Polygon(x, y, n, {radius: r}));
         });
       }
 
       function onMouseMove(e) {
         mousePos.set(e.offsetX, e.offsetY);
         if (polygon.containsPoint(mousePos))
-          polygon.fillStyle = Geom2D.DEFAULT_FILL_STYLE_HOVER;
+          polygon.fillStyle = Bu.DEFAULT_FILL_STYLE_HOVER;
         else
           polygon.fill();
       }

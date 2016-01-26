@@ -1,16 +1,16 @@
 # triangle shape
 
-class Geom2D.Triangle extends Geom2D.Object2D
+class Bu.Triangle extends Bu.Object2D
 
 	constructor: (p1, p2, p3) ->
 		super()
 		@type = "Triangle"
 		@lines = [
-			new Geom2D.Line(p1, p2)
-			new Geom2D.Line(p2, p3)
-			new Geom2D.Line(p3, p1)
+			new Bu.Line(p1, p2)
+			new Bu.Line(p2, p3)
+			new Bu.Line(p3, p1)
 		]
-		@center = new Geom2D.Point(Geom2D.average(p1.x, p2.x, p3.x), Geom2D.average(p1.y, p2.y, p3.y))
+		@center = new Bu.Point(Bu.average(p1.x, p2.x, p3.x), Bu.average(p1.y, p2.y, p3.y))
 		@points = [p1, p2, p3]
 
 	# TODO test

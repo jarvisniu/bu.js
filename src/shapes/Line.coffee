@@ -1,19 +1,19 @@
 # line shape
 
-class Geom2D.Line extends Geom2D.Object2D
+class Bu.Line extends Bu.Object2D
 
 	constructor: (p1, p2, p3, p4) ->
 		super()
 		@type = "Line"
 
 		if arguments.length < 2
-			@points = [new Geom2D.Point(), new Geom2D.Point()]
+			@points = [new Bu.Point(), new Bu.Point()]
 		else if arguments.length < 4
 			@points = [p1.clone(), p2.clone()]
 		else  # len >= 4
-			@points = [new Geom2D.Point(p1, p2), new Geom2D.Point(p3, p4)]
+			@points = [new Bu.Point(p1, p2), new Bu.Point(p3, p4)]
 
-		@midpoint = new Geom2D.Point()
+		@midpoint = new Bu.Point()
 		@onPointChange()
 
 	onPointChange: =>
@@ -92,7 +92,7 @@ class Geom2D.Line extends Geom2D.Object2D
 		if footPoint?
 			footPoint.set(x, y)
 		else
-			return new Geom2D.Point(x, y)
+			return new Bu.Point(x, y)
 
 	# line related
 
@@ -112,7 +112,7 @@ class Geom2D.Line extends Geom2D.Object2D
 
 		console.log a1, b1, c1, a2, b2, c2, det
 
-		return new Geom2D.Point ((b2 * c1) - (b1 * c2)) / det, ((a1 * c2) - (a2 * c1)) / det
+		return new Bu.Point ((b2 * c1) - (b1 * c2)) / det, ((a1 * c2) - (a2 * c1)) / det
 
 	# whether cross with another line
 	isCrossWithLine: (line) ->

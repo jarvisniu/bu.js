@@ -1,5 +1,5 @@
 # 2d vector
 
-class Geom2D.Vector
+class Bu.Vector
 
 	constructor: (@x, @y) ->

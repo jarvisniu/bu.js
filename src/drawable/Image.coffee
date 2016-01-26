@@ -1,6 +1,6 @@
 # draw bitmap
 
-class Geom2D.Image extends Geom2D.Object2D
+class Bu.Image extends Bu.Object2D
 
 	constructor: (@url, x, y, width, height) ->
 		super()
@@ -8,14 +8,14 @@ class Geom2D.Image extends Geom2D.Object2D
 		@type = "Image"
 
 		@autoSize = yes
-		@size = new Geom2D.Size Geom2D.DEFAULT_IMAGE_SIZE, Geom2D.DEFAULT_IMAGE_SIZE
-		@position = new Geom2D.Vector x, y
-		@center = new Geom2D.Vector x + width / 2, y + height / 2
+		@size = new Bu.Size Bu.DEFAULT_IMAGE_SIZE, Bu.DEFAULT_IMAGE_SIZE
+		@position = new Bu.Vector x, y
+		@center = new Bu.Vector x + width / 2, y + height / 2
 		if width?
 			@size.set width, height
 			@autoSize = no
 
-		@pivot = new Geom2D.Vector 0.5, 0.5
+		@pivot = new Bu.Vector 0.5, 0.5
 
 		@image = new window.Image
 		@loaded = false

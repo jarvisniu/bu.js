@@ -1,6 +1,6 @@
 # canvas renderer
 
-class Geom2D.Renderer
+class Bu.Renderer
 
 	POINT_SIZE = 4
 
@@ -10,7 +10,7 @@ class Geom2D.Renderer
 		@type = "Renderer"
 		_self = @
 
-		options = Geom2D.combineOptions(arguments, {
+		options = Bu.combineOptions(arguments, {
 			width: 800
 			height: 600
 			fps: 60
@@ -366,7 +366,7 @@ class Geom2D.Renderer
 	CP = window.CanvasRenderingContext2D and CanvasRenderingContext2D.prototype
 	if CP.lineTo?
 		CP.dashedLine = (x, y, x2, y2, da, delta) ->
-			da = Geom2D.DEFAULT_DASH_STYLE if not da?
+			da = Bu.DEFAULT_DASH_STYLE if not da?
 			delta = 0 if not delta?
 			@save()
 			dx = x2 - x

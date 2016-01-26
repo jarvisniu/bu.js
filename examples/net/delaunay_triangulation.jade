@@ -5,7 +5,7 @@ html(lang="en")
     title Delaunay Triangulation
     script(src="../../lib/za_geom2d.min.js")
     script(src="../../lib/ClipMeter.min.js")
-    script(src="../../src/Geom2D.dev.js")
+    script(src="../../src/Bu.dev.js")
     script(type="text/javascript").
 
       var POINT_COUNT = 64;
@@ -18,7 +18,7 @@ html(lang="en")
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer({
+        renderer = new Bu.Renderer({
           container: "#container"
         });
         generatePoints();
@@ -32,7 +32,7 @@ html(lang="en")
         for (var i = 0; i < POINT_COUNT; i++) {
           var x = Math.rand(20, renderer.width - 40);
           var y = Math.rand(20, renderer.height - 40);
-          points[i] = new Geom2D.Point(x, y);
+          points[i] = new Bu.Point(x, y);
           points[i].label = i;
           renderer.append(points[i]);
         }
@@ -44,7 +44,7 @@ html(lang="en")
         for (var i = 0; i < LINE_COUNT; i++) {
           var p1 = points[Math.floor(Math.rand(POINT_COUNT))];
           var p2 = points[Math.floor(Math.rand(POINT_COUNT))];
-          var line = new Geom2D.Line(p1, p2);
+          var line = new Bu.Line(p1, p2);
           line.strokeStyle = "#08f";
           lines.push(line);
           renderer.append(line);
@@ -55,7 +55,7 @@ html(lang="en")
         lines.clear();
         for (var i = 0; i < POINT_COUNT; i++) {
           for (var j = i + 1; j < POINT_COUNT; j++) {
-            var line = new Geom2D.Line(points[i], points[j]);
+            var line = new Bu.Line(points[i], points[j]);
             line.strokeStyle = "rgba(0, 0, 0, 0.1)";
             lines.push(line);
             renderer.append(line);
@@ -67,7 +67,7 @@ html(lang="en")
         lines.clear();
         for (var i = 0; i < POINT_COUNT; i++) {
           for (var j = i + 1; j < POINT_COUNT; j++) {
-            var line = new Geom2D.Line(points[i], points[j]);
+            var line = new Bu.Line(points[i], points[j]);
             line.strokeStyle = "orange";
             if (!isLineCrossWithAny(line, lines)) {
               lines.push(line);
@@ -84,7 +84,7 @@ html(lang="en")
         lines.clear();
         for (var i = 0; i < POINT_COUNT; i++) {
           for (var j = i + 1; j < POINT_COUNT; j++) {
-            lines.push(new Geom2D.Line(points[i], points[j]));
+            lines.push(new Bu.Line(points[i], points[j]));
           }
         }
         for (var i = 0; i < lines.length; i++) {

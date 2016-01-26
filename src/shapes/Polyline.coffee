@@ -1,6 +1,6 @@
 # polyline shape
 
-class Geom2D.Polyline extends Geom2D.Object2D
+class Bu.Polyline extends Bu.Object2D
 
 	constructor: (@points = []) ->
 		super()
@@ -21,7 +21,7 @@ class Geom2D.Polyline extends Geom2D.Object2D
 			if @lines[i]?
 				@lines[i].set(@points[i], @points[i + 1])
 			else
-				@lines[i] = new Geom2D.Line( @points[i], @points[i + 1] )
+				@lines[i] = new Bu.Line( @points[i], @points[i + 1] )
 		# TODO remove the rest
 
 	calcLength: =>
@@ -65,7 +65,7 @@ class Geom2D.Polyline extends Geom2D.Object2D
 			@points.push point
 			# add line
 			if @points.length > 1
-				@lines.push(new Geom2D.Line( @points[@points.length - 2], @points[@points.length - 1] ))
+				@lines.push(new Bu.Line( @points[@points.length - 2], @points[@points.length - 1] ))
 		else
 			@points.splice insertIndex, 0, point
 		# TODO add lines

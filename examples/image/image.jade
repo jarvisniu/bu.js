@@ -4,7 +4,7 @@ html(lang="en")
     title Morph
     meta(charset="utf-8")
     script(src="../../lib/za_geom2d.min.js")
-    script(src="../../src/Geom2D.dev.js")
+    script(src="../../src/Bu.dev.js")
     script(type="text/javascript").
 
       var renderer;
@@ -15,11 +15,11 @@ html(lang="en")
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer({
+        renderer = new Bu.Renderer({
           container: "#container"
         });
 
-        image = new Geom2D.Image(imageUrl, 300, 200);
+        image = new Bu.Image(imageUrl, 300, 200);
         image.rotation = Math.PI / 6;
         image.scale.x = image.scale.y = 2;
         renderer.append(image);

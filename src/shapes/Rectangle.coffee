@@ -1,18 +1,18 @@
 # rectangle shape
 
-class Geom2D.Rectangle extends Geom2D.Object2D
+class Bu.Rectangle extends Bu.Object2D
 
 	constructor: (x, y, width, height) ->
 		super()
 		@type = "Rectangle"
 
-		@position = new Geom2D.Point(x, y)
-		@center = new Geom2D.Point(x + width / 2, y + height / 2)
-		@size = new Geom2D.Size(width, height)
+		@position = new Bu.Point(x, y)
+		@center = new Bu.Point(x + width / 2, y + height / 2)
+		@size = new Bu.Size(width, height)
 
-		@pointRT = new Geom2D.Point(x + width, y)
-		@pointRB = new Geom2D.Point(x + width, y + height)
-		@pointLB = new Geom2D.Point(x, y + height)
+		@pointRT = new Bu.Point(x + width, y)
+		@pointRB = new Bu.Point(x + width, y + height)
+		@pointLB = new Bu.Point(x, y + height)
 
 		@points = [@position, @pointRT, @pointRB, @pointLB]
 

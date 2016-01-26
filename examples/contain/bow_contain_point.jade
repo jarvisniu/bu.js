@@ -4,17 +4,17 @@ html
     meta(charset="utf-8")
     title Bow Contains Point
     script(src="../../lib/za_geom2d.min.js")
-    script(src="../../src/Geom2D.dev.js")
+    script(src="../../src/Bu.dev.js")
     script(type="text/javascript").
 
       var renderer;
       var bow;
-      var mousePos = new Geom2D.Point();
+      var mousePos = new Bu.Point();
 
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer({
+        renderer = new Bu.Renderer({
           container: "#container"
         });
         bow = generateBow();
@@ -29,7 +29,7 @@ html
         mousePos.y = e.offsetY;
 
         if (bow.containsPoint(mousePos))
-          bow.fillStyle = Geom2D.DEFAULT_FILL_STYLE_HOVER;
+          bow.fillStyle = Bu.DEFAULT_FILL_STYLE_HOVER;
         else
           bow.fill();
       }
@@ -45,7 +45,7 @@ html
         var aFrom = Math.random() * Math.PI * 2;
         var aTo = aFrom + Math.random() * Math.PI + Math.PI / 2;
 
-        var bow = new Geom2D.Bow(cx, cy, r, aFrom, aTo);
+        var bow = new Bu.Bow(cx, cy, r, aFrom, aTo);
         bow.string.points[0].label = "A";
         bow.string.points[1].label = "B";
         return bow;

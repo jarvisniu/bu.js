@@ -4,23 +4,23 @@ html(lang="en")
     meta(charset="utf-8")
     title Draw Polyline
     script(src="../../lib/za_geom2d.min.js")
-    script(src="../../src/Geom2D.dev.js")
+    script(src="../../src/Bu.dev.js")
     script(type="text/javascript").
 
       var renderer;
       var polyline;
-      var mousePos = new Geom2D.Point();
+      var mousePos = new Bu.Point();
 
       $.ready(init);
 
       function init() {
         // renderer
-        renderer = new Geom2D.Renderer({
+        renderer = new Bu.Renderer({
           container: "#container"
         });
         // polyline
         var points = [];
-        polyline = new Geom2D.Polyline(points);
+        polyline = new Bu.Polyline(points);
         renderer.append(polyline);
         // bind events
         renderer.dom.addEventListener("mousemove", onMouseMove);

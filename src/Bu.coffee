@@ -1,6 +1,6 @@
 # namespace and constants
 
-@Geom2D =
+@Bu =
 	version: "0.0.1"
 
 	###
@@ -33,7 +33,7 @@
 Function::property = (prop, desc) ->
 	Object.defineProperty @prototype, prop, desc
 
-Geom2D.combineOptions = (args, defaultOptions) ->
+Bu.combineOptions = (args, defaultOptions) ->
 	options = defaultOptions or {}
 	lastArg = args[args.length - 1]
 	if typeof lastArg is "object"
@@ -44,7 +44,7 @@ Geom2D.combineOptions = (args, defaultOptions) ->
 
 # calculate the average number of several numbers
 # you can pass several numbers or a Array of numbers
-Geom2D.average = ()->
+Bu.average = ()->
 	ns = arguments
 	ns = arguments[0] if typeof arguments[0] is "object"
 	sum = 0

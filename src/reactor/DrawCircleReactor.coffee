@@ -1,13 +1,13 @@
 # Draw circle by dragging out a radius
 
-class Geom2D.DrawCircleReactor
+class Bu.DrawCircleReactor
 
 	constructor: (@renderer) ->
 		@enabled = false
 		self = @
 
-		mousePosDown = new Geom2D.Point()
-		mousePos = new Geom2D.Point()
+		mousePosDown = new Bu.Point()
+		mousePos = new Bu.Point()
 		buttonDown = false
 
 		circle = null
@@ -17,10 +17,10 @@ class Geom2D.DrawCircleReactor
 		@onMouseDown = (e) ->
 			mousePosDown.set e.offsetX, e.offsetY
 
-			circle = new Geom2D.Circle mousePosDown.x, mousePosDown.y, 1
+			circle = new Bu.Circle mousePosDown.x, mousePosDown.y, 1
 			self.renderer.append circle
 
-			line = new Geom2D.Line mousePosDown, mousePosDown
+			line = new Bu.Line mousePosDown, mousePosDown
 			line.stroke "#f44"
 			self.renderer.append line
 

@@ -1,11 +1,11 @@
 # Circle shape
 
-class Geom2D.Circle extends Geom2D.Object2D
+class Bu.Circle extends Bu.Object2D
 
 	constructor: (cx = 0, cy = 0, @_radius = 1) ->
 		super()
 		@type = "Circle"
-		@_center = new Geom2D.Point(cx, cy)
+		@_center = new Bu.Point(cx, cy)
 		@bounds = null  # for accelerate contain test
 
 	# property

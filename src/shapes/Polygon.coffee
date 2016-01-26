@@ -1,6 +1,6 @@
 # polygon shape
 
-class Geom2D.Polygon extends Geom2D.Object2D
+class Bu.Polygon extends Bu.Object2D
 
 	###
     constructors
@@ -15,7 +15,7 @@ class Geom2D.Polygon extends Geom2D.Object2D
 		@lines = []
 		@triangles = []
 
-		options = Geom2D.combineOptions arguments, {
+		options = Bu.combineOptions arguments, {
 			radius: 100
 			angle: 0
 		}
@@ -26,18 +26,18 @@ class Geom2D.Polygon extends Geom2D.Object2D
 			x = arguments[0]
 			y = arguments[1]
 			n = arguments[2]
-			@points = Geom2D.Polygon.generateRegularPoints(x, y, n, options)
+			@points = Bu.Polygon.generateRegularPoints(x, y, n, options)
 
 		# init lines
 		if @points.length > 1
 			for i in [0 ... @points.length - 1]
-				@lines.push(new Geom2D.Line(@points[i], @points[i + 1]))
-			@lines.push(new Geom2D.Line(@points[@points.length - 1], @points[0]))
+				@lines.push(new Bu.Line(@points[i], @points[i + 1]))
+			@lines.push(new Bu.Line(@points[@points.length - 1], @points[0]))
 
 		# init triangles
 		if @points.length > 2
 			for i in [1 ... @points.length - 1]
-				@triangles.push(new Geom2D.Triangle(@points[0], @points[i], @points[i + 1]))
+				@triangles.push(new Bu.Triangle(@points[0], @points[i], @points[i + 1]))
 
 	# detect
 
@@ -60,11 +60,11 @@ class Geom2D.Polygon extends Geom2D.Object2D
 			if @points.length > 1
 				@lines[@lines.length - 1].points[1] = point
 			if @points.length > 0
-				@lines.push(new Geom2D.Line(@points[@points.length - 1], @points[0]))
+				@lines.push(new Bu.Line(@points[@points.length - 1], @points[0]))
 
 			# add triangle
 			if @points.length > 2
-				@triangles.push(new Geom2D.Triangle(
+				@triangles.push(new Bu.Triangle(
 						@points[0]
 						@points[@points.length - 2]
 						@points[@points.length - 1]
@@ -90,5 +90,5 @@ class Geom2D.Polygon extends Geom2D.Object2D
 			a = i * angleSection + angleDelta
 			x = cx + r * Math.cos(a)
 			y = cy + r * Math.sin(a)
-			points[i] = new Geom2D.Point x, y
+			points[i] = new Bu.Point x, y
 		return points

@@ -1,5 +1,5 @@
 # Bow shape
-class Geom2D.Bow extends Geom2D.Object2D
+class Bu.Bow extends Bu.Object2D
 
 	constructor: (@cx, @cy, @radius, @aFrom, @aTo) ->
 		super()
@@ -7,8 +7,8 @@ class Geom2D.Bow extends Geom2D.Object2D
 
 		@type = "Bow"
 
-		@center = new Geom2D.Point(@cx, @cy)
-		@string = new Geom2D.Line(
+		@center = new Bu.Point(@cx, @cy)
+		@string = new Bu.Line(
 				@center.arcTo(@radius, @aFrom)
 				@center.arcTo(@radius, @aTo)
 		)

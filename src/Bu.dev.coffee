@@ -1,6 +1,6 @@
 (=>
 	libs = [
-		"Geom2D",
+		"Bu",
 
 		"math/Vector",
 

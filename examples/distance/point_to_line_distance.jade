@@ -4,22 +4,22 @@ html
     meta(charset="utf-8")
     title Distance from point to line
     script(src="../../lib/za_geom2d.min.js")
-    script(src="../../src/Geom2D.dev.js")
+    script(src="../../src/Bu.dev.js")
     script(type="text/javascript").
 
       var renderer;
       var line, lineVertical;
-      var mousePos = new Geom2D.Point();
+      var mousePos = new Bu.Point();
 
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer({
+        renderer = new Bu.Renderer({
           container: "#container"
         });
         line = createLine();
         renderer.append(line);
-        lineVertical = new Geom2D.Line();
+        lineVertical = new Bu.Line();
         lineVertical.dash();
         lineVertical.points[1].label = "T";
         renderer.append(lineVertical);
@@ -32,7 +32,7 @@ html
         var y1 = Math.random() * renderer.height;
         var x2 = Math.random() * renderer.width;
         var y2 = Math.random() * renderer.height;
-        var _line = new Geom2D.Line(x1, y1, x2, y2);
+        var _line = new Bu.Line(x1, y1, x2, y2);
         _line.points[0].label = "A";
         _line.points[1].label = "B";
         return _line;

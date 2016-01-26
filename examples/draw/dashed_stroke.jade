@@ -4,7 +4,7 @@ html(lang="en")
     meta(charset="utf-8")
     title Dashed Stroke
     script(src="../../lib/za_geom2d.min.js")
-    script(src="../../src/Geom2D.dev.js")
+    script(src="../../src/Bu.dev.js")
     script(type="text/javascript").
 
       var renderer;
@@ -14,12 +14,12 @@ html(lang="en")
       $.ready(init);
 
       function init() {
-        renderer = new Geom2D.Renderer({
+        renderer = new Bu.Renderer({
           container: "#container"
         });
 
         // init line
-        line = new Geom2D.Line(
+        line = new Bu.Line(
                 Math.rand(renderer.width),
                 Math.rand(renderer.height),
                 Math.rand(renderer.width),
@@ -29,16 +29,16 @@ html(lang="en")
         renderer.append(line);
 
         // init triangle
-        triangle = new Geom2D.Triangle(
-                new Geom2D.Point(Math.rand(renderer.width), Math.rand(renderer.height)),
-                new Geom2D.Point(Math.rand(renderer.width), Math.rand(renderer.height)),
-                new Geom2D.Point(Math.rand(renderer.width), Math.rand(renderer.height))
+        triangle = new Bu.Triangle(
+                new Bu.Point(Math.rand(renderer.width), Math.rand(renderer.height)),
+                new Bu.Point(Math.rand(renderer.width), Math.rand(renderer.height)),
+                new Bu.Point(Math.rand(renderer.width), Math.rand(renderer.height))
         );
         triangle.dash(4);
         renderer.append(triangle);
 
         // init rectangle
-        rectangle = new Geom2D.Rectangle(
+        rectangle = new Bu.Rectangle(
                 Math.rand(renderer.width),
                 Math.rand(renderer.height),
                 Math.rand(renderer.width / 2),
@@ -48,9 +48,9 @@ html(lang="en")
         renderer.append(rectangle);
 
         // init polygon
-        polygon = new Geom2D.Polygon();
+        polygon = new Bu.Polygon();
         for (var i = 0; i < 5; i++) {
-          polygon.addPoint(new Geom2D.Point(
+          polygon.addPoint(new Bu.Point(
                   Math.rand(renderer.width),
                   Math.rand(renderer.height)
           ));
@@ -60,9 +60,9 @@ html(lang="en")
         renderer.append(polygon);
 
         // init polyline
-        polyline = new Geom2D.Polyline();
+        polyline = new Bu.Polyline();
         for (i = 0; i < 3; i++) {
-          polyline.addPoint(new Geom2D.Point(
+          polyline.addPoint(new Bu.Point(
                   Math.rand(renderer.width),
                   Math.rand(renderer.height)
           ));
