@@ -8,8 +8,7 @@ html(lang="en")
     script(type="text/javascript").
 
       var renderer;
-      var polygon;
-      var mousePos = new Bu.Point();
+      var drawPolygonReactor;
 
       $.ready(init);
 
@@ -18,15 +17,10 @@ html(lang="en")
         renderer = new Bu.Renderer({
           container: "#container"
         });
-        // polygon
-        var points = [];
-        polygon = new Bu.Polygon(points);
-        renderer.append(polygon);
-        // events
-        renderer.dom.addEventListener("mousemove", onMouseMove);
-        renderer.dom.addEventListener("mousedown", onMouseDown);
+        drawPolygonReactor = new Bu.DrawPolygonReactor(renderer);
+        drawPolygonReactor.enable();
+
         $("#btnAdd").on("click", function () {
-          console.log("123");
           var x = Math.rand(renderer.width);
           var y = Math.rand(renderer.height);
           var n = $("#txtN")[0].value;
@@ -35,20 +29,8 @@ html(lang="en")
         });
       }
 
-      function onMouseMove(e) {
-        mousePos.set(e.offsetX, e.offsetY);
-        if (polygon.containsPoint(mousePos))
-          polygon.fillStyle = Bu.DEFAULT_FILL_STYLE_HOVER;
-        else
-          polygon.fill();
-      }
-
-      function onMouseDown(e) {
-        polygon.addPoint(mousePos.clone());
-      }
-
   body
-    div Click to add point to the default polygon.
+    div Left click to add point to the default polygon, right click to finish the current one.
     div(style="margin: 8px 0;")
       | Or add regular polygon whose
       label

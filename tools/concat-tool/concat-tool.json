@@ -33,6 +33,8 @@
 			"reactor/DrawPointReactor",
 			"reactor/DrawCircleReactor",
 			"reactor/DrawCircleDiameterReactor",
+			"reactor/DrawPolylineReactor",
+			"reactor/DrawPolygonReactor",
 
 			"renderer/Renderer"
 		]
