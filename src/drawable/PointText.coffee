@@ -4,14 +4,14 @@ class Bu.PointText extends Bu.Object2D
 
 	###
 	options.align:
-    ----------------------
+	----------------------
 	|   --    0-    +-   |
 	|         |↙00      |
 	|   -0  --+->   +0   |
 	|         ↓          |
 	|   -+    0+    ++   |
-    ----------------------
-    for example: text is in the right top of the point, then align="+-"
+	----------------------
+	for example: text is in the right top of the point, then align="+-"
 	###
 	constructor: (@text, @x, @y, options) ->
 		super()

@@ -1,20 +1,22 @@
 Bu.js
 =====
 
-a javascript 2D library 一个JavaScript的2D库
+a javascript 2D library
 
 
-## Content 内容
+## Content
 
-- shape represent 形状表示
-- graphic render 图形渲染
-- geometry computation 几何计算
-- draw by mouse 鼠标绘制
-- morph 变形
+- shape representation
+- graphic rendering
+- geometry computation
+- draw shapes by mouse
+- morph
 
-## Code Layout 代码组织结构
 
-`shapes/` represent shapes like circle, triangle 表示圆、三角形等各种形状  
-`renderer/` render the shapes to the screen 把形状渲染到屏幕上  
-`morph/` shape morph 形状变形  
-`reactor/` deal with the mouse logic 处理鼠标逻辑  
+## Code Layout
+
+- `shapes/` shape representation and geometry computation algorithm
+- `drawable` other thing like Image, Text etc. that can be drew on the screen except shapes
+- `renderer/` render the shapes to the screen
+- `morph/` shape morph algorithm
+- `reactor/` deal with the logic of mouse/keyboard input
