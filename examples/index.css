@@ -20,7 +20,7 @@ html, body {
 }
 
 h1 {
-    font-size: 32px;
+    font-size: 28px;
     padding-bottom: 8px;
 }
 
@@ -41,6 +41,11 @@ h2 {
     padding: 2px 0;
     text-decoration: none;
     color: #28B;
+}
+
+
+#side h1 a {
+    display: inline;
 }
 
 #side a:hover {
