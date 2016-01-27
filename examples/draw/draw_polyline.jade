@@ -5,11 +5,11 @@ html(lang="en")
     title Draw Polyline
     script(src="../../lib/za_geom2d.min.js")
     script(src="../../src/Bu.dev.js")
+    script(src="../../src/reactor/DrawPolylineReactor.js")
     script(type="text/javascript").
 
       var renderer;
-      var polyline;
-      var mousePos = new Bu.Point();
+      var drawPolylineReactor;
 
       $.ready(init);
 
@@ -18,23 +18,10 @@ html(lang="en")
         renderer = new Bu.Renderer({
           container: "#container"
         });
-        // polyline
-        var points = [];
-        polyline = new Bu.Polyline(points);
-        renderer.append(polyline);
-        // bind events
-        renderer.dom.addEventListener("mousemove", onMouseMove);
-        renderer.dom.addEventListener("mousedown", onMouseDown);
-      }
-
-      function onMouseMove(e) {
-        mousePos.set(e.offsetX, e.offsetY);
-      }
-
-      function onMouseDown(e) {
-        polyline.addPoint(mousePos.clone());
+        drawPolylineReactor = new Bu.DrawPolylineReactor(renderer);
+        drawPolylineReactor.enable();
       }
 
   body
-    div Click to add point to the polyline.
+    div Left click to add point to the polyline, right click to finish the current one.
     div#container
