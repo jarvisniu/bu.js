@@ -28,6 +28,12 @@
 	# computation related
 	DEFAULT_NEAR_DIST: 5
 
+	# mouse interact
+	MOUSE_BUTTON_NONE:   -1
+	MOUSE_BUTTON_LEFT:   0
+	MOUSE_BUTTON_MIDDLE: 1
+	MOUSE_BUTTON_RIGHT:  2
+
 # polyfill
 
 Function::property = (prop, desc) ->

@@ -24,8 +24,10 @@
 
 		"morph/PolylineMorph",
 
+		"reactor/ReactorBase",
 		"reactor/MovePointReactor",
 		"reactor/DrawCircleReactor",
+		"reactor/DrawPointReactor",
 		"reactor/DrawCircleDiameterReactor",
 
 		"renderer/Renderer",

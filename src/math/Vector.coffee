@@ -3,3 +3,5 @@
 class Bu.Vector
 
 	constructor: (@x, @y) ->
+
+	set: (@x, @y) ->
