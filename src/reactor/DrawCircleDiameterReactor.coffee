@@ -4,7 +4,7 @@ class Bu.DrawCircleDiameterReactor extends Bu.ReactorBase
 
 	constructor: (@renderer) ->
 		super()
-		self = @
+		renderer = @renderer
 
 		mouseButton = Bu.MOUSE_BUTTON_NONE
 		mousePos = new Bu.Point
@@ -18,11 +18,11 @@ class Bu.DrawCircleDiameterReactor extends Bu.ReactorBase
 			mousePosDown.set e.offsetX, e.offsetY
 
 			circle = new Bu.Circle mousePosDown.x, mousePosDown.y, 1
-			self.renderer.append circle
+			renderer.append circle
 
 			line = new Bu.Line mousePosDown, mousePosDown
 			line.stroke "#f44"
-			self.renderer.append line
+			renderer.append line
 
 			mouseButton = e.button
 

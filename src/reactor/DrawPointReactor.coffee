@@ -4,23 +4,26 @@ class Bu.DrawPointReactor extends Bu.ReactorBase
 
 	constructor: (@renderer) ->
 		super()
-		self = @
-		@mouseDownPos = new Bu.Vector
+		renderer = @renderer
 
-		@drawingPoint = null
+		mouseButton = Bu.MOUSE_BUTTON_NONE
+		mousePos = new Bu.Point
+		mouseDownPos = new Bu.Vector
+
+		drawingPoint = null
 
 		@onMouseDown = (e) ->
-			self.mouseDownPos.set e.offsetX, e.offsetY
-			self.mouseButton = e.button
+			mouseDownPos.set e.offsetX, e.offsetY
+			mouseButton = e.button
 
-			self.drawingPoint = new Bu.Point e.offsetX, e.offsetY
-			self.renderer.append self.drawingPoint
+			drawingPoint = new Bu.Point e.offsetX, e.offsetY
+			renderer.append drawingPoint
 
 		@onMouseMove = (e) ->
-			self.mousePos.set e.offsetX, e.offsetY
-			if self.mouseButton == Bu.MOUSE_BUTTON_LEFT
-				self.drawingPoint.set  self.mousePos.x, self.mousePos.y
+			mousePos.set e.offsetX, e.offsetY
+			if mouseButton == Bu.MOUSE_BUTTON_LEFT
+				drawingPoint.set mousePos.x, mousePos.y
 
 		@onMouseUp = =>
-			self.mouseButton = Bu.MOUSE_BUTTON_NONE
-			self.drawingPoint = null
+			mouseButton = Bu.MOUSE_BUTTON_NONE
+			drawingPoint = null

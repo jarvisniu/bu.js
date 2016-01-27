@@ -4,8 +4,6 @@ class Bu.ReactorBase
 
 	constructor: ->
 		@enabled = false
-		@mouseButton = Bu.MOUSE_BUTTON_NONE
-		@mousePos = new Bu.Point
 
 	enable: ->
 		@addListeners()

@@ -4,8 +4,10 @@ class Bu.MovePointReactor extends Bu.ReactorBase
 
 	constructor: (@renderer) ->
 		super()
-		self = @
+		renderer = @renderer
 
+		mouseButton = Bu.MOUSE_BUTTON_NONE
+		mousePos = new Bu.Point
 		mousePosDown = new Bu.Vector
 		mousePosDownDelta = new Bu.Vector
 
@@ -20,27 +22,27 @@ class Bu.MovePointReactor extends Bu.ReactorBase
 						mousePosDown.x - hoveredPoint.x
 						mousePosDown.y - hoveredPoint.y
 				)
-			self.mouseButton = e.button
+			mouseButton = e.button
 
 		# change x, y
 		@onMouseMove = (e) ->
-			self.mousePos.set e.offsetX, e.offsetY
-			if self.mouseButton == Bu.MOUSE_BUTTON_LEFT
+			mousePos.set e.offsetX, e.offsetY
+			if mouseButton == Bu.MOUSE_BUTTON_LEFT
 				hoveredPoint.set(
-						self.mousePos.x - mousePosDownDelta.x
-						self.mousePos.y - mousePosDownDelta.y
+						mousePos.x - mousePosDownDelta.x
+						mousePos.y - mousePosDownDelta.y
 				) if hoveredPoint?
 			else
 				if hoveredPoint?
-					if not hoveredPoint.isNear(self.mousePos)
+					if not hoveredPoint.isNear(mousePos)
 						hoveredPoint.stroke false
 						hoveredPoint = null
 				else
 					for shape in renderer.shapes
-						if shape.type is "Point" and shape.isNear self.mousePos
+						if shape.type is "Point" and shape.isNear mousePos
 							hoveredPoint = shape
 							hoveredPoint.stroke()
 							break
 
 		@onMouseUp = =>
-			self.mouseButton = Bu.MOUSE_BUTTON_NONE
+			mouseButton = Bu.MOUSE_BUTTON_NONE
