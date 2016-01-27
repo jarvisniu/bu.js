@@ -1,14 +1,13 @@
 # move a point by dragging it
 
-class Bu.MovePointReactor
+class Bu.MovePointReactor extends Bu.ReactorBase
 
 	constructor: (@renderer) ->
-		@enabled = false
+		super()
+		self = @
 
-		buttonDown = false
-		mousePos = new Bu.Point()
-		mousePosDown = new Bu.Point()
-		mousePosDownDelta = new Bu.Point()
+		mousePosDown = new Bu.Vector
+		mousePosDownDelta = new Bu.Vector
 
 		hoveredPoint = null
 
@@ -18,48 +17,30 @@ class Bu.MovePointReactor
 
 			if hoveredPoint?
 				mousePosDownDelta.set(
-					mousePosDown.x - hoveredPoint.x
-					mousePosDown.y - hoveredPoint.y
+						mousePosDown.x - hoveredPoint.x
+						mousePosDown.y - hoveredPoint.y
 				)
-			buttonDown = true
+			self.mouseButton = e.button
 
 		# change x, y
 		@onMouseMove = (e) ->
-			mousePos.set e.offsetX, e.offsetY
-			if buttonDown
+			self.mousePos.set e.offsetX, e.offsetY
+			if self.mouseButton == Bu.MOUSE_BUTTON_LEFT
 				hoveredPoint.set(
-					mousePos.x - mousePosDownDelta.x
-					mousePos.y - mousePosDownDelta.y
+						self.mousePos.x - mousePosDownDelta.x
+						self.mousePos.y - mousePosDownDelta.y
 				) if hoveredPoint?
 			else
 				if hoveredPoint?
-				    if not hoveredPoint.isNear(mousePos)
-					    hoveredPoint.stroke false
-					    hoveredPoint = null
+					if not hoveredPoint.isNear(self.mousePos)
+						hoveredPoint.stroke false
+						hoveredPoint = null
 				else
 					for shape in renderer.shapes
-		                if shape.type is "Point" and shape.isNear mousePos
-			                hoveredPoint = shape
-			                hoveredPoint.stroke()
-			                break
+						if shape.type is "Point" and shape.isNear self.mousePos
+							hoveredPoint = shape
+							hoveredPoint.stroke()
+							break
 
 		@onMouseUp = =>
-			buttonDown = false
-
-	enable: =>
-		@addListeners()
-		@enabled = true
-
-	disable: =>
-		@removeListeners()
-		@enabled = false
-
-	addListeners: =>
-		@renderer.dom.addEventListener "mousedown", @onMouseDown
-		@renderer.dom.addEventListener "mousemove", @onMouseMove
-		@renderer.dom.addEventListener "mouseup", @onMouseUp
-
-	removeListeners: =>
-		@renderer.dom.removeEventListener "mousedown", @onMouseDown
-		@renderer.dom.removeEventListener "mousemove", @onMouseMove
-		@renderer.dom.removeEventListener "mouseup", @onMouseUp
+			self.mouseButton = Bu.MOUSE_BUTTON_NONE
