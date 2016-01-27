@@ -1,14 +1,14 @@
 # Draw circle by dragging out a radius
 
-class Bu.DrawCircleDiameterReactor
+class Bu.DrawCircleDiameterReactor extends Bu.ReactorBase
 
 	constructor: (@renderer) ->
-		@enabled = false
+		super()
 		self = @
 
-		mousePosDown = new Bu.Point()
-		mousePos = new Bu.Point()
-		buttonDown = false
+		mouseButton = Bu.MOUSE_BUTTON_NONE
+		mousePos = new Bu.Point
+		mousePosDown = new Bu.Point
 
 		circle = null
 		line = null
@@ -24,33 +24,15 @@ class Bu.DrawCircleDiameterReactor
 			line.stroke "#f44"
 			self.renderer.append line
 
-			buttonDown = true
+			mouseButton = e.button
 
 		# change radius
 		@onMouseMove = (e) ->
-			if buttonDown
+			if mouseButton == Bu.MOUSE_BUTTON_LEFT
 				mousePos.set e.offsetX, e.offsetY
 				line.setPoint2(mousePos)
 				circle.radius = mousePos.distanceTo(mousePosDown) / 2
 				circle.center = line.midpoint
 
-		@onMouseUp = =>
-			buttonDown = false
-
-	enable: =>
-		@addListeners()
-		@enabled = true
-
-	disable: =>
-		@removeListeners()
-		@enabled = false
-
-	addListeners: =>
-		@renderer.dom.addEventListener "mousedown", @onMouseDown
-		@renderer.dom.addEventListener "mousemove", @onMouseMove
-		@renderer.dom.addEventListener "mouseup", @onMouseUp
-
-	removeListeners: =>
-		@renderer.dom.removeEventListener "mousedown", @onMouseDown
-		@renderer.dom.removeEventListener "mousemove", @onMouseMove
-		@renderer.dom.removeEventListener "mouseup", @onMouseUp
+		@onMouseUp = ->
+			mouseButton = Bu.MOUSE_BUTTON_NONE
