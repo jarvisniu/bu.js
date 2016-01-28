@@ -13,6 +13,7 @@
 	DEFAULT_DASH_STYLE:         [8, 4]
 
 	# interaction related
+	DEFAULT_STROKE_STYLE_HOVER:   "rgba(255, 128, 0, 0.75)"
 	DEFAULT_FILL_STYLE_HOVER:   "rgba(255, 128, 128, 0.5)"
 
 	# texts related

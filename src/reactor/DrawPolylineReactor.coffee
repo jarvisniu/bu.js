@@ -20,7 +20,7 @@ class Bu.DrawPolylineReactor extends Bu.ReactorBase
 			if mouseButton == Bu.MOUSE_BUTTON_LEFT
 				if not polyline?
 					polyline = new Bu.Polyline
-					polyline.stroke(Bu.DEFAULT_FILL_STYLE_HOVER)
+					polyline.stroke(Bu.DEFAULT_STROKE_STYLE_HOVER)
 					renderer.append polyline
 
 				polyline.addPoint mousePos.clone()
