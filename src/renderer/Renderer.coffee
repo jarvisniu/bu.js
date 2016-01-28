@@ -14,6 +14,8 @@ class Bu.Renderer
 			width: 800
 			height: 600
 			fps: 60
+			fillParent: off
+			border: on
 		})
 		@width = options.width
 		@height = options.height
@@ -28,25 +30,46 @@ class Bu.Renderer
 		@context.textBaseline = 'top'
 		@clipMeter = new ClipMeter() if ClipMeter?
 
-		# init
-		if @container?
-			@container = document.querySelector(@container) if typeof @container is "string"
-			@container.appendChild @dom
-
-		tickCount = 0
-		@isRunning = true;
-
 		# API
 		@shapes = []
 
-		@dom.width = @width
-		@dom.height = @height
-		@dom.style.width = @width + "px"
-		@dom.style.height = @height + "px"
-		@dom.style.border = "solid 1px gray"
+		if options.fillParent
+#			@dom.style.width = '100%'
+#			@dom.style.height = '100%'
+#			@dom.width = @dom.scrollWidth
+#			@dom.height = @dom.scrollHeight
+		else
+			@dom.width = @width
+			@dom.height = @height
+			@dom.style.width = @width + "px"
+			@dom.style.height = @height + "px"
+		(@dom.style.border = "solid 1px gray") if options.border? and options.border
 		@dom.style.cursor = "crosshair"
 		@dom.style.background = "#eee"
 		@dom.oncontextmenu = => false
+
+		window.canvas = @dom;
+
+		onResize = (e) ->
+#			console.log _self.dom.scrollWidth, _self.dom.scrollHeight
+			canvasRatio = _self.dom.height / _self.dom.width
+			containerRatio = _self.container.clientHeight / _self.container.clientWidth
+#			console.log canvasRatio, containerRatio
+#			console.log _self.container.scrollHeight, _self.container.scrollWidth
+			if containerRatio < canvasRatio
+				height = _self.container.clientHeight
+				width = height / containerRatio
+			else
+				width = _self.container.clientWidth
+				height = width * containerRatio
+			_self.width = _self.dom.width = width
+			_self.height = _self.dom.height = height
+			_self.dom.style.width = width + 'px'
+			_self.dom.style.height = height + 'px'
+#			console.log width, height
+
+		window.addEventListener "resize", onResize
+		@dom.addEventListener 'DOMNodeInserted', onResize
 
 		tick = =>
 			return if not _self.isRunning
@@ -61,6 +84,14 @@ class Bu.Renderer
 		setInterval(tick, 1000 / @fps)
 		clearCanvas = =>
 			@context.clearRect(0, 0, _self.width, _self.height)
+
+		# init
+		if @container?
+			@container = document.querySelector(@container) if typeof @container is "string"
+			@container.appendChild @dom
+
+		tickCount = 0
+		@isRunning = true;
 
 
 	pause: =>

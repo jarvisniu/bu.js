@@ -40,12 +40,12 @@ Function::property = (prop, desc) ->
 	Object.defineProperty @prototype, prop, desc
 
 Bu.combineOptions = (args, defaultOptions) ->
-	options = defaultOptions or {}
-	lastArg = args[args.length - 1]
-	if typeof lastArg is "object"
-		for i of lastArg
-			options[i] = lastArg[i]
-	return options
+	defaultOptions = {} if not defaultOptions?
+	givenOptions = args[args.length - 1]
+	if typeof givenOptions is "object"
+		for i of givenOptions
+			defaultOptions[i] = givenOptions[i]
+	return defaultOptions
 
 
 # calculate the average number of several numbers
