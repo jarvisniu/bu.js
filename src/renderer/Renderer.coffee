@@ -106,6 +106,7 @@ class Bu.Renderer
 
 
 	drawShape: (shape) =>
+		return this unless shape.visible
 		switch shape.type
 			when 'Point' then @drawPoint(shape)
 			when 'Line' then @drawLine(shape)
