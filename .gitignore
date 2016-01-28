@@ -1,6 +1,4 @@
 .idea/
 build/
 
-*.js
-*.js.map
 *.html
