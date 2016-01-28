@@ -21,7 +21,7 @@ class Bu.Triangle extends Bu.Object2D
 		c = @points[2]
 		((b.x - a.x) * (c.y - a.y)) - ((c.x - a.x) * (b.y - a.y))
 
-	containsPoint: (p) ->
+	_containsPoint: (p) ->
 		return @lines[0].isTwoPointsSameSide(p, @points[2]) and
 				@lines[1].isTwoPointsSameSide(p, @points[0]) and
 				@lines[2].isTwoPointsSameSide(p, @points[1])

@@ -41,10 +41,7 @@ class Bu.Circle extends Bu.Object2D
 			@
 
 	# point related
-	containsPoint: (p) ->
-		if @bounds? and not @bounds.containsPoint p
-			return no
-		else
-			dx = p.x - @cx
-			dy = p.y - @cy
-			return Math.bevel(dx, dy) < @radius
+	_containsPoint: (p) ->
+		dx = p.x - @cx
+		dy = p.y - @cy
+		return Math.bevel(dx, dy) < @radius

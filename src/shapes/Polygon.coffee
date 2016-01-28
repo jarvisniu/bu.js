@@ -77,7 +77,7 @@ class Bu.Polygon extends Bu.Object2D
 
 	# point related
 
-	containsPoint: (p) ->
+	_containsPoint: (p) ->
 		for triangle in @triangles
 			if triangle.containsPoint p
 				return true

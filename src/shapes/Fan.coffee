@@ -12,7 +12,7 @@ class Bu.Fan extends Bu.Object2D
 		)
 		@keyPoints = @string.points;
 
-	containsPoint: (p) ->
+	_containsPoint: (p) ->
 		dx = p.x - @cx
 		dy = p.y - @cy
 		a = Math.atan2(p.y - @cy, p.x - @cx)
