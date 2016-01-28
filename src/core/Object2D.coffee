@@ -17,5 +17,6 @@ class Bu.Object2D
 #		@toWorldMatrix = new Bu.Matrix()
 #		@updateMatrix ->
 
+		@keyPoints = null
 		@children = []
 		@parent = null

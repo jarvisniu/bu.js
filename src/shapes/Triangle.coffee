@@ -12,6 +12,7 @@ class Bu.Triangle extends Bu.Object2D
 		]
 		@center = new Bu.Point(Bu.average(p1.x, p2.x, p3.x), Bu.average(p1.y, p2.y, p3.y))
 		@points = [p1, p2, p3]
+		@keyPoints = @points
 
 	# TODO test
 	area: () ->

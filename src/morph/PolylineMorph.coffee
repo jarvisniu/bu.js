@@ -13,14 +13,14 @@ class Bu.PolylineMorph
 
 	setTime: (time) ->
 		for i in [0 ... @hPointsA.length]
-			Bu.Point.interpolate(@hPointsA[i], @hPointsB[i], time, @polyline.points[i])
+			Bu.Point.interpolate(@hPointsA[i], @hPointsB[i], time, @polyline.vertices[i])
 
 	update: =>
 		@hPointsA.clear()
 		@hPointsB.clear()
 
-		pointsA = @polylineA.points
-		pointsB = @polylineB.points
+		pointsA = @polylineA.vertices
+		pointsB = @polylineB.vertices
 
 		indexA = 0
 		indexB = 0
@@ -48,10 +48,10 @@ class Bu.PolylineMorph
 				indexB += 1
 
 		for i in [ 0 ... @hPointsA.length ]
-			if @polyline.points[i]?
-				@polyline.points[i].set @hPointsA[i].x, @hPointsA[i].y
+			if @polyline.vertices[i]?
+				@polyline.vertices[i].set @hPointsA[i].x, @hPointsA[i].y
 			else
-				@polyline.points[i] = new Bu.Point(@hPointsA[i].x, @hPointsA[i].y)
+				@polyline.vertices[i] = new Bu.Point(@hPointsA[i].x, @hPointsA[i].y)
 
-		if @polyline.points.length < @hPointsA.length
-			@polyline.points.splice @hPointsA.length
+		if @polyline.vertices.length < @hPointsA.length
+			@polyline.vertices.splice @hPointsA.length

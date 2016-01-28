@@ -11,33 +11,35 @@ class Bu.Polygon extends Bu.Object2D
 	constructor: (points) ->
 		super()
 		@type = 'Polygon'
-		@points = []
+		@vertices = []
 		@lines = []
 		@triangles = []
 
-		options = Bu.combineOptions arguments, {
+		options = Bu.combineOptions arguments,
 			radius: 100
 			angle: 0
-		}
+
 
 		if points instanceof Array
-			@points = points if points?
+			@vertices = points if points?
 		else
 			x = arguments[0]
 			y = arguments[1]
 			n = arguments[2]
-			@points = Bu.Polygon.generateRegularPoints(x, y, n, options)
+			@vertices = Bu.Polygon.generateRegularPoints(x, y, n, options)
 
 		# init lines
-		if @points.length > 1
-			for i in [0 ... @points.length - 1]
-				@lines.push(new Bu.Line(@points[i], @points[i + 1]))
-			@lines.push(new Bu.Line(@points[@points.length - 1], @points[0]))
+		if @vertices.length > 1
+			for i in [0 ... @vertices.length - 1]
+				@lines.push(new Bu.Line(@vertices[i], @vertices[i + 1]))
+			@lines.push(new Bu.Line(@vertices[@vertices.length - 1], @vertices[0]))
 
 		# init triangles
-		if @points.length > 2
-			for i in [1 ... @points.length - 1]
-				@triangles.push(new Bu.Triangle(@points[0], @points[i], @points[i + 1]))
+		if @vertices.length > 2
+			for i in [1 ... @vertices.length - 1]
+				@triangles.push(new Bu.Triangle(@vertices[0], @vertices[i], @vertices[i + 1]))
+
+		@keyPoints = @vertices
 
 	# detect
 
@@ -54,23 +56,23 @@ class Bu.Polygon extends Bu.Object2D
 	addPoint: (point, insertIndex) ->
 		if not insertIndex?
 			# add point
-			@points.push point
+			@vertices.push point
 
 			# add line
-			if @points.length > 1
+			if @vertices.length > 1
 				@lines[@lines.length - 1].points[1] = point
-			if @points.length > 0
-				@lines.push(new Bu.Line(@points[@points.length - 1], @points[0]))
+			if @vertices.length > 0
+				@lines.push(new Bu.Line(@vertices[@vertices.length - 1], @vertices[0]))
 
 			# add triangle
-			if @points.length > 2
+			if @vertices.length > 2
 				@triangles.push(new Bu.Triangle(
-						@points[0]
-						@points[@points.length - 2]
-						@points[@points.length - 1]
+						@vertices[0]
+						@vertices[@vertices.length - 2]
+						@vertices[@vertices.length - 1]
 				))
 		else
-			@points.splice(insertIndex, 0, point)
+			@vertices.splice(insertIndex, 0, point)
 	# TODO add lines and triangles
 
 	# point related

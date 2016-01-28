@@ -14,6 +14,7 @@ class Bu.Line extends Bu.Object2D
 			@points = [new Bu.Point(p1, p2), new Bu.Point(p3, p4)]
 
 		@midpoint = new Bu.Point()
+		@keyPoints = @points
 		@onPointChange()
 
 	onPointChange: =>

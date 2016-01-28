@@ -7,11 +7,10 @@ class Bu.Bow extends Bu.Object2D
 
 		@type = 'Bow'
 
-		@center = new Bu.Point(@cx, @cy)
-		@string = new Bu.Line(
-				@center.arcTo(@radius, @aFrom)
+		@center = new Bu.Point @cx, @cy
+		@string = new Bu.Line @center.arcTo(@radius, @aFrom),
 				@center.arcTo(@radius, @aTo)
-		)
+		@keyPoints = @string.points
 
 	containsPoint: (point) ->
 		if Math.bevel(@cx - point.x, @cy - point.y) < @radius

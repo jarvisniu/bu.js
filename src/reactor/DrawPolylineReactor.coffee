@@ -31,7 +31,7 @@ class Bu.DrawPolylineReactor extends Bu.ReactorBase
 		@onMouseMove = (e) ->
 			mousePos.set e.offsetX, e.offsetY
 			if mouseButton == Bu.MOUSE_BUTTON_LEFT
-				points = polyline.points
+				points = polyline.vertices
 				points[points.length - 1].set mousePos.x, mousePos.y
 
 		@onMouseUp = ->

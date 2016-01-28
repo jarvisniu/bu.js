@@ -18,7 +18,7 @@ class Bu.Renderer
 		@fps = options.fps
 		@container = options.container
 
-		@isDrawVertexes = true
+		@isDrawKeyPoints = true
 
 		# variables
 		@dom = document.createElement('canvas')
@@ -99,23 +99,30 @@ class Bu.Renderer
 
 
 	drawShapes: (shapes) =>
-		for shape in shapes
-			switch shape.type
-				when 'Point' then @drawPoint(shape)
-				when 'Line' then @drawLine(shape)
-				when 'Circle' then @drawCircle(shape)
-				when 'Triangle' then @drawTriangle(shape)
-				when 'Rectangle' then @drawRectangle(shape)
-				when 'Fan' then @drawFan(shape)
-				when 'Bow' then @drawBow(shape)
-				when 'Polygon' then @drawPolygon(shape)
-				when 'Polyline' then @drawPolyline(shape)
-				when 'PointText' then @drawPointText(shape)
-				when 'Image' then @drawImage(shape)
-				when 'Bounds' then @drawBounds(shape)
-				else
-					console.log('drawShapes(): unknown shape: ', shape)
-			@drawShapes shape.children
+		if shapes?
+			for shape in shapes
+				@drawShape shape
+		return this
+
+
+	drawShape: (shape) =>
+		switch shape.type
+			when 'Point' then @drawPoint(shape)
+			when 'Line' then @drawLine(shape)
+			when 'Circle' then @drawCircle(shape)
+			when 'Triangle' then @drawTriangle(shape)
+			when 'Rectangle' then @drawRectangle(shape)
+			when 'Fan' then @drawFan(shape)
+			when 'Bow' then @drawBow(shape)
+			when 'Polygon' then @drawPolygon(shape)
+			when 'Polyline' then @drawPolyline(shape)
+			when 'PointText' then @drawPointText(shape)
+			when 'Image' then @drawImage(shape)
+			when 'Bounds' then @drawBounds(shape)
+			else
+				console.log 'drawShapes(): unknown shape: ', shape
+		@drawShapes shape.children if shape.children?
+		@drawShapes shape.keyPoints if @isDrawKeyPoints
 		return this
 
 
@@ -140,23 +147,6 @@ class Bu.Renderer
 					Bu.POINT_RENDER_SIZE
 			)
 
-		if shape.label?
-			# console.log('drawPoint(): ' + shape.label + ', x: ' + shape.x + ', y: ' + shape.y)
-			style = @context.fillStyle
-			@context.fillStyle = 'black'
-			@context.fillText(
-					shape.label
-					shape.x - Bu.POINT_RENDER_SIZE / 2 + 9
-					shape.y - Bu.POINT_RENDER_SIZE / 2 + 6
-			)
-			@context.fillStyle = style
-
-
-	drawVertexes: (points) ->
-		if @isDrawVertexes
-			for point in points
-				@drawPoint point
-
 
 	drawLine: (shape) ->
 		@context.globalAlpha = shape.opacity
@@ -177,7 +167,6 @@ class Bu.Renderer
 				@context.closePath()
 
 			@context.stroke()
-		@drawVertexes(shape.points)
 
 
 	drawCircle: (shape) ->
@@ -196,7 +185,6 @@ class Bu.Renderer
 			@context.strokeStyle = shape.strokeStyle
 			@context.lineWidth = shape.lineWidth
 			@context.stroke()
-		@drawPoint shape.center
 
 
 	drawTriangle: (shape) ->
@@ -222,7 +210,6 @@ class Bu.Renderer
 				@context.dashedLine(pts[1].x, pts[1].y, pts[2].x, pts[2].y, shape.dashStyle, shape.dashDelta)
 				@context.dashedLine(pts[2].x, pts[2].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashDelta)
 			@context.stroke()
-		@drawVertexes(shape.points)
 
 
 	drawRectangle: (shape) ->
@@ -257,7 +244,6 @@ class Bu.Renderer
 				@context.dashedLine(xR, yB, xL, yB, shape.dashStyle, shape.dashDelta)
 				@context.dashedLine(xL, yB, xL, yT, shape.dashStyle, shape.dashDelta)
 				@context.stroke()
-		@drawVertexes(shape.points)
 
 
 	drawFan: (shape) ->
@@ -278,8 +264,6 @@ class Bu.Renderer
 			@context.lineWidth = shape.lineWidth
 			@context.stroke()
 
-		@drawVertexes(shape.string.points)
-
 
 	drawBow: (shape) ->
 		@context.globalAlpha = shape.opacity
@@ -298,14 +282,12 @@ class Bu.Renderer
 			@context.lineWidth = shape.lineWidth
 			@context.stroke()
 
-		@drawVertexes(shape.string.points)
-
 
 	drawPolygon: (shape) ->
 		@context.globalAlpha = shape.opacity
 
 		@context.beginPath()
-		for point in shape.points
+		for point in shape.vertices
 			@context.lineTo(point.x, point.y)
 		@context.closePath()
 
@@ -316,16 +298,15 @@ class Bu.Renderer
 		if shape.strokeStyle?
 			@context.strokeStyle = shape.strokeStyle
 			@context.lineWidth = shape.lineWidth
-			len = shape.points.length
+			len = shape.vertices.length
 			if shape.dashStyle && len > 0
 				@context.beginPath()
-				pts = shape.points
+				pts = shape.vertices
 				for i in [0 ... len - 1]
 					@context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashDelta)
 				@context.dashedLine(pts[len - 1].x, pts[len - 1].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashDelta)
 				@context.stroke()
 			@context.stroke()
-		@drawVertexes(shape.points)
 
 
 	drawPolyline: (shape) ->
@@ -335,14 +316,13 @@ class Bu.Renderer
 			@context.lineWidth = shape.lineWidth
 			@context.beginPath()
 			if not shape.dashStyle
-				for point in shape.points
+				for point in shape.vertices
 					@context.lineTo(point.x, point.y)
 			else
-				pts = shape.points
+				pts = shape.vertices
 				for i in [ 0 ... pts.length - 1]
 					@context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashDelta)
 			@context.stroke()
-		@drawVertexes(shape.points)
 
 
 	drawPointText: (shape) ->

@@ -8,6 +8,8 @@ class Bu.Circle extends Bu.Object2D
 		@_center = new Bu.Point(cx, cy)
 		@bounds = null  # for accelerate contain test
 
+		@keyPoints = [ @_center ]
+
 	# property
 
 	@property 'cx',
@@ -28,6 +30,7 @@ class Bu.Circle extends Bu.Object2D
 			@_center = val
 			@cx = val.x
 			@cy = val.y
+			@keyPoints[0] = val
 			@triggerEvent('centerChanged', @)
 
 	@property 'radius',

@@ -15,6 +15,7 @@ class Bu.Rectangle extends Bu.Object2D
 		@pointLB = new Bu.Point(x, y + height)
 
 		@points = [@position, @pointRT, @pointRB, @pointLB]
+		@keyPoints = @points
 
 	containsPoint: (point) ->
 		return point.x > @position.x and

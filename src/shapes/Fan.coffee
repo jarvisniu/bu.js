@@ -10,6 +10,7 @@ class Bu.Fan extends Bu.Object2D
 		  @center.arcTo(@radius, @aFrom)
 		  @center.arcTo(@radius, @aTo)
 		)
+		@keyPoints = @string.points;
 
 	containsPoint: (p) ->
 		dx = p.x - @cx
