@@ -7,13 +7,12 @@ class Bu.Renderer
 
 		@type = 'Renderer'
 
-		options = Bu.combineOptions(arguments, {
+		options = Bu.combineOptions arguments,
 			width: 800
 			height: 600
 			fps: 60
 			fillParent: off
 			border: on
-		})
 		@width = options.width
 		@height = options.height
 		@fps = options.fps
@@ -40,7 +39,7 @@ class Bu.Renderer
 		@dom.style.background = '#eee'
 		@dom.oncontextmenu = -> false
 
-		window.canvas = @dom;
+		window.canvas = @dom
 
 		onResize = (e) =>
 			canvasRatio = @dom.height / @dom.width
@@ -67,7 +66,7 @@ class Bu.Renderer
 			tickCount += 1
 			@triggerEvent 'update', {'tickCount': tickCount}
 			clearCanvas()
-			@drawShapes()
+			@drawShapes(@shapes)
 			@clipMeter.tick() if @clipMeter?
 
 		setInterval(tick, 1000 / @fps)
@@ -82,7 +81,7 @@ class Bu.Renderer
 			, 100
 
 		tickCount = 0
-		@isRunning = true;
+		@isRunning = true
 
 
 	pause: =>
@@ -99,8 +98,8 @@ class Bu.Renderer
 		@shapes.push shape
 
 
-	drawShapes: =>
-		for shape in @shapes
+	drawShapes: (shapes) =>
+		for shape in shapes
 			switch shape.type
 				when 'Point' then @drawPoint(shape)
 				when 'Line' then @drawLine(shape)
@@ -116,6 +115,8 @@ class Bu.Renderer
 				when 'Bounds' then @drawBounds(shape)
 				else
 					console.log('drawShapes(): unknown shape: ', shape)
+			@drawShapes shape.children
+		return this
 
 
 	drawPoint: (shape) ->
