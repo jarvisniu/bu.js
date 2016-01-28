@@ -111,8 +111,6 @@ class Bu.Line extends Bu.Object2D
 		c2 = (a2 * q1.x) + (b2 * q1.y)
 		det = (a1 * b2) - (a2 * b1)
 
-		console.log a1, b1, c1, a2, b2, c2, det
-
 		return new Bu.Point ((b2 * c1) - (b1 * c2)) / det, ((a1 * c2) - (a2 * c1)) / det
 
 	# whether cross with another line

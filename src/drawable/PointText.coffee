@@ -25,7 +25,6 @@ class Bu.PointText extends Bu.Object2D
 			fontSize: 11
 		@align = options.align
 		@_fontFamily = options.fontFamily
-		console.log @_fontFamily
 		@_fontSize = options.fontSize
 		@font = "#{ @_fontSize }px #{ @_fontFamily }" or options.font
 
@@ -42,7 +41,6 @@ class Bu.PointText extends Bu.Object2D
 		set: (val) ->
 			@_fontSize = val
 			@font = "#{ @_fontSize }px #{ @_fontFamily }"
-			console.log @
 
 	setContextAlign: (align) =>
 		if align.length == 1

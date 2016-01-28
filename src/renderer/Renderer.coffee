@@ -54,7 +54,6 @@ class Bu.Renderer
 			@height = @dom.height = height
 			@dom.style.width = width + 'px'
 			@dom.style.height = height + 'px'
-		#			console.log width, height
 
 		window.addEventListener 'resize', onResize
 		@dom.addEventListener 'DOMNodeInserted', onResize
