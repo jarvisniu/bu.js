@@ -3,7 +3,7 @@
 class Bu.PolylineMorph
 
 	constructor: (@polylineA, @polylineB) ->
-		@type = "PolylineMorph"
+		@type = 'PolylineMorph'
 		@polyline = new Bu.Polyline()
 
 		@hPointsA = []

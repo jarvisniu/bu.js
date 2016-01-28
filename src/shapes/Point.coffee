@@ -5,7 +5,7 @@ class Bu.Point extends Bu.Object2D
 	constructor: (@x = 0, @y = 0) ->
 		super()
 		@stroke no  # point has no stroke by default
-		@type = "Point"
+		@type = 'Point'
 		@label = null
 
 	arcTo: (radius, arc) ->
@@ -34,8 +34,8 @@ class Bu.Point extends Bu.Object2D
 
 	isNear: (target, limit = Bu.DEFAULT_NEAR_DIST) ->
 		switch target.type
-			when "Point" then @distanceTo(target) < limit
-			when "Line"
+			when 'Point' then @distanceTo(target) < limit
+			when 'Line'
 				verticalDist = target.distanceTo @
 				return verticalDist < limit  # TODO: and near along the line direction
 

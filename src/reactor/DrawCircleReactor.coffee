@@ -21,7 +21,7 @@ class Bu.DrawCircleReactor extends Bu.ReactorBase
 			self.renderer.append circle
 
 			line = new Bu.Line mousePosDown, mousePosDown
-			line.stroke "#f44"
+			line.stroke '#f44'
 			self.renderer.append line
 
 			mouseButton = e.button

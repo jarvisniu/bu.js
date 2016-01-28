@@ -4,7 +4,7 @@ class Bu.Triangle extends Bu.Object2D
 
 	constructor: (p1, p2, p3) ->
 		super()
-		@type = "Triangle"
+		@type = 'Triangle'
 		@lines = [
 			new Bu.Line(p1, p2)
 			new Bu.Line(p2, p3)

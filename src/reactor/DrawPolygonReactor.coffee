@@ -35,7 +35,7 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 				points[points.length - 1].set mousePos.x, mousePos.y
 			else if mouseButton == Bu.MOUSE_BUTTON_NONE and polygon?
 				if polygon.containsPoint mousePos
-					polygon.fill "yellow"
+					polygon.fill 'yellow'
 				else
 					polygon.fill Bu.DEFAULT_FILL_STYLE_HOVER
 

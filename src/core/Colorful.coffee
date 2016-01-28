@@ -28,7 +28,7 @@ Bu.Colorful = () ->
 
 	@dash = (v) ->
 		v = true if not v?
-		v = [v, v] if typeof v is "number"
+		v = [v, v] if typeof v is 'number'
 		switch v
 			when false then @dashStyle = null
 			when true then @dashStyle = Bu.DEFAULT_DASH_STYLE

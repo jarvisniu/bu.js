@@ -2,12 +2,10 @@
 
 class Bu.Renderer
 
-	POINT_SIZE = 4
-
 	constructor: () ->
 		Za.EventListenerPattern.apply @
 
-		@type = "Renderer"
+		@type = 'Renderer'
 		_self = @
 
 		options = Bu.combineOptions(arguments, {
@@ -25,37 +23,29 @@ class Bu.Renderer
 		@isDrawVertexes = true
 
 		# variables
-		@dom = document.createElement("canvas")
-		@context = @dom.getContext("2d")
+		@dom = document.createElement('canvas')
+		@context = @dom.getContext('2d')
 		@context.textBaseline = 'top'
 		@clipMeter = new ClipMeter() if ClipMeter?
 
 		# API
 		@shapes = []
 
-		if options.fillParent
-#			@dom.style.width = '100%'
-#			@dom.style.height = '100%'
-#			@dom.width = @dom.scrollWidth
-#			@dom.height = @dom.scrollHeight
-		else
+		if not options.fillParent
 			@dom.width = @width
 			@dom.height = @height
-			@dom.style.width = @width + "px"
-			@dom.style.height = @height + "px"
-		(@dom.style.border = "solid 1px gray") if options.border? and options.border
-		@dom.style.cursor = "crosshair"
-		@dom.style.background = "#eee"
-		@dom.oncontextmenu = => false
+			@dom.style.width = @width + 'px'
+			@dom.style.height = @height + 'px'
+		@dom.style.border = 'solid 1px gray' if options.border? and options.border
+		@dom.style.cursor = 'crosshair'
+		@dom.style.background = '#eee'
+		@dom.oncontextmenu = -> false
 
 		window.canvas = @dom;
 
 		onResize = (e) ->
-#			console.log _self.dom.scrollWidth, _self.dom.scrollHeight
 			canvasRatio = _self.dom.height / _self.dom.width
 			containerRatio = _self.container.clientHeight / _self.container.clientWidth
-#			console.log canvasRatio, containerRatio
-#			console.log _self.container.scrollHeight, _self.container.scrollWidth
 			if containerRatio < canvasRatio
 				height = _self.container.clientHeight
 				width = height / containerRatio
@@ -66,9 +56,9 @@ class Bu.Renderer
 			_self.height = _self.dom.height = height
 			_self.dom.style.width = width + 'px'
 			_self.dom.style.height = height + 'px'
-#			console.log width, height
+		#			console.log width, height
 
-		window.addEventListener "resize", onResize
+		window.addEventListener 'resize', onResize
 		@dom.addEventListener 'DOMNodeInserted', onResize
 
 		tick = =>
@@ -76,7 +66,7 @@ class Bu.Renderer
 
 			_self.clipMeter.start() if @clipMeter?
 			tickCount += 1
-			_self.triggerEvent "update", {"tickCount": tickCount}
+			_self.triggerEvent 'update', {'tickCount': tickCount}
 			clearCanvas()
 			_self.drawShapes()
 			_self.clipMeter.tick() if @clipMeter?
@@ -87,8 +77,10 @@ class Bu.Renderer
 
 		# init
 		if @container?
-			@container = document.querySelector(@container) if typeof @container is "string"
-			@container.appendChild @dom
+			@container = document.querySelector(@container) if typeof @container is 'string'
+			setTimeout ->
+				_self.container.appendChild _self.dom
+			, 100
 
 		tickCount = 0
 		@isRunning = true;
@@ -111,20 +103,20 @@ class Bu.Renderer
 	drawShapes: =>
 		for shape in @shapes
 			switch shape.type
-				when "Point" then @drawPoint(shape)
-				when "Line" then @drawLine(shape)
-				when "Circle" then @drawCircle(shape)
-				when "Triangle" then @drawTriangle(shape)
-				when "Rectangle" then @drawRectangle(shape)
-				when "Fan" then @drawFan(shape)
-				when "Bow" then @drawBow(shape)
-				when "Polygon" then @drawPolygon(shape)
-				when "Polyline" then @drawPolyline(shape)
-				when "PointText" then @drawPointText(shape)
-				when "Image" then @drawImage(shape)
-				when "Bounds" then @drawBounds(shape)
+				when 'Point' then @drawPoint(shape)
+				when 'Line' then @drawLine(shape)
+				when 'Circle' then @drawCircle(shape)
+				when 'Triangle' then @drawTriangle(shape)
+				when 'Rectangle' then @drawRectangle(shape)
+				when 'Fan' then @drawFan(shape)
+				when 'Bow' then @drawBow(shape)
+				when 'Polygon' then @drawPolygon(shape)
+				when 'Polyline' then @drawPolyline(shape)
+				when 'PointText' then @drawPointText(shape)
+				when 'Image' then @drawImage(shape)
+				when 'Bounds' then @drawBounds(shape)
 				else
-					console.log("drawShapes(): unknown shape: ", shape)
+					console.log('drawShapes(): unknown shape: ', shape)
 
 
 	drawPoint: (shape) ->
@@ -133,29 +125,29 @@ class Bu.Renderer
 		if shape.fillStyle?
 			@context.fillStyle = shape.fillStyle
 			@context.fillRect(
-					shape.x - POINT_SIZE / 2
-					shape.y - POINT_SIZE / 2
-					POINT_SIZE
-					POINT_SIZE
+					shape.x - Bu.POINT_RENDER_SIZE / 2
+					shape.y - Bu.POINT_RENDER_SIZE / 2
+					Bu.POINT_RENDER_SIZE
+					Bu.POINT_RENDER_SIZE
 			)
 
 		if shape.strokeStyle?
 			@context.strokeStyle = shape.strokeStyle
 			@context.strokeRect(
-					shape.x - POINT_SIZE / 2
-					shape.y - POINT_SIZE / 2
-					POINT_SIZE
-					POINT_SIZE
+					shape.x - Bu.POINT_RENDER_SIZE / 2
+					shape.y - Bu.POINT_RENDER_SIZE / 2
+					Bu.POINT_RENDER_SIZE
+					Bu.POINT_RENDER_SIZE
 			)
 
 		if shape.label?
-			# console.log("drawPoint(): " + shape.label + ", x: " + shape.x + ", y: " + shape.y)
+			# console.log('drawPoint(): ' + shape.label + ', x: ' + shape.x + ', y: ' + shape.y)
 			style = @context.fillStyle
-			@context.fillStyle = "black"
+			@context.fillStyle = 'black'
 			@context.fillText(
 					shape.label
-					shape.x - POINT_SIZE / 2 + 9
-					shape.y - POINT_SIZE / 2 + 6
+					shape.x - Bu.POINT_RENDER_SIZE / 2 + 9
+					shape.y - Bu.POINT_RENDER_SIZE / 2 + 6
 			)
 			@context.fillStyle = style
 
@@ -224,7 +216,7 @@ class Bu.Renderer
 			@context.strokeStyle = shape.strokeStyle
 			@context.lineWidth = shape.lineWidth
 			if shape.dashStyle
-				@context.beginPath()  # clear prev lineTo
+				@context.beginPath() # clear prev lineTo
 				pts = shape.points
 				@context.dashedLine(pts[0].x, pts[0].y, pts[1].x, pts[1].y, shape.dashStyle, shape.dashDelta)
 				@context.dashedLine(pts[1].x, pts[1].y, pts[2].x, pts[2].y, shape.dashStyle, shape.dashDelta)

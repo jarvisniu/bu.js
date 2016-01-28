@@ -21,7 +21,7 @@ class Bu.DrawCircleDiameterReactor extends Bu.ReactorBase
 			renderer.append circle
 
 			line = new Bu.Line mousePosDown, mousePosDown
-			line.stroke "#f44"
+			line.stroke '#f44'
 			renderer.append line
 
 			mouseButton = e.button

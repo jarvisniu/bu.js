@@ -4,37 +4,37 @@ class Bu.Circle extends Bu.Object2D
 
 	constructor: (cx = 0, cy = 0, @_radius = 1) ->
 		super()
-		@type = "Circle"
+		@type = 'Circle'
 		@_center = new Bu.Point(cx, cy)
 		@bounds = null  # for accelerate contain test
 
 	# property
 
-	@property "cx",
+	@property 'cx',
 		get: ->  @_center.x
 		set: (val) ->
 			@_center.x = val
-			@triggerEvent("centerChanged", @)
+			@triggerEvent('centerChanged', @)
 
-	@property "cy",
+	@property 'cy',
 		get: ->  @_center.y
 		set: (val) ->
 			@_center.y = val
-			@triggerEvent("centerChanged", @)
+			@triggerEvent('centerChanged', @)
 
-	@property "center",
+	@property 'center',
 		get: ->  @_center
 		set: (val) ->
 			@_center = val
 			@cx = val.x
 			@cy = val.y
-			@triggerEvent("centerChanged", @)
+			@triggerEvent('centerChanged', @)
 
-	@property "radius",
+	@property 'radius',
 		get: ->  @_radius
 		set: (val) ->
 			@_radius = val
-			@triggerEvent("radiusChanged", @)
+			@triggerEvent('radiusChanged', @)
 			@
 
 	# point related

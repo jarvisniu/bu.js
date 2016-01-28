@@ -3,7 +3,7 @@
 class Bu.Bounds
 
 	constructor: (@target) ->
-		@type = "Bounds"
+		@type = 'Bounds'
 		@x1 = @y1 = @x2 = @y2 = 0
 		@isEmpty = true
 
@@ -17,12 +17,12 @@ class Bu.Bounds
 		self = @
 
 		switch @target.type
-			when "Circle"
+			when 'Circle'
 				@expandByCircle(@target)
-				@target.on "centerChanged", ->
+				@target.on 'centerChanged', ->
 					self.clear()
 					self.expandByCircle self.target
-				@target.on "radiusChanged", ->
+				@target.on 'radiusChanged', ->
 					self.clear()
 					self.expandByCircle self.target
 

@@ -10,7 +10,7 @@ class Bu.Polygon extends Bu.Object2D
 	###
 	constructor: (points) ->
 		super()
-		@type = "Polygon"
+		@type = 'Polygon'
 		@points = []
 		@lines = []
 		@triangles = []

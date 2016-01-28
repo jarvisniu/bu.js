@@ -39,7 +39,7 @@ class Bu.MovePointReactor extends Bu.ReactorBase
 						hoveredPoint = null
 				else
 					for shape in renderer.shapes
-						if shape.type is "Point" and shape.isNear mousePos
+						if shape.type is 'Point' and shape.isNear mousePos
 							hoveredPoint = shape
 							hoveredPoint.stroke()
 							break

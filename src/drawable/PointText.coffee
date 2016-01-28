@@ -11,16 +11,16 @@ class Bu.PointText extends Bu.Object2D
 	|         ↓          |
 	|   -+    0+    ++   |
 	----------------------
-	for example: text is in the right top of the point, then align="+-"
+	for example: text is in the right top of the point, then align = "+-"
 	###
 	constructor: (@text, @x, @y, options) ->
 		super()
-		@type = "PointText"
+		@type = 'PointText'
 		@strokeStyle = null # no stroke by default
 		@fillStyle = Bu.DEFAULT_TEXT_FILL_STYLE
 
-		@align = "00"
-		@fontFamily = "SimSun"
+		@align = '00'
+		@fontFamily = 'SimSun'
 		@fontSize = 10
 		if options?
 			@align = options.align if options.align?
@@ -33,14 +33,14 @@ class Bu.PointText extends Bu.Object2D
 
 	setContextAlign = (point, align) ->
 		if align.length == 1
-			align = "" + align + align
+			align = '' + align + align
 		alignX = align.substring(0, 1)
 		alignY = align.substring(1, 2)
 		point.textAlign = switch alignX
-			when "-" then "right"
-			when "0" then "center"
-			when "+" then "left"
+			when '-' then 'right'
+			when '0' then 'center'
+			when '+' then 'left'
 		point.textBaseline = switch alignY
-			when "-" then "bottom"
-			when "0" then "middle"
-			when "+" then "top"
+			when '-' then 'bottom'
+			when '0' then 'middle'
+			when '+' then 'top'

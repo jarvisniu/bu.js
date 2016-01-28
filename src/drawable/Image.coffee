@@ -5,7 +5,7 @@ class Bu.Image extends Bu.Object2D
 	constructor: (@url, x, y, width, height) ->
 		super()
 		self = @
-		@type = "Image"
+		@type = 'Image'
 
 		@autoSize = yes
 		@size = new Bu.Size Bu.DEFAULT_IMAGE_SIZE, Bu.DEFAULT_IMAGE_SIZE

@@ -4,7 +4,7 @@ class Bu.Line extends Bu.Object2D
 
 	constructor: (p1, p2, p3, p4) ->
 		super()
-		@type = "Line"
+		@type = 'Line'
 
 		if arguments.length < 2
 			@points = [new Bu.Point(), new Bu.Point()]

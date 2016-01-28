@@ -5,7 +5,7 @@ class Bu.Bow extends Bu.Object2D
 		super()
 		[@aFrom, @aTo] = [@aTo, @aFrom] if @aFrom > @aTo
 
-		@type = "Bow"
+		@type = 'Bow'
 
 		@center = new Bu.Point(@cx, @cy)
 		@string = new Bu.Line(

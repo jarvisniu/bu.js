@@ -2,7 +2,7 @@
 
 class Bu.Size
 	constructor: (@width, @height) ->
-		@type = "Size"
+		@type = 'Size'
 
 	set: (width, height) ->
 		@width = width

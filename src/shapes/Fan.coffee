@@ -4,7 +4,7 @@ class Bu.Fan extends Bu.Object2D
 
 	constructor: (@cx, @cy, @radius, @aFrom, @aTo) ->
 		super()
-		@type = "Fan"
+		@type = 'Fan'
 		@center = new Bu.Point(@cx, @cy)
 		@string = new Bu.Line(
 		  @center.arcTo(@radius, @aFrom)

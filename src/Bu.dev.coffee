@@ -1,39 +1,39 @@
 (=>
 	libs = [
-		"Bu",
+		'Bu',
 
-		"math/Vector",
+		'math/Vector',
 
-		"core/Object2D",
-		"core/Size",
-		"core/Bounds",
-		"core/Colorful",
+		'core/Object2D',
+		'core/Size',
+		'core/Bounds',
+		'core/Colorful',
 
-		"shapes/Point",
-		"shapes/Line",
-		"shapes/Circle",
-		"shapes/Triangle",
-		"shapes/Rectangle",
-		"shapes/Fan",
-		"shapes/Bow",
-		"shapes/Polygon",
-		"shapes/Polyline",
+		'shapes/Point',
+		'shapes/Line',
+		'shapes/Circle',
+		'shapes/Triangle',
+		'shapes/Rectangle',
+		'shapes/Fan',
+		'shapes/Bow',
+		'shapes/Polygon',
+		'shapes/Polyline',
 
-		"drawable/PointText",
-		"drawable/Image",
+		'drawable/PointText',
+		'drawable/Image',
 
-		"morph/PolylineMorph",
+		'morph/PolylineMorph',
 
-		"reactor/ReactorBase",
-		"reactor/MovePointReactor",
-		"reactor/DrawCircleReactor",
-		"reactor/DrawPointReactor",
-		"reactor/DrawCircleDiameterReactor",
-		"reactor/DrawPolylineReactor",
-		"reactor/DrawPolygonReactor",
+		'reactor/ReactorBase',
+		'reactor/MovePointReactor',
+		'reactor/DrawCircleReactor',
+		'reactor/DrawPointReactor',
+		'reactor/DrawCircleDiameterReactor',
+		'reactor/DrawPolylineReactor',
+		'reactor/DrawPolygonReactor',
 
-		"renderer/Renderer",
+		'renderer/Renderer',
 	]
 
 	for lib in libs
-		document.write '<script src="../../src/' + lib + '.js"></script>')()
+		document.write '<script src='../../src/' + lib + '.js'></script>')()

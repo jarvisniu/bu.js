@@ -4,7 +4,7 @@ class Bu.Polyline extends Bu.Object2D
 
 	constructor: (@points = []) ->
 		super()
-		@type = "Polyline"
+		@type = 'Polyline'
 		@lines = []
 		@length = 0
 		@pointNormalizedPos = []
