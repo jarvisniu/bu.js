@@ -20,3 +20,16 @@ a javascript 2D library
 - `renderer/` render the shapes to the screen
 - `morph/` shape morph algorithm
 - `reactor/` deal with the logic of mouse/keyboard input
+
+
+## Prerequisites
+
+1. [Node](https://nodejs.org/)
+2. CoffeeScript: `npm install -g coffee-script`
+3. Jade: `npm install -g jade`
+4. UglifyJS: `npm install -g uglify-js`
+
+
+## License
+
+MIT
