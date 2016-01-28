@@ -4,7 +4,6 @@ class Bu.DrawCircleReactor extends Bu.ReactorBase
 
 	constructor: (@renderer) ->
 		super()
-		self = @
 
 		mouseButton = Bu.MOUSE_BUTTON_NONE
 		mousePos = new Bu.Point
@@ -14,24 +13,24 @@ class Bu.DrawCircleReactor extends Bu.ReactorBase
 		line = null
 
 		# create new circles every time
-		@onMouseDown = (e) ->
+		@onMouseDown = (e) =>
 			mousePosDown.set e.offsetX, e.offsetY
 
 			circle = new Bu.Circle mousePosDown.x, mousePosDown.y, 1
-			self.renderer.append circle
+			@renderer.append circle
 
 			line = new Bu.Line mousePosDown, mousePosDown
 			line.stroke '#f44'
-			self.renderer.append line
+			@renderer.append line
 
 			mouseButton = e.button
 
 		# change radius
-		@onMouseMove = (e) ->
+		@onMouseMove = (e) =>
 			if mouseButton == Bu.MOUSE_BUTTON_LEFT
 				mousePos.set e.offsetX, e.offsetY
 				circle.radius = mousePos.distanceTo mousePosDown
 				line.setPoint1 mousePos
 
-		@onMouseUp = ->
+		@onMouseUp = =>
 			mouseButton = Bu.MOUSE_BUTTON_NONE

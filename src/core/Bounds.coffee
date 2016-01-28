@@ -14,17 +14,15 @@ class Bu.Bounds
 		@dashStyle = Bu.DEFAULT_BOUND_DASH_STYLE
 		@dashDelta = 0
 
-		self = @
-
 		switch @target.type
 			when "Circle"
 				@expandByCircle(@target)
-				@target.on "centerChanged", ->
-					self.clear()
-					self.expandByCircle self.target
-				@target.on "radiusChanged", ->
-					self.clear()
-					self.expandByCircle self.target
+				@target.on "centerChanged", =>
+					@clear()
+					@expandByCircle @target
+				@target.on "radiusChanged", =>
+					@clear()
+					@expandByCircle @target
 
 	containsPoint: (p) ->
 		@x1 < p.x && @x2 > p.x && @y1 < p.y && @y2 > p.y

@@ -6,7 +6,6 @@ class Bu.Renderer
 		Za.EventListenerPattern.apply @
 
 		@type = 'Renderer'
-		_self = @
 
 		options = Bu.combineOptions(arguments, {
 			width: 800
@@ -43,43 +42,43 @@ class Bu.Renderer
 
 		window.canvas = @dom;
 
-		onResize = (e) ->
-			canvasRatio = _self.dom.height / _self.dom.width
-			containerRatio = _self.container.clientHeight / _self.container.clientWidth
+		onResize = (e) =>
+			canvasRatio = @dom.height / @dom.width
+			containerRatio = @container.clientHeight / @container.clientWidth
 			if containerRatio < canvasRatio
-				height = _self.container.clientHeight
+				height = @container.clientHeight
 				width = height / containerRatio
 			else
-				width = _self.container.clientWidth
+				width = @container.clientWidth
 				height = width * containerRatio
-			_self.width = _self.dom.width = width
-			_self.height = _self.dom.height = height
-			_self.dom.style.width = width + 'px'
-			_self.dom.style.height = height + 'px'
+			@width = @dom.width = width
+			@height = @dom.height = height
+			@dom.style.width = width + 'px'
+			@dom.style.height = height + 'px'
 		#			console.log width, height
 
 		window.addEventListener 'resize', onResize
 		@dom.addEventListener 'DOMNodeInserted', onResize
 
 		tick = =>
-			return if not _self.isRunning
+			return if not @isRunning
 
-			_self.clipMeter.start() if @clipMeter?
+			@clipMeter.start() if @clipMeter?
 			tickCount += 1
-			_self.triggerEvent 'update', {'tickCount': tickCount}
+			@triggerEvent 'update', {'tickCount': tickCount}
 			clearCanvas()
-			_self.drawShapes()
-			_self.clipMeter.tick() if @clipMeter?
+			@drawShapes()
+			@clipMeter.tick() if @clipMeter?
 
 		setInterval(tick, 1000 / @fps)
 		clearCanvas = =>
-			@context.clearRect(0, 0, _self.width, _self.height)
+			@context.clearRect(0, 0, @width, @height)
 
 		# init
 		if @container?
 			@container = document.querySelector(@container) if typeof @container is 'string'
-			setTimeout ->
-				_self.container.appendChild _self.dom
+			setTimeout =>
+				@container.appendChild @dom
 			, 100
 
 		tickCount = 0

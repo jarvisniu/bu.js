@@ -4,7 +4,6 @@ class Bu.Image extends Bu.Object2D
 
 	constructor: (@url, x, y, width, height) ->
 		super()
-		self = @
 		@type = 'Image'
 
 		@autoSize = yes
@@ -20,9 +19,9 @@ class Bu.Image extends Bu.Object2D
 		@image = new window.Image
 		@loaded = false
 
-		@image.onload = (e) ->
-			if self.autoSize
-				self.size.set self.image.width, self.image.height
-			self.loaded = true
+		@image.onload = (e) =>
+			if @autoSize
+				@size.set @image.width, @image.height
+			@loaded = true
 
 		@image.src = @url
