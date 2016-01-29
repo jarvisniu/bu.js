@@ -1,0 +1,60 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title Dashed Stroke
+    script(src="../lib/za_geom2d.min.js")
+    script(src="../src/Bu.dev.js")
+    script(type="text/javascript").
+
+      var renderer, generator;
+      var isFlowOn = true;
+
+      $.ready(init);
+
+      function init() {
+        renderer = new Bu.Renderer({
+          container: "#container"
+        });
+        generator = new Bu.RandomShapeGenerator(renderer);
+        generateShapes();
+
+        $("#btnStrokeFlow").on("click", function () {
+          isFlowOn = !isFlowOn;
+        });
+        renderer.dom.addEventListener("mouseup", generateShapes);
+
+        setInterval(tickFlow, 1000 / 30);
+      }
+
+      function generateShapes() {
+        renderer.shapes = [
+          generator.generateLine().dash(2),
+          generator.generateTriangle().dash(4),
+          generator.generateRectangle().dash(8),
+          generator.generatePolygon().dash().stroke("red"),
+          generator.generatePolyline().dash().stroke("purple"),
+
+          generator.generateCircle().dash().stroke("lime"),
+          generator.generateFan().dash().stroke("lime"),
+          generator.generateBow().dash().stroke("lime"),
+        ];
+      }
+
+      function tickFlow() {
+        if (isFlowOn) {
+          for (var i in renderer.shapes) {
+            if (!renderer.shapes.hasOwnProperty(i)) continue;
+            if (renderer.shapes[i].type == 'Line')
+              renderer.shapes[i].dashDelta += 1;  // because line.dash(2), short than others
+            else
+              renderer.shapes[i].dashDelta += 2;
+          }
+        }
+      }
+
+  body
+    button#btnStrokeFlow Toggle Flow
+    div Dashed line stroke examples. (Curve lines not implemented for now.)
+    div Click to regenerate shapes.
+    div#container

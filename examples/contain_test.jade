@@ -1,0 +1,54 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    title Bow Contains Point
+    script(src="../lib/za_geom2d.min.js")
+    script(src="../src/Bu.dev.js")
+    script(type="text/javascript").
+
+      var renderer;
+      var generator;
+      var mousePos = new Bu.Point();
+
+      $.ready(init);
+
+      function init() {
+        renderer = new Bu.Renderer({
+          container: "#container"
+        });
+
+        generator = new Bu.RandomShapeGenerator(renderer);
+        generateShapes();
+
+        renderer.dom.addEventListener("mouseup", generateShapes);
+        renderer.dom.addEventListener("mousemove", onMouseMove);
+      }
+
+      function onMouseMove(e) {
+        mousePos.x = e.offsetX;
+        mousePos.y = e.offsetY;
+
+        for (var i in renderer.shapes) {
+          if (!renderer.shapes.hasOwnProperty(i)) continue;
+          var shape = renderer.shapes[i];
+          if (shape.containsPoint(mousePos))
+            shape.fill(Bu.DEFAULT_FILL_STYLE_HOVER);
+          else
+            shape.fill();
+        }
+      }
+
+      function generateShapes() {
+        renderer.shapes = [
+          generator.generateBow(),
+          generator.generateTriangle(),
+          generator.generateCircle(),
+          generator.generateFan(),
+          generator.generatePolygon(),
+        ]
+      }
+
+  body
+    div Move cursor to test. Click to regenerate shapes.
+    div#container

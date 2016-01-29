@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Label</title>
+  <script src="js/vue.min.js"></script>
+  <script src="js/vue-importer.js"></script>
+  <script src="../lib/za_geom2d.min.js"></script>
+  <script src="../src/Bu.dev.js"></script>
+  <style type="text/css">
+
+    * {
+      margin: 0;
+      padding: 0;
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
+    }
+
+    html, body, #app {
+      height: 100%;
+    }
+
+    span {
+      vertical-align: top;
+    }
+
+    #app {
+      display: inline-flex;
+      width: 100%;
+    }
+
+    #app.theme-dark {
+      background-color: #444;
+      color: #eee;
+    }
+
+    #container {
+      display: inline-block;
+      width: calc(100% - 42px);
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app" class="theme-light" :class="theme">
+  <side-panel>
+    <vertical-toolbar on-change="onChange">
+      <image-button key="point" tip="Point" icon="point"></image-button>
+      <image-button key="circle" tip="Circle" icon="circle"></image-button>
+      <image-button key="circle2" tip="Circle2" icon="circle2"></image-button>
+      <image-button key="polygon" tip="Polygon" icon="polygon"></image-button>
+      <image-button key="polyline" tip="Polyline" icon="polyline"></image-button>
+    </vertical-toolbar>
+  </side-panel>
+  <div id="container"></div>
+</div>
+<script>
+  var renderer;
+  var reactors = {};
+
+  var components = [
+    'SidePanel',
+    'VerticalToolbar',
+    'ImageButton'
+  ];
+
+  function onChange(keyOn) {
+    for (var key in reactors) {
+      if (!reactors.hasOwnProperty(key)) continue;
+      if (key === keyOn)
+        reactors[key].enable();
+      else
+        reactors[key].disable();
+    }
+  }
+
+  new VueInit(components, function() {
+    new Vue({
+      el: '#app',
+      props: ['theme']
+    })
+  });
+
+  $.ready(init);
+
+  function init() {
+    renderer = new Bu.Renderer({
+      container: "#container",
+      fillParent: true,
+      border: false
+    });
+
+    reactors.point = new Bu.DrawPointReactor(renderer);
+    reactors.circle = new Bu.DrawCircleReactor(renderer);
+    reactors.circle2 = new Bu.DrawCircleDiameterReactor(renderer);
+    reactors.polyline = new Bu.DrawPolylineReactor(renderer);
+    reactors.polygon = new Bu.DrawPolygonReactor(renderer);
+
+    reactors.point.enable();
+  }
+</script>
+</body>
+</html>

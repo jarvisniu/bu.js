@@ -36,7 +36,9 @@
 			"reactor/DrawPolylineReactor",
 			"reactor/DrawPolygonReactor",
 
-			"renderer/Renderer"
+			"renderer/Renderer",
+
+			"extra/RandomShapeGenerator"
 		]
 	}
 }

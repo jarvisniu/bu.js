@@ -9,7 +9,7 @@ function VueInit(components, callback) {
     var self = this;
     this.count = 0;
     this.onLoad = callback;
-    var componentPath = '../ui/';
+    var componentPath = './vue/';
 
     init();
 

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Label</title>
+  <script src="js/vue.min.js"></script>
+  <script src="js/vue-importer.js"></script>
+  <style type="text/css">
+
+    * {
+      margin: 0;
+      padding: 0;
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
+    }
+
+    html, body, #app {
+      height: 100%;
+    }
+
+    span {
+      vertical-align: top;
+    }
+
+    #app {
+      display: flex;
+    }
+
+    #app.theme-dark {
+      background-color: #444;
+      color: #eee;
+    }
+
+    #info {
+      margin: 8px;
+    }
+
+  </style>
+</head>
+<body>
+
+<div id="app" :class="theme">
+
+  <side-panel>
+    <vertical-toolbar>
+      <image-button tip="Application Cache" icon="applicationCache"></image-button>
+      <image-button tip="Cookie" icon="cookie"></image-button>
+      <image-button tip="Local Storage" icon="localStorage"></image-button>
+    </vertical-toolbar>
+  </side-panel>
+
+  <div>
+
+    <div id="info">I like the style of JetBrains IDEs very much. So I planed to build a widget set for my projects. These widgets are based on Vue.js</div>
+
+    <horizontal-togglebar :themec.sync="theme">
+      <icon-label text="light" icon="database" label="(L)ight"></icon-label>
+      <icon-label text="dark" icon="localStorage" label="Da(r)k"></icon-label>
+    </horizontal-togglebar>
+
+    <tab-bar>
+      <tab-button icon="file" label="index.html"></tab-button>
+      <tab-button icon="js" label="index.js"></tab-button>
+      <tab-button icon="js" label="jQuery.js"></tab-button>
+      <tab-button icon="js" label="three.js"></tab-button>
+    </tab-bar>
+
+    <horizontal-toolbar>
+      <image-button tip="Application Cache" icon="applicationCache"></image-button>
+      <image-button tip="Cookie" icon="cookie"></image-button>
+      <image-button tip="Local Storage" icon="localStorage"></image-button>
+    </horizontal-toolbar>
+
+  </div>
+
+  <br>
+
+</div>
+<script>
+  var components = [
+    'ImageButton',
+    'VerticalToolbar',
+    'TabBar',
+    'TabButton',
+    'HorizontalTogglebar',
+    'IconLabel',
+    'HorizontalToolbar',
+    'SidePanel'
+  ];
+
+  new VueInit(components, function() {
+    new Vue({
+      el: '#app',
+      props: ['theme'],
+      ready: function() {
+        this.theme = 'theme-light'
+      }
+    })
+  });
+</script>
+</body>
+</html>

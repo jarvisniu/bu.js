@@ -3,8 +3,8 @@ html(lang="en")
   head
     title Morph
     meta(charset="utf-8")
-    script(src="../../lib/za_geom2d.min.js")
-    script(src="../../src/Bu.dev.js")
+    script(src="../lib/za_geom2d.min.js")
+    script(src="../src/Bu.dev.js")
     script(type="text/javascript").
 
       var renderer;
@@ -37,6 +37,8 @@ html(lang="en")
         renderer.append(polylineB);
         renderer.append(polylineMorph.polyline);
 
+        refreshLabel();
+
         setInterval(animate, 1000 / 60);
       }
 
@@ -46,7 +48,19 @@ html(lang="en")
         } else {
           polylineB.addPoint(new Bu.Point(e.offsetX, e.offsetY));
         }
+        refreshLabel();
         polylineMorph.update();
+      }
+
+      function refreshLabel() {
+        for (var i in polylineA.vertices) {
+          if (!polylineA.vertices.hasOwnProperty(i)) continue;
+          polylineA.vertices[i].label = i;
+        }
+        for (i in polylineB.vertices) {
+          if (!polylineB.vertices.hasOwnProperty(i)) continue;
+          polylineB.vertices[i].label = i;
+        }
       }
 
       function animate() {

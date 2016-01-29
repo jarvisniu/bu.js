@@ -87,7 +87,7 @@
     },
     computed: {
       iconUrl: function () {
-        return '../ui/icons/' + this.icon + '.png'
+        return './vue/icons/' + this.icon + '.png'
       }
     },
     methods: {

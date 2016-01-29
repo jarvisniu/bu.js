@@ -7,11 +7,10 @@
       font-family: "Microsoft YaHei", Arial, sans-serif;
       font-size: 13px;
       cursor: default;
-      padding: 0 2px;
       height: 24px;
+      padding-left: 2px;
       border: solid gray;
       border-width: 0 1px 0 0;
-      /*border-radius: 3px;*/
     }
 
     /* children */
@@ -27,19 +26,18 @@
 
     .tab-button-close {
       display: inline-block;
-      /*border: solid 1px gray;*/
       width: 14px;
       height: 14px;
       margin: 5px;
       box-sizing: border-box;
       background-size: contain;
-      background-image: url(../ui/icons/close-default.png);
+      background-image: url(vue/icons/close-default.png);
     }
     .tab-button-close:hover {
-      background-image: url(../ui/icons/close-hover.png);
+      background-image: url(vue/icons/close-hover.png);
     }
     .tab-button-close:active {
-      background-image: url(../ui/icons/close-down.png);
+      background-image: url(vue/icons/close-down.png);
     }
 
     /* default */
@@ -86,7 +84,7 @@
     }
 
     .theme-dark .tab-button:active {
-      background-color: #333;
+      /*background-color: #333;*/
     }
 
     .theme-dark .tab-button.selected {
@@ -100,7 +98,7 @@
     }
 
     .theme-dark .tab-button.selected:active {
-      background-color: #333;
+      /*background-color: #333;*/
     }
 
 </style>
@@ -132,7 +130,7 @@
     },
     computed: {
       iconUrl: function () {
-        return '../ui/icons/' + this.icon + '.png'
+        return './vue/icons/' + this.icon + '.png'
       }
     },
     methods: {

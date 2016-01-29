@@ -1,18 +1,20 @@
 <style>
-    .vertical-toolbar {
-      border: solid 1px gray;
-      /*margin: 8px;*/
-      box-sizing: border-box;
-      width: 32px;
-      background-color: #eee;
-      border-radius: 4px;
-    }
+  .vertical-toolbar {
+    border: solid 1px gray;
+    /*margin: 8px;*/
+    box-sizing: border-box;
+    width: 32px;
+    border-radius: 4px;
+  }
+  .theme-light .vertical-toolbar {
+    background-color: #eee;
+  }
 </style>
 
 <template>
-    <div class="vertical-toolbar">
-        <slot></slot>
-    </div>
+  <div class="vertical-toolbar">
+    <slot></slot>
+  </div>
 </template>
 
 <script>
@@ -27,7 +29,7 @@
           if (buttons[i] !== child) {
             buttons[i].selected = false
           } else {
-            window[this.onChange](buttons[i].key);
+            if (window[this.onChange]) window[this.onChange](buttons[i].key);
           }
         }
       }
