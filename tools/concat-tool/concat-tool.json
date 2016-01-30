@@ -3,7 +3,7 @@
 	"des": "./../build/",
 	"ext": ".js",
 	"versions": {
-		"geom2d": [
+		"bu": [
 			"Bu",
 
 			"math/Vector",
