@@ -1,0 +1,28 @@
+{
+  "name": "bu.js",
+  "version": "0.1.0",
+  "description": "A javascript 2D library",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "build": "node tools/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jarvisniu/Bu.js.git"
+  },
+  "keywords": [
+    "javascript",
+    "2d",
+    "graphics",
+    "geometry"
+  ],
+  "author": "Jarvis Niu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jarvisniu/Bu.js/issues"
+  },
+  "homepage": "https://github.com/jarvisniu/Bu.js#readme"
+}
