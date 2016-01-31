@@ -5,6 +5,20 @@ html(lang="en")
     meta(charset="utf-8")
     script(src="../lib/za_geom2d.min.js")
     script(src="../src/Bu.dev.js")
+    style.
+      html, body, #container {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      #info {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        padding: 8px;
+      }
     script(type="text/javascript").
 
       var renderer;
@@ -72,5 +86,5 @@ html(lang="en")
       }
 
   body
-    div Click (left/right button) to add points to the lines.
+    div#info Click (left/right button) to add points to the lines.
     div#container

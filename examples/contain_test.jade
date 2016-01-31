@@ -5,6 +5,19 @@ html
     title Bow Contains Point
     script(src="../lib/za_geom2d.min.js")
     script(src="../src/Bu.dev.js")
+    style.
+      html, body, #container {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      #info {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        padding: 8px;
+      }
     script(type="text/javascript").
 
       var renderer;
@@ -50,5 +63,5 @@ html
       }
 
   body
-    div Move cursor to test. Click to regenerate shapes.
+    div#info Move cursor to test. Click to regenerate shapes.
     div#container

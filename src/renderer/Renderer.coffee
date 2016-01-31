@@ -12,7 +12,7 @@ class Bu.Renderer
 			height: 600
 			fps: 60
 			fillParent: off
-			border: on
+			border: off
 		@width = options.width
 		@height = options.height
 		@fps = options.fps
@@ -36,6 +36,7 @@ class Bu.Renderer
 			@dom.style.height = @height + 'px'
 		@dom.style.border = 'solid 1px gray' if options.border? and options.border
 		@dom.style.cursor = 'crosshair'
+		@dom.style.boxSizing = 'border-box'
 		@dom.style.background = '#eee'
 		@dom.oncontextmenu = -> false
 
