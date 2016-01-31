@@ -42,34 +42,18 @@
 <div id="app" :class="theme">
 
   <side-panel>
-    <vertical-toolbar>
-      <image-button tip="Application Cache" icon="applicationCache"></image-button>
-      <image-button tip="Cookie" icon="cookie"></image-button>
-      <image-button tip="Local Storage" icon="localStorage"></image-button>
-    </vertical-toolbar>
+    <vertical-toolbar v-ref:v-toolbar></vertical-toolbar>
   </side-panel>
 
   <div>
 
     <div id="info">I like the style of JetBrains IDEs very much. So I planed to build a widget set for my projects. These widgets are based on Vue.js</div>
 
-    <horizontal-togglebar :themec.sync="theme">
-      <icon-label text="light" icon="database" label="(L)ight"></icon-label>
-      <icon-label text="dark" icon="localStorage" label="Da(r)k"></icon-label>
-    </horizontal-togglebar>
+    <horizontal-togglebar :theme.sync="theme" v-ref:togglebar></horizontal-togglebar>
 
-    <tab-bar>
-      <tab-button icon="file" label="index.html"></tab-button>
-      <tab-button icon="js" label="index.js"></tab-button>
-      <tab-button icon="js" label="jQuery.js"></tab-button>
-      <tab-button icon="js" label="three.js"></tab-button>
-    </tab-bar>
+    <tab-bar v-ref:tabbar></tab-bar>
 
-    <horizontal-toolbar>
-      <image-button tip="Application Cache" icon="applicationCache"></image-button>
-      <image-button tip="Cookie" icon="cookie"></image-button>
-      <image-button tip="Local Storage" icon="localStorage"></image-button>
-    </horizontal-toolbar>
+    <horizontal-toolbar v-ref:h-toolbar></horizontal-toolbar>
 
   </div>
 
@@ -77,6 +61,7 @@
 
 </div>
 <script>
+
   var components = [
     'ImageButton',
     'VerticalToolbar',
@@ -88,12 +73,88 @@
     'SidePanel'
   ];
 
+  var iconLabelsV = [
+    {
+      icon: './vue/icons/applicationCache.png',
+      tip: "Application Cache",
+      key: 'applicationCache',
+      selected: true
+    }, {
+      icon: './vue/icons/cookie.png',
+      tip: "Cookie",
+      key: 'cookie',
+      selected: false
+    }, {
+      icon: './vue/icons/localStorage.png',
+      tip: "Local Storage",
+      key: 'localStorage',
+      selected: false
+    }
+  ];
+
+  var iconLabelsH = [
+    {
+      icon: './vue/icons/applicationCache.png',
+      tip: "Application Cache",
+      key: 'applicationCache',
+      selected: false
+    }, {
+      icon: './vue/icons/cookie.png',
+      tip: "Cookie",
+      key: 'cookie',
+      selected: true
+    }, {
+      icon: './vue/icons/localStorage.png',
+      tip: "Local Storage",
+      key: 'localStorage',
+      selected: false
+    }
+  ];
+
+  var tabBarData = [
+    {
+      icon: './vue/icons/file.png',
+      label: "index.html",
+      selected: true
+    }, {
+      icon: './vue/icons/js.png',
+      label: "index.js",
+      selected: false
+    }, {
+      icon: './vue/icons/js.png',
+      label: "j(Q)uery.js",
+      selected: false
+    }, {
+      icon: './vue/icons/js.png',
+      label: "three.js",
+      selected: false
+    }
+  ];
+
+  var toggleBarData = [
+    {
+      label: "(L)ight",
+      icon: "./vue/icons/database.png",
+      key: 'light',
+      selected: true
+    }, {
+      label: "Da(r)k",
+      icon: "./vue/icons/localStorage.png",
+      key: 'dark',
+      selected: false
+    }
+  ];
+
   new VueInit(components, function() {
     new Vue({
       el: '#app',
       props: ['theme'],
       ready: function() {
-        this.theme = 'theme-light'
+        this.theme = 'theme-light';
+        this.$refs.vToolbar.items = iconLabelsV;
+        this.$refs.hToolbar.items = iconLabelsH;
+        this.$refs.tabbar.tabs = tabBarData;
+        this.$refs.togglebar.items = toggleBarData;
       }
     })
   });

@@ -12,30 +12,40 @@
 
 <template>
   <div class="horizontal-togglebar">
-    <slot></slot>
+    <icon-label v-for="item in items" :model="item"></icon-label>
   </div>
 </template>
 
 <script>
 
   export default {
-    props: ['themec'],
-    methods: {
-      turnOffOthers: function (child) {
-        var buttons = this.$children
-        this.themec = 'theme-' + child._props['text'].raw.toLowerCase()
-        for (var i in buttons) {
-          if (!buttons.hasOwnProperty(i)) {
-            continue
-          }
-          if (buttons[i] !== child) {
-            buttons[i].selected = false
-          }
-        }
+    data: function () {
+      return {
+        items: [
+//          {
+//            icon: './vue/icons/polyline.png',
+//            tip: "Polyline",
+//            key: 'polyline',
+//            selected: false
+//          }
+        ]
       }
     },
-    ready: function () {
-      this.$children[0].selected = true
+    props: ['theme'],
+    events: {
+      "childClick": function(child) {
+        var buttons = this.$children;
+        for (var i in buttons) {
+          if (!buttons.hasOwnProperty(i)) continue;
+          if (buttons[i] !== child) {
+            buttons[i].model.selected = false
+          } else {
+            buttons[i].model.selected = true;
+            this.$dispatch("toggleChanged", buttons[i].model.key);
+          }
+        }
+        this.theme = 'theme-' + child.model.key
+      }
     }
   }
 

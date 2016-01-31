@@ -1,6 +1,7 @@
 <style>
 
     .image-button {
+      transition: all 0.3s;
       display: flex;
       border: solid 1px transparent;
       border-radius: 2px;
@@ -68,31 +69,18 @@
 </style>
 
 <template>
-    <div class="image-button" :class="{selected: selected}" :title="tip" @click="onClick">
-        <img :src="iconUrl">
+    <div class="image-button" :class="{selected: model.selected}" :title="model.tip" @click="onClick">
+        <img :src="model.icon">
     </div>
 </template>
 
 <script>
 
   export default {
-    props: ['key', 'icon', 'tip'],
-    data: function () {
-      return {
-        selected: false
-      }
-    },
-    computed: {
-      iconUrl: function () {
-        return './vue/icons/' + this.icon + '.png'
-      }
-    },
+    props: ['model'],
     methods: {
-      onClick: function (ev) {
-        if (!this.selected) {
-          this.selected = true
-          this.$parent.turnOffOthers(this)
-        }
+      onClick: function () {
+        this.$dispatch("childClick", this);
       }
     }
   }

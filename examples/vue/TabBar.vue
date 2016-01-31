@@ -32,7 +32,7 @@
 <template>
     <div class="tab-bar">
         <div class="tab-bar-container">
-            <slot></slot>
+          <tab-button v-for="tab in tabs" :model="tab"></tab-button>
         </div>
     </div>
 </template>
@@ -40,19 +40,30 @@
 <script>
 
   export default {
-    methods: {
-      turnOffOthers: function (child) {
-        var tab = this.$children
-        for (var i in tab) {
-          if (!tab.hasOwnProperty(i)) continue
-          if (tab[i] !== child) {
-            tab[i].selected = false
+    data: function() {
+      return {
+        tabs: [
+//        {
+//          icon: 'js',
+//          label: "three.js",
+//          selected: false
+//        }
+        ]
+      }
+    },
+    events: {
+      "tabClick": function(child) {
+        var tabs = this.$children;
+        for (var i in tabs) {
+          if (!tabs.hasOwnProperty(i)) continue;
+          if (tabs[i] !== child) {
+            tabs[i].model.selected = false
+          } else {
+            tabs[i].model.selected = true;
+            this.$dispatch("tabChanged", tabs[i].model.key);
           }
         }
       }
-    },
-    ready: function () {
-      this.$children[0].selected = true
     }
   }
 

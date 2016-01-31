@@ -45,13 +45,7 @@
 
 <div id="app" class="theme-light" :class="theme">
   <side-panel>
-    <vertical-toolbar on-change="onChange">
-      <image-button key="point" tip="Point" icon="point"></image-button>
-      <image-button key="circle" tip="Circle" icon="circle"></image-button>
-      <image-button key="circle2" tip="Circle2" icon="circle2"></image-button>
-      <image-button key="polygon" tip="Polygon" icon="polygon"></image-button>
-      <image-button key="polyline" tip="Polyline" icon="polyline"></image-button>
-    </vertical-toolbar>
+    <vertical-toolbar v-ref:toolbar></vertical-toolbar>
   </side-panel>
   <div id="container"></div>
 </div>
@@ -59,46 +53,73 @@
   var renderer;
   var reactors = {};
 
-  var components = [
-    'SidePanel',
-    'VerticalToolbar',
-    'ImageButton'
+  var iconButtons = [
+    {
+      icon: './vue/icons/point.png',
+      tip: "Point",
+      key: 'point',
+      selected: true
+    }, {
+      icon: './vue/icons/circle.png',
+      tip: "Circle",
+      key: 'circle',
+      selected: false
+    }, {
+      icon: './vue/icons/circle2.png',
+      tip: "Circle2",
+      key: 'circle2',
+      selected: false
+    }, {
+      icon: './vue/icons/polygon.png',
+      tip: "Polygon",
+      key: 'polygon',
+      selected: false
+    }, {
+      icon: './vue/icons/polyline.png',
+      tip: "Polyline",
+      key: 'polyline',
+      selected: false
+    }
   ];
 
-  function onChange(keyOn) {
-    for (var key in reactors) {
-      if (!reactors.hasOwnProperty(key)) continue;
-      if (key === keyOn)
-        reactors[key].enable();
-      else
-        reactors[key].disable();
-    }
-  }
-
-  new VueInit(components, function() {
+  new VueInit([
+    'ImageButton',
+    'VerticalToolbar',
+    'SidePanel'
+  ], function() {
     new Vue({
       el: '#app',
-      props: ['theme']
+      props: ['theme'],
+      events: {
+        toolChanged: function(keyOn) {
+          for (var key in reactors) {
+            if (!reactors.hasOwnProperty(key)) continue;
+            if (key === keyOn)
+              reactors[key].enable();
+            else
+              reactors[key].disable();
+          }
+        }
+      },
+      ready: function() {
+        this.$refs.toolbar.items = iconButtons;
+        renderer = new Bu.Renderer({
+          container: "#container",
+          fillParent: true,
+          border: false
+        });
+
+        reactors.point = new Bu.DrawPointReactor(renderer);
+        reactors.circle = new Bu.DrawCircleReactor(renderer);
+        reactors.circle2 = new Bu.DrawCircleDiameterReactor(renderer);
+        reactors.polyline = new Bu.DrawPolylineReactor(renderer);
+        reactors.polygon = new Bu.DrawPolygonReactor(renderer);
+
+        reactors.point.enable();
+      }
     })
   });
 
-  $.ready(init);
-
-  function init() {
-    renderer = new Bu.Renderer({
-      container: "#container",
-      fillParent: true,
-      border: false
-    });
-
-    reactors.point = new Bu.DrawPointReactor(renderer);
-    reactors.circle = new Bu.DrawCircleReactor(renderer);
-    reactors.circle2 = new Bu.DrawCircleDiameterReactor(renderer);
-    reactors.polyline = new Bu.DrawPolylineReactor(renderer);
-    reactors.polygon = new Bu.DrawPolygonReactor(renderer);
-
-    reactors.point.enable();
-  }
 </script>
 </body>
 </html>

@@ -104,11 +104,11 @@
 </style>
 
 <template>
-    <div class="tab-button" :class="{selected: selected}"
+    <div class="tab-button" :class="{selected: model.selected}"
             @mousedown="onMouseDown"
             @mousemove="onMouseMove"
             @mouseup="onMouseUp">
-        <img :src="iconUrl">
+        <img :src="model.icon">
         <span class="tab-button-label"></span>
         <span class="tab-button-close" @click="onCloseDown"></span>
     </div>
@@ -117,53 +117,35 @@
 <script>
 
   export default {
-
-    props: ['icon', 'label'],
-    data: function () {
-      return {
-        selected: false,
-        left: 0,
-        isMouseDown: false,
-        lastLeft: 0,
-        mouseDownAtScreenX: -1
-      }
-    },
-    computed: {
-      iconUrl: function () {
-        return './vue/icons/' + this.icon + '.png'
-      }
-    },
+    props: ['model'],
     methods: {
       onMouseDown: function (ev) {
-        if (!this.selected) {
-          this.selected = true
-          this.$parent.turnOffOthers(this)
-        }
         // move
-        this.isMouseDown = true
-//        this.mouseDownAtButtonX = ev.offsetX
-        this.mouseDownAtScreenX = ev.screenX - this.lastLeft
+        this.isMouseDown = true;
+        this.mouseDownAtScreenX = ev.screenX - this.lastLeft;
+
+        this.$dispatch("tabClick", this);
       },
       onMouseMove: function (ev) {
         if (this.isMouseDown) {
-          this.lastLeft = ev.screenX - this.mouseDownAtScreenX
+          this.lastLeft = ev.screenX - this.mouseDownAtScreenX;
           this.$el.style.left = this.lastLeft + 'px'
         }
       },
       onMouseUp: function (ev) {
-        this.isMouseDown = false
-        this.lastLeft = 0
+        this.isMouseDown = false;
+        this.lastLeft = 0;
         this.$el.style.left = this.lastLeft + 'px'
       },
       onCloseDown: function (ev) {
         return false
       }
     },
-    compiled: function () {
-      var span = this.$el.querySelector('span')
-      var text = this._props['label'].raw
-      var idxL = text.indexOf('(')
-      var idxR = text.indexOf(')')
+    ready: function () {
+      var span = this.$el.querySelector('span');
+      var text = this.model.label;
+      var idxL = text.indexOf('(');
+      var idxR = text.indexOf(')');
       if (idxL > -1 && idxR > 1 && idxR > idxL) {
         if (idxL > 0) {
           span.innerHTML += '<span>' + text.substring(0, idxL) + '</span>'

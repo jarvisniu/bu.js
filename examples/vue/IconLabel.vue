@@ -71,36 +71,23 @@
 </style>
 
 <template>
-  <div class="icon-label" :class="{selected: selected}" @click="onClick">
-    <img :src="iconUrl">
+  <div class="icon-label" :class="{selected: model.selected}" @click="onClick">
+    <img :src="model.icon">
   </div>
 </template>
 
 <script>
 
   export default {
-    props: ['text', 'icon', 'label'],
-    data: function () {
-      return {
-        selected: false
-      }
-    },
-    computed: {
-      iconUrl: function () {
-        return './vue/icons/' + this.icon + '.png'
-      }
-    },
+    props: ["model"],
     methods: {
       onClick: function (ev) {
-        if (!this.selected) {
-          this.selected = true
-          this.$parent.turnOffOthers(this)
-        }
+        this.$dispatch("childClick", this)
       }
     },
-    compiled: function () {
+    ready: function () {
       var span = this.$el
-      var text = this._props['label'].raw
+      var text = this.model.label
       var idxL = text.indexOf('(')
       var idxR = text.indexOf(')')
       if (idxL > -1 && idxR > 1 && idxR > idxL) {

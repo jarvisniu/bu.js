@@ -15,28 +15,31 @@
 
 <template>
   <div class="horizontal-toolbar">
-    <slot></slot>
+    <image-button v-for="item in items" :model="item"></image-button>
   </div>
 </template>
 
 <script>
 
   export default {
-    methods: {
-      turnOffOthers: function (child) {
-        var buttons = this.$children
+    data: function () {
+      return {
+        items: []
+      }
+    },
+    events: {
+      "childClick": function(child) {
+        var buttons = this.$children;
         for (var i in buttons) {
-          if (!buttons.hasOwnProperty(i)) {
-            continue
-          }
+          if (!buttons.hasOwnProperty(i)) continue;
           if (buttons[i] !== child) {
-            buttons[i].selected = false
+            buttons[i].model.selected = false
+          } else {
+            buttons[i].model.selected = true;
+            this.$dispatch("toolChanged", buttons[i].model.key);
           }
         }
       }
-    },
-    ready: function () {
-      this.$children[0].selected = true
     }
   }
 
