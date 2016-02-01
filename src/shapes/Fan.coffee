@@ -5,12 +5,12 @@ class Bu.Fan extends Bu.Object2D
 	constructor: (@cx, @cy, @radius, @aFrom, @aTo) ->
 		super()
 		@type = 'Fan'
-		@center = new Bu.Point(@cx, @cy)
+		@center = new Bu.Point @cx, @cy
 		@string = new Bu.Line(
-		  @center.arcTo(@radius, @aFrom)
-		  @center.arcTo(@radius, @aTo)
+		  @center.arcTo @radius, @aFrom
+		  @center.arcTo @radius, @aTo
 		)
-		@keyPoints = @string.points;
+		@keyPoints = @string.points
 
 	_containsPoint: (p) ->
 		dx = p.x - @cx

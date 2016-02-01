@@ -25,8 +25,8 @@ class Bu.Line extends Bu.Object2D
 
 	set: (a1, a2, a3, a4) ->
 		if p4?
-			@points[0].set(a1, a2)
-			@points[1].set(a3, a4)
+			@points[0].set a1, a2
+			@points[1].set a3, a4
 		else
 			@points[0] = a1
 			@points[1] = a2
@@ -34,18 +34,18 @@ class Bu.Line extends Bu.Object2D
 		@
 
 	setPoint1: (a1, a2) ->
-		if p2?
-			@points[0].set(a1, a2)
+		if a2?
+			@points[0].set a1, a2
 		else
-			@points[0].copy(a1)
+			@points[0].copy a1
 		@onPointChange()
 		@
 
 	setPoint2: (a1, a2) ->
-		if p2?
-			@points[1].set(a1, a2)
+		if a2?
+			@points[1].set a1, a2
 		else
-			@points[1].copy(a1)
+			@points[1].copy a1
 		@onPointChange()
 		@
 
