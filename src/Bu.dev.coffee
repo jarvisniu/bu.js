@@ -4,6 +4,8 @@
 
 		'math/Vector',
 
+		'core/Event',
+		'core/MicroJQuery',
 		'core/Object2D',
 		'core/Size',
 		'core/Bounds',

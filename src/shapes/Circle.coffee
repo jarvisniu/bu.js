@@ -16,13 +16,13 @@ class Bu.Circle extends Bu.Object2D
 		get: ->  @_center.x
 		set: (val) ->
 			@_center.x = val
-			@triggerEvent('centerChanged', @)
+			@trigger 'centerChanged', @
 
 	@property 'cy',
 		get: ->  @_center.y
 		set: (val) ->
 			@_center.y = val
-			@triggerEvent('centerChanged', @)
+			@trigger 'centerChanged', @
 
 	@property 'center',
 		get: ->  @_center
@@ -31,13 +31,13 @@ class Bu.Circle extends Bu.Object2D
 			@cx = val.x
 			@cy = val.y
 			@keyPoints[0] = val
-			@triggerEvent('centerChanged', @)
+			@trigger 'centerChanged', @
 
 	@property 'radius',
 		get: ->  @_radius
 		set: (val) ->
 			@_radius = val
-			@triggerEvent('radiusChanged', @)
+			@trigger 'radiusChanged', @
 			@
 
 	# point related

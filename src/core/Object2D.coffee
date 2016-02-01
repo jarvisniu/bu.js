@@ -4,7 +4,7 @@ class Bu.Object2D
 
 	constructor: () ->
 		Bu.Colorful.apply @
-		Za.EventListenerPattern.apply @
+		Bu.Event.apply @
 
 		@visible = yes
 		@opacity = 1

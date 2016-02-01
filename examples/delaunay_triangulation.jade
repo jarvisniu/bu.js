@@ -3,7 +3,6 @@ html(lang="en")
   head
     meta(charset="utf-8")
     title Delaunay Triangulation
-    script(src="../lib/za_bu.min.js")
     script(src="../lib/ClipMeter.min.js")
     script(src="../src/Bu.dev.js")
     style.
@@ -54,7 +53,7 @@ html(lang="en")
 
       // generate lines
       function randomLines() {
-        lines.clear();
+        lines = [];
         for (var i = 0; i < LINE_COUNT; i++) {
           var p1 = points[Math.floor(Math.rand(POINT_COUNT))];
           var p2 = points[Math.floor(Math.rand(POINT_COUNT))];
@@ -66,7 +65,7 @@ html(lang="en")
       }
 
       function allLines() {
-        lines.clear();
+        lines = [];
         for (var i = 0; i < POINT_COUNT; i++) {
           for (var j = i + 1; j < POINT_COUNT; j++) {
             var line = new Bu.Line(points[i], points[j]);
@@ -78,7 +77,7 @@ html(lang="en")
       }
 
       function noCrossLines() {
-        lines.clear();
+        lines = [];
         for (var i = 0; i < POINT_COUNT; i++) {
           for (var j = i + 1; j < POINT_COUNT; j++) {
             var line = new Bu.Line(points[i], points[j]);
@@ -95,7 +94,7 @@ html(lang="en")
       }
 
       function delaunayLines() {
-        lines.clear();
+        lines = [];
         for (var i = 0; i < POINT_COUNT; i++) {
           for (var j = i + 1; j < POINT_COUNT; j++) {
             lines.push(new Bu.Line(points[i], points[j]));

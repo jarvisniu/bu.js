@@ -3,7 +3,7 @@
 class Bu.Renderer
 
 	constructor: () ->
-		Za.EventListenerPattern.apply @
+		Bu.Event.apply @
 
 		@type = 'Renderer'
 
@@ -64,7 +64,7 @@ class Bu.Renderer
 
 			@clipMeter.start() if @clipMeter?
 			tickCount += 1
-			@triggerEvent 'update', {'tickCount': tickCount}
+			@trigger 'update', {'tickCount': tickCount}
 			clearCanvas()
 			@drawShapes(@shapes)
 			@clipMeter.tick() if @clipMeter?

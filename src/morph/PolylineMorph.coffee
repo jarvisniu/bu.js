@@ -16,8 +16,8 @@ class Bu.PolylineMorph
 			Bu.Point.interpolate(@hPointsA[i], @hPointsB[i], time, @polyline.vertices[i])
 
 	update: =>
-		@hPointsA.clear()
-		@hPointsB.clear()
+		@hPointsA = []
+		@hPointsB = []
 
 		pointsA = @polylineA.vertices
 		pointsB = @polylineB.vertices

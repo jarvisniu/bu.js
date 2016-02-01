@@ -50,6 +50,21 @@ Bu.combineOptions = (args, defaultOptions) ->
 			defaultOptions[i] = givenOptions[i]
 	return defaultOptions
 
+# Array
+Array::each = Array::each or (fn) ->
+	i = 0
+	while i < @length
+		fn @[i]
+		i++
+	return @
+
+Array::map = Array::map or (fn) ->
+	arr = []
+	i = 0
+	while i < @length
+		arr.push fn(@[i])
+		i++
+	return @
 
 # calculate the average number of several numbers
 # you can pass several numbers or a Array of numbers
@@ -60,3 +75,12 @@ Bu.average = ()->
 	for i in ns
 		sum += i
 	sum / ns.length
+
+# TODO move to Bu
+Math.bevel = Math.bevel or (x, y) ->
+				Math.sqrt x * x + y * y
+Math.rand = Math.rand or (from, to) ->
+			if to == undefined
+				to = from
+				from = 0
+			Math.random() * (to - from) + from
