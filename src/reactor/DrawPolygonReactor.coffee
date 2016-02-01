@@ -45,7 +45,6 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 
 				guideLineEnd.setPoint1 guideLineEnd.points[1]
 				polygon.addPoint mousePos.clone()
-				console.log "polygon vertices: " + polygon.vertices.length
 			else if mouseButton == Bu.MOUSE_BUTTON_RIGHT
 				polygon.fill()
 				polygon = null
@@ -75,7 +74,4 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 
 				points = polygon.vertices
 				len = mousePos.distanceTo points[points.length - 1]
-#				console.log "len: " + len
-				console.log "mousePos: ", mousePos, "lastPoint: ", points[points.length - 1]
 				polygon.addPoint mousePos.clone() if len > Bu.POINT_RENDER_SIZE
-				console.log "polygon vertices: " + polygon.vertices.length
