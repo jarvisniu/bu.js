@@ -9,28 +9,34 @@ class Bu.DrawCircleReactor extends Bu.ReactorBase
 		mousePos = new Bu.Point
 		mousePosDown = new Bu.Point
 
+		isConfirmed = true
+
 		circle = null
 		line = null
 
 		# create new circles every time
 		@onMouseDown = (e) =>
-			mousePosDown.set e.offsetX, e.offsetY
+			if not isConfirmed
+				circle = null
+				isConfirmed = yes
+			else
+				mousePosDown.set e.offsetX, e.offsetY
+				circle = new Bu.Circle mousePosDown.x, mousePosDown.y, 1
+				@renderer.append circle
 
-			circle = new Bu.Circle mousePosDown.x, mousePosDown.y, 1
-			@renderer.append circle
-
-			line = new Bu.Line mousePosDown, mousePosDown
-			line.stroke '#f44'
-			@renderer.append line
-
+				line = new Bu.Line mousePosDown, mousePosDown
+				line.stroke '#f44'
+				@renderer.append line
+				isConfirmed = no
 			mouseButton = e.button
 
 		# change radius
 		@onMouseMove = (e) =>
-			if mouseButton == Bu.MOUSE_BUTTON_LEFT
-				mousePos.set e.offsetX, e.offsetY
+			mousePos.set e.offsetX, e.offsetY
+			if (not isConfirmed) or (mouseButton == Bu.MOUSE_BUTTON_LEFT and circle?)
 				circle.radius = mousePos.distanceTo mousePosDown
 				line.setPoint1 mousePos
 
 		@onMouseUp = =>
 			mouseButton = Bu.MOUSE_BUTTON_NONE
+			isConfirmed = mousePos.distanceTo(mousePosDown) > Bu.POINT_RENDER_SIZE
