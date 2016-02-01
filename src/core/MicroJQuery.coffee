@@ -138,8 +138,7 @@
 				return
 			this
 
-		# == Events ==
-		# on("click", function(e) {  });
+		# event
 
 		@on = (type, callback) ->
 			doms.each (dom) ->
