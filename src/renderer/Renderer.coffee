@@ -155,6 +155,7 @@ class Bu.Renderer
 		if shape.strokeStyle?
 			@context.strokeStyle = shape.strokeStyle
 			@context.lineWidth = shape.lineWidth
+			@context.beginPath()
 			if shape.dashStyle
 				@context.dashedLine(
 						shape.points[0].x, shape.points[0].y,
@@ -162,7 +163,6 @@ class Bu.Renderer
 						shape.dashStyle, shape.dashDelta
 				)
 			else
-				@context.beginPath()
 				@context.lineTo(shape.points[0].x, shape.points[0].y)
 				@context.lineTo(shape.points[1].x, shape.points[1].y)
 				@context.closePath()
