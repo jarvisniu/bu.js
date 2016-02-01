@@ -368,37 +368,37 @@ class Bu.Renderer
 # See: http://stackoverflow.com/questions/4576724/dotted-stroke-in-canvas
 (=>
 	CP = window.CanvasRenderingContext2D and CanvasRenderingContext2D.prototype
-	if CP.lineTo?
-		CP.dashedLine = (x, y, x2, y2, da, delta) ->
-			da = Bu.DEFAULT_DASH_STYLE if not da?
-			delta = 0 if not delta?
-			@save()
-			dx = x2 - x
-			dy = y2 - y
-			len = Math.bevel(dx, dy)
-			rot = Math.atan2(dy, dx)
-			@translate(x, y)
-			@rotate(rot)
-			dc = da.length
-			di = 0
-			draw = true
+	CP.dashedLine = (x, y, x2, y2, da, delta) ->
+		da = Bu.DEFAULT_DASH_STYLE if not da?
+		delta = 0 if not delta?
+		@save()
+		dx = x2 - x
+		dy = y2 - y
+		len = Math.bevel(dx, dy)
+		rot = Math.atan2(dy, dx)
+		@translate(x, y)
+		@rotate(rot)
+		dc = da.length
+		di = 0
+		draw = true
 
-			lenU = 0
-			for i in da
-				lenU += i
-			delta %= lenU
-			x = delta
+		lenU = 0
+		for i in da
+			lenU += i
+		delta %= lenU
+		x = delta
 
-			@moveTo(0, 0)
-			# TODO need a small fix
-			while len > x
-				di += 1
-				x += da[di % dc]
-				x = len if x > len
-				if draw
-					@lineTo(x, 0)
-				else
-					@moveTo(x, 0)
-				draw = not draw
-			@restore()
-			return @)()
+		@moveTo(0, 0)
+		# TODO need a small fix
+		while len > x
+			di += 1
+			x += da[di % dc]
+			x = len if x > len
+			if draw
+				@lineTo(x, 0)
+			else
+				@moveTo(x, 0)
+			draw = not draw
+		@restore()
+		return @
+)()
