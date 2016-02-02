@@ -32,7 +32,8 @@ html(lang="en")
 
       function init() {
         renderer = new Bu.Renderer({
-          container: "#container"
+          container: "#container",
+          fillParent: true
         });
         generatePoints();
         document.getElementById("btnRandom").onclick = randomLines;

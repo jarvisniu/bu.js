@@ -29,7 +29,8 @@ html(lang="en")
 
       function init() {
         renderer = new Bu.Renderer({
-          container: "#container"
+          container: "#container",
+          fillParent: true
         });
 
         image = new Bu.Image(imageUrl, 300, 200);

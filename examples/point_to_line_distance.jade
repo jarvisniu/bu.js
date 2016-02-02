@@ -28,7 +28,8 @@ html
 
       function init() {
         renderer = new Bu.Renderer({
-          container: "#container"
+          container: "#container",
+          fillParent: true
         });
         line = createLine();
         renderer.append(line);

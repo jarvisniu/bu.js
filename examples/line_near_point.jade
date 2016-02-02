@@ -27,7 +27,8 @@ html
 
       function init() {
         renderer = new Bu.Renderer({
-          container: "#container"
+          container: "#container",
+          fillParent: true
         });
         generator = new Bu.RandomShapeGenerator(renderer);
 
