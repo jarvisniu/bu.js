@@ -1,7 +1,7 @@
 {
-	"src": "./../src/",
-	"des": "./../build/",
-	"ext": ".js",
+	"src": "../../src/",
+	"des": "../../build/",
+	"ext": ".coffee",
 	"versions": {
 		"bu": [
 			"Bu",

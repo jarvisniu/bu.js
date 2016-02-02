@@ -3,7 +3,9 @@ var path = require('path');
 
 require('process').chdir(__dirname);
 
+del('../build/*.coffee');
 del('../build/*.js');
+del('../build/*.js.map');
 del('../src/*.js');
 del('../src/*.js.map');
 del('../examples/*.html');

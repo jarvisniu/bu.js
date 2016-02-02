@@ -4,6 +4,7 @@ fs = require 'fs'
 path = require 'path'
 
 configFile = 'concat-tool.json'
+console.log __dirname
 
 concatVersion = (verName) ->
 	filename = verName + config.ext
@@ -25,7 +26,8 @@ if not fs.existsSync configFile
 	return
 
 config = JSON.parse (fs.readFileSync configFile, 'utf-8')
-
+config.src = path.join __dirname, config.src
+config.des = path.join __dirname, config.des
 commentMark = switch config.ext.toLowerCase()
 	when '.coffee', '.py', '.rb' # CoffeeScript, Python, Ruby
 		'#'
@@ -35,7 +37,7 @@ commentMark = switch config.ext.toLowerCase()
 		'//'
 
 if not fs.existsSync config.src
-	console.log "Error: source dir not exists: " + path.join __dirname, config.src
+	console.log "Error: source dir not exists: " + config.src
 else
 	verNames = Object.keys config.versions
 	console.log 'Contating started. \n' +
