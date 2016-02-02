@@ -1,1 +1,0 @@
-Run the build script `/tools/build.cmd` before you view the examples.
