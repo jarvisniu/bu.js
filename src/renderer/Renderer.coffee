@@ -19,13 +19,15 @@ class Bu.Renderer
 		@container = options.container
 		@fillParent = options.fillParent
 
-		@isDrawKeyPoints = true
+		@tickCount = 0
+		@isDrawKeyPoints = no
+		@isRunning = no
 
-		# variables
-		@dom = document.createElement('canvas')
-		@context = @dom.getContext('2d')
+		@dom = document.createElement 'canvas'
+		@context = @dom.getContext '2d'
 		@context.textBaseline = 'top'
 		@clipMeter = new ClipMeter() if ClipMeter?
+
 
 		# API
 		@shapes = []
@@ -58,32 +60,33 @@ class Bu.Renderer
 			@height = @dom.height = height
 			@dom.style.width = width + 'px'
 			@dom.style.height = height + 'px'
+			@render()
 
 		window.addEventListener 'resize', onResize
 		@dom.addEventListener 'DOMNodeInserted', onResize
 
+
 		tick = =>
-			return if not @isRunning
+			@startRenderTime = Bu.now()
+			if @isRunning
+				@clipMeter.start() if @clipMeter?
+				@render()
+				@trigger 'update', {'tickCount': @tickCount}
+				@tickCount += 1
+				@clipMeter.tick() if @clipMeter?
 
-			@clipMeter.start() if @clipMeter?
-			tickCount += 1
-			@trigger 'update', {'tickCount': tickCount}
-			clearCanvas()
-			@drawShapes(@shapes)
-			@clipMeter.tick() if @clipMeter?
+			@endRenderTime = Bu.now()
+			@nextRenderTime = Math.max 1000 / @fps - @endRenderTime + @startRenderTime, 1
+			setTimeout tick, @nextRenderTime
 
-		setInterval(tick, 1000 / @fps)
-		clearCanvas = =>
-			@context.clearRect(0, 0, @width, @height)
+		tick()
 
 		# init
 		if @container?
-			@container = document.querySelector(@container) if typeof @container is 'string'
+			@container = document.querySelector @container if typeof @container is 'string'
 			setTimeout =>
 				@container.appendChild @dom
 			, 100
-
-		tickCount = 0
 		@isRunning = true
 
 
@@ -101,12 +104,18 @@ class Bu.Renderer
 		@shapes.push shape
 
 
+	render: ->
+		@clearCanvas()
+		@drawShapes @shapes
+
+	clearCanvas: ->
+		@context.clearRect 0, 0, @width, @height
+
 	drawShapes: (shapes) =>
 		if shapes?
 			for shape in shapes
 				@drawShape shape
 		return this
-
 
 	drawShape: (shape) =>
 		return this unless shape.visible
@@ -166,8 +175,8 @@ class Bu.Renderer
 						shape.dashStyle, shape.dashDelta
 				)
 			else
-				@context.lineTo(shape.points[0].x, shape.points[0].y)
-				@context.lineTo(shape.points[1].x, shape.points[1].y)
+				@context.lineTo shape.points[0].x, shape.points[0].y
+				@context.lineTo shape.points[1].x, shape.points[1].y
 				@context.closePath()
 
 			@context.stroke()
@@ -177,7 +186,7 @@ class Bu.Renderer
 		@context.globalAlpha = shape.opacity
 
 		@context.beginPath()
-		@context.arc(shape.cx, shape.cy, shape.radius, 0, Math.PI * 2)
+		@context.arc shape.cx, shape.cy, shape.radius, 0, Math.PI * 2
 		@context.closePath()
 		# TODO add dashed arc support
 
@@ -195,9 +204,9 @@ class Bu.Renderer
 		@context.globalAlpha = shape.opacity
 
 		@context.beginPath()
-		@context.lineTo(shape.points[0].x, shape.points[0].y)
-		@context.lineTo(shape.points[1].x, shape.points[1].y)
-		@context.lineTo(shape.points[2].x, shape.points[2].y)
+		@context.lineTo shape.points[0].x, shape.points[0].y
+		@context.lineTo shape.points[1].x, shape.points[1].y
+		@context.lineTo shape.points[2].x, shape.points[2].y
 		@context.closePath()
 
 		if shape.fillStyle?
@@ -210,9 +219,9 @@ class Bu.Renderer
 			if shape.dashStyle
 				@context.beginPath() # clear prev lineTo
 				pts = shape.points
-				@context.dashedLine(pts[0].x, pts[0].y, pts[1].x, pts[1].y, shape.dashStyle, shape.dashDelta)
-				@context.dashedLine(pts[1].x, pts[1].y, pts[2].x, pts[2].y, shape.dashStyle, shape.dashDelta)
-				@context.dashedLine(pts[2].x, pts[2].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashDelta)
+				@context.dashedLine pts[0].x, pts[0].y, pts[1].x, pts[1].y, shape.dashStyle, shape.dashDelta
+				@context.dashedLine pts[1].x, pts[1].y, pts[2].x, pts[2].y, shape.dashStyle, shape.dashDelta
+				@context.dashedLine pts[2].x, pts[2].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashDelta
 			@context.stroke()
 
 
@@ -221,12 +230,7 @@ class Bu.Renderer
 
 		if shape.fillStyle?
 			@context.fillStyle = shape.fillStyle
-			@context.fillRect(
-					shape.position.x
-					shape.position.y
-					shape.size.width
-					shape.size.height
-			)
+			@context.fillRect shape.position.x, shape.position.y, shape.size.width, shape.size.height
 
 		if shape.strokeStyle?
 			@context.strokeStyle = shape.strokeStyle
@@ -243,10 +247,10 @@ class Bu.Renderer
 				xR = shape.pointRB.x
 				yT = shape.position.y
 				yB = shape.pointRB.y
-				@context.dashedLine(xL, yT, xR, yT, shape.dashStyle, shape.dashDelta)
-				@context.dashedLine(xR, yT, xR, yB, shape.dashStyle, shape.dashDelta)
-				@context.dashedLine(xR, yB, xL, yB, shape.dashStyle, shape.dashDelta)
-				@context.dashedLine(xL, yB, xL, yT, shape.dashStyle, shape.dashDelta)
+				@context.dashedLine xL, yT, xR, yT, shape.dashStyle, shape.dashDelta
+				@context.dashedLine xR, yT, xR, yB, shape.dashStyle, shape.dashDelta
+				@context.dashedLine xR, yB, xL, yB, shape.dashStyle, shape.dashDelta
+				@context.dashedLine xL, yB, xL, yT, shape.dashStyle, shape.dashDelta
 				@context.stroke()
 
 
@@ -254,8 +258,8 @@ class Bu.Renderer
 		@context.globalAlpha = shape.opacity
 
 		@context.beginPath()
-		@context.arc(shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo)
-		@context.lineTo(shape.cx, shape.cy)
+		@context.arc shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo
+		@context.lineTo shape.cx, shape.cy
 		@context.closePath()
 		# TODO dashed arc
 
@@ -273,7 +277,7 @@ class Bu.Renderer
 		@context.globalAlpha = shape.opacity
 
 		@context.beginPath()
-		@context.arc(shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo)
+		@context.arc shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo
 		@context.closePath()
 		# TODO dashed arc
 
@@ -292,7 +296,7 @@ class Bu.Renderer
 
 		@context.beginPath()
 		for point in shape.vertices
-			@context.lineTo(point.x, point.y)
+			@context.lineTo point.x, point.y
 		@context.closePath()
 
 		if shape.fillStyle?
@@ -307,8 +311,8 @@ class Bu.Renderer
 				@context.beginPath()
 				pts = shape.vertices
 				for i in [0 ... len - 1]
-					@context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashDelta)
-				@context.dashedLine(pts[len - 1].x, pts[len - 1].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashDelta)
+					@context.dashedLine pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashDelta
+				@context.dashedLine pts[len - 1].x, pts[len - 1].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashDelta
 				@context.stroke()
 			@context.stroke()
 
@@ -321,11 +325,11 @@ class Bu.Renderer
 			@context.beginPath()
 			if not shape.dashStyle
 				for point in shape.vertices
-					@context.lineTo(point.x, point.y)
+					@context.lineTo point.x, point.y
 			else
 				pts = shape.vertices
 				for i in [ 0 ... pts.length - 1]
-					@context.dashedLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashDelta)
+					@context.dashedLine pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashDelta
 			@context.stroke()
 
 
@@ -337,10 +341,10 @@ class Bu.Renderer
 		if shape.strokeStyle?
 			@context.strokeStyle = shape.strokeStyle
 			@context.lineWidth = shape.lineWidth
-			@context.strokeText(shape.text, shape.x, shape.y)
+			@context.strokeText shape.text, shape.x, shape.y
 		if shape.fillStyle?
 			@context.fillStyle = shape.fillStyle
-			@context.fillText(shape.text, shape.x, shape.y)
+			@context.fillText shape.text, shape.x, shape.y
 
 
 	drawImage: (shape) ->
@@ -360,10 +364,10 @@ class Bu.Renderer
 	drawBounds: (bounds) ->
 		@context.strokeStyle = bounds.strokeStyle
 		@context.beginPath()
-		@context.dashedLine(bounds.x1, bounds.y1, bounds.x2, bounds.y1, bounds.dashStyle, bounds.dashDelta)
-		@context.dashedLine(bounds.x2, bounds.y1, bounds.x2, bounds.y2, bounds.dashStyle, bounds.dashDelta)
-		@context.dashedLine(bounds.x2, bounds.y2, bounds.x1, bounds.y2, bounds.dashStyle, bounds.dashDelta)
-		@context.dashedLine(bounds.x1, bounds.y2, bounds.x1, bounds.y1, bounds.dashStyle, bounds.dashDelta)
+		@context.dashedLine bounds.x1, bounds.y1, bounds.x2, bounds.y1, bounds.dashStyle, bounds.dashDelta
+		@context.dashedLine bounds.x2, bounds.y1, bounds.x2, bounds.y2, bounds.dashStyle, bounds.dashDelta
+		@context.dashedLine bounds.x2, bounds.y2, bounds.x1, bounds.y2, bounds.dashStyle, bounds.dashDelta
+		@context.dashedLine bounds.x1, bounds.y2, bounds.x1, bounds.y1, bounds.dashStyle, bounds.dashDelta
 		@context.stroke()
 
 
@@ -377,10 +381,10 @@ class Bu.Renderer
 		@save()
 		dx = x2 - x
 		dy = y2 - y
-		len = Bu.bevel(dx, dy)
-		rot = Math.atan2(dy, dx)
-		@translate(x, y)
-		@rotate(rot)
+		len = Bu.bevel dx, dy
+		rot = Math.atan2 dy, dx
+		@translate x, y
+		@rotate rot
 		dc = da.length
 		di = 0
 		draw = true
@@ -391,16 +395,16 @@ class Bu.Renderer
 		delta %= lenU
 		x = delta
 
-		@moveTo(0, 0)
+		@moveTo 0, 0
 		# TODO need a small fix
 		while len > x
 			di += 1
 			x += da[di % dc]
 			x = len if x > len
 			if draw
-				@lineTo(x, 0)
+				@lineTo x, 0
 			else
-				@moveTo(x, 0)
+				@moveTo x, 0
 			draw = not draw
 		@restore()
 		return @

@@ -61,6 +61,10 @@ Bu.rand = (from, to) ->
 # utils
 ###
 
+# get current time
+# TODO use performance
+Bu.now = Date.now
+
 # combine the given options(last item in arguments) with the default options
 Bu.combineOptions = (args, defaultOptions) ->
 	defaultOptions = {} if not defaultOptions?
