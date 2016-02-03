@@ -1,10 +1,11 @@
 doctype html
 html(lang="en")
   head
-    title Image
+    title Drawable Image
     meta(charset="utf-8")
     script(src="../src/Bu.dev.js")
     style.
+
       html, body, #container {
         margin: 0;
         width: 100%;
@@ -18,6 +19,7 @@ html(lang="en")
         text-align: center;
         padding: 8px;
       }
+
     script(type="text/javascript").
 
       var renderer;
@@ -38,14 +40,16 @@ html(lang="en")
         image.scale.x = image.scale.y = 2;
         renderer.append(image);
 
-        setInterval(function() {
+        setInterval(function () {
           image.rotation += 0.04;
-          if (image.position.x > renderer.width - 40 || image.position.x < 40) speedX = -speedX;
-          if (image.position.y > renderer.height - 40 || image.position.y < 40) speedY = -speedY;
           image.position.x += speedX;
           image.position.y += speedY;
+
+          if (image.position.x > renderer.width - 40 || image.position.x < 40) speedX = -speedX;
+          if (image.position.y > renderer.height - 40 || image.position.y < 40) speedY = -speedY;
         }, 1000 / 60);
       }
+
   body
-    div#info this is a bitmap image loaded from a png file
+    div#info This is a bitmap image loaded from a png file.
     div#container

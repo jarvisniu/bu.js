@@ -38,6 +38,7 @@
       width: calc(100% - 42px);
       overflow: hidden;
     }
+
   </style>
 </head>
 <body>
@@ -48,7 +49,9 @@
   </side-panel>
   <div id="container"></div>
 </div>
+
 <script>
+
   var renderer;
   var reactors = {};
 
@@ -85,12 +88,12 @@
     'image-button',
     'vertical-toolbar',
     'side-panel'
-  ], function() {
+  ], function () {
     new Vue({
       el: '#app',
       props: ['theme'],
       events: {
-        toolChanged: function(keyOn) {
+        toolChanged: function (keyOn) {
           for (var key in reactors) {
             if (!reactors.hasOwnProperty(key)) continue;
             if (key === keyOn)
@@ -100,7 +103,7 @@
           }
         }
       },
-      ready: function() {
+      ready: function () {
         this.$refs.toolbar.items = iconButtons;
         renderer = new Bu.Renderer({
           container: "#container",
