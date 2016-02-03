@@ -36,6 +36,11 @@ h2 {
     height: 100%;
 }
 
+#logo {
+    width: 180px;
+    height: 180px;
+}
+
 #side a {
     display: block;
     padding: 2px 0;
