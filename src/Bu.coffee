@@ -37,16 +37,9 @@
 # polyfill
 ###
 
+# define a property for a class
 Function::property = (prop, desc) ->
 	Object.defineProperty @prototype, prop, desc
-
-Bu.combineOptions = (args, defaultOptions) ->
-	defaultOptions = {} if not defaultOptions?
-	givenOptions = args[args.length - 1]
-	if typeof givenOptions is 'object'
-		for i of givenOptions
-			defaultOptions[i] = givenOptions[i]
-	return defaultOptions
 
 # Array
 Array::each = Array::each or (fn) ->
@@ -65,11 +58,10 @@ Array::map = Array::map or (fn) ->
 	return @
 
 ###
-# Math
+# math
 ###
 
-# calculate the average number of several numbers
-# you can pass several numbers or a Array of numbers
+# calculate the mean value of several numbers
 Bu.average = ()->
 	ns = arguments
 	ns = arguments[0] if typeof arguments[0] is 'object'
@@ -88,3 +80,16 @@ Bu.rand = (from, to) ->
 		to = from
 		from = 0
 	Math.random() * (to - from) + from
+
+###
+# utils
+###
+
+# combine the given options(last item in arguments) with the default options
+Bu.combineOptions = (args, defaultOptions) ->
+	defaultOptions = {} if not defaultOptions?
+	givenOptions = args[args.length - 1]
+	if typeof givenOptions is 'object'
+		for i of givenOptions
+			defaultOptions[i] = givenOptions[i]
+	return defaultOptions
