@@ -34,30 +34,6 @@
 	MOUSE_BUTTON_RIGHT:  2
 
 ###
-# polyfill
-###
-
-# define a property for a class
-Function::property = (prop, desc) ->
-	Object.defineProperty @prototype, prop, desc
-
-# Array
-Array::each = Array::each or (fn) ->
-	i = 0
-	while i < @length
-		fn @[i]
-		i++
-	return @
-
-Array::map = Array::map or (fn) ->
-	arr = []
-	i = 0
-	while i < @length
-		arr.push fn(@[i])
-		i++
-	return @
-
-###
 # math
 ###
 
@@ -93,3 +69,27 @@ Bu.combineOptions = (args, defaultOptions) ->
 		for i of givenOptions
 			defaultOptions[i] = givenOptions[i]
 	return defaultOptions
+
+###
+# polyfill
+###
+
+# define a property for a class
+Function::property = (prop, desc) ->
+	Object.defineProperty @prototype, prop, desc
+
+# Array
+Array::each or= (fn) ->
+	i = 0
+	while i < @length
+		fn @[i]
+		i++
+	return @
+
+Array::map or= (fn) ->
+	arr = []
+	i = 0
+	while i < @length
+		arr.push fn(@[i])
+		i++
+	return @
