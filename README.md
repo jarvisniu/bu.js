@@ -1,6 +1,8 @@
 Bu.js
 =====
 
+![](logo.png)
+
 A JavaScript 2D library
 
 
