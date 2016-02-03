@@ -44,4 +44,4 @@ class Bu.Circle extends Bu.Object2D
 	_containsPoint: (p) ->
 		dx = p.x - @cx
 		dy = p.y - @cy
-		return Math.bevel(dx, dy) < @radius
+		return Bu.bevel(dx, dy) < @radius

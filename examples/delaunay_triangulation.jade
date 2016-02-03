@@ -46,8 +46,8 @@ html(lang="en")
 
       function generatePoints() {
         for (var i = 0; i < POINT_COUNT; i++) {
-          var x = Math.rand(20, renderer.width - 40);
-          var y = Math.rand(20, renderer.height - 40);
+          var x = Bu.rand(20, renderer.width - 40);
+          var y = Bu.rand(20, renderer.height - 40);
           points[i] = new Bu.Point(x, y);
           points[i].label = i;
           renderer.append(points[i]);
@@ -58,8 +58,8 @@ html(lang="en")
       function randomLines() {
         lines = [];
         for (var i = 0; i < LINE_COUNT; i++) {
-          var p1 = points[Math.floor(Math.rand(POINT_COUNT))];
-          var p2 = points[Math.floor(Math.rand(POINT_COUNT))];
+          var p1 = points[Math.floor(Bu.rand(POINT_COUNT))];
+          var p2 = points[Math.floor(Bu.rand(POINT_COUNT))];
           var line = new Bu.Line(p1, p2);
           line.strokeStyle = "#08f";
           lines.push(line);

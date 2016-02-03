@@ -377,7 +377,7 @@ class Bu.Renderer
 		@save()
 		dx = x2 - x
 		dy = y2 - y
-		len = Math.bevel(dx, dy)
+		len = Bu.bevel(dx, dy)
 		rot = Math.atan2(dy, dx)
 		@translate(x, y)
 		@rotate(rot)

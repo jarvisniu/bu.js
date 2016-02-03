@@ -7,13 +7,13 @@ class Bu.RandomShapeGenerator
 	constructor: (@renderer) ->
 
 	randomX: ->
-		return Math.random() * (@renderer.width - MARGIN * 2) + MARGIN
+		return Bu.rand MARGIN, @renderer.width - MARGIN * 2
 
 	randomY: ->
-		return Math.random() * (@renderer.height - MARGIN * 2) + MARGIN
+		return Bu.rand MARGIN, @renderer.height - MARGIN * 2
 
 	randomRadius: ->
-		return Math.random() * Math.min(@renderer.width, @renderer.height) / 2
+		return Bu.rand 5, Math.min(@renderer.width, @renderer.height) / 2
 
 
 	generateCircle: ->
@@ -22,8 +22,8 @@ class Bu.RandomShapeGenerator
 		return circle
 
 	generateBow: ->
-		aFrom = Math.random() * Math.PI * 2
-		aTo = aFrom + Math.random() * Math.PI + Math.PI / 2
+		aFrom = Bu.rand Math.PI * 2
+		aTo = aFrom + Bu.rand Math.PI / 2, Math.PI * 2
 
 		bow = new Bu.Bow @randomX(), @randomY(), @randomRadius(), aFrom, aTo
 		bow.string.points[0].label = "A"
@@ -43,15 +43,15 @@ class Bu.RandomShapeGenerator
 
 	generateRectangle: ->
 		return new Bu.Rectangle(
-			Math.rand(@renderer.width)
-			Math.rand(@renderer.height)
-			Math.rand(@renderer.width / 2)
-			Math.rand(@renderer.height / 2)
+			Bu.rand(@renderer.width)
+			Bu.rand(@renderer.height)
+			Bu.rand(@renderer.width / 2)
+			Bu.rand(@renderer.height / 2)
 		)
 
 	generateFan: ->
-		aFrom = Math.random() * Math.PI * 2
-		aTo = aFrom + Math.random() * Math.PI + Math.PI / 2
+		aFrom = Bu.rand Math.PI * 2
+		aTo = aFrom + Bu.rand Math.PI / 2, Math.PI * 2
 
 		fan = new Bu.Fan @randomX(), @randomY(), @randomRadius(), aFrom, aTo
 		fan.string.points[0].label = "A"

@@ -17,4 +17,4 @@ class Bu.Fan extends Bu.Object2D
 		dy = p.y - @cy
 		a = Math.atan2(p.y - @cy, p.x - @cx)
 		a += Math.PI * 2 while a < @aFrom
-		return Math.bevel(dx, dy) < @radius && a > @aFrom && a < @aTo
+		return Bu.bevel(dx, dy) < @radius && a > @aFrom && a < @aTo

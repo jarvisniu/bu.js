@@ -42,8 +42,8 @@ html(lang="en")
 
         for (var i = 0; i < POINT_COUNT; i++) {
           points[i] = new Bu.Point(
-                  Math.rand(renderer.width),
-                  Math.rand(renderer.height)
+                  Bu.rand(renderer.width),
+                  Bu.rand(renderer.height)
           );
           points[i].label = "P" + i;
           renderer.append(points[i]);

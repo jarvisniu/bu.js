@@ -13,7 +13,7 @@ class Bu.Bow extends Bu.Object2D
 		@keyPoints = @string.points
 
 	_containsPoint: (point) ->
-		if Math.bevel(@cx - point.x, @cy - point.y) < @radius
+		if Bu.bevel(@cx - point.x, @cy - point.y) < @radius
 			sameSide = @string.isTwoPointsSameSide(@center, point)
 			smallThanHalfCircle = @aTo - @aFrom < Math.PI
 			return sameSide ^ smallThanHalfCircle

@@ -47,7 +47,7 @@ class Bu.Point extends Bu.Object2D
 	# point related
 
 	distanceTo: (point) ->
-		Math.bevel(@x - point.x, @y - point.y)
+		Bu.bevel(@x - point.x, @y - point.y)
 
 	isNear: (target, limit = Bu.DEFAULT_NEAR_DIST) ->
 		switch target.type
