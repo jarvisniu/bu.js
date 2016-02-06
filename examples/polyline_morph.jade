@@ -32,6 +32,7 @@ html(lang="en")
       function init() {
         renderer = new Bu.Renderer({
           container: "#container",
+          showKeyPoints: true,
           fillParent: true
         });
         renderer.dom.addEventListener("mousedown", onMouseDown);
@@ -60,6 +61,7 @@ html(lang="en")
 
       function onMouseDown(e) {
         e = renderer.processArgs(e);
+
         if (e.button == 0) {
           polylineA.addPoint(new Bu.Point(e.offsetX, e.offsetY));
         } else {

@@ -14,15 +14,16 @@ class Bu.Renderer
 			height: 600
 			fps: 60
 			fillParent: off
+			showKeyPoints: no
 			border: off
 		@width = options.width
 		@height = options.height
 		@fps = options.fps
 		@container = options.container
 		@fillParent = options.fillParent
+		@isShowKeyPoints = options.showKeyPoints
 
 		@tickCount = 0
-		@isDrawKeyPoints = no
 		@isRunning = no
 
 		@dom = document.createElement 'canvas'
@@ -140,7 +141,7 @@ class Bu.Renderer
 			else
 				console.log 'drawShapes(): unknown shape: ', shape
 		@drawShapes shape.children if shape.children?
-		@drawShapes shape.keyPoints if @isDrawKeyPoints
+		@drawShapes shape.keyPoints if @isShowKeyPoints
 		return this
 
 

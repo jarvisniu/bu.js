@@ -56,10 +56,10 @@ html
         renderer = new Bu.Renderer({
           container: document.body,
           border: true,
+          showKeyPoints: false,
           width: MARGIN * 2 + getCentralX(net.width - 1, net.height - 1) - OFFSET_X / 2,
           height: MARGIN * 2 + getCentralY(net.width - 1, net.height - 1) - OFFSET_Y / 2
         });
-        renderer.isDrawKeyPoints = false;
         renderer.dom.addEventListener("mousedown", onMouseDown);
         renderer.dom.addEventListener("mousemove", onMouseMove);
         renderer.dom.addEventListener("mouseup", onMouseUp);

@@ -69,7 +69,10 @@ class Bu.RandomShapeGenerator
 		return new Bu.Polygon points
 
 	generateLine: ->
-		return new Bu.Line @randomX(),@randomY(),@randomX(),@randomY()
+		line = new Bu.Line @randomX(),@randomY(),@randomX(),@randomY()
+		line.points[0].label = "A"
+		line.points[1].label = "B"
+		return line
 
 	generatePolyline: ->
 		polyline = new Bu.Polyline
