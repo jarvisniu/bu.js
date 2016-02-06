@@ -211,6 +211,8 @@ html
       }
 
       function onMouseDown(e) {
+        e = renderer.processArgs(e);
+
         var x = pixelToIndexX(e.offsetX, e.offsetY);
         var y = pixelToIndexY(e.offsetX, e.offsetY);
 
@@ -235,6 +237,8 @@ html
       }
 
       function onMouseMove(e) {
+        e = renderer.processArgs(e);
+
         if (isMouseDown && e.button == 0) {
 
           var x = pixelToIndexX(e.offsetX, e.offsetY);

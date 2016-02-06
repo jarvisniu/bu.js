@@ -42,6 +42,7 @@ html
       }
 
       function onMouseMove(e) {
+        e = renderer.processArgs(e);
         mousePos.x = e.offsetX;
         mousePos.y = e.offsetY;
 

@@ -7,6 +7,8 @@ class Bu.Renderer
 
 		@type = 'Renderer'
 
+		@pixelRatio = window?.devicePixelRatio || 1
+
 		options = Bu.combineOptions arguments,
 			width: 800
 			height: 600
@@ -28,15 +30,14 @@ class Bu.Renderer
 		@context.textBaseline = 'top'
 		@clipMeter = new ClipMeter() if ClipMeter?
 
-
 		# API
 		@shapes = []
 
 		if not @fillParent
+			@dom.style.width = (@width / @pixelRatio) + 'px'
+			@dom.style.height = (@height / @pixelRatio) + 'px'
 			@dom.width = @width
 			@dom.height = @height
-			@dom.style.width = @width + 'px'
-			@dom.style.height = @height + 'px'
 		@dom.style.border = 'solid 1px gray' if options.border? and options.border
 		@dom.style.cursor = 'crosshair'
 		@dom.style.boxSizing = 'border-box'
@@ -56,8 +57,8 @@ class Bu.Renderer
 			else
 				width = @container.clientWidth
 				height = width * containerRatio
-			@width = @dom.width = width
-			@height = @dom.height = height
+			@width = @dom.width = width * @pixelRatio
+			@height = @dom.height = height * @pixelRatio
 			@dom.style.width = width + 'px'
 			@dom.style.height = height + 'px'
 			@render()
@@ -90,15 +91,19 @@ class Bu.Renderer
 		@isRunning = true
 
 
-	pause: =>
+	pause: ->
 		@isRunning = false
 
-	continue: =>
+	continue: ->
 		@isRunning = true
 
-	toggle: =>
+	toggle: ->
 		@isRunning = not @isRunning
 
+	processArgs: (e) ->
+		offsetX: e.offsetX * @pixelRatio
+		offsetY: e.offsetY * @pixelRatio
+		button: e.button
 
 	append: (shape) ->
 		@shapes.push shape

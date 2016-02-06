@@ -13,12 +13,21 @@ class Bu.ReactorBase
 		@removeListeners()
 		@enabled = false
 
+	_onMouseDown: (e) =>
+		@onMouseDown? @renderer.processArgs e
+
+	_onMouseMove: (e) =>
+		@onMouseMove? @renderer.processArgs e
+
+	_onMouseUp: (e) =>
+		@onMouseUp? @renderer.processArgs e
+
 	addListeners: ->
-		@renderer.dom.addEventListener 'mousedown', @onMouseDown
-		@renderer.dom.addEventListener 'mousemove', @onMouseMove
-		@renderer.dom.addEventListener 'mouseup', @onMouseUp
+		@renderer.dom.addEventListener 'mousedown', @_onMouseDown
+		@renderer.dom.addEventListener 'mousemove', @_onMouseMove
+		@renderer.dom.addEventListener 'mouseup', @_onMouseUp
 
 	removeListeners: ->
-		@renderer.dom.removeEventListener 'mousedown', @onMouseDown
-		@renderer.dom.removeEventListener 'mousemove', @onMouseMove
-		@renderer.dom.removeEventListener 'mouseup', @onMouseUp
+		@renderer.dom.removeEventListener 'mousedown', @_onMouseDown
+		@renderer.dom.removeEventListener 'mousemove', @_onMouseMove
+		@renderer.dom.removeEventListener 'mouseup', @_onMouseUp

@@ -219,6 +219,8 @@ html
       }
 
       function onMouseDown(e) {
+        e = renderer.processArgs(e);
+
         isMouseDown = true;
 
         if (isMouseDown) {
@@ -242,6 +244,8 @@ html
       }
 
       function onMouseMove(e) {
+        e = renderer.processArgs(e);
+
         if (isMouseDown) {
           var x = pixelToIndexX(e.offsetX, e.offsetY);
           var y = pixelToIndexY(e.offsetX, e.offsetY);
