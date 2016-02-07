@@ -26,8 +26,9 @@ A JavaScript 2D library
 
 1. [Node](https://nodejs.org/)
 2. CoffeeScript: `npm install -g coffee-script`
-3. Jade: `npm install -g jade`
-4. UglifyJS: `npm install -g uglify-js`
+3. UglifyJS: `npm install -g uglify-js`
+4. Jade: `npm install -g jade`
+5. Stylus: `npm install -g stylus`
 
 
 ## License

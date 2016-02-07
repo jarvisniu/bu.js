@@ -11,6 +11,7 @@ del('../src/*.js.map');
 del('../examples/*.html');
 del('../examples/lib/*.js');
 del('../examples/lib/*.js.map');
+del('../examples/style/*.css');
 
 // Delete files in folder and subfolders
 function del(filePath) {
