@@ -1,0 +1,44 @@
+@require "./style/theme.styl"
+
+.icon-label
+  display: inline-block
+  font-family: "Microsoft YaHei", Arial, sans-serif
+  font-size: 13px
+  height: 100%
+  padding: 0 6px 0 2px
+  cursor: default
+  transition: background 0.3s
+
+  img
+    margin: 4px
+    width: 16px
+    height: 16px
+
+  span
+    line-height: 24px
+
+.theme-light .icon-label
+  background-color: L-background-default
+  &:hover
+    background-color: L-background-hover
+  &:active
+    background-color: L-background-active
+  &.selected
+    background-color: L-background-selected-default
+    &:hover
+      background-color: L-background-selected-hover
+    &:active
+      background-color: L-background-selected-active
+
+.theme-dark .icon-label
+  background-color: D-background-default
+  &:hover
+    background-color: D-background-hover
+  &:active
+    background-color: D-background-active
+  &.selected
+    background-color: D-background-selected-default
+    &:hover
+      background-color: D-background-selected-hover
+    &:active
+      background-color: D-background-selected-active

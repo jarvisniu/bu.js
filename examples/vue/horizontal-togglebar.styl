@@ -1,0 +1,16 @@
+@require "./style/theme.styl"
+
+.horizontal-togglebar
+  display: inline-flex
+  box-sizing: border-box
+  border: solid 1px red
+  height: 26px
+  margin: 8px
+  /*transform: rotateZ(-90deg)translateX(-100px)translateY(50px);*/
+  -webkit-user-select: none
+
+.theme-light .horizontal-togglebar
+  border-color: L-border-default
+
+.theme-dark .horizontal-togglebar
+  border-color: D-border-default

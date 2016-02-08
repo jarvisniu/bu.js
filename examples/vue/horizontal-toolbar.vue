@@ -1,16 +1,5 @@
 <style>
-    .horizontal-toolbar {
-      display: inline-flex;
-      border: solid 1px gray;
-      margin: 8px;
-      padding: 0 1px;
-      box-sizing: border-box;
-      height: 32px;
-    }
-
-    .horizontal-toolbar .image-button {
-      margin: 2px 1px;
-    }
+  @import url("vue/horizontal-toolbar.css");
 </style>
 
 <template>

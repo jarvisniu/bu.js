@@ -1,0 +1,70 @@
+@require "./style/theme.styl"
+
+.tab-button
+  display: inline-block
+  position: relative
+  box-sizing: border-box
+  font-family: "Microsoft YaHei", Arial, sans-serif
+  font-size: 13px
+  cursor: default
+  height: 24px
+  padding-left: 2px
+  border: solid red
+  border-width: 0 1px 0 0
+  transition: background 0.3s
+  &.selected
+    z-index: 1
+    height: 25px
+
+  img
+    margin: 4px
+    width: 16px
+    height: 16px
+
+.tab-button-label
+  line-height: 24px
+
+.tab-button-close
+  display: inline-block
+  width: 14px
+  height: 14px
+  margin: 5px
+  box-sizing: border-box
+  background-size: contain
+  transition: background 0.3s
+
+  background-image: url(icons/close-default.png)
+  &:hover
+    background-image: url(icons/close-hover.png)
+  &:active
+    background-image: url(icons/close-down.png)
+
+.theme-light .tab-button
+  color: L-text-default
+  border-color: L-border-default
+  background-color: L-tab-background-default
+  &:hover
+    background-color: L-tab-background-hover
+  &:active
+    background-color: L-tab-background-active
+  &.selected
+    background-color: L-tab-background-selected-default
+    &:hover
+      background-color: L-tab-background-selected-hover
+    &:active
+      background-color: L-tab-background-selected-active
+
+.theme-dark .tab-button
+  color: D-text-default
+  border-color: D-border-default
+  background-color: D-tab-background-default
+  &:hover
+    background-color: D-tab-background-hover
+  &:active
+    background-color: D-tab-background-active
+  &.selected
+    background-color: D-tab-background-selected-default
+    &:hover
+      background-color: D-tab-background-selected-hover
+    &:active
+      background-color: D-tab-background-selected-active

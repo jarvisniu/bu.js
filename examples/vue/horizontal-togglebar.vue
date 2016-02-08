@@ -1,15 +1,6 @@
 <style>
-    .horizontal-togglebar {
-      display: inline-flex;
-      -webkit-user-select: none;
-      box-sizing: border-box;
-      border: solid 1px gray;
-      height: 26px;
-      margin: 8px;
-      /*transform: rotateZ(-90deg)translateX(-100px)translateY(50px);*/
-    }
+  @import "vue/horizontal-togglebar.css";
 </style>
-
 <template>
   <div class="horizontal-togglebar">
     <icon-label v-for="item in items" :model="item"></icon-label>

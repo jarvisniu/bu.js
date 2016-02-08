@@ -1,0 +1,33 @@
+@require "./style/theme.styl"
+
+.tab-bar
+  -webkit-user-select: none
+  box-sizing: border-box
+  border: solid 1px red
+  height: 30px
+  width: 500px
+  margin: 8px
+  transition: background 0.3s
+
+.tab-bar-container
+  display: inline-flex
+  height: 24px
+  width: 100%
+  border-bottom: solid 1px red
+  transition: background 0.3s
+
+.theme-light
+  .tab-bar
+    border-color: L-border-default
+    background-color: L-tab-background-selected-default // extension of selected tab
+  .tab-bar-container
+    border-color: L-border-default
+    background-color: L-tab-background-default
+
+.theme-dark
+  .tab-bar
+    border-color: D-border-selected-default
+    background-color: D-tab-background-selected-default // extension of selected tab
+  .tab-bar-container
+    border-color: D-border-selected-default
+    background-color: D-tab-background-default

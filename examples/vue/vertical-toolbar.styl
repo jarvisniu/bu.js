@@ -1,0 +1,16 @@
+@require "./style/theme.styl"
+
+.vertical-toolbar
+  border: solid 1px red
+  box-sizing: border-box
+  width: 32px
+  border-radius: 4px
+  transition: background 0.3s
+
+.theme-light .vertical-toolbar
+  border-color: L-border-default
+  background-color: L-background-default
+
+.theme-dark .vertical-toolbar
+  border-color: D-border-default
+  background-color: D-background-default

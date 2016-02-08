@@ -1,0 +1,21 @@
+@require "./style/theme.styl"
+
+.horizontal-toolbar
+  display: inline-flex
+  border: solid 1px red
+  margin: 8px
+  padding: 0 1px
+  box-sizing: border-box
+  height: 32px
+  transition: background 0.3s
+
+  .image-button
+    margin: 2px 1px
+
+.theme-light .horizontal-toolbar
+  border-color: L-border-default
+  background-color: L-background-default
+
+.theme-dark .horizontal-toolbar
+  border-color: D-border-default
+  background-color: D-background-default

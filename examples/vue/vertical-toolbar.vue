@@ -1,15 +1,5 @@
 <style>
-  .vertical-toolbar {
-    border: solid 1px gray;
-    /*margin: 8px;*/
-    box-sizing: border-box;
-    width: 32px;
-    border-radius: 4px;
-  }
-
-  .theme-light .vertical-toolbar {
-    background-color: #eee;
-  }
+  @import "vue/vertical-toolbar.css";
 </style>
 
 <template>

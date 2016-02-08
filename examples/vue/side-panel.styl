@@ -1,0 +1,18 @@
+@require "./style/theme.styl"
+
+.side-panel
+  display: inline-block
+  border: solid 1px red
+  padding: 4px
+  box-sizing: border-box
+  width: 42px
+  height: 100%
+  transition: background 0.3s
+
+.theme-light .side-panel
+  border-color: L-border-default
+  background-image: L-panel-default
+
+.theme-dark .side-panel
+  border-color: D-border-default
+  background-image: D-panel-default
