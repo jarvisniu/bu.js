@@ -28,16 +28,6 @@
 			"drawable/PointText",
 			"drawable/Image",
 
-			"morph/PolylineMorph",
-
-			"reactor/ReactorBase",
-			"reactor/MovePointReactor",
-			"reactor/DrawPointReactor",
-			"reactor/DrawCircleReactor",
-			"reactor/DrawCircleDiameterReactor",
-			"reactor/DrawPolylineReactor",
-			"reactor/DrawPolygonReactor",
-
 			"renderer/Renderer",
 
 			"extra/RandomShapeGenerator"
