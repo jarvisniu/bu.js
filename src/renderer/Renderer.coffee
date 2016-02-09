@@ -48,8 +48,6 @@ class Bu.Renderer
 		window.canvas = @dom
 
 		onResize = =>
-			return if not @fillParent
-
 			canvasRatio = @dom.height / @dom.width
 			containerRatio = @container.clientHeight / @container.clientWidth
 			if containerRatio < canvasRatio
@@ -64,8 +62,9 @@ class Bu.Renderer
 			@dom.style.height = height + 'px'
 			@render()
 
-		window.addEventListener 'resize', onResize
-		@dom.addEventListener 'DOMNodeInserted', onResize
+		if @fillParent
+			window.addEventListener 'resize', onResize
+			@dom.addEventListener 'DOMNodeInserted', onResize
 
 
 		tick = =>
@@ -111,23 +110,26 @@ class Bu.Renderer
 			@shapes.push s for s in shape
 		else
 			@shapes.push shape
+		@
 
 
 	render: ->
 		@clearCanvas()
 		@drawShapes @shapes
+		@
 
 	clearCanvas: ->
 		@context.clearRect 0, 0, @width, @height
+		@
 
 	drawShapes: (shapes) =>
 		if shapes?
 			for shape in shapes
 				@drawShape shape
-		return this
+		@
 
 	drawShape: (shape) =>
-		return this unless shape.visible
+		return @ unless shape.visible
 		switch shape.type
 			when 'Point' then @drawPoint(shape)
 			when 'Line' then @drawLine(shape)
@@ -145,7 +147,7 @@ class Bu.Renderer
 				console.log 'drawShapes(): unknown shape: ', shape
 		@drawShapes shape.children if shape.children?
 		@drawShapes shape.keyPoints if @isShowKeyPoints
-		return this
+		@
 
 
 	drawPoint: (shape) ->
@@ -168,6 +170,7 @@ class Bu.Renderer
 					Bu.POINT_RENDER_SIZE
 					Bu.POINT_RENDER_SIZE
 			)
+		@
 
 
 	drawLine: (shape) ->
@@ -189,6 +192,7 @@ class Bu.Renderer
 				@context.closePath()
 
 			@context.stroke()
+		@
 
 
 	drawCircle: (shape) ->
@@ -207,6 +211,7 @@ class Bu.Renderer
 			@context.strokeStyle = shape.strokeStyle
 			@context.lineWidth = shape.lineWidth
 			@context.stroke()
+		@
 
 
 	drawTriangle: (shape) ->
@@ -232,6 +237,7 @@ class Bu.Renderer
 				@context.dashedLine pts[1].x, pts[1].y, pts[2].x, pts[2].y, shape.dashStyle, shape.dashDelta
 				@context.dashedLine pts[2].x, pts[2].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashDelta
 			@context.stroke()
+		@
 
 
 	drawRectangle: (shape) ->
@@ -261,6 +267,7 @@ class Bu.Renderer
 				@context.dashedLine xR, yB, xL, yB, shape.dashStyle, shape.dashDelta
 				@context.dashedLine xL, yB, xL, yT, shape.dashStyle, shape.dashDelta
 				@context.stroke()
+		@
 
 
 	drawFan: (shape) ->
@@ -280,6 +287,7 @@ class Bu.Renderer
 			@context.strokeStyle = shape.strokeStyle
 			@context.lineWidth = shape.lineWidth
 			@context.stroke()
+		@
 
 
 	drawBow: (shape) ->
@@ -298,6 +306,7 @@ class Bu.Renderer
 			@context.strokeStyle = shape.strokeStyle
 			@context.lineWidth = shape.lineWidth
 			@context.stroke()
+		@
 
 
 	drawPolygon: (shape) ->
@@ -324,6 +333,7 @@ class Bu.Renderer
 				@context.dashedLine pts[len - 1].x, pts[len - 1].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashDelta
 				@context.stroke()
 			@context.stroke()
+		@
 
 
 	drawPolyline: (shape) ->
@@ -340,6 +350,7 @@ class Bu.Renderer
 				for i in [ 0 ... pts.length - 1]
 					@context.dashedLine pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashDelta
 			@context.stroke()
+		@
 
 
 	drawPointText: (shape) ->
@@ -354,6 +365,7 @@ class Bu.Renderer
 		if shape.fillStyle?
 			@context.fillStyle = shape.fillStyle
 			@context.fillText shape.text, shape.x, shape.y
+		@
 
 
 	drawImage: (shape) ->
@@ -368,6 +380,7 @@ class Bu.Renderer
 			@context.rotate shape.rotation
 			@context.drawImage shape.image, dx, dy, w, h
 			@context.restore()
+		@
 
 
 	drawBounds: (bounds) ->
@@ -378,6 +391,7 @@ class Bu.Renderer
 		@context.dashedLine bounds.x2, bounds.y2, bounds.x1, bounds.y2, bounds.dashStyle, bounds.dashDelta
 		@context.dashedLine bounds.x1, bounds.y2, bounds.x1, bounds.y1, bounds.dashStyle, bounds.dashDelta
 		@context.stroke()
+		@
 
 
 # Add draw dashed line feature to the canvas rendering context
@@ -416,5 +430,5 @@ class Bu.Renderer
 				@moveTo x, 0
 			draw = not draw
 		@restore()
-		return @
+		@
 )()
