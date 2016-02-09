@@ -223,24 +223,23 @@ html
 
         isMouseDown = true;
 
-        if (isMouseDown) {
-          var x = pixelToIndexX(e.offsetX, e.offsetY);
-          var y = pixelToIndexY(e.offsetX, e.offsetY);
+        var x = pixelToIndexX(e.offsetX, e.offsetY);
+        var y = pixelToIndexY(e.offsetX, e.offsetY);
+        if (x < 0 || y < 0 || x >= net.width || y >= net.height) return;
 
-          var node = net.getNode(x, y);
+        var node = net.getNode(x, y);
 
-          // left button
+        // left button
 
-          if (node.state == AStar.NODE_STATE_DEFAULT) {
-            node.state = AStar.NODE_STATE_OBSTACLE;
-            isClearing = false;
-          } else if (node.state == AStar.NODE_STATE_OBSTACLE) {
-            node.state = AStar.NODE_STATE_DEFAULT;
-            isClearing = true;
-          }
-
-          engine.trigger("nodeChanged", node.position);
+        if (node.state == AStar.NODE_STATE_DEFAULT) {
+          node.state = AStar.NODE_STATE_OBSTACLE;
+          isClearing = false;
+        } else if (node.state == AStar.NODE_STATE_OBSTACLE) {
+          node.state = AStar.NODE_STATE_DEFAULT;
+          isClearing = true;
         }
+
+        engine.trigger("nodeChanged", node.position);
       }
 
       function onMouseMove(e) {
@@ -249,6 +248,7 @@ html
         if (isMouseDown) {
           var x = pixelToIndexX(e.offsetX, e.offsetY);
           var y = pixelToIndexY(e.offsetX, e.offsetY);
+          if (x < 0 || y < 0 || x >= net.width || y >= net.height) return;
 
           var node = net.getNode(x, y);
 

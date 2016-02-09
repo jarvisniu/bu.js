@@ -211,10 +211,12 @@ html
       }
 
       function onMouseDown(e) {
+        isMouseDown = true;
         e = renderer.processArgs(e);
 
         var x = pixelToIndexX(e.offsetX, e.offsetY);
         var y = pixelToIndexY(e.offsetX, e.offsetY);
+        if (x < 0 || y < 0 || x >= net.width || y >= net.height) return;
 
         var node = net.getNode(x, y);
 
@@ -233,7 +235,6 @@ html
           // right button
           console.log("prevNode", node.prevNode);
         }
-        isMouseDown = true;
       }
 
       function onMouseMove(e) {
@@ -243,6 +244,7 @@ html
 
           var x = pixelToIndexX(e.offsetX, e.offsetY);
           var y = pixelToIndexY(e.offsetX, e.offsetY);
+          if (x < 0 || y < 0 || x >= net.width || y >= net.height) return;
 
           var node = net.getNode(x, y);
 
