@@ -107,7 +107,10 @@ class Bu.Renderer
 		button: e.button
 
 	append: (shape) ->
-		@shapes.push shape
+		if shape instanceof Array
+			@shapes.push s for s in shape
+		else
+			@shapes.push shape
 
 
 	render: ->

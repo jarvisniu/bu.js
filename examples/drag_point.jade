@@ -6,7 +6,6 @@ html(lang="en")
     script(src="../src/Bu.dev.js")
     script(src="./lib/reactor/ReactorBase.js")
     script(src="./lib/reactor/MovePointReactor.js")
-
     style.
 
       html, body, #container {
@@ -49,8 +48,8 @@ html(lang="en")
                   Bu.rand(renderer.height)
           );
           points[i].label = "P" + i;
-          renderer.append(points[i]);
         }
+        renderer.append(points);
       }
 
   body
