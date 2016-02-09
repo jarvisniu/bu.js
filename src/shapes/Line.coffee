@@ -13,13 +13,15 @@ class Bu.Line extends Bu.Object2D
 		else  # len >= 4
 			@points = [new Bu.Point(p1, p2), new Bu.Point(p3, p4)]
 
+		@length
 		@midpoint = new Bu.Point()
 		@keyPoints = @points
-		@onPointChange()
 
-	onPointChange: =>
-		@length = @points[0].distanceTo(@points[1])
-		@midpoint.set((@points[0].x + @points[1].x) / 2, (@points[0].y + @points[1].y) / 2)
+		@on "pointChange", (e) =>
+			@length = @points[0].distanceTo(@points[1])
+			@midpoint.set((@points[0].x + @points[1].x) / 2, (@points[0].y + @points[1].y) / 2)
+
+		@trigger "pointChange", @
 
 	# edit
 
@@ -30,7 +32,7 @@ class Bu.Line extends Bu.Object2D
 		else
 			@points[0] = a1
 			@points[1] = a2
-		@onPointChange()
+		@trigger "pointChange", @
 		@
 
 	setPoint1: (a1, a2) ->
@@ -38,7 +40,7 @@ class Bu.Line extends Bu.Object2D
 			@points[0].set a1, a2
 		else
 			@points[0].copy a1
-		@onPointChange()
+		@trigger "pointChange", @
 		@
 
 	setPoint2: (a1, a2) ->
@@ -46,7 +48,7 @@ class Bu.Line extends Bu.Object2D
 			@points[1].set a1, a2
 		else
 			@points[1].copy a1
-		@onPointChange()
+		@trigger "pointChange", @
 		@
 
 	# point related

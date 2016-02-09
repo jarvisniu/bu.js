@@ -49,12 +49,21 @@ class Bu.Point extends Bu.Object2D
 	distanceTo: (point) ->
 		Bu.bevel(@x - point.x, @y - point.y)
 
+	footPoint = null
+
 	isNear: (target, limit = Bu.DEFAULT_NEAR_DIST) ->
 		switch target.type
 			when 'Point' then @distanceTo(target) < limit
 			when 'Line'
 				verticalDist = target.distanceTo @
-				return verticalDist < limit  # TODO: and near along the line direction
+
+				footPoint = new Bu.Point unless footPoint?
+				target.footPointFrom @, footPoint
+
+				isBetween1 = footPoint.distanceTo(target.points[0]) < target.length + Bu.DEFAULT_NEAR_DIST
+				isBetween2 = footPoint.distanceTo(target.points[1]) < target.length + Bu.DEFAULT_NEAR_DIST
+
+				return verticalDist < limit and isBetween1 and isBetween2
 
 Bu.Point.interpolate = (p1, p2, k, p3) ->
 	x = p1.x + (p2.x - p1.x) * k
