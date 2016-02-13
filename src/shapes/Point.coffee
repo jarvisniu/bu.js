@@ -64,6 +64,10 @@ class Bu.Point extends Bu.Object2D
 				isBetween2 = footPoint.distanceTo(target.points[1]) < target.length + Bu.DEFAULT_NEAR_DIST
 
 				return verticalDist < limit and isBetween1 and isBetween2
+			when 'Polyline'
+				for line in target.lines
+					return yes if @isNear line
+				return no
 
 Bu.Point.interpolate = (p1, p2, k, p3) ->
 	x = p1.x + (p2.x - p1.x) * k

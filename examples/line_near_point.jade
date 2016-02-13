@@ -22,7 +22,8 @@ html
 
     script(type="text/javascript").
 
-      var renderer, generator, line;
+      var renderer, generator;
+      var line, polyline;
       var mousePos = new Bu.Point();
 
       $.ready(init);
@@ -35,9 +36,9 @@ html
         });
         generator = new Bu.RandomShapeGenerator(renderer);
 
-        generateLine();
+        generateLines();
 
-        renderer.dom.addEventListener("mouseup", generateLine);
+        renderer.dom.addEventListener("mouseup", generateLines);
         renderer.dom.addEventListener("mousemove", onMouseMove);
       }
 
@@ -51,12 +52,18 @@ html
           line.stroke(Bu.DEFAULT_STROKE_STYLE_HOVER);
         else
           line.stroke();
+
+        if (mousePos.isNear(polyline))
+          polyline.stroke(Bu.DEFAULT_STROKE_STYLE_HOVER);
+        else
+          polyline.stroke();
       }
 
-      function generateLine() {
+      function generateLines() {
         line = renderer.shapes[0] = generator.generateLine();
+        polyline = renderer.shapes[1] = generator.generatePolyline();
       }
 
   body
-    div#info Move cursor over the line to test. Click to change another line.
+    div#info Move cursor over the line to test. Click to change another group of lines.
     div#container
