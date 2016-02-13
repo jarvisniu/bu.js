@@ -18,7 +18,7 @@ class Bu.RandomShapeGenerator
 
 	generateCircle: ->
 		circle = new Bu.Circle @randomX(), @randomY(), @randomRadius()
-		circle.center.label = "O"
+		circle.center.label = 'O'
 		return circle
 
 	generateBow: ->
@@ -26,8 +26,8 @@ class Bu.RandomShapeGenerator
 		aTo = aFrom + Bu.rand Math.PI / 2, Math.PI * 2
 
 		bow = new Bu.Bow @randomX(), @randomY(), @randomRadius(), aFrom, aTo
-		bow.string.points[0].label = "A"
-		bow.string.points[1].label = "B"
+		bow.string.points[0].label = 'A'
+		bow.string.points[1].label = 'B'
 		return bow
 
 	generateTriangle: ->
@@ -36,9 +36,9 @@ class Bu.RandomShapeGenerator
 			points[i] = new Bu.Point @randomX(), @randomY()
 
 		triangle = new Bu.Triangle points[0], points[1], points[2]
-		triangle.points[0].label = "A"
-		triangle.points[1].label = "B"
-		triangle.points[2].label = "C"
+		triangle.points[0].label = 'A'
+		triangle.points[1].label = 'B'
+		triangle.points[2].label = 'C'
 		return triangle
 
 	generateRectangle: ->
@@ -54,8 +54,8 @@ class Bu.RandomShapeGenerator
 		aTo = aFrom + Bu.rand Math.PI / 2, Math.PI * 2
 
 		fan = new Bu.Fan @randomX(), @randomY(), @randomRadius(), aFrom, aTo
-		fan.string.points[0].label = "A"
-		fan.string.points[1].label = "B"
+		fan.string.points[0].label = 'A'
+		fan.string.points[1].label = 'B'
 		return fan
 
 	generatePolygon: ->
@@ -63,19 +63,21 @@ class Bu.RandomShapeGenerator
 
 		for i in [0..3]
 			point = new Bu.Point @randomX(), @randomY()
-			point.label = "P" + i
+			point.label = 'P' + i
 			points.push point
 
 		return new Bu.Polygon points
 
 	generateLine: ->
 		line = new Bu.Line @randomX(),@randomY(),@randomX(),@randomY()
-		line.points[0].label = "A"
-		line.points[1].label = "B"
+		line.points[0].label = 'A'
+		line.points[1].label = 'B'
 		return line
 
 	generatePolyline: ->
 		polyline = new Bu.Polyline
 		for i in [0..3]
-			polyline.addPoint new Bu.Point @randomX(), @randomY()
+			point = new Bu.Point @randomX(), @randomY()
+			point.label = 'P' + i
+			polyline.addPoint point
 		return polyline
