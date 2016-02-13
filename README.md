@@ -21,12 +21,7 @@ A JavaScript 2D library
 
 Run the examples:
 
-1. Use command `npm run build-examples` or `node tools/build-examples.js`
-2. Open `examples/index.html` [*]
-
-[*]: Some examples may need a http server due to ajax loading.
-If you have python installed, you can run `python -m http.server 8080`
-and enter the address http://localhost:8080/examples/.
+- Use command `npm run examples` or `node tools/run-examples.js`
 
 Build the lib file:
 

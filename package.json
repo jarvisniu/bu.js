@@ -9,6 +9,7 @@
   "scripts": {
     "build": "node tools/build.js",
     "build-examples": "node tools/build-examples.js",
+    "examples": "node tools/run-examples.js",
     "clean": "node tools/clean.js"
   },
   "repository": {
