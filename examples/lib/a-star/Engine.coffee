@@ -14,6 +14,23 @@
 #   1. g: distance that has gone
 #   2. h: shortest distance to the destination
 #   3. f: g + h
+#
+# API:
+#   finished: bool - Whether the algorithm is finished
+#   isRunning: bool - Whether the algorithm is running
+#   fps: bool - AutoStep speed
+#   result: Object - The result of resolving
+#     success: bool - Whether reach the end
+#     time: number - Elapsed time used to solve the process
+#     step: int - Steps used in the
+#   init() - Init the variables
+#   step() - Next step of solving
+#   run(fps) - Run the algorithm. If the parameter fps is given, the process will be animated.
+#
+#
+# Events:
+#   nodeChanged: a node state is changed, dedicated to refresh the UI
+#   finished: the algorithm is finished, no matter if success
 ###
 
 class AStar.Engine
@@ -32,15 +49,17 @@ class AStar.Engine
 		listClose = []
 
 		nodeId = 0 # Add an id to every node for comparing when their "f" is equal: recent node is prior.
+
+		startTime = 0
 		stepCount = 0
 
+		@result = {}
 
-		@noSolution = false
-		@result = {} # compute result contains: consumed time and step etc. TODO not added the time and step
-
-		init = =>
+		@init = =>
 			listOpen = []
 			listClose = []
+
+			stepCount = 0
 
 			_net.startNode.g = 0
 			_net.startNode.h = parseInt(_net.calcShortestDistance(_net.startNode, _net.endNode))
@@ -59,7 +78,9 @@ class AStar.Engine
 		@run = (fps) =>
 			@fps = fps if fps?
 			if not @isRunning
+				@init()
 				@isRunning = true
+				startTime = Date.now()
 				if fps
 					autoStep()
 				else
@@ -72,18 +93,9 @@ class AStar.Engine
 				setTimeout autoStep, 1000 / @fps
 
 		_step = =>
-			return if @noSolution # TODO remove this line
-
-			init() if listOpen.length == 0
-
 			currentNode = listOpen.shift()
-
 			if not currentNode?
-				@noSolution = true
-				@finished = true
-				@isRunning = false
-				@trigger 'finish', @result
-				@trigger 'noSolution', @result
+				_end false
 				return
 
 			if currentNode.state != AStar.NODE_STATE_START
@@ -123,12 +135,20 @@ class AStar.Engine
 				@trigger 'nodeChanged', _net.endNode.position
 
 				traceShortestPath()
+				_end true
 
-				@finished = true
-
-				@trigger 'finish', @result
-				@trigger 'reachEnd', stepCount
 			stepCount++
+
+		_end = (success) =>
+			@finished = true
+			@isRunning = false
+
+			@result.success = success
+			@result.time = Math.round(Date.now() - startTime) + 'ms'
+			@result.step = stepCount
+
+			@trigger 'finished', @result
+
 
 		compareNodes = (node1, node2) ->
 			delta = node1.f() - node2.f()

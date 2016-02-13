@@ -166,8 +166,9 @@ html
           refreshNode(e.x, e.y);
         });
 
-        engine.on("noSolution", function () {
-          alert("no solution!");
+        engine.on("finished", function (e) {
+          console.log('result: ', e);
+          if (!e.success) alert("no solution!");
         });
       }
 
