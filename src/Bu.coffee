@@ -82,6 +82,31 @@ Bu.combineOptions = (args, defaultOptions) ->
 Function::property = (prop, desc) ->
 	Object.defineProperty @prototype, prop, desc
 
+# throttle
+Function::throttle = (limit = 0.5) ->
+	currTime = 0
+	lastTime = 0
+
+	return () =>
+		currTime = Date.now()
+		if currTime - lastTime > limit * 1000
+			@apply null, arguments
+			lastTime = currTime
+
+# debounce
+Function::debounce = (delay = 0.5) ->
+	args = null
+	timeout = null
+
+	later = =>
+		@apply null, args
+
+	return () ->
+		args = arguments
+		clearTimeout timeout
+		timeout = setTimeout later, delay * 1000
+
+
 # Array
 Array::each or= (fn) ->
 	i = 0
