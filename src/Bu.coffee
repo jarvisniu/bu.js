@@ -1,7 +1,7 @@
 # namespace and constants
 
 @Bu =
-	version: '0.2.0'
+	version: '0.3.0'
 
 	# shapes related
 	DEFAULT_STROKE_STYLE:       '#048'
