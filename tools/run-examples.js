@@ -13,5 +13,5 @@ child_process.execSync('start http://localhost:8080/examples/');
 
 console.log("starting server...");
 process.chdir(path.join(__dirname, '..'));
-child_process.execSync('coffee tools/node-server/node-server.coffee');
+child_process.execSync('coffee tools/web-server/web-server.coffee');
 console.log("server started.");
