@@ -1,4 +1,6 @@
+###
 # a static web server on node.js
+###
 
 # modules
 http = require 'http'
@@ -10,7 +12,7 @@ address = '127.0.0.1'
 port = 8080
 indexPageName = 'index.html'
 
-# other var
+# shortcuts
 cwd = require('process').cwd()
 
 responsers =
@@ -29,23 +31,23 @@ responsers =
         responsers['detectExists'] req, res
 
     'detectExists': (req, res) ->
-        filepath = path.join cwd, req.url
-        fs.exists filepath, (exists) ->
+        pathname = path.join cwd, req.url
+        fs.exists pathname, (exists) ->
             if exists
-                responsers['exists'] req, res, filepath
+                responsers['exists'] req, res, pathname
             else
                 responsers['notFound'] req, res
 
-    'exists': (req, res, filepath) ->
-        if fs.statSync(filepath).isFile()
-            responsers['page'] req, res, filepath
+    'exists': (req, res, pathname) ->
+        if fs.statSync(pathname).isFile()
+            responsers['page'] req, res, pathname
         else
             responsers['folderRedirect'] req, res
 
-    'page': (req, res, filepath) ->
+    'page': (req, res, pathname) ->
         res.writeHead 200,
-            'Content-Type': mine filepath
-        fs.readFile filepath, (err, data) ->
+            'Content-Type': mime pathname
+        fs.readFile pathname, (err, data) ->
             res.end data
 
     'folderRedirect': (req, res) ->
@@ -58,7 +60,7 @@ responsers =
             'Content-Type': 'text/html'
         res.end '<h1>404 Page Not Found</h1>'
 
-mine = (pathname) ->
+mime = (pathname) ->
     ext = path.extname pathname
     return switch ext
         # web
