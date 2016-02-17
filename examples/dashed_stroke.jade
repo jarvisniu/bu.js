@@ -63,9 +63,9 @@ html(lang="en")
           for (var i in renderer.shapes) {
             if (!renderer.shapes.hasOwnProperty(i)) continue;
             if (renderer.shapes[i].type == 'Line')
-              renderer.shapes[i].dashDelta += 1;  // because line.dash(2), short than others
+              renderer.shapes[i].dashOffset += 1;  // because line.dash(2), short than others
             else
-              renderer.shapes[i].dashDelta += 2;
+              renderer.shapes[i].dashOffset += 2;
           }
         }
       }
