@@ -35,13 +35,13 @@ class Bu.Renderer
 		@shapes = []
 
 		if not @fillParent
-			@dom.style.width = (@width / @pixelRatio) + 'px'
-			@dom.style.height = (@height / @pixelRatio) + 'px'
+			@dom.style.width = Math.floor(@width / @pixelRatio) + 'px'
+			@dom.style.height = Math.floor(@height / @pixelRatio) + 'px'
 			@dom.width = @width
 			@dom.height = @height
 		@dom.style.border = 'solid 1px gray' if options.border? and options.border
 		@dom.style.cursor = 'crosshair'
-		@dom.style.boxSizing = 'border-box'
+		@dom.style.boxSizing = 'content-box'
 		@dom.style.background = '#eee'
 		@dom.oncontextmenu = -> false
 
@@ -184,7 +184,7 @@ class Bu.Renderer
 				@context.dashedLine(
 						shape.points[0].x, shape.points[0].y,
 						shape.points[1].x, shape.points[1].y,
-						shape.dashStyle, shape.dashDelta
+						shape.dashStyle, shape.dashOffset
 				)
 			else
 				@context.lineTo shape.points[0].x, shape.points[0].y
@@ -233,9 +233,9 @@ class Bu.Renderer
 			if shape.dashStyle
 				@context.beginPath() # clear prev lineTo
 				pts = shape.points
-				@context.dashedLine pts[0].x, pts[0].y, pts[1].x, pts[1].y, shape.dashStyle, shape.dashDelta
-				@context.dashedLine pts[1].x, pts[1].y, pts[2].x, pts[2].y, shape.dashStyle, shape.dashDelta
-				@context.dashedLine pts[2].x, pts[2].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashDelta
+				@context.dashedLine pts[0].x, pts[0].y, pts[1].x, pts[1].y, shape.dashStyle, shape.dashOffset
+				@context.dashedLine pts[1].x, pts[1].y, pts[2].x, pts[2].y, shape.dashStyle, shape.dashOffset
+				@context.dashedLine pts[2].x, pts[2].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashOffset
 			@context.stroke()
 		@
 
@@ -262,10 +262,10 @@ class Bu.Renderer
 				xR = shape.pointRB.x
 				yT = shape.position.y
 				yB = shape.pointRB.y
-				@context.dashedLine xL, yT, xR, yT, shape.dashStyle, shape.dashDelta
-				@context.dashedLine xR, yT, xR, yB, shape.dashStyle, shape.dashDelta
-				@context.dashedLine xR, yB, xL, yB, shape.dashStyle, shape.dashDelta
-				@context.dashedLine xL, yB, xL, yT, shape.dashStyle, shape.dashDelta
+				@context.dashedLine xL, yT, xR, yT, shape.dashStyle, shape.dashOffset
+				@context.dashedLine xR, yT, xR, yB, shape.dashStyle, shape.dashOffset
+				@context.dashedLine xR, yB, xL, yB, shape.dashStyle, shape.dashOffset
+				@context.dashedLine xL, yB, xL, yT, shape.dashStyle, shape.dashOffset
 				@context.stroke()
 		@
 
@@ -329,8 +329,8 @@ class Bu.Renderer
 				@context.beginPath()
 				pts = shape.vertices
 				for i in [0 ... len - 1]
-					@context.dashedLine pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashDelta
-				@context.dashedLine pts[len - 1].x, pts[len - 1].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashDelta
+					@context.dashedLine pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashOffset
+				@context.dashedLine pts[len - 1].x, pts[len - 1].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashOffset
 				@context.stroke()
 			@context.stroke()
 		@
@@ -348,7 +348,7 @@ class Bu.Renderer
 			else
 				pts = shape.vertices
 				for i in [ 0 ... pts.length - 1]
-					@context.dashedLine pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashDelta
+					@context.dashedLine pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashOffset
 			@context.stroke()
 		@
 
@@ -386,10 +386,10 @@ class Bu.Renderer
 	drawBounds: (bounds) ->
 		@context.strokeStyle = bounds.strokeStyle
 		@context.beginPath()
-		@context.dashedLine bounds.x1, bounds.y1, bounds.x2, bounds.y1, bounds.dashStyle, bounds.dashDelta
-		@context.dashedLine bounds.x2, bounds.y1, bounds.x2, bounds.y2, bounds.dashStyle, bounds.dashDelta
-		@context.dashedLine bounds.x2, bounds.y2, bounds.x1, bounds.y2, bounds.dashStyle, bounds.dashDelta
-		@context.dashedLine bounds.x1, bounds.y2, bounds.x1, bounds.y1, bounds.dashStyle, bounds.dashDelta
+		@context.dashedLine bounds.x1, bounds.y1, bounds.x2, bounds.y1, bounds.dashStyle, bounds.dashOffset
+		@context.dashedLine bounds.x2, bounds.y1, bounds.x2, bounds.y2, bounds.dashStyle, bounds.dashOffset
+		@context.dashedLine bounds.x2, bounds.y2, bounds.x1, bounds.y2, bounds.dashStyle, bounds.dashOffset
+		@context.dashedLine bounds.x1, bounds.y2, bounds.x1, bounds.y1, bounds.dashStyle, bounds.dashOffset
 		@context.stroke()
 		@
 
@@ -398,9 +398,9 @@ class Bu.Renderer
 # See: http://stackoverflow.com/questions/4576724/dotted-stroke-in-canvas
 (=>
 	CP = window.CanvasRenderingContext2D and CanvasRenderingContext2D.prototype
-	CP.dashedLine = (x, y, x2, y2, da, delta) ->
+	CP.dashedLine = (x, y, x2, y2, da, offset) ->
 		da = Bu.DEFAULT_DASH_STYLE if not da?
-		delta = 0 if not delta?
+		offset = 0 if not offset?
 		@save()
 		dx = x2 - x
 		dy = y2 - y
@@ -415,8 +415,8 @@ class Bu.Renderer
 		lenU = 0
 		for i in da
 			lenU += i
-		delta %= lenU
-		x = delta
+		offset %= lenU
+		x = offset
 
 		@moveTo 0, 0
 		# TODO need a small fix
