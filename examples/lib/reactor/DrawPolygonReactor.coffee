@@ -3,7 +3,7 @@
 
 class Bu.DrawPolygonReactor extends Bu.ReactorBase
 
-	constructor: (@renderer) ->
+	constructor: (@bu) ->
 		super()
 
 		mouseButton = Bu.MOUSE_BUTTON_NONE
@@ -22,18 +22,18 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 				if not polygon?
 					polygon = new Bu.Polygon
 					polygon.fill(Bu.DEFAULT_FILL_STYLE_HOVER)
-					@renderer.append polygon
+					@bu.append polygon
 
 				if not guideLineEnd?
 					guideLineEnd = new Bu.Line mousePos, mousePos
 					guideLineEnd.stroke Bu.DEFAULT_STROKE_STYLE_HOVER
 					guideLineEnd.dash()
-					@renderer.append guideLineEnd
+					@bu.append guideLineEnd
 
 					guideLineStart = new Bu.Line mousePos, mousePos
 					guideLineStart.stroke Bu.DEFAULT_STROKE_STYLE_HOVER
 					guideLineStart.dash()
-					@renderer.append guideLineStart
+					@bu.append guideLineStart
 				else if guideLineEnd.visible == off
 					guideLineEnd.setPoint1 mousePos
 					guideLineEnd.setPoint2 mousePos

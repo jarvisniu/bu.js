@@ -32,7 +32,7 @@ html
       var net = new AStar.NetHoneycomb();
       var engine = new AStar.Engine(net);
       net.engine = engine;
-      var renderer;
+      var bu;
 
       // shapes
       var hexagonRows = [];
@@ -53,16 +53,16 @@ html
         net.setStart(START_POS.x, START_POS.y);
         net.setEnd(END_POS.x, END_POS.y);
 
-        renderer = new Bu({
+        bu = new Bu({
           container: document.body,
           border: true,
           showKeyPoints: false,
           width: MARGIN * 2 + getCentralX(net.width - 1, net.height - 1) - OFFSET_X / 2,
           height: MARGIN * 2 + getCentralY(net.width - 1, net.height - 1) - OFFSET_Y / 2
         });
-        renderer.dom.addEventListener("mousedown", onMouseDown);
-        renderer.dom.addEventListener("mousemove", onMouseMove);
-        renderer.dom.addEventListener("mouseup", onMouseUp);
+        bu.dom.addEventListener("mousedown", onMouseDown);
+        bu.dom.addEventListener("mousemove", onMouseMove);
+        bu.dom.addEventListener("mouseup", onMouseUp);
 
         // bind events
         $("#btnRun").on("click", function () {
@@ -90,7 +90,7 @@ html
               radius: GRID_SIZE / 2,
               angle: Math.PI / 6
             });
-            renderer.append(hexagonRows[i][j]);
+            bu.append(hexagonRows[i][j]);
           }
         }
 
@@ -103,7 +103,7 @@ html
             lineRows[i][j] = new Bu.Line(cx, cy, cx, cy);
             //lineRows[i][j].stroke("rgba(0, 128, 255, 0.5");
             lineRows[i][j].lineWidth = 0.5;
-            renderer.append(lineRows[i][j]);
+            bu.append(lineRows[i][j]);
           }
         }
 
@@ -137,9 +137,9 @@ html
             labelGRows[i][j].fontFamily =
                     labelHRows[i][j].fontFamily =
                             labelFRows[i][j].fontFamily = "SimSun";
-            renderer.append(labelGRows[i][j]);
-            renderer.append(labelHRows[i][j]);
-            renderer.append(labelFRows[i][j]);
+            bu.append(labelGRows[i][j]);
+            bu.append(labelHRows[i][j]);
+            bu.append(labelFRows[i][j]);
             refreshNode(i, j);
           }
         }
@@ -151,7 +151,7 @@ html
                   getCentralX(i, -1),
                   MARGIN / 2
           );
-          renderer.append(axisTextX[i]);
+          bu.append(axisTextX[i]);
         }
         for (i = 0; i < yCount; i++) {
           axisTextY[i] = new Bu.PointText(
@@ -159,7 +159,7 @@ html
                   getCentralX(-1, i),
                   getCentralY(-1, i)
           );
-          renderer.append(axisTextY[i]);
+          bu.append(axisTextY[i]);
         }
 
         engine.on("nodeChanged", function (e) {
@@ -220,7 +220,7 @@ html
       }
 
       function onMouseDown(e) {
-        e = renderer.processArgs(e);
+        e = bu.processArgs(e);
 
         isMouseDown = true;
 
@@ -244,7 +244,7 @@ html
       }
 
       function onMouseMove(e) {
-        e = renderer.processArgs(e);
+        e = bu.processArgs(e);
 
         if (isMouseDown) {
           var x = pixelToIndexX(e.offsetX, e.offsetY);

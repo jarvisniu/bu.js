@@ -2,7 +2,7 @@
 
 class Bu.DrawPointReactor extends Bu.ReactorBase
 
-	constructor: (@renderer) ->
+	constructor: (@bu) ->
 		super()
 
 		mouseButton = Bu.MOUSE_BUTTON_NONE
@@ -16,7 +16,7 @@ class Bu.DrawPointReactor extends Bu.ReactorBase
 			mouseButton = e.button
 
 			drawingPoint = new Bu.Point e.offsetX, e.offsetY
-			@renderer.append drawingPoint
+			@bu.append drawingPoint
 
 		@onMouseMove = (e) =>
 			mousePos.set e.offsetX, e.offsetY

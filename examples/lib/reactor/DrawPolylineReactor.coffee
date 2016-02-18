@@ -3,7 +3,7 @@
 
 class Bu.DrawPolylineReactor extends Bu.ReactorBase
 
-	constructor: (@renderer) ->
+	constructor: (@bu) ->
 		super()
 
 		mouseButton = Bu.MOUSE_BUTTON_NONE
@@ -21,13 +21,13 @@ class Bu.DrawPolylineReactor extends Bu.ReactorBase
 				if not polyline?
 					polyline = new Bu.Polyline
 					polyline.stroke Bu.DEFAULT_STROKE_STYLE_HOVER
-					@renderer.append polyline
+					@bu.append polyline
 
 				if not line?
 					line = new Bu.Line mousePos, mousePos
 					line.stroke Bu.DEFAULT_STROKE_STYLE_HOVER
 					line.dash()
-					@renderer.append line
+					@bu.append line
 				else if line.visible == off
 					line.setPoint1 mousePos
 					line.setPoint2 mousePos

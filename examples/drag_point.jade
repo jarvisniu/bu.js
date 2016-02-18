@@ -24,7 +24,7 @@ html(lang="en")
 
     script(type="text/javascript").
 
-      var renderer;
+      var bu;
       var movePointReactor;
 
       var POINT_COUNT = 10;
@@ -33,23 +33,23 @@ html(lang="en")
       $.ready(init);
 
       function init() {
-        renderer = new Bu({
+        bu = new Bu({
           container: "#container",
           fillParent: true
         });
-        renderer.dom.style.cursor = "default";
+        bu.dom.style.cursor = "default";
 
-        movePointReactor = new Bu.MovePointReactor(renderer);
+        movePointReactor = new Bu.MovePointReactor(bu);
         movePointReactor.enable();
 
         for (var i = 0; i < POINT_COUNT; i++) {
           points[i] = new Bu.Point(
-                  Bu.rand(renderer.width),
-                  Bu.rand(renderer.height)
+                  Bu.rand(bu.width),
+                  Bu.rand(bu.height)
           );
           points[i].label = "P" + i;
         }
-        renderer.append(points);
+        bu.append(points);
       }
 
   body

@@ -22,35 +22,35 @@ html
 
     script(type="text/javascript").
 
-      var renderer;
+      var bu;
       var generator;
       var mousePos = new Bu.Point();
 
       $.ready(init);
 
       function init() {
-        renderer = new Bu({
+        bu = new Bu({
           container: "#container",
           showKeyPoints: true,
           fillParent: true
         });
 
-        generator = new Bu.RandomShapeGenerator(renderer);
+        generator = new Bu.RandomShapeGenerator(bu);
         generateShapes();
 
-        renderer.dom.addEventListener("mouseup", generateShapes);
-        renderer.dom.addEventListener("mousemove", onMouseMove);
+        bu.dom.addEventListener("mouseup", generateShapes);
+        bu.dom.addEventListener("mousemove", onMouseMove);
       }
 
       function onMouseMove(e) {
-        e = renderer.processArgs(e);
+        e = bu.processArgs(e);
 
         mousePos.x = e.offsetX;
         mousePos.y = e.offsetY;
 
-        for (var i in renderer.shapes) {
-          if (!renderer.shapes.hasOwnProperty(i)) continue;
-          var shape = renderer.shapes[i];
+        for (var i in bu.shapes) {
+          if (!bu.shapes.hasOwnProperty(i)) continue;
+          var shape = bu.shapes[i];
           if (shape.containsPoint(mousePos))
             shape.fill(Bu.DEFAULT_FILL_STYLE_HOVER);
           else
@@ -59,7 +59,7 @@ html
       }
 
       function generateShapes() {
-        renderer.shapes = [
+        bu.shapes = [
           generator.generateBow(),
           generator.generateTriangle(),
           generator.generateCircle(),

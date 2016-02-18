@@ -22,7 +22,7 @@ html(lang="en")
 
     script(type="text/javascript").
 
-      var renderer;
+      var bu;
       var imageUrl = "./textures/bunny.png";
       var image;
       var speedX = 4, speedY = 4;
@@ -30,7 +30,7 @@ html(lang="en")
       $.ready(init);
 
       function init() {
-        renderer = new Bu({
+        bu = new Bu({
           container: "#container",
           fillParent: true
         });
@@ -38,15 +38,15 @@ html(lang="en")
         image = new Bu.Image(imageUrl, 300, 200);
         image.rotation = Math.PI / 6;
         image.scale.x = image.scale.y = 2;
-        renderer.append(image);
+        bu.append(image);
 
         setInterval(function () {
           image.rotation += 0.04;
           image.position.x += speedX;
           image.position.y += speedY;
 
-          if (image.position.x > renderer.width - 40 || image.position.x < 40) speedX = -speedX;
-          if (image.position.y > renderer.height - 40 || image.position.y < 40) speedY = -speedY;
+          if (image.position.x > bu.width - 40 || image.position.x < 40) speedX = -speedX;
+          if (image.position.y > bu.height - 40 || image.position.y < 40) speedY = -speedY;
         }, 1000 / 60);
       }
 

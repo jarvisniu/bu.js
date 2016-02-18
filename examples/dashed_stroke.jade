@@ -22,30 +22,30 @@ html(lang="en")
 
     script(type="text/javascript").
 
-      var renderer, generator;
+      var bu, generator;
       var isFlowOn = true;
 
       $.ready(init);
 
       function init() {
-        renderer = new Bu({
+        bu = new Bu({
           container: "#container",
           fillParent: true,
           border: false
         });
-        generator = new Bu.RandomShapeGenerator(renderer);
+        generator = new Bu.RandomShapeGenerator(bu);
         generateShapes();
 
         $("#btnStrokeFlow").on("click", function () {
           isFlowOn = !isFlowOn;
         });
-        renderer.dom.addEventListener("mouseup", generateShapes);
+        bu.dom.addEventListener("mouseup", generateShapes);
 
         setInterval(tickFlow, 1000 / 30);
       }
 
       function generateShapes() {
-        renderer.shapes = [
+        bu.shapes = [
           generator.generateLine().dash(2),
           generator.generateTriangle().dash(4),
           generator.generateRectangle().dash(8),
@@ -60,12 +60,12 @@ html(lang="en")
 
       function tickFlow() {
         if (isFlowOn) {
-          for (var i in renderer.shapes) {
-            if (!renderer.shapes.hasOwnProperty(i)) continue;
-            if (renderer.shapes[i].type == 'Line')
-              renderer.shapes[i].dashOffset += 1;  // because line.dash(2), short than others
+          for (var i in bu.shapes) {
+            if (!bu.shapes.hasOwnProperty(i)) continue;
+            if (bu.shapes[i].type == 'Line')
+              bu.shapes[i].dashOffset += 1;  // because line.dash(2), short than others
             else
-              renderer.shapes[i].dashOffset += 2;
+              bu.shapes[i].dashOffset += 2;
           }
         }
       }
