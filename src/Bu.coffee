@@ -62,8 +62,7 @@ Bu.rand = (from, to) ->
 ###
 
 # get current time
-# TODO use performance
-Bu.now = Date.now
+Bu.now = if window?.performance? then -> window.performance.now() else -> Date.now()
 
 # combine the given options(last item in arguments) with the default options
 Bu.combineOptions = (args, defaultOptions) ->
