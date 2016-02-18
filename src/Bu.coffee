@@ -1,37 +1,43 @@
-# namespace and constants
+# namespace, constants and util functions
 
-@Bu =
-	version: '0.3.0'
-
-	# shapes related
-	DEFAULT_STROKE_STYLE:       '#048'
-	DEFAULT_FILL_STYLE:         'rgba(64, 128, 192, 0.5)'
-	DEFAULT_DASH_STYLE:         [8, 4]
-
-	# interaction related
-	DEFAULT_STROKE_STYLE_HOVER:   'rgba(255, 128, 0, 0.75)'
-	DEFAULT_FILL_STYLE_HOVER:   'rgba(255, 128, 128, 0.5)'
-
-	# texts related
-	DEFAULT_TEXT_FILL_STYLE:    'black'
-
-	# default size
-	DEFAULT_IMAGE_SIZE: 20
-	POINT_RENDER_SIZE: 4
+@Bu = () -> new Bu.Renderer arguments...
 
 
-	# bounds related
-	DEFAULT_BOUND_STROKE_STYLE:  '#444'
-	DEFAULT_BOUND_DASH_STYLE:    [6, 6]
+###
+# constants
+###
 
-	# computation related
-	DEFAULT_NEAR_DIST: 5
+Bu.VERSION = '0.3.0'
 
-	# mouse interact
-	MOUSE_BUTTON_NONE:   -1
-	MOUSE_BUTTON_LEFT:   0
-	MOUSE_BUTTON_MIDDLE: 1
-	MOUSE_BUTTON_RIGHT:  2
+# shapes related
+Bu.DEFAULT_STROKE_STYLE = '#048'
+Bu.DEFAULT_FILL_STYLE = 'rgba(64, 128, 192, 0.5)'
+Bu.DEFAULT_DASH_STYLE = [8, 4]
+
+# interaction related
+Bu.DEFAULT_STROKE_STYLE_HOVER = 'rgba(255, 128, 0, 0.75)'
+Bu.DEFAULT_FILL_STYLE_HOVER = 'rgba(255, 128, 128, 0.5)'
+
+# texts related
+Bu.DEFAULT_TEXT_FILL_STYLE = 'black'
+
+# default size
+Bu.DEFAULT_IMAGE_SIZE = 20
+Bu.POINT_RENDER_SIZE = 4
+
+# bounds related
+Bu.DEFAULT_BOUND_STROKE_STYLE = '#444'
+Bu.DEFAULT_BOUND_DASH_STYLE = [6, 6]
+
+# computation related
+Bu.DEFAULT_NEAR_DIST = 5
+
+# mouse interact
+Bu.MOUSE_BUTTON_NONE = -1
+Bu.MOUSE_BUTTON_LEFT = 0
+Bu.MOUSE_BUTTON_MIDDLE = 1
+Bu.MOUSE_BUTTON_RIGHT = 2
+
 
 ###
 # math
