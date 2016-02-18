@@ -29,32 +29,31 @@ html(lang="en")
 
       function init() {
         bu = new Bu({
-          container: "#container",
+          container: '#container',
           fillParent: true,
           border: false
         });
         generator = new Bu.RandomShapeGenerator(bu);
         generateShapes();
 
-        $("#btnStrokeFlow").on("click", function () {
+        $('#btnStrokeFlow').on('click', function () {
           isFlowOn = !isFlowOn;
         });
-        bu.dom.addEventListener("mouseup", generateShapes);
+        bu.dom.addEventListener('mouseup', generateShapes);
 
         setInterval(tickFlow, 1000 / 30);
       }
 
       function generateShapes() {
         bu.shapes = [
-          generator.generateLine().dash(2),
-          generator.generateTriangle().dash(4),
-          generator.generateRectangle().dash(8),
-          generator.generatePolygon().dash().stroke("red"),
-          generator.generatePolyline().dash().stroke("purple"),
-
-          generator.generateCircle().dash().stroke("#b60"),
-          generator.generateFan().dash().stroke("#b60"),
-          generator.generateBow().dash().stroke("#b60"),
+          generator.generate('line').dash(2),
+          generator.generate('triangle').dash(4),
+          generator.generate('rectangle').dash(8),
+          generator.generate('polygon').dash().stroke('red'),
+          generator.generate('polyline').dash().stroke('purple'),
+          generator.generate('circle').dash().stroke('#b60'),
+          generator.generate('fan').dash().stroke('#b60'),
+          generator.generate('bow').dash().stroke('#b60'),
         ];
       }
 

@@ -16,6 +16,18 @@ class Bu.RandomShapeGenerator
 		return Bu.rand 5, Math.min(@bu.width, @bu.height) / 2
 
 
+	generate: (type) ->
+		switch type
+			when 'circle' then @generateCircle()
+			when 'bow' then @generateBow()
+			when 'triangle' then @generateTriangle()
+			when 'rectangle' then @generateRectangle()
+			when 'fan' then @generateFan()
+			when 'polygon' then @generatePolygon()
+			when 'line' then @generateLine()
+			when 'polyline' then @generatePolyline()
+			else console.warn 'not support shape: ' + type
+
 	generateCircle: ->
 		circle = new Bu.Circle @randomX(), @randomY(), @randomRadius()
 		circle.center.label = 'O'
