@@ -6,7 +6,7 @@ Bu.Colorful = () ->
 	@dashStyle = false
 
 	@lineWidth = 1
-	@dashDelta = 0
+	@dashOffset = 0
 
 	@stroke = (v) ->
 		v = true if not v?

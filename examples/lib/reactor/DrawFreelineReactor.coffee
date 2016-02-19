@@ -2,7 +2,7 @@
 
 class Bu.DrawFreelineReactor extends Bu.ReactorBase
 
-	constructor: (@renderer) ->
+	constructor: (@bu) ->
 		super()
 
 		@lineSplitThresh = 8
@@ -21,7 +21,7 @@ class Bu.DrawFreelineReactor extends Bu.ReactorBase
 			if mouseButton == Bu.MOUSE_BUTTON_LEFT
 				polyline = new Bu.Polyline
 				polyline.stroke Bu.DEFAULT_STROKE_STYLE_HOVER
-				@renderer.append polyline
+				@bu.append polyline
 
 		@onMouseMove = (e) =>
 			mousePos.set e.offsetX, e.offsetY

@@ -22,57 +22,55 @@ html(lang="en")
 
     script(type="text/javascript").
 
-      var renderer, generator;
+      var bu, generator;
       var isFlowOn = true;
 
       $.ready(init);
 
       function init() {
-        renderer = new Bu.Renderer({
-          container: "#container",
+        bu = new Bu({
+          container: '#container',
           fillParent: true,
           border: false
         });
-        generator = new Bu.RandomShapeGenerator(renderer);
+        generator = new Bu.RandomShapeGenerator(bu);
         generateShapes();
 
-        $("#btnStrokeFlow").on("click", function () {
+        $('#btnStrokeFlow').on('click', function () {
           isFlowOn = !isFlowOn;
         });
-        renderer.dom.addEventListener("mouseup", generateShapes);
+        bu.dom.addEventListener('mouseup', generateShapes);
 
         setInterval(tickFlow, 1000 / 30);
       }
 
       function generateShapes() {
-        renderer.shapes = [
-          generator.generateLine().dash(2),
-          generator.generateTriangle().dash(4),
-          generator.generateRectangle().dash(8),
-          generator.generatePolygon().dash().stroke("red"),
-          generator.generatePolyline().dash().stroke("purple"),
-
-          generator.generateCircle().dash().stroke("lime"),
-          generator.generateFan().dash().stroke("lime"),
-          generator.generateBow().dash().stroke("lime"),
+        bu.shapes = [
+          generator.generate('line').dash(2),
+          generator.generate('triangle').dash(4),
+          generator.generate('rectangle').dash(8),
+          generator.generate('polygon').dash().stroke('red'),
+          generator.generate('polyline').dash().stroke('purple'),
+          generator.generate('circle').dash().stroke('#b60'),
+          generator.generate('fan').dash().stroke('#b60'),
+          generator.generate('bow').dash().stroke('#b60'),
         ];
       }
 
       function tickFlow() {
         if (isFlowOn) {
-          for (var i in renderer.shapes) {
-            if (!renderer.shapes.hasOwnProperty(i)) continue;
-            if (renderer.shapes[i].type == 'Line')
-              renderer.shapes[i].dashDelta += 1;  // because line.dash(2), short than others
+          for (var i in bu.shapes) {
+            if (!bu.shapes.hasOwnProperty(i)) continue;
+            if (bu.shapes[i].type == 'Line')
+              bu.shapes[i].dashOffset += 1;  // because line.dash(2), short than others
             else
-              renderer.shapes[i].dashDelta += 2;
+              bu.shapes[i].dashOffset += 2;
           }
         }
       }
 
   body
     div#info
-      div Dashed line stroke examples. (Curve lines not implemented for now.)
-      div Click to regenerate shapes.
+      div Dashed line stroke examples. Click to regenerate shapes.
       button#btnStrokeFlow Toggle Flow
     div#container

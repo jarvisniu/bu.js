@@ -2,7 +2,7 @@
 
 class Bu.DrawCircleReactor extends Bu.ReactorBase
 
-	constructor: (@renderer) ->
+	constructor: (@bu) ->
 		super()
 
 		mouseButton = Bu.MOUSE_BUTTON_NONE
@@ -22,11 +22,11 @@ class Bu.DrawCircleReactor extends Bu.ReactorBase
 			else
 				mousePosDown.set e.offsetX, e.offsetY
 				circle = new Bu.Circle mousePosDown.x, mousePosDown.y, 1
-				@renderer.append circle
+				@bu.append circle
 
 				line = new Bu.Line mousePosDown, mousePosDown
 				line.stroke '#f44'
-				@renderer.append line
+				@bu.append line
 				isConfirmed = no
 			mouseButton = e.button
 

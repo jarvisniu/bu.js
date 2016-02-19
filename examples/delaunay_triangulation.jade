@@ -26,14 +26,14 @@ html(lang="en")
       var POINT_COUNT = 64;
       var LINE_COUNT = 50;
 
-      var renderer;
+      var bu;
       var points = [];
       var lines = [];
 
       $.ready(init);
 
       function init() {
-        renderer = new Bu.Renderer({
+        bu = new Bu({
           container: "#container",
           fillParent: true
         });
@@ -46,11 +46,11 @@ html(lang="en")
 
       function generatePoints() {
         for (var i = 0; i < POINT_COUNT; i++) {
-          var x = Bu.rand(20, renderer.width - 40);
-          var y = Bu.rand(20, renderer.height - 40);
+          var x = Bu.rand(20, bu.width - 40);
+          var y = Bu.rand(20, bu.height - 40);
           points[i] = new Bu.Point(x, y);
           points[i].label = i;
-          renderer.append(points[i]);
+          bu.append(points[i]);
         }
       }
 
@@ -63,7 +63,7 @@ html(lang="en")
           var line = new Bu.Line(p1, p2);
           line.strokeStyle = "#08f";
           lines.push(line);
-          renderer.append(line);
+          bu.append(line);
         }
       }
 
@@ -74,7 +74,7 @@ html(lang="en")
             var line = new Bu.Line(points[i], points[j]);
             line.strokeStyle = "rgba(0, 0, 0, 0.1)";
             lines.push(line);
-            renderer.append(line);
+            bu.append(line);
           }
         }
       }
@@ -87,7 +87,7 @@ html(lang="en")
             line.strokeStyle = "orange";
             if (!isLineCrossWithAny(line, lines)) {
               lines.push(line);
-              renderer.append(line);
+              bu.append(line);
               // console.log("Add: ", i, j);
             } else {
               // console.log("Not add: ", i, j);
@@ -109,7 +109,7 @@ html(lang="en")
         }
         for (var i = 0; i < lines.length; i++) {
           lines[i].strokeStyle = "#808";
-          renderer.append(lines[i]);
+          bu.append(lines[i]);
         }
       }
 

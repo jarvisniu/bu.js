@@ -23,7 +23,7 @@ html(lang="en")
 
     script(type="text/javascript").
 
-      var renderer;
+      var bu;
       var polylineA, polylineB;
       var polylineMorph;
       var time = 0;
@@ -31,12 +31,12 @@ html(lang="en")
       $.ready(init);
 
       function init() {
-        renderer = new Bu.Renderer({
+        bu = new Bu({
           container: "#container",
           showKeyPoints: true,
           fillParent: true
         });
-        renderer.dom.addEventListener("mousedown", onMouseDown);
+        bu.dom.addEventListener("mousedown", onMouseDown);
 
         polylineA = new Bu.Polyline();
         polylineA.addPoint(new Bu.Point(100, 300));
@@ -51,9 +51,9 @@ html(lang="en")
         polylineMorph = new Bu.PolylineMorph(polylineA, polylineB);
         polylineMorph.polyline.strokeStyle = "purple";
 
-        renderer.append(polylineA);
-        renderer.append(polylineB);
-        renderer.append(polylineMorph.polyline);
+        bu.append(polylineA);
+        bu.append(polylineB);
+        bu.append(polylineMorph.polyline);
 
         refreshLabel();
 
@@ -61,7 +61,7 @@ html(lang="en")
       }
 
       function onMouseDown(e) {
-        e = renderer.processArgs(e);
+        e = bu.processArgs(e);
 
         if (e.button == 0) {
           polylineA.addPoint(new Bu.Point(e.offsetX, e.offsetY));

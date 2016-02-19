@@ -4,17 +4,29 @@ class Bu.RandomShapeGenerator
 
 	MARGIN = 30
 
-	constructor: (@renderer) ->
+	constructor: (@bu) ->
 
 	randomX: ->
-		return Bu.rand MARGIN, @renderer.width - MARGIN * 2
+		return Bu.rand MARGIN, @bu.width - MARGIN * 2
 
 	randomY: ->
-		return Bu.rand MARGIN, @renderer.height - MARGIN * 2
+		return Bu.rand MARGIN, @bu.height - MARGIN * 2
 
 	randomRadius: ->
-		return Bu.rand 5, Math.min(@renderer.width, @renderer.height) / 2
+		return Bu.rand 5, Math.min(@bu.width, @bu.height) / 2
 
+
+	generate: (type) ->
+		switch type
+			when 'circle' then @generateCircle()
+			when 'bow' then @generateBow()
+			when 'triangle' then @generateTriangle()
+			when 'rectangle' then @generateRectangle()
+			when 'fan' then @generateFan()
+			when 'polygon' then @generatePolygon()
+			when 'line' then @generateLine()
+			when 'polyline' then @generatePolyline()
+			else console.warn 'not support shape: ' + type
 
 	generateCircle: ->
 		circle = new Bu.Circle @randomX(), @randomY(), @randomRadius()
@@ -43,10 +55,10 @@ class Bu.RandomShapeGenerator
 
 	generateRectangle: ->
 		return new Bu.Rectangle(
-			Bu.rand(@renderer.width)
-			Bu.rand(@renderer.height)
-			Bu.rand(@renderer.width / 2)
-			Bu.rand(@renderer.height / 2)
+			Bu.rand(@bu.width)
+			Bu.rand(@bu.height)
+			Bu.rand(@bu.width / 2)
+			Bu.rand(@bu.height / 2)
 		)
 
 	generateFan: ->

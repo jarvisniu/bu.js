@@ -1,40 +1,47 @@
-# namespace and constants
+# namespace, constants and utility functions
 
-@Bu =
-	version: '0.2.0'
+# namespace `Bu` is also a shortcut to class `Bu.Renderer`
+@Bu = () -> new Bu.Renderer arguments...
 
-	# shapes related
-	DEFAULT_STROKE_STYLE:       '#048'
-	DEFAULT_FILL_STYLE:         'rgba(64, 128, 192, 0.5)'
-	DEFAULT_DASH_STYLE:         [8, 4]
-
-	# interaction related
-	DEFAULT_STROKE_STYLE_HOVER:   'rgba(255, 128, 0, 0.75)'
-	DEFAULT_FILL_STYLE_HOVER:   'rgba(255, 128, 128, 0.5)'
-
-	# texts related
-	DEFAULT_TEXT_FILL_STYLE:    'black'
-
-	# default size
-	DEFAULT_IMAGE_SIZE: 20
-	POINT_RENDER_SIZE: 4
-
-
-	# bounds related
-	DEFAULT_BOUND_STROKE_STYLE:  '#444'
-	DEFAULT_BOUND_DASH_STYLE:    [6, 6]
-
-	# computation related
-	DEFAULT_NEAR_DIST: 5
-
-	# mouse interact
-	MOUSE_BUTTON_NONE:   -1
-	MOUSE_BUTTON_LEFT:   0
-	MOUSE_BUTTON_MIDDLE: 1
-	MOUSE_BUTTON_RIGHT:  2
 
 ###
-# math
+# constants
+###
+
+Bu.VERSION = '0.3.1'
+
+# shapes related
+Bu.DEFAULT_STROKE_STYLE = '#048'
+Bu.DEFAULT_FILL_STYLE = 'rgba(64, 128, 192, 0.5)'
+Bu.DEFAULT_DASH_STYLE = [8, 4]
+
+# interaction related
+Bu.DEFAULT_STROKE_STYLE_HOVER = 'rgba(255, 128, 0, 0.75)'
+Bu.DEFAULT_FILL_STYLE_HOVER = 'rgba(255, 128, 128, 0.5)'
+
+# texts related
+Bu.DEFAULT_TEXT_FILL_STYLE = 'black'
+
+# default size
+Bu.DEFAULT_IMAGE_SIZE = 20
+Bu.POINT_RENDER_SIZE = 4
+
+# bounds related
+Bu.DEFAULT_BOUND_STROKE_STYLE = '#444'
+Bu.DEFAULT_BOUND_DASH_STYLE = [6, 6]
+
+# computation related
+Bu.DEFAULT_NEAR_DIST = 5
+
+# mouse interact
+Bu.MOUSE_BUTTON_NONE = -1
+Bu.MOUSE_BUTTON_LEFT = 0
+Bu.MOUSE_BUTTON_MIDDLE = 1
+Bu.MOUSE_BUTTON_RIGHT = 2
+
+
+###
+# utility functions
 ###
 
 # calculate the mean value of several numbers
@@ -57,13 +64,8 @@ Bu.rand = (from, to) ->
 		from = 0
 	Math.random() * (to - from) + from
 
-###
-# utils
-###
-
 # get current time
-# TODO use performance
-Bu.now = Date.now
+Bu.now = if window?.performance? then -> window.performance.now() else -> Date.now()
 
 # combine the given options(last item in arguments) with the default options
 Bu.combineOptions = (args, defaultOptions) ->
@@ -81,6 +83,31 @@ Bu.combineOptions = (args, defaultOptions) ->
 # define a property for a class
 Function::property = (prop, desc) ->
 	Object.defineProperty @prototype, prop, desc
+
+# throttle
+Function::throttle = (limit = 0.5) ->
+	currTime = 0
+	lastTime = 0
+
+	return () =>
+		currTime = Date.now()
+		if currTime - lastTime > limit * 1000
+			@apply null, arguments
+			lastTime = currTime
+
+# debounce
+Function::debounce = (delay = 0.5) ->
+	args = null
+	timeout = null
+
+	later = =>
+		@apply null, args
+
+	return () ->
+		args = arguments
+		clearTimeout timeout
+		timeout = setTimeout later, delay * 1000
+
 
 # Array
 Array::each or= (fn) ->

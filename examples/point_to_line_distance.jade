@@ -22,31 +22,31 @@ html
 
     script(type="text/javascript").
 
-      var renderer, generator;
+      var bu, generator;
       var line, lineVertical;
       var mousePos = new Bu.Point();
 
       $.ready(init);
 
       function init() {
-        renderer = new Bu.Renderer({
+        bu = new Bu({
           container: "#container",
           showKeyPoints: true,
           fillParent: true
         });
-        generator = new Bu.RandomShapeGenerator(renderer);
+        generator = new Bu.RandomShapeGenerator(bu);
         line = generator.generateLine();
-        renderer.append(line);
+        bu.append(line);
         lineVertical = new Bu.Line();
         lineVertical.dash();
         lineVertical.points[1].label = "T";
-        renderer.append(lineVertical);
-        renderer.dom.addEventListener("mouseup", onMouseUp);
-        renderer.dom.addEventListener("mousemove", onMouseMove);
+        bu.append(lineVertical);
+        bu.dom.addEventListener("mouseup", onMouseUp);
+        bu.dom.addEventListener("mousemove", onMouseMove);
       }
 
       function onMouseMove(e) {
-        e = renderer.processArgs(e);
+        e = bu.processArgs(e);
 
         mousePos.x = e.offsetX;
         mousePos.y = e.offsetY;
@@ -57,7 +57,7 @@ html
       }
 
       function onMouseUp() {
-        line = renderer.shapes[0] = generator.generateLine();
+        line = bu.shapes[0] = generator.generateLine();
       }
 
   body

@@ -13,7 +13,7 @@ class Bu.Bounds extends Bu.Object2D
 
 		@strokeStyle = Bu.DEFAULT_BOUND_STROKE_STYLE
 		@dashStyle = Bu.DEFAULT_BOUND_DASH_STYLE
-		@dashDelta = 0
+		@dashOffset = 0
 
 		switch @target.type
 			when 'Line', 'Triangle', 'Rectangle'

@@ -60,7 +60,7 @@
 
 <script>
 
-  var renderer;
+  var bu;
   var reactors = {};
 
   var iconButtons = [
@@ -118,18 +118,18 @@
       },
       ready: function () {
         this.$refs.toolbar.items = iconButtons;
-        renderer = new Bu.Renderer({
+        bu = new Bu({
           container: "#container",
           fillParent: true,
           border: false
         });
 
-        reactors.point = new Bu.DrawPointReactor(renderer);
-        reactors.circle = new Bu.DrawCircleReactor(renderer);
-        reactors.circle2 = new Bu.DrawCircleDiameterReactor(renderer);
-        reactors.polyline = new Bu.DrawPolylineReactor(renderer);
-        reactors.polygon = new Bu.DrawPolygonReactor(renderer);
-        reactors.freeline = new Bu.DrawFreelineReactor(renderer);
+        reactors.point = new Bu.DrawPointReactor(bu);
+        reactors.circle = new Bu.DrawCircleReactor(bu);
+        reactors.circle2 = new Bu.DrawCircleDiameterReactor(bu);
+        reactors.polyline = new Bu.DrawPolylineReactor(bu);
+        reactors.polygon = new Bu.DrawPolygonReactor(bu);
+        reactors.freeline = new Bu.DrawFreelineReactor(bu);
 
         reactors.point.enable();
       }

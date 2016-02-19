@@ -14,20 +14,20 @@ class Bu.ReactorBase
 		@enabled = false
 
 	_onMouseDown: (e) =>
-		@onMouseDown? @renderer.processArgs e
+		@onMouseDown? @bu.processArgs e
 
 	_onMouseMove: (e) =>
-		@onMouseMove? @renderer.processArgs e
+		@onMouseMove? @bu.processArgs e
 
 	_onMouseUp: (e) =>
-		@onMouseUp? @renderer.processArgs e
+		@onMouseUp? @bu.processArgs e
 
 	addListeners: ->
-		@renderer.dom.addEventListener 'mousedown', @_onMouseDown
-		@renderer.dom.addEventListener 'mousemove', @_onMouseMove
-		@renderer.dom.addEventListener 'mouseup', @_onMouseUp
+		@bu.dom.addEventListener 'mousedown', @_onMouseDown
+		@bu.dom.addEventListener 'mousemove', @_onMouseMove
+		@bu.dom.addEventListener 'mouseup', @_onMouseUp
 
 	removeListeners: ->
-		@renderer.dom.removeEventListener 'mousedown', @_onMouseDown
-		@renderer.dom.removeEventListener 'mousemove', @_onMouseMove
-		@renderer.dom.removeEventListener 'mouseup', @_onMouseUp
+		@bu.dom.removeEventListener 'mousedown', @_onMouseDown
+		@bu.dom.removeEventListener 'mousemove', @_onMouseMove
+		@bu.dom.removeEventListener 'mouseup', @_onMouseUp
