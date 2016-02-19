@@ -8,7 +8,7 @@
 # constants
 ###
 
-Bu.VERSION = '0.3.0'
+Bu.VERSION = '0.3.1'
 
 # shapes related
 Bu.DEFAULT_STROKE_STYLE = '#048'
