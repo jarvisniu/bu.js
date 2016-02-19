@@ -1,5 +1,6 @@
-# namespace, constants and util functions
+# namespace, constants and utility functions
 
+# namespace `Bu` is also a shortcut to class `Bu.Renderer`
 @Bu = () -> new Bu.Renderer arguments...
 
 
@@ -40,7 +41,7 @@ Bu.MOUSE_BUTTON_RIGHT = 2
 
 
 ###
-# math
+# utility functions
 ###
 
 # calculate the mean value of several numbers
@@ -62,10 +63,6 @@ Bu.rand = (from, to) ->
 		to = from
 		from = 0
 	Math.random() * (to - from) + from
-
-###
-# utils
-###
 
 # get current time
 Bu.now = if window?.performance? then -> window.performance.now() else -> Date.now()
