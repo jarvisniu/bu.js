@@ -71,7 +71,7 @@ class Bu.Line extends Bu.Object2D
 		b = p1.y - a * p1.x
 		return Math.abs(a * point.x + b - point.y) / Math.sqrt(a * a + 1)
 
-	# 这个是自己推导的
+	# this one is inferred by myself
 	distanceTo2: (point) ->
 		p1 = @points[0]
 		p2 = @points[1]
@@ -81,7 +81,7 @@ class Bu.Line extends Bu.Object2D
 		czY = a * czX + b
 		return Bu.bevel(czX - point.x, czY - point.y)
 
-	# get foot point from a point 计算垂足点
+	# get foot point from a point
 	# save to footPoint or create a new point
 	footPointFrom: (point, footPoint) ->
 		p1 = @points[0]
