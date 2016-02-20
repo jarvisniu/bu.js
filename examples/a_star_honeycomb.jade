@@ -86,8 +86,7 @@ html
           for (j = 0; j < yCount; j++) {
             cx = getCentralX(i, j);
             cy = getCentralY(i, j);
-            hexagonRows[i][j] = new Bu.Polygon(cx, cy, 6, {
-              radius: GRID_SIZE / 2,
+            hexagonRows[i][j] = new Bu.Polygon(cx, cy, GRID_SIZE / 2, 6, {
               angle: Math.PI / 6
             });
             bu.append(hexagonRows[i][j]);
