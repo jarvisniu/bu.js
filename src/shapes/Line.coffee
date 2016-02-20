@@ -132,9 +132,9 @@ class Bu.Line extends Bu.Object2D
 			x0 = ((x2 - x1) * (x4 - x3) * (y3 - y1) + (y2 - y1) * (x4 - x3) * x1 - (y4 - y3) * (x2 - x1) * x3) / d
 			y0 = ((y2 - y1) * (y4 - y3) * (x3 - x1) + (x2 - x1) * (y4 - y3) * y1 - (x4 - x3) * (y2 - y1) * y3) / -d
 		return (x0 - x1) * (x0 - x2) < 0 and
-						(x0 - x3) * (x0 - x4) < 0 and
-						(y0 - y1) * (y0 - y2) < 0 and
-						(y0 - y3) * (y0 - y4) < 0
+				(x0 - x3) * (x0 - x4) < 0 and
+				(y0 - y1) * (y0 - y2) < 0 and
+				(y0 - y3) * (y0 - y4) < 0
 
 	# TODO test
 	isCrossWithLine2: (line) ->

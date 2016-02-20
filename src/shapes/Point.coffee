@@ -4,8 +4,9 @@ class Bu.Point extends Bu.Object2D
 
 	constructor: (@x = 0, @y = 0) ->
 		super()
-		@stroke no  # point has no stroke by default
 		@type = 'Point'
+
+		@stroke no # point has no stroke by default
 		@_labelIndex = -1
 
 	@property 'label',
@@ -20,8 +21,8 @@ class Bu.Point extends Bu.Object2D
 
 	arcTo: (radius, arc) ->
 		return new Bu.Point(
-		  @x + Math.cos(arc) * radius
-		  @y + Math.sin(arc) * radius
+			@x + Math.cos(arc) * radius
+			@y + Math.sin(arc) * radius
 		)
 
 	clone: ->

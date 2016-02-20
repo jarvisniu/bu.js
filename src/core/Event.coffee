@@ -3,7 +3,7 @@ Bu.Event = ->
 	types = {}
 
 	@on = (type, listener) ->
-		listeners = types[ type ] or= []
+		listeners = types[type] or= []
 		listeners.push listener if listeners.indexOf listener == -1
 
 	@once = (type, listener) ->
@@ -11,7 +11,7 @@ Bu.Event = ->
 		@on type, listener
 
 	@off = (type, listener) ->
-		listeners = types[ type ]
+		listeners = types[type]
 		if listener?
 			if listeners?
 				index = listeners.indexOf listener
@@ -19,8 +19,8 @@ Bu.Event = ->
 		else
 			listeners.length = 0 if listeners?
 
-	@trigger = ( type, eventData ) ->
-		listeners = types[ type ]
+	@trigger = (type, eventData) ->
+		listeners = types[type]
 
 		if listeners?
 			eventData or= {}

@@ -389,13 +389,6 @@ class Bu.Renderer
 						shape.vertices[i].y
 					)
 			@context.stroke()
-
-			@context.lineWidth = 1
-			@context.beginPath()
-			for i in [1...len - 1]
-				@context.moveTo shape.controlPointsAhead[i].x, shape.controlPointsAhead[i].y
-				@context.lineTo shape.controlPointsBehind[i].x, shape.controlPointsBehind[i].y
-			@context.stroke()
 		@
 
 

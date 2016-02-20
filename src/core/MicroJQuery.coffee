@@ -37,7 +37,6 @@
 	jQuery = ->
 
 		# event
-
 		@on = (type, callback) =>
 			@each (dom) ->
 				dom.addEventListener type, callback
@@ -125,7 +124,7 @@
 
 		@toggleClass = (name) =>
 			@each (dom) ->
-				classText = dom.getAttribute 'class'  or ''
+				classText = dom.getAttribute 'class' or ''
 				classes = classText.split RegExp ' +'
 				if classes.contains name
 					classes.remove name
@@ -199,6 +198,4 @@
 					ops.complete xhr, xhr.status if ops.complete?
 
 		xhr.open ops.method, url, ops.async, ops.username, ops.password
-		xhr.send null
-
-) window or this
+		xhr.send null) window or this

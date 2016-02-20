@@ -19,6 +19,6 @@ class Bu.Rectangle extends Bu.Object2D
 
 	containsPoint: (point) ->
 		return point.x > @position.x and
-			 point.y > @position.y and
-			 point.x < @position.x + @size.width and
-			 point.y < @position.y + @size.height
+				point.y > @position.y and
+				point.x < @position.x + @size.width and
+				point.y < @position.y + @size.height

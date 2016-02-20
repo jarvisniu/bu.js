@@ -5,6 +5,7 @@ class Bu.Polyline extends Bu.Object2D
 	constructor: (@vertices = []) ->
 		super()
 		@type = 'Polyline'
+
 		@lines = []
 		@length = 0
 		@pointNormalizedPos = []
@@ -21,10 +22,10 @@ class Bu.Polyline extends Bu.Object2D
 	updateLines: =>
 		for i in [0 ... @vertices.length - 1]
 			if @lines[i]?
-				@lines[i].set(@vertices[i], @vertices[i + 1])
+				@lines[i].set @vertices[i], @vertices[i + 1]
 			else
-				@lines[i] = new Bu.Line( @vertices[i], @vertices[i + 1] )
-		# TODO remove the rest
+				@lines[i] = new Bu.Line @vertices[i], @vertices[i + 1]
+	# TODO remove the rest
 
 	calcLength: =>
 		if @vertices.length < 2
@@ -32,7 +33,7 @@ class Bu.Polyline extends Bu.Object2D
 		else
 			len = 0
 			for i in [1 ... @vertices.length]
-				len += @vertices[i].distanceTo(@vertices[i - 1])
+				len += @vertices[i].distanceTo @vertices[i - 1]
 			@length = len
 
 	calcPointNormalizedPos: () ->
@@ -67,7 +68,7 @@ class Bu.Polyline extends Bu.Object2D
 			@vertices.push point
 			# add line
 			if @vertices.length > 1
-				@lines.push(new Bu.Line( @vertices[@vertices.length - 2], @vertices[@vertices.length - 1] ))
+				@lines.push new Bu.Line @vertices[@vertices.length - 2], @vertices[@vertices.length - 1]
 		else
 			@vertices.splice insertIndex, 0, point
 		# TODO add lines

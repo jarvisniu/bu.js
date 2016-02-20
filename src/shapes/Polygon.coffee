@@ -5,12 +5,13 @@ class Bu.Polygon extends Bu.Object2D
 	###
     constructors
     1. Polygon(points)
-    2. Polygon(x, y, n, options): to generate regular polygon
-    	options: radius, angle
+    2. Polygon(x, y, radius, n, options): to generate regular polygon
+    	options: angle - start angle of regular polygon
 	###
 	constructor: (points) ->
 		super()
 		@type = 'Polygon'
+
 		@vertices = []
 		@lines = []
 		@triangles = []

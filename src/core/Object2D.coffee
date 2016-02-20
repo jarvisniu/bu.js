@@ -14,10 +14,10 @@ class Bu.Object2D
 		@scale = new Bu.Vector(1, 1)
 		@skew = new Bu.Vector()
 
-#		@toWorldMatrix = new Bu.Matrix()
-#		@updateMatrix ->
+		#@toWorldMatrix = new Bu.Matrix()
+		#@updateMatrix ->
 
-		@bounds = null  # for accelerate contain test
+		@bounds = null # for accelerate contain test
 		@keyPoints = null
 		@children = []
 		@parent = null
