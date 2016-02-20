@@ -89,5 +89,9 @@ html(lang="en")
       }
 
   body
-    div#info All supported shapes.
+    div#info
+      span All supported shapes.
+      label(style="float: right")
+        input(type="checkbox" onclick="bu.isShowKeyPoints = this.checked;" checked)
+        | Show KeyPoints
     div#container
