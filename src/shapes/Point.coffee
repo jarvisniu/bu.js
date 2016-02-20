@@ -6,24 +6,21 @@ class Bu.Point extends Bu.Object2D
 		super()
 		@type = 'Point'
 
-		@stroke no # point has no stroke by default
+		@lineWidth = 0.5
 		@_labelIndex = -1
 
 	@property 'label',
 		get: -> if @_labelIndex > -1 then @children[@_labelIndex].text else ''
 		set: (val) ->
 			if @_labelIndex == -1
-				pointText = new Bu.PointText val, @x + Bu.POINT_RENDER_SIZE, @y, {align: '+0'}
+				pointText = new Bu.PointText val, @x + Bu.POINT_LABEL_OFFSET, @y, {align: '+0'}
 				@children.push pointText
 				@_labelIndex = @children.length - 1
 			else
 				@children[@_labelIndex].text = val
 
 	arcTo: (radius, arc) ->
-		return new Bu.Point(
-			@x + Math.cos(arc) * radius
-			@y + Math.sin(arc) * radius
-		)
+		return new Bu.Point @x + Math.cos(arc) * radius, @y + Math.sin(arc) * radius
 
 	clone: ->
 		new Bu.Point(@x, @y)
@@ -42,7 +39,7 @@ class Bu.Point extends Bu.Object2D
 
 	updateLabel: ->
 		if @_labelIndex > -1
-			@children[@_labelIndex].x = @x + Bu.POINT_RENDER_SIZE
+			@children[@_labelIndex].x = @x + Bu.POINT_LABEL_OFFSET
 			@children[@_labelIndex].y = @y
 
 	# point related

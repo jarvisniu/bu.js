@@ -43,10 +43,7 @@ html(lang="en")
         movePointReactor.enable();
 
         for (var i = 0; i < POINT_COUNT; i++) {
-          points[i] = new Bu.Point(
-                  Bu.rand(bu.width),
-                  Bu.rand(bu.height)
-          );
+          points[i] = new Bu.Point(Bu.rand(bu.width), Bu.rand(bu.height));
           points[i].label = "P" + i;
         }
         bu.append(points);

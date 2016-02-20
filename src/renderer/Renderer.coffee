@@ -150,23 +150,17 @@ class Bu.Renderer
 	drawPoint: (shape) ->
 		@context.globalAlpha = shape.opacity
 
+		@context.beginPath()
+		@context.arc shape.x, shape.y, Bu.POINT_RENDER_SIZE, 0, Math.PI * 2
+
 		if shape.fillStyle?
 			@context.fillStyle = shape.fillStyle
-			@context.fillRect(
-				shape.x - Bu.POINT_RENDER_SIZE / 2
-				shape.y - Bu.POINT_RENDER_SIZE / 2
-				Bu.POINT_RENDER_SIZE
-				Bu.POINT_RENDER_SIZE
-			)
+			@context.fill()
 
 		if shape.strokeStyle?
 			@context.strokeStyle = shape.strokeStyle
-			@context.strokeRect(
-				shape.x - Bu.POINT_RENDER_SIZE / 2
-				shape.y - Bu.POINT_RENDER_SIZE / 2
-				Bu.POINT_RENDER_SIZE
-				Bu.POINT_RENDER_SIZE
-			)
+			@context.lineWidth = shape.lineWidth
+			@context.stroke()
 		@
 
 
@@ -304,7 +298,6 @@ class Bu.Renderer
 		@context.beginPath()
 		@context.arc shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo
 		@context.closePath()
-		# TODO dashed arc
 
 		if shape.fillStyle?
 			@context.fillStyle = shape.fillStyle

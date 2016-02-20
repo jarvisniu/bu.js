@@ -34,13 +34,15 @@ class Bu.MovePointReactor extends Bu.ReactorBase
 			else
 				if hoveredPoint?
 					if not hoveredPoint.isNear(mousePos)
-						hoveredPoint.stroke false
+						hoveredPoint.lineWidth = 0.5
+						hoveredPoint.fill()
 						hoveredPoint = null
 				else
 					for shape in @bu.shapes
 						if shape.type is 'Point' and shape.isNear mousePos
 							hoveredPoint = shape
-							hoveredPoint.stroke()
+							hoveredPoint.lineWidth = 1
+							hoveredPoint.fill '#f80'
 							break
 
 		@onMouseUp = =>
