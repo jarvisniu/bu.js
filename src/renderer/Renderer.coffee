@@ -4,10 +4,7 @@ class Bu.Renderer
 
 	constructor: () ->
 		Bu.Event.apply @
-
 		@type = 'Renderer'
-
-		@pixelRatio = window?.devicePixelRatio || 1
 
 		options = Bu.combineOptions arguments,
 			width: 800
@@ -25,6 +22,8 @@ class Bu.Renderer
 
 		@tickCount = 0
 		@isRunning = no
+
+		@pixelRatio = window?.devicePixelRatio or 1
 
 		@dom = document.createElement 'canvas'
 		@context = @dom.getContext '2d'
@@ -68,7 +67,6 @@ class Bu.Renderer
 
 
 		tick = =>
-			@startRenderTime = Bu.now()
 			if @isRunning
 				@clipMeter.start() if @clipMeter?
 				@render()
@@ -76,9 +74,7 @@ class Bu.Renderer
 				@tickCount += 1
 				@clipMeter.tick() if @clipMeter?
 
-			@endRenderTime = Bu.now()
-			@nextRenderTime = Math.max 1000 / @fps - @endRenderTime + @startRenderTime, 1
-			setTimeout tick, @nextRenderTime
+			requestAnimationFrame tick
 
 		tick()
 
@@ -140,6 +136,7 @@ class Bu.Renderer
 			when 'Bow' then @drawBow(shape)
 			when 'Polygon' then @drawPolygon(shape)
 			when 'Polyline' then @drawPolyline(shape)
+			when 'Spline' then @drawSpline(shape)
 			when 'PointText' then @drawPointText(shape)
 			when 'Image' then @drawImage(shape)
 			when 'Bounds' then @drawBounds(shape)
@@ -366,6 +363,38 @@ class Bu.Renderer
 				pts = shape.vertices
 				for i in [ 0 ... pts.length - 1]
 					@context.dashedLine pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashOffset
+			@context.stroke()
+		@
+
+
+	drawSpline: (shape) ->
+		if shape.strokeStyle?
+			@context.globalAlpha = shape.opacity
+			@context.strokeStyle = shape.strokeStyle
+			@context.lineWidth = shape.lineWidth
+			@context.beginPath()
+			len = shape.vertices.length
+			if len == 2
+				@context.moveTo shape.vertices[0].x, shape.vertices[0].y
+				@context.lineTo shape.vertices[1].x, shape.vertices[1].y
+			else if len > 2
+				@context.moveTo shape.vertices[0].x, shape.vertices[0].y
+				for i in [1..len - 1]
+					@context.bezierCurveTo(
+						shape.controlPointsBehind[i - 1].x,
+						shape.controlPointsBehind[i - 1].y,
+						shape.controlPointsAhead[i].x,
+						shape.controlPointsAhead[i].y,
+						shape.vertices[i].x,
+						shape.vertices[i].y
+					)
+			@context.stroke()
+
+			@context.lineWidth = 1
+			@context.beginPath()
+			for i in [1...len - 1]
+				@context.moveTo shape.controlPointsAhead[i].x, shape.controlPointsAhead[i].y
+				@context.lineTo shape.controlPointsBehind[i].x, shape.controlPointsBehind[i].y
 			@context.stroke()
 		@
 

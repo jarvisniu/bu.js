@@ -20,6 +20,7 @@
 		'shapes/Bow',
 		'shapes/Polygon',
 		'shapes/Polyline',
+		'shapes/Spline',
 
 		'drawable/PointText',
 		'drawable/Image',

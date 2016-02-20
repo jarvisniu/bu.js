@@ -15,6 +15,9 @@ Bu.DEFAULT_STROKE_STYLE = '#048'
 Bu.DEFAULT_FILL_STYLE = 'rgba(64, 128, 192, 0.5)'
 Bu.DEFAULT_DASH_STYLE = [8, 4]
 
+# curve related
+Bu.DEFAULT_SPLINE_SMOOTH = 0.25 # range in [0 ~ 1]
+
 # interaction related
 Bu.DEFAULT_STROKE_STYLE_HOVER = 'rgba(255, 128, 0, 0.75)'
 Bu.DEFAULT_FILL_STYLE_HOVER = 'rgba(255, 128, 128, 0.5)'
@@ -63,6 +66,9 @@ Bu.rand = (from, to) ->
 		to = from
 		from = 0
 	Math.random() * (to - from) + from
+
+# radian to deg
+Bu.r2d = (r) -> (r * 180 / Math.PI).toFixed(1)
 
 # get current time
 Bu.now = if window?.performance? then -> window.performance.now() else -> Date.now()
