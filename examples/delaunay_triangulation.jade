@@ -55,13 +55,14 @@ html(lang="en")
       }
 
       // generate lines
+
       function randomLines() {
         lines = [];
         for (var i = 0; i < LINE_COUNT; i++) {
           var p1 = points[Math.floor(Bu.rand(POINT_COUNT))];
           var p2 = points[Math.floor(Bu.rand(POINT_COUNT))];
           var line = new Bu.Line(p1, p2);
-          line.strokeStyle = "#08f";
+          line.strokeStyle = "#f40";
           lines.push(line);
           bu.append(line);
         }
@@ -84,7 +85,7 @@ html(lang="en")
         for (var i = 0; i < POINT_COUNT; i++) {
           for (var j = i + 1; j < POINT_COUNT; j++) {
             var line = new Bu.Line(points[i], points[j]);
-            line.strokeStyle = "orange";
+            line.strokeStyle = "#808";
             if (!isLineCrossWithAny(line, lines)) {
               lines.push(line);
               bu.append(line);
@@ -97,18 +98,19 @@ html(lang="en")
       }
 
       function delaunayLines() {
+        var i;
         lines = [];
-        for (var i = 0; i < POINT_COUNT; i++) {
+        for (i = 0; i < POINT_COUNT; i++) {
           for (var j = i + 1; j < POINT_COUNT; j++) {
             lines.push(new Bu.Line(points[i], points[j]));
           }
         }
-        for (var i = 0; i < lines.length; i++) {
+        for (i = 0; i < lines.length; i++) {
           while (lineTryKillOthers(lines[i], lines))
             lineTryKillOthers(lines[i], lines);
         }
-        for (var i = 0; i < lines.length; i++) {
-          lines[i].strokeStyle = "#808";
+        for (i = 0; i < lines.length; i++) {
+          lines[i].strokeStyle = "#088";
           bu.append(lines[i]);
         }
       }
@@ -147,8 +149,8 @@ body
   div#info
     span Delaunay Triangulation
     br
+    button#btnDelaunay Delaunay
+    button#btnNoCross No Cross
     button#btnRandom Random
     button#btnAll All
-    button#btnNoCross No Cross
-    button#btnDelaunay Delaunay
   div#container
