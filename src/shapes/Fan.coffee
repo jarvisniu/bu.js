@@ -11,7 +11,11 @@ class Bu.Fan extends Bu.Object2D
 				@center.arcTo @radius, @aFrom
 				@center.arcTo @radius, @aTo
 		)
-		@keyPoints = @string.points
+		@keyPoints = [
+			@string.points[0]
+			@string.points[1]
+			new Bu.Point @cx, @cy
+		]
 
 	_containsPoint: (p) ->
 		dx = p.x - @cx
