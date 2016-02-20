@@ -6,16 +6,19 @@ class Bu.Spline extends Bu.Object2D
 		super()
 		@type = 'Spline'
 
+		if @polyline instanceof Array
+			@polyline = new Bu.Polyline @polyline
+
 		@smooth = Bu.DEFAULT_SPLINE_SMOOTH
 		@vertices = @polyline.vertices
-		@keyPoints = []
+		@keyPoints = @vertices
 		@controlPointsAhead = []
 		@controlPointsBehind = []
 
 		calcControlPoints @
 
 	calcControlPoints = (spline) ->
-		spline.keyPoints = []
+		spline.keyPoints = spline.vertices
 
 		vertices = spline.vertices
 		len = vertices.length
@@ -37,7 +40,3 @@ class Bu.Spline extends Bu.Object2D
 				yB = vertices[i].y + len2 * spline.smooth * Math.sin(theta)
 				spline.controlPointsAhead[i] = new Bu.Point xA, yA
 				spline.controlPointsBehind[i] = new Bu.Point xB, yB
-				spline.controlPointsAhead[i].label = i + '-' + (i - 1)
-				spline.controlPointsBehind[i].label = i + '-' + (i + 1)
-				spline.keyPoints.push spline.controlPointsAhead[i]
-				spline.keyPoints.push spline.controlPointsBehind[i]

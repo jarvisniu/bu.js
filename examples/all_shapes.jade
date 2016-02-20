@@ -1,0 +1,93 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title Bu.js demo - shapes
+    script(src="../src/Bu.dev.js")
+    style.
+
+      html, body, #container {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      #info {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        padding: 8px;
+      }
+
+    script(type="text/javascript").
+
+      var bu;
+
+      $.ready(init);
+
+      function init() {
+        bu = new Bu({
+          container: '#container',
+          showKeyPoints: true,
+          fillParent: true,
+          border: false
+        });
+
+        // row 1: circle, line, rectangle and triangle
+        bu.shapes[0] = new Bu.Circle(100, 100, 50);
+        bu.shapes[1] = new Bu.Line(200, 50, 250, 150);
+        bu.shapes[2] = new Bu.Rectangle(300, 50, 150, 100);
+        bu.shapes[3] = new Bu.Triangle(
+                new Bu.Point(600, 50),
+                new Bu.Point(500, 150),
+                new Bu.Point(650, 150)
+        );
+
+        // row 2: fan, bow, polygon (regular) and polygon (normal)
+        bu.shapes[4] = new Bu.Fan(100, 275, 60, - Math.PI * 5 / 6, -Math.PI / 6);
+        bu.shapes[5] = new Bu.Bow(185, 250, 60, Math.PI / 3, - Math.PI / 3);
+        bu.shapes[6] = new Bu.Polygon(375, 250, 50, 6);
+        bu.shapes[7] = new Bu.Polygon([
+                new Bu.Point(500, 200),
+                new Bu.Point(650, 200),
+                new Bu.Point(620, 280),
+                new Bu.Point(550, 300)
+        ]);
+
+        // row 3: polyline and spline
+        bu.shapes[8] = new Bu.Polyline([
+          new Bu.Point(50, 420),
+          new Bu.Point(60, 400),
+          new Bu.Point(150, 400),
+          new Bu.Point(75, 500),
+          new Bu.Point(165, 500),
+          new Bu.Point(175, 480)
+        ]);
+        bu.shapes[9] = new Bu.Spline([
+          new Bu.Point(210, 400),
+          new Bu.Point(300, 400),
+          new Bu.Point(225, 500),
+          new Bu.Point(315, 500)
+        ]);
+
+        // labels
+        bu.append([
+          new Bu.PointText('Circle', 100, 170),
+          new Bu.PointText('Line', 225, 170),
+          new Bu.PointText('Rectangle', 375, 170),
+          new Bu.PointText('Triangle', 575, 170),
+
+          new Bu.PointText('Fan', 100, 325),
+          new Bu.PointText('Bow', 225, 325),
+          new Bu.PointText('Polygon (Regular)', 375, 325),
+          new Bu.PointText('Polygon (Normal)', 575, 325),
+
+          new Bu.PointText('Polyline', 125, 525),
+          new Bu.PointText('Spline', 275, 525)
+        ]);
+      }
+
+  body
+    div#info All supported shapes.
+    div#container

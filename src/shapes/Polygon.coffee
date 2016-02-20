@@ -16,17 +16,16 @@ class Bu.Polygon extends Bu.Object2D
 		@triangles = []
 
 		options = Bu.combineOptions arguments,
-			radius: 100
 			angle: 0
-
 
 		if points instanceof Array
 			@vertices = points if points?
 		else
 			x = arguments[0]
 			y = arguments[1]
-			n = arguments[2]
-			@vertices = Bu.Polygon.generateRegularPoints(x, y, n, options)
+			radius = arguments[2]
+			n = arguments[3]
+			@vertices = Bu.Polygon.generateRegularPoints(x, y, radius, n, options)
 
 		# init lines
 		if @vertices.length > 1
@@ -83,9 +82,9 @@ class Bu.Polygon extends Bu.Object2D
 				return true
 		return false
 
-	@generateRegularPoints = (cx, cy, n, options) ->
+	@generateRegularPoints = (cx, cy, radius, n, options) ->
 		angleDelta = options.angle
-		r = options.radius
+		r = radius
 		points = []
 		angleSection = Math.PI * 2 / n
 		for i in [0 ... n]
