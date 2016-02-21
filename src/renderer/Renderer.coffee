@@ -381,7 +381,12 @@ class Bu.Renderer
 						shape.vertices[i].x,
 						shape.vertices[i].y
 					)
-			@context.stroke()
+			if shape.dashStyle and @context.setLineDash?
+				@context.setLineDash shape.dashStyle
+				@context.stroke()
+				@context.setLineDash [] # clear dashStyle
+			else
+				@context.stroke()
 		@
 
 
