@@ -93,6 +93,14 @@ Bu.clone = (target, deep = false) ->
 		clone = {}
 		clone[i] = target[i] for own i of target
 
+# use localStorage to persist data
+Bu.data = (key, value) ->
+	if value?
+		localStorage['Bu.' + key] = JSON.stringify value
+	else
+		value = localStorage['Bu.' + key]
+		return if value? then JSON.parse value else null
+
 ###
 # polyfill
 ###
