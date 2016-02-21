@@ -2,6 +2,6 @@
 
 class Bu.Vector
 
-	constructor: (@x, @y) ->
+	constructor: (@x = 0, @y = 0) ->
 
 	set: (@x, @y) ->

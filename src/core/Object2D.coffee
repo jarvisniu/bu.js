@@ -9,9 +9,9 @@ class Bu.Object2D
 		@visible = yes
 		@opacity = 1
 
-		@position = new Bu.Vector()
+		@translate = new Bu.Vector()
 		@rotation = 0
-		@scale = new Bu.Vector(1, 1)
+		@scale = 1
 		@skew = new Bu.Vector()
 
 		#@toWorldMatrix = new Bu.Matrix()

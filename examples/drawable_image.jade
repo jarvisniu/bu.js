@@ -37,16 +37,16 @@ html(lang="en")
 
         image = new Bu.Image(imageUrl, 300, 200);
         image.rotation = Math.PI / 6;
-        image.scale.x = image.scale.y = 2;
+        image.scale = 2;
         bu.append(image);
 
         setInterval(function () {
           image.rotation += 0.04;
-          image.position.x += speedX;
-          image.position.y += speedY;
+          image.translate.x += speedX;
+          image.translate.y += speedY;
 
-          if (image.position.x > bu.width - 40 || image.position.x < 40) speedX = -speedX;
-          if (image.position.y > bu.height - 40 || image.position.y < 40) speedY = -speedY;
+          if (image.translate.x > bu.width - 40 || image.translate.x < 40) speedX = -speedX;
+          if (image.translate.y > bu.height - 40 || image.translate.y < 40) speedY = -speedY;
         }, 1000 / 60);
       }
 

@@ -126,6 +126,20 @@ class Bu.Renderer
 
 	drawShape: (shape) =>
 		return @ unless shape.visible
+
+		@context.save()
+		@context.translate shape.translate.x, shape.translate.y
+		@context.rotate shape.rotation
+		if typeof shape.scale == 'number'
+			@context.scale shape.scale, shape.scale
+		else
+			@context.scale shape.scale.x, shape.scale.y
+
+		@context.globalAlpha = shape.opacity
+		if shape.strokeStyle?
+			@context.strokeStyle = shape.strokeStyle
+			@context.lineWidth = shape.lineWidth
+
 		switch shape.type
 			when 'Point' then @drawPoint(shape)
 			when 'Line' then @drawLine(shape)
@@ -140,8 +154,9 @@ class Bu.Renderer
 			when 'PointText' then @drawPointText(shape)
 			when 'Image' then @drawImage(shape)
 			when 'Bounds' then @drawBounds(shape)
-			else
-				console.log 'drawShapes(): unknown shape: ', shape
+			else console.log 'drawShapes(): unknown shape: ', shape
+		@context.restore()
+
 		@drawShapes shape.children if shape.children?
 		@drawShapes shape.keyPoints if @isShowKeyPoints
 		@
@@ -158,18 +173,12 @@ class Bu.Renderer
 			@context.fill()
 
 		if shape.strokeStyle?
-			@context.strokeStyle = shape.strokeStyle
-			@context.lineWidth = shape.lineWidth
 			@context.stroke()
 		@
 
 
 	drawLine: (shape) ->
-		@context.globalAlpha = shape.opacity
-
 		if shape.strokeStyle?
-			@context.strokeStyle = shape.strokeStyle
-			@context.lineWidth = shape.lineWidth
 			@context.beginPath()
 			if shape.dashStyle
 				@context.dashedLine(
@@ -187,8 +196,6 @@ class Bu.Renderer
 
 
 	drawCircle: (shape) ->
-		@context.globalAlpha = shape.opacity
-
 		@context.beginPath()
 		@context.arc shape.cx, shape.cy, shape.radius, 0, Math.PI * 2
 		@context.closePath()
@@ -198,8 +205,6 @@ class Bu.Renderer
 			@context.fill()
 
 		if shape.strokeStyle?
-			@context.strokeStyle = shape.strokeStyle
-			@context.lineWidth = shape.lineWidth
 			if shape.dashStyle
 				@context.beginPath()
 				@context.dashedArc shape.cx, shape.cy, shape.radius, 0, Math.PI * 2, shape.dashStyle, shape.dashOffset
@@ -208,8 +213,6 @@ class Bu.Renderer
 
 
 	drawTriangle: (shape) ->
-		@context.globalAlpha = shape.opacity
-
 		@context.beginPath()
 		@context.lineTo shape.points[0].x, shape.points[0].y
 		@context.lineTo shape.points[1].x, shape.points[1].y
@@ -221,8 +224,6 @@ class Bu.Renderer
 			@context.fill()
 
 		if shape.strokeStyle?
-			@context.strokeStyle = shape.strokeStyle
-			@context.lineWidth = shape.lineWidth
 			if shape.dashStyle
 				@context.beginPath() # clear prev lineTo
 				pts = shape.points
@@ -234,15 +235,11 @@ class Bu.Renderer
 
 
 	drawRectangle: (shape) ->
-		@context.globalAlpha = shape.opacity
-
 		if shape.fillStyle?
 			@context.fillStyle = shape.fillStyle
 			@context.fillRect shape.position.x, shape.position.y, shape.size.width, shape.size.height
 
 		if shape.strokeStyle?
-			@context.strokeStyle = shape.strokeStyle
-			@context.lineWidth = shape.lineWidth
 			if not shape.dashStyle
 				@context.strokeRect(
 					shape.position.x
@@ -264,8 +261,6 @@ class Bu.Renderer
 
 
 	drawFan: (shape) ->
-		@context.globalAlpha = shape.opacity
-
 		@context.beginPath()
 		@context.arc shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo
 		@context.lineTo shape.cx, shape.cy
@@ -276,8 +271,6 @@ class Bu.Renderer
 			@context.fill()
 
 		if shape.strokeStyle?
-			@context.strokeStyle = shape.strokeStyle
-			@context.lineWidth = shape.lineWidth
 			if shape.dashStyle
 				@context.beginPath()
 				@context.dashedArc shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo, shape.dashStyle, shape.dashOffset
@@ -293,8 +286,6 @@ class Bu.Renderer
 
 
 	drawBow: (shape) ->
-		@context.globalAlpha = shape.opacity
-
 		@context.beginPath()
 		@context.arc shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo
 		@context.closePath()
@@ -304,8 +295,6 @@ class Bu.Renderer
 			@context.fill()
 
 		if shape.strokeStyle?
-			@context.strokeStyle = shape.strokeStyle
-			@context.lineWidth = shape.lineWidth
 			if shape.dashStyle
 				@context.beginPath()
 				@context.dashedArc shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo, shape.dashStyle, shape.dashOffset
@@ -317,8 +306,6 @@ class Bu.Renderer
 
 
 	drawPolygon: (shape) ->
-		@context.globalAlpha = shape.opacity
-
 		@context.beginPath()
 		for point in shape.vertices
 			@context.lineTo point.x, point.y
@@ -329,8 +316,6 @@ class Bu.Renderer
 			@context.fill()
 
 		if shape.strokeStyle?
-			@context.strokeStyle = shape.strokeStyle
-			@context.lineWidth = shape.lineWidth
 			len = shape.vertices.length
 			if shape.dashStyle && len > 0
 				@context.beginPath()
@@ -345,9 +330,6 @@ class Bu.Renderer
 
 	drawPolyline: (shape) ->
 		if shape.strokeStyle?
-			@context.globalAlpha = shape.opacity
-			@context.strokeStyle = shape.strokeStyle
-			@context.lineWidth = shape.lineWidth
 			@context.beginPath()
 			if not shape.dashStyle
 				for point in shape.vertices
@@ -362,9 +344,6 @@ class Bu.Renderer
 
 	drawSpline: (shape) ->
 		if shape.strokeStyle?
-			@context.globalAlpha = shape.opacity
-			@context.strokeStyle = shape.strokeStyle
-			@context.lineWidth = shape.lineWidth
 			@context.beginPath()
 			len = shape.vertices.length
 			if len == 2
@@ -391,13 +370,10 @@ class Bu.Renderer
 
 
 	drawPointText: (shape) ->
-		@context.globalAlpha = shape.opacity
 		@context.textAlign = shape.textAlign
 		@context.textBaseline = shape.textBaseline
 		@context.font = shape.font
 		if shape.strokeStyle?
-			@context.strokeStyle = shape.strokeStyle
-			@context.lineWidth = shape.lineWidth
 			@context.strokeText shape.text, shape.x, shape.y
 		if shape.fillStyle?
 			@context.fillStyle = shape.fillStyle
@@ -407,16 +383,11 @@ class Bu.Renderer
 
 	drawImage: (shape) ->
 		if shape.loaded
-			@context.save()
-			@context.globalAlpha = shape.opacity
-			w = shape.size.width * shape.scale.x
-			h = shape.size.height * shape.scale.y
+			w = shape.size.width
+			h = shape.size.height
 			dx = -w * shape.pivot.x
 			dy = -h * shape.pivot.y
-			@context.translate shape.position.x, shape.position.y
-			@context.rotate shape.rotation
 			@context.drawImage shape.image, dx, dy, w, h
-			@context.restore()
 		@
 
 
