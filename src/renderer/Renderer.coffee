@@ -121,13 +121,14 @@ class Bu.Renderer
 	drawShapes: (shapes) =>
 		if shapes?
 			for shape in shapes
+				@context.save()
 				@drawShape shape
+				@context.restore()
 		@
 
 	drawShape: (shape) =>
 		return @ unless shape.visible
 
-		@context.save()
 		@context.translate shape.translate.x, shape.translate.y
 		@context.rotate shape.rotation
 		if typeof shape.scale == 'number'
@@ -155,7 +156,6 @@ class Bu.Renderer
 			when 'Image' then @drawImage(shape)
 			when 'Bounds' then @drawBounds(shape)
 			else console.log 'drawShapes(): unknown shape: ', shape
-		@context.restore()
 
 		@drawShapes shape.children if shape.children?
 		@drawShapes shape.keyPoints if @isShowKeyPoints
