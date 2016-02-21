@@ -187,9 +187,8 @@ class Bu.Renderer
 					shape.dashStyle, shape.dashOffset
 				)
 			else
-				@context.lineTo shape.points[0].x, shape.points[0].y
+				@context.moveTo shape.points[0].x, shape.points[0].y
 				@context.lineTo shape.points[1].x, shape.points[1].y
-				@context.closePath()
 
 			@context.stroke()
 		@
