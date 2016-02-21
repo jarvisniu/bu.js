@@ -83,6 +83,16 @@ Bu.combineOptions = (args, defaultOptions) ->
 			defaultOptions[i] = givenOptions[i]
 	return defaultOptions
 
+# clone an Object or Array
+Bu.clone = (target, deep = false) ->
+	# TODO deal with deep
+	if target instanceof Array
+		clone = []
+		clone[i] = target[i] for own i of target
+	else if target instanceof Object
+		clone = {}
+		clone[i] = target[i] for own i of target
+
 ###
 # polyfill
 ###
