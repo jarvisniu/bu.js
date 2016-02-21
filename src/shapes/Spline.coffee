@@ -2,19 +2,29 @@
 
 class Bu.Spline extends Bu.Object2D
 
-	constructor: (@polyline = new Bu.Polyline) ->
+	constructor: (vertices) ->
 		super()
 		@type = 'Spline'
 
-		if @polyline instanceof Array
-			@polyline = new Bu.Polyline @polyline
+		if vertices instanceof Bu.Polyline
+			polyline = vertices
+			@vertices = polyline.vertices
+			polyline.on 'pointChange', (polyline) =>
+				@vertices = polyline.vertices
+				calcControlPoints @
+		else
+			@vertices = Bu.clone vertices
 
-		@smooth = Bu.DEFAULT_SPLINE_SMOOTH
-		@vertices = @polyline.vertices
 		@keyPoints = @vertices
 		@controlPointsAhead = []
 		@controlPointsBehind = []
 
+		@smooth = Bu.DEFAULT_SPLINE_SMOOTH
+
+		calcControlPoints @
+
+	addPoint: (point) ->
+		@vertices.push point
 		calcControlPoints @
 
 	calcControlPoints = (spline) ->

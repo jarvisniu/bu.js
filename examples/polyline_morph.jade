@@ -5,6 +5,7 @@ html(lang="en")
     meta(charset="utf-8")
     script(src="../src/Bu.dev.js")
     script(src="./lib/morph/PolylineMorph.js")
+    script(src="js/ClipMeter.min.js")
     style.
 
       html, body, #container {
@@ -24,9 +25,9 @@ html(lang="en")
     script(type="text/javascript").
 
       var bu;
-      var polylineA, polylineB;
-      var polylineMorph;
-      var time = 0;
+      var polylineA, polylineB, polylineMorph;
+      var splineA, splineB, splineM;
+      var time = 0, forward = true;
 
       $.ready(init);
 
@@ -43,17 +44,27 @@ html(lang="en")
         polylineA.addPoint(new Bu.Point(250, 100));
         polylineA.addPoint(new Bu.Point(400, 300));
 
-        polylineB = new Bu.Polyline();
-        polylineB.strokeStyle = "red";
+        polylineB = new Bu.Polyline().stroke("red");
         polylineB.addPoint(new Bu.Point(100, 400));
+        polylineB.addPoint(new Bu.Point(250, 350));
         polylineB.addPoint(new Bu.Point(400, 400));
 
         polylineMorph = new Bu.PolylineMorph(polylineA, polylineB);
-        polylineMorph.polyline.strokeStyle = "purple";
+        polylineMorph.polyline.stroke("purple");
 
         bu.append(polylineA);
         bu.append(polylineB);
         bu.append(polylineMorph.polyline);
+
+        splineA = new Bu.Spline(polylineA);
+        splineB = new Bu.Spline(polylineB).stroke("red");
+        splineM = new Bu.Spline(polylineMorph.polyline).stroke("purple");
+
+        splineA.visible = splineB.visible = splineM.visible = false;
+
+        bu.append(splineA);
+        bu.append(splineB);
+        bu.append(splineM);
 
         refreshLabel();
 
@@ -63,10 +74,11 @@ html(lang="en")
       function onMouseDown(e) {
         e = bu.processArgs(e);
 
+        var newPoint = new Bu.Point(e.offsetX, e.offsetY);
         if (e.button == 0) {
-          polylineA.addPoint(new Bu.Point(e.offsetX, e.offsetY));
+          polylineA.addPoint(newPoint);
         } else {
-          polylineB.addPoint(new Bu.Point(e.offsetX, e.offsetY));
+          polylineB.addPoint(newPoint);
         }
         refreshLabel();
         polylineMorph.update();
@@ -84,13 +96,33 @@ html(lang="en")
       }
 
       function animate() {
-        if (time < 1)
+        if (forward == true) {
           time += 0.01;
-        else
-          time = 0;
-        polylineMorph.setTime(time);
+          if (time > 1.2) forward = false;
+        } else {
+          time -= 0.01;
+          if (time < -0.2) forward = true;
+        }
+        polylineMorph.setTime(Math.min(1, Math.max(0, time)));
+      }
+
+      function onRadioSwitch() {
+        if (document.getElementById('radioPolyline').checked) {
+          polylineA.visible = polylineB.visible = polylineMorph.polyline.visible = true;
+          splineA.visible = splineB.visible = splineM.visible = false;
+        } else {
+          polylineA.visible = polylineB.visible = polylineMorph.polyline.visible = false;
+          splineA.visible = splineB.visible = splineM.visible = true;
+        }
       }
 
   body
-    div#info Click (left/right button) to add points to the polylines.
+    div#info Click (left/right button) to add points to the lines.
+      div#switch Line style:
+        label
+          input#radioPolyline(type="radio" name="lineType" onclick="onRadioSwitch()" checked)
+          | Polyline
+        label
+          input(type="radio" name="lineType" onclick="onRadioSwitch()")
+          | Spline
     div#container

@@ -14,6 +14,7 @@ class Bu.PolylineMorph
 	setTime: (time) ->
 		for i in [0 ... @hPointsA.length]
 			Bu.Point.interpolate(@hPointsA[i], @hPointsB[i], time, @polyline.vertices[i])
+		@polyline.trigger 'pointChange', @polyline
 
 	update: =>
 		@hPointsA = []
@@ -55,3 +56,4 @@ class Bu.PolylineMorph
 
 		if @polyline.vertices.length < @hPointsA.length
 			@polyline.vertices.splice @hPointsA.length
+		@polyline.trigger 'pointChange', @polyline

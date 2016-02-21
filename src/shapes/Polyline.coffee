@@ -9,15 +9,14 @@ class Bu.Polyline extends Bu.Object2D
 		@lines = []
 		@length = 0
 		@pointNormalizedPos = []
-
 		@keyPoints = @vertices
-		onPointChange @
 
-	onPointChange = (self) ->
-		if self.vertices.length > 1
-			self.updateLines()
-			self.calcLength()
-			self.calcPointNormalizedPos()
+		@on "pointChange", =>
+			if @vertices.length > 1
+				@updateLines()
+				@calcLength()
+				@calcPointNormalizedPos()
+		@trigger "pointChange", @
 
 	updateLines: =>
 		for i in [0 ... @vertices.length - 1]
@@ -60,7 +59,7 @@ class Bu.Polyline extends Bu.Object2D
 		if @vertices.length > points.length
 			@vertices.splice points.length
 
-		onPointChange @
+		@trigger "pointChange", @
 
 	addPoint: (point, insertIndex) ->
 		if not insertIndex?
@@ -72,4 +71,4 @@ class Bu.Polyline extends Bu.Object2D
 		else
 			@vertices.splice insertIndex, 0, point
 		# TODO add lines
-		onPointChange @
+		@trigger "pointChange", @
