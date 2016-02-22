@@ -6,6 +6,12 @@ class Bu.Polyline extends Bu.Object2D
 		super()
 		@type = 'Polyline'
 
+		if arguments.length > 1
+			vertices = []
+			for i in [0 ... arguments.length / 2]
+				vertices.push new Bu.Point arguments[i * 2], arguments[i * 2 + 1]
+			@vertices = vertices
+
 		@lines = []
 		@length = 0
 		@pointNormalizedPos = []
