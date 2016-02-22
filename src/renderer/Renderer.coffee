@@ -324,7 +324,6 @@ class Bu.Renderer
 				for i in [0 ... len - 1]
 					@context.dashedLine pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashOffset
 				@context.dashedLine pts[len - 1].x, pts[len - 1].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashOffset
-				@context.stroke()
 			@context.stroke()
 		@
 
@@ -445,7 +444,6 @@ class Bu.Renderer
 		draw = true
 		@moveTo offset, 0
 		while len > x
-			di += 1
 			x += dashStyle[di % dc]
 			x = len if x > len
 			if draw
@@ -453,6 +451,7 @@ class Bu.Renderer
 			else
 				@moveTo x, 0
 			draw = not draw
+			di += 1
 		@restore()
 		@
 
@@ -492,7 +491,6 @@ class Bu.Renderer
 		draw = true
 		@moveTo x + radius * Math.cos(startAngle + offset), y + radius * Math.sin(startAngle + offset)
 		while len > xAngle
-			di += 1
 			xAngle += arcStyle[di % dc]
 			xAngle = len if xAngle > len
 			if draw
@@ -500,4 +498,5 @@ class Bu.Renderer
 			else
 				@moveTo x + radius * Math.cos(startAngle + xAngle), y + radius * Math.sin(startAngle + xAngle)
 			draw = not draw
+			di += 1
 		@)()
