@@ -140,6 +140,8 @@ class Bu.Renderer
 		if shape.strokeStyle?
 			@context.strokeStyle = shape.strokeStyle
 			@context.lineWidth = shape.lineWidth
+			@context.lineCap = shape.lineCap if shape.lineCap?
+			@context.lineJoin = shape.lineJoin if shape.lineJoin?
 
 		switch shape.type
 			when 'Point' then @drawPoint(shape)
