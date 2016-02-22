@@ -23,6 +23,8 @@ class Bu.Spline extends Bu.Object2D
 
 		calcControlPoints @
 
+	clone: -> new Bu.Spline @vertices
+
 	addPoint: (point) ->
 		@vertices.push point
 		calcControlPoints @

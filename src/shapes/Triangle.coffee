@@ -21,6 +21,8 @@ class Bu.Triangle extends Bu.Object2D
 		@points = [p1, p2, p3]
 		@keyPoints = @points
 
+	clone: => new Bu.Triangle @points[0], @points[1], @points[2]
+
 	# TODO test
 	area: () ->
 		[a, b, c] = @points

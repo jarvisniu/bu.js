@@ -9,6 +9,8 @@ class Bu.Point extends Bu.Object2D
 		@lineWidth = 0.5
 		@_labelIndex = -1
 
+	clone: -> new Bu.Point @x, @y
+
 	@property 'label',
 		get: -> if @_labelIndex > -1 then @children[@_labelIndex].text else ''
 		set: (val) ->
@@ -22,8 +24,6 @@ class Bu.Point extends Bu.Object2D
 	arcTo: (radius, arc) ->
 		return new Bu.Point @x + Math.cos(arc) * radius, @y + Math.sin(arc) * radius
 
-	clone: ->
-		new Bu.Point(@x, @y)
 
 	# copy value from other line
 	copy: (point) ->

@@ -23,6 +23,8 @@ class Bu.Line extends Bu.Object2D
 
 		@trigger "pointChange", @
 
+	clone: -> new Bu.Line @points[0], @points[1]
+
 	# edit
 
 	set: (a1, a2, a3, a4) ->

@@ -11,6 +11,8 @@ class Bu.Circle extends Bu.Object2D
 
 		@keyPoints = [@_center]
 
+	clone: () -> new Bu.Circle @cx, @cy, @radius
+
 	# property
 
 	@property 'cx',

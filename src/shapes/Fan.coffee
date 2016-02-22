@@ -17,6 +17,8 @@ class Bu.Fan extends Bu.Object2D
 			new Bu.Point @cx, @cy
 		]
 
+	clone: -> new Bu.Fan @cx, @cy, @radius, @aFrom, @aTo
+
 	_containsPoint: (p) ->
 		dx = p.x - @cx
 		dy = p.y - @cy

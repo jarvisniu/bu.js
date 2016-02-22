@@ -41,6 +41,8 @@ class Bu.Polygon extends Bu.Object2D
 
 		@keyPoints = @vertices
 
+	clone: -> new Bu.Polygon @vertices
+
 	# detect
 
 	isSimple: () ->
