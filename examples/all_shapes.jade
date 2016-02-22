@@ -84,10 +84,21 @@ html(lang="en")
         ]);
       }
 
+      function setDashStroke(on) {
+        bu.shapes.each(function(shape) {
+          shape.dash(on ? true : false);
+        });
+      }
+
   body
     div#info
       span All supported shapes.
-      label(style="float: right")
-        input(type="checkbox" onclick="bu.isShowKeyPoints = this.checked;" checked)
-        | Show KeyPoints
+      div(style="float: right; text-align: left;")
+        label
+          input(type="checkbox" onclick="bu.isShowKeyPoints = this.checked;" checked)
+          | Show key points
+        br
+        label
+          input(type="checkbox" onclick="setDashStroke(this.checked);")
+          | Dashed stroke
     div#container
