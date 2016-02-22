@@ -13,7 +13,7 @@ class Bu.PointText extends Bu.Object2D
 	----------------------
 	for example: text is in the right top of the point, then align = "+-"
 	###
-	constructor: (@text, @x, @y) ->
+	constructor: (@text, @x = 0, @y = 0) ->
 		super()
 		@type = 'PointText'
 		@strokeStyle = null # no stroke by default
