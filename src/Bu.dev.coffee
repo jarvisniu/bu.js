@@ -27,6 +27,9 @@
 
 		'renderer/Renderer',
 
+		'anim/Animation',
+		'anim/AnimationRunner',
+
 		'extra/RandomShapeGenerator',
 	]
 

@@ -22,6 +22,15 @@ class Bu.Object2D
 		@children = []
 		@parent = null
 
+	animate: (anim, args) ->
+		if typeof anim == 'string'
+			if anim of Bu.animations
+				Bu.animations[anim].apply @, args
+			else
+				console.warn "Bu.animations[\"#{ anim }\"] doesn't exists."
+		else
+			anim.apply @, args
+
 	containsPoint: (p) ->
 		if @bounds? and not @bounds.containsPoint p
 			return no

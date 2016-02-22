@@ -45,6 +45,7 @@ class Bu.Renderer
 		@dom.oncontextmenu = -> false
 
 		window.canvas = @dom
+		Bu.animationRunner?.hookUp @
 
 		onResize = =>
 			canvasRatio = @dom.height / @dom.width
@@ -132,9 +133,15 @@ class Bu.Renderer
 		@context.translate shape.translate.x, shape.translate.y
 		@context.rotate shape.rotation
 		if typeof shape.scale == 'number'
-			@context.scale shape.scale, shape.scale
+			sx = shape.scale
+			sy = shape.scale
 		else
-			@context.scale shape.scale.x, shape.scale.y
+			sx = shape.scale.x
+			sy = shape.scale.y
+		if sx / sy > 100 or sx / sy < 0.01
+			sx = 0 if Math.abs(sx) < 0.02
+			sy = 0 if Math.abs(sy) < 0.02
+		@context.scale sx, sy
 
 		@context.globalAlpha = shape.opacity
 		if shape.strokeStyle?
