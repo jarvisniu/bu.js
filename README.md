@@ -1,11 +1,18 @@
 Bu.js
 =====
 
-A JavaScript 2D library
+A JavaScript 2D graphics library based on HTML5 Canvas
 
 ![](logo.png)
 
 [Demos](http://jarvisniu.com/Bu.js/)
+
+## Features
+
+- Easy-to-use API
+- Rich shape types and geometry algorithm
+- High-definition screen supported
+- Modularization design make it easy to customise and extend
 
 
 ## Prerequisites
@@ -49,7 +56,7 @@ Build the lib file:
     - `renderer/` - Render the shapes to the screen
     - `extra/` - Utils components
     - `Bu.coffee(js)` - Namespace, constants, util functions and polyfills
-    - `Bu.dev.coffee(js)` - Dev edition not built version of this lib
+    - `Bu.dev.coffee(js)` - Dev edition of this lib
 - `tools/` - Util tools for this project
     - `concat-tool/` - Node concat tool
     - `build.js` - Node script for build this lib
