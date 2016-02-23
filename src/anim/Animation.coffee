@@ -16,7 +16,10 @@ class Bu.Animation
 		Bu.animationRunner.add @, target, args
 
 # prefab animations
+# The names are according to jQuery UI
 Bu.animations =
+
+	# simple
 
 	fadeIn: new Bu.Animation
 		update: (t) ->
@@ -30,12 +33,47 @@ Bu.animations =
 		update: (t) ->
 			@rotation = t * Math.PI * 2
 
+	spinIn: new Bu.Animation
+		update: (t) ->
+			@opacity = t
+			@rotation = t * Math.PI * 4
+			@scale = t
+
+	spinOut: new Bu.Animation
+		update: (t) ->
+			@opacity = 1 - t
+			@rotation = t * Math.PI * 4
+			@scale = 1 - t
+
+	blink: new Bu.Animation
+		duration: 0.2
+		from: 0
+		to: 512
+		update: (d) ->
+			d = Math.floor Math.abs(d - 256)
+			@fillStyle = "rgb(#{ d }, #{ d }, #{ d })"
+
 	shake: new Bu.Animation
 		init: (anim, arg) ->
 			anim.data.ox = @translate.x
 			anim.data.range = arg or 20
 		update: (t, data) ->
 			@translate.x = Math.sin(t * Math.PI * 8) * data.range + data.ox
+
+	# toggle: detect and save original status
+
+	puff: new Bu.Animation
+		duration: 0.15
+		init: (anim) ->
+			anim.from =
+				opacity: @opacity
+				scale: if @opacity == 1 then 1 else 1.5
+			anim.to =
+				opacity: if @opacity == 1 then 0 else 1
+				scale: if @opacity == 1 then 1.5 else 1
+		update: (d) ->
+			@opacity = d.opacity
+			@scale = d.scale
 
 	clip: new Bu.Animation
 		init: (anim) ->
@@ -68,13 +106,7 @@ Bu.animations =
 		update: (d) ->
 			@scale.y = d
 
-	blink: new Bu.Animation
-		duration: 0.2
-		from: 0
-		to: 512
-		update: (d) ->
-			d = Math.floor Math.abs(d - 256)
-			@fillStyle = "rgb(#{ d }, #{ d }, #{ d })"
+	# with arguments
 
 	moveTo: new Bu.Animation
 		init: (anim, args) ->
@@ -90,33 +122,8 @@ Bu.animations =
 		init: (anim, args) ->
 			if args?
 				anim.from = @translate.x
-				anim.to = @translate.x + args
+				anim.to = @translate.x + parseFloat(args)
 			else
 				console.error 'animation moveTo need an argument'
 		update: (data) ->
 			@translate.x = data
-
-	spinIn: new Bu.Animation
-		update: (t) ->
-			@opacity = t
-			@rotation = t * Math.PI * 4
-			@scale = t
-
-	spinOut: new Bu.Animation
-		update: (t) ->
-			@opacity = 1 - t
-			@rotation = t * Math.PI * 4
-			@scale = 1 - t
-
-	puff: new Bu.Animation
-		duration: 0.15
-		init: (anim) ->
-			anim.from =
-				opacity: @opacity
-				scale: if @opacity == 1 then 1 else 1.5
-			anim.to =
-				opacity: if @opacity == 1 then 0 else 1
-				scale: if @opacity == 1 then 1.5 else 1
-		update: (d) ->
-			@opacity = d.opacity
-			@scale = d.scale

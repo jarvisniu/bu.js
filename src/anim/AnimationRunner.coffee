@@ -22,7 +22,7 @@ class Bu.AnimationRunner
 			anim = task.animation
 			t = (now - task.startTime) / (anim.duration * 1000)
 			if t > 1
-				anim.finish?.call task.target, anim
+				finish = true
 				if anim.repeat
 					t = 0
 					task.startTime = Bu.now()
@@ -40,6 +40,7 @@ class Bu.AnimationRunner
 				anim.update.apply task.target, [task.current, t]
 			else
 				anim.update.apply task.target, [t, task.current]
+			if finish then anim.finish?.call task.target, anim
 
 	# hook up on an renderer, remove own setInternal
 	hookUp: (renderer) ->
