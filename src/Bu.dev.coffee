@@ -3,13 +3,14 @@
 		'Bu',
 
 		'math/Vector',
+		'math/Size',
+		'math/Bounds',
 
 		'core/Event',
 		'core/MicroJQuery',
 		'core/Object2D',
-		'core/Size',
-		'core/Bounds',
 		'core/Colorful',
+		'core/Renderer',
 
 		'shapes/Point',
 		'shapes/Line',
@@ -24,8 +25,6 @@
 
 		'drawable/PointText',
 		'drawable/Image',
-
-		'renderer/Renderer',
 
 		'anim/Animation',
 		'anim/AnimationRunner',

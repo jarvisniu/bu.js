@@ -1,15 +1,14 @@
 ## axis aligned bounding box
 
-class Bu.Bounds extends Bu.Object2D
+class Bu.Bounds
 
 	constructor: (@target) ->
-		super()
-		@type = 'Bounds'
+
 		@x1 = @y1 = @x2 = @y2 = 0
 		@isEmpty = true
 
-		@point1 = new Bu.Point
-		@point2 = new Bu.Point
+		@point1 = new Bu.Vector
+		@point2 = new Bu.Vector
 
 		@strokeStyle = Bu.DEFAULT_BOUND_STROKE_STYLE
 		@dashStyle = Bu.DEFAULT_BOUND_DASH_STYLE
