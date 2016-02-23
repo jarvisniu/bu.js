@@ -22,8 +22,8 @@ html
 
     script(type="text/javascript").
 
-      var bu;
-      var generator;
+      var bu, generator;
+      var circle, triangle, rectangle, bow, fan, polygon;
       var mousePos = new Bu.Point();
 
       $.ready(init);
@@ -59,13 +59,18 @@ html
       }
 
       function generateShapes() {
-        bu.shapes = [
-          generator.generateBow(),
-          generator.generateTriangle(),
-          generator.generateCircle(),
-          generator.generateFan(),
-          generator.generatePolygon(),
-        ]
+        bu.shapes[0] = circle = generator.generateCircle();
+        bu.shapes[1] = triangle = generator.generateTriangle();
+        bu.shapes[2] = rectangle = generator.generateRectangle();
+        bu.shapes[3] = fan = generator.generateFan();
+        bu.shapes[4] = bow = generator.generateBow();
+        bu.shapes[5] = polygon = generator.generatePolygon();
+
+        // use `Bound` to accelerate containing test
+        for (var i in bu.shapes) {
+          if (!bu.shapes.hasOwnProperty(i)) continue;
+          bu.shapes[i].bounds = new Bu.Bounds(bu.shapes[i]);
+        }
       }
 
   body
