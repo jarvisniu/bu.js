@@ -136,15 +136,12 @@
 					dom.removeAttribute 'class'
 			@
 
-		# Not giving the attribute value means just add the attribute name
-		# or clear the existing attribute value.
-		# No, jQuery is to GET the value
-
 		@attr = (name, value) =>
-			value or= ''
-			@each (dom) ->
-				dom.setAttribute name, value
-			@
+			if value?
+				@each (dom) -> dom.setAttribute name, value
+				return @
+			else
+				return @[0].getAttribute name
 
 		@hasAttr = (name) =>
 			if @length == 0
@@ -160,6 +157,8 @@
 			@each (dom) ->
 				dom.removeAttribute name
 			@
+
+		@val = => @[0]?.value
 
 	# $.ready()
 	global.$.ready = (onLoad) ->
