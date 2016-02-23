@@ -213,7 +213,6 @@ html
 
       function onMouseDown(e) {
         isMouseDown = true;
-        e = bu.processArgs(e);
 
         var x = pixelToIndexX(e.offsetX, e.offsetY);
         var y = pixelToIndexY(e.offsetX, e.offsetY);
@@ -239,7 +238,6 @@ html
       }
 
       function onMouseMove(e) {
-        e = bu.processArgs(e);
 
         if (isMouseDown && e.button == 0) {
 

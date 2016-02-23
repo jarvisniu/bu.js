@@ -34,10 +34,10 @@ class Bu.Renderer
 		@shapes = []
 
 		if not @fillParent
-			@dom.style.width = Math.floor(@width / @pixelRatio) + 'px'
-			@dom.style.height = Math.floor(@height / @pixelRatio) + 'px'
-			@dom.width = @width
-			@dom.height = @height
+			@dom.style.width = @width + 'px'
+			@dom.style.height = @height + 'px'
+			@dom.width = @width * @pixelRatio
+			@dom.height = @height * @pixelRatio
 		@dom.style.border = 'solid 1px gray' if options.border? and options.border
 		@dom.style.cursor = 'crosshair'
 		@dom.style.boxSizing = 'content-box'
@@ -97,10 +97,10 @@ class Bu.Renderer
 	toggle: ->
 		@isRunning = not @isRunning
 
-	processArgs: (e) ->
-		offsetX: e.offsetX * @pixelRatio
-		offsetY: e.offsetY * @pixelRatio
-		button: e.button
+#	processArgs: (e) ->
+#		offsetX: e.offsetX * @pixelRatio
+#		offsetY: e.offsetY * @pixelRatio
+#		button: e.button
 
 	append: (shape) ->
 		if shape instanceof Array
@@ -111,8 +111,11 @@ class Bu.Renderer
 
 
 	render: ->
+		@context.save()
+		@context.scale @pixelRatio, @pixelRatio
 		@clearCanvas()
 		@drawShapes @shapes
+		@context.restore()
 		@
 
 	clearCanvas: ->
