@@ -2,7 +2,9 @@
 # A* path finding algorithm
 ###
 
-AStar = 
+global = window or this
+
+global.AStar =
   NODE_STATE_DEFAULT: 0
   NODE_STATE_START: 1
   NODE_STATE_END: 2
