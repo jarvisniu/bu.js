@@ -22,11 +22,17 @@ class Bu.Polygon extends Bu.Object2D
 		if points instanceof Array
 			@vertices = points if points?
 		else
-			x = arguments[0]
-			y = arguments[1]
-			radius = arguments[2]
-			n = arguments[3]
-			@vertices = Bu.Polygon.generateRegularPoints(x, y, radius, n, options)
+			if arguments.length < 4
+				x = 0
+				y = 0
+				radius = arguments[0]
+				n = arguments[1]
+			else
+				x = arguments[0]
+				y = arguments[1]
+				radius = arguments[2]
+				n = arguments[3]
+			@vertices = Bu.Polygon.generateRegularPoints x, y, radius, n, options
 
 		# init lines
 		if @vertices.length > 1
