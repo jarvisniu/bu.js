@@ -1,0 +1,111 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title Bu.js demo - shapes
+    script(src="../src/Bu.dev.js")
+    style.
+
+      html, body, #container {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      #info {
+        position: absolute;
+        width: 100%;
+        line-height: 26px;
+        text-align: center;
+        padding: 8px 0;
+      }
+
+      #inputMove {
+        width: 50px;
+      }
+
+    script(type="text/javascript").
+
+      var bu, hexagon;
+      var animSpin, animHelical;
+
+      $.ready(init);
+
+      function init() {
+        bu = new Bu({
+          container: '#container',
+          fillParent: true,
+          border: false
+        });
+
+        hexagon = new Bu.Polygon(100, 5).fill('white');
+        hexagon.translate.x = bu.width / 2;
+        hexagon.translate.y = bu.height / 2;
+
+        bu.append(hexagon);
+
+        // custom animation
+        animHelical = new Bu.Animation({
+          duration: 2,
+          init: function (anim) {
+            anim.data.ox = this.translate.x;
+            anim.data.oy = this.translate.y;
+          },
+          update: function (t, data) {
+            var theta = Math.PI * 8 * t;
+            var radius = 300 * t;
+            this.translate.x = radius * Math.cos(theta) + data.ox;
+            this.translate.y = radius * Math.sin(theta) + data.oy;
+          },
+          finish: function (anim) {
+            this.translate.x = anim.data.ox;
+            this.translate.y = anim.data.oy;
+          }
+        });
+
+
+        $('#prefab button').attr('onclick', 'prefabAnim(this.innerText);');
+        $('#withArgs button').attr('onclick', 'hexagon.animate(this.innerText, $("#inputMove").val());');
+        $('#helical').on('click', applyHelical);
+        $('#multiple').on('click', applyMultiple);
+      }
+
+      function prefabAnim(type) {
+        hexagon.animate(type);
+      }
+
+      function applyHelical() {
+        hexagon.animate(animHelical); // first writing
+      }
+
+      function applyMultiple() {
+        Bu.animations['spin'].duration = 2;
+        hexagon.animate([animHelical, 'spin']);
+      }
+
+  body
+    div#info
+      span Animation demos.
+      div#prefab Prefab:
+        button fadeOut
+        button fadeIn
+        button spin
+        button spinOut
+        button spinIn
+        button blink
+        button shake
+        br
+        span Toggle:
+        button puff
+        button clip
+        button flipX
+      div#withArgs With arguments:
+        button#moveBy moveBy
+        button#moveTo moveTo
+        input(type="text" id="inputMove" name="move" value="150")
+      div Custom:
+        button#helical helical
+      div Multiple(Mix):
+        button#multiple helical + spin
+    div#container

@@ -29,7 +29,7 @@ class Bu.Object2D
 			else
 				console.warn "Bu.animations[\"#{ anim }\"] doesn't exists."
 		else if anim instanceof Array
-			a.apply @, args for a in anim
+			@animate a, args for a in anim
 		else
 			anim.apply @, args
 
