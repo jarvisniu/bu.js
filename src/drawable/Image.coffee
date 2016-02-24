@@ -2,7 +2,7 @@
 
 class Bu.Image extends Bu.Object2D
 
-	constructor: (@url, x, y, width, height) ->
+	constructor: (@url, x = 0, y = 0, width, height) ->
 		super()
 		@type = 'Image'
 

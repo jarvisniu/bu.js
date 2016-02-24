@@ -34,10 +34,12 @@ Bu.animations =
 			@rotation = t * Math.PI * 2
 
 	spinIn: new Bu.Animation
-		update: (t) ->
+		init: (anim, arg = 1) ->
+			anim.data.ds = arg
+		update: (t, data) ->
 			@opacity = t
 			@rotation = t * Math.PI * 4
-			@scale = t
+			@scale = t * data.ds
 
 	spinOut: new Bu.Animation
 		update: (t) ->
@@ -67,31 +69,27 @@ Bu.animations =
 		init: (anim) ->
 			anim.from =
 				opacity: @opacity
-				scale: if @opacity == 1 then 1 else 1.5
+				scale: @scale.x * if @opacity == 1 then 1 else 1.5
 			anim.to =
 				opacity: if @opacity == 1 then 0 else 1
-				scale: if @opacity == 1 then 1.5 else 1
+				scale: @scale.x * if @opacity == 1 then 1.5 else 1
 		update: (d) ->
 			@opacity = d.opacity
 			@scale = d.scale
 
 	clip: new Bu.Animation
 		init: (anim) ->
-			if typeof @scale == 'number'
-				@scale = new Bu.Vector @scale, @scale
-			if @scale.y == 0
-				anim.from = 0
-				anim.to = 1
-			else
-				anim.from = 1
+			if @scale.y != 0
+				anim.from = @scale.y
 				anim.to = 0
+			else
+				anim.from = @scale.y
+				anim.to = @scale.x
 		update: (d) ->
 			@scale.y = d
 
 	flipX: new Bu.Animation
 		init: (anim) ->
-			if typeof @scale == 'number'
-				@scale = new Bu.Vector @scale, @scale
 			anim.from = @scale.x
 			anim.to = -anim.from
 		update: (data) ->
@@ -99,8 +97,6 @@ Bu.animations =
 
 	flipY: new Bu.Animation
 		init: (anim) ->
-			if typeof @scale == 'number'
-				@scale = new Bu.Vector @scale, @scale
 			anim.from = @scale.y
 			anim.to = -anim.from
 		update: (d) ->

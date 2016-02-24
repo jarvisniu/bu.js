@@ -9,10 +9,10 @@ class Bu.Object2D
 		@visible = yes
 		@opacity = 1
 
-		@translate = new Bu.Vector()
+		@translate = new Bu.Vector
 		@rotation = 0
-		@scale = 1
-		@skew = new Bu.Vector()
+		@_scale = new Bu.Vector 1, 1
+		@skew = new Bu.Vector
 
 		#@toWorldMatrix = new Bu.Matrix()
 		#@updateMatrix ->
@@ -21,6 +21,14 @@ class Bu.Object2D
 		@keyPoints = null
 		@children = []
 		@parent = null
+
+	@property 'scale',
+		get: -> @_scale
+		set: (val) ->
+			if typeof val == 'number'
+				@_scale.x = @_scale.y = val
+			else
+				@scale = val
 
 	animate: (anim, args) ->
 		if typeof anim == 'string'
