@@ -51,9 +51,9 @@ Bu.animations =
 		duration: 0.2
 		from: 0
 		to: 512
-		update: (d) ->
-			d = Math.floor Math.abs(d - 256)
-			@fillStyle = "rgb(#{ d }, #{ d }, #{ d })"
+		update: (data) ->
+			data = Math.floor Math.abs(d - 256)
+			@fillStyle = "rgb(#{ data }, #{ data }, #{ data })"
 
 	shake: new Bu.Animation
 		init: (anim, arg) ->
@@ -69,13 +69,13 @@ Bu.animations =
 		init: (anim) ->
 			anim.from =
 				opacity: @opacity
-				scale: @scale.x * if @opacity == 1 then 1 else 1.5
+				scale: @scale.x
 			anim.to =
 				opacity: if @opacity == 1 then 0 else 1
-				scale: @scale.x * if @opacity == 1 then 1.5 else 1
-		update: (d) ->
-			@opacity = d.opacity
-			@scale = d.scale
+				scale: if @opacity == 1 then @scale.x * 1.5 else @scale.x / 1.5
+		update: (data) ->
+			@opacity = data.opacity
+			@scale = data.scale
 
 	clip: new Bu.Animation
 		init: (anim) ->
@@ -85,8 +85,8 @@ Bu.animations =
 			else
 				anim.from = @scale.y
 				anim.to = @scale.x
-		update: (d) ->
-			@scale.y = d
+		update: (data) ->
+			@scale.y = data
 
 	flipX: new Bu.Animation
 		init: (anim) ->
@@ -99,8 +99,8 @@ Bu.animations =
 		init: (anim) ->
 			anim.from = @scale.y
 			anim.to = -anim.from
-		update: (d) ->
-			@scale.y = d
+		update: (data) ->
+			@scale.y = data
 
 	# with arguments
 
