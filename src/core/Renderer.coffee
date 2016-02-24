@@ -135,12 +135,8 @@ class Bu.Renderer
 
 		@context.translate shape.translate.x, shape.translate.y
 		@context.rotate shape.rotation
-		if typeof shape.scale == 'number'
-			sx = shape.scale
-			sy = shape.scale
-		else
-			sx = shape.scale.x
-			sy = shape.scale.y
+		sx = shape.scale.x
+		sy = shape.scale.y
 		if sx / sy > 100 or sx / sy < 0.01
 			sx = 0 if Math.abs(sx) < 0.02
 			sy = 0 if Math.abs(sy) < 0.02
@@ -312,103 +308,3 @@ class Bu.Renderer
 	drawBounds: (bounds) ->
 		@context.rect bounds.x1, bounds.y1, bounds.x2 - bounds.x1, bounds.y2 - bounds.y1
 		@
-
-
-# Add draw dashed line feature to the canvas rendering context
-# See: http://stackoverflow.com/questions/4576724/dotted-stroke-in-canvas
-(=>
-	CP = window.CanvasRenderingContext2D and CanvasRenderingContext2D.prototype
-	CP.dashedLine = (x, y, x2, y2, dashStyle, offset) ->
-		dashStyle = Bu.DEFAULT_DASH_STYLE if not dashStyle?
-		offset = 0 if not offset?
-		@save()
-		dx = x2 - x
-		dy = y2 - y
-		len = Bu.bevel dx, dy
-		rot = Math.atan2 dy, dx
-		@translate x, y
-		@rotate rot
-		dc = dashStyle.length
-
-		lenU = 0
-		for i in dashStyle
-			lenU += i
-		offset %= lenU
-
-		# draw offset -> 0
-		di = 0
-		x = offset
-		draw = false
-		# no need `@moveTo offset, 0`, because `draw` is false, so the lineTo is in the first
-		while x > 0
-			di -= 1
-			x -= dashStyle[di %% dc]
-			x = 0 if x < 0
-			if draw
-				@lineTo x, 0
-			else
-				@moveTo x, 0
-			draw = not draw
-
-		# draw offset -> len
-		di = 0
-		x = offset
-		draw = true
-		@moveTo offset, 0
-		while len > x
-			x += dashStyle[di % dc]
-			x = len if x > len
-			if draw
-				@lineTo x, 0
-			else
-				@moveTo x, 0
-			draw = not draw
-			di += 1
-		@restore()
-		@
-
-	CP.dashedArc = (x, y, radius, startAngle, endAngle, dashStyle, offset) ->
-		dashStyle = Bu.DEFAULT_DASH_STYLE if not dashStyle?
-		offset = 0 if not offset?
-
-		# convert dashStyle and offset from arc length to angle
-		arcStyle = dashStyle.map (x) -> x / radius
-		offset /= radius
-
-		len = Math.abs endAngle - startAngle
-		dc = arcStyle.length
-
-		lenU = 0
-		for i in arcStyle
-			lenU += i
-		offset %= lenU
-
-		# draw offset -> 0
-		di = 0
-		xAngle = offset
-		draw = false
-		while xAngle > 0
-			di -= 1
-			xAngle -= arcStyle[di %% dc]
-			xAngle = 0 if xAngle < 0
-			if draw
-				@lineTo x + radius * Math.cos(startAngle + xAngle), y + radius * Math.sin(startAngle + xAngle)
-			else
-				@moveTo x + radius * Math.cos(startAngle + xAngle), y + radius * Math.sin(startAngle + xAngle)
-			draw = not draw
-
-		# draw offset -> len
-		di = 0
-		xAngle = offset
-		draw = true
-		@moveTo x + radius * Math.cos(startAngle + offset), y + radius * Math.sin(startAngle + offset)
-		while len > xAngle
-			xAngle += arcStyle[di % dc]
-			xAngle = len if xAngle > len
-			if draw
-				@lineTo x + radius * Math.cos(startAngle + xAngle), y + radius * Math.sin(startAngle + xAngle)
-			else
-				@moveTo x + radius * Math.cos(startAngle + xAngle), y + radius * Math.sin(startAngle + xAngle)
-			draw = not draw
-			di += 1
-		@)()
