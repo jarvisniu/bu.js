@@ -15,7 +15,7 @@ Bu.global = global
 ###
 
 # library version
-Bu.VERSION = '0.3.1'
+Bu.VERSION = '0.3.2'
 
 # shapes related
 Bu.DEFAULT_STROKE_STYLE = '#048'
