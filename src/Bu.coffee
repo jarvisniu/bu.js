@@ -1,13 +1,20 @@
 # namespace, constants and utility functions
 
+# global object
+global = window or this
+
 # namespace `Bu` is also a shortcut to class `Bu.Renderer`
-@Bu = () -> new Bu.Renderer arguments...
+global.Bu = () -> new Bu.Renderer arguments...
+
+# save global
+Bu.global = global
 
 
 ###
 # constants
 ###
 
+# library version
 Bu.VERSION = '0.3.1'
 
 # shapes related
