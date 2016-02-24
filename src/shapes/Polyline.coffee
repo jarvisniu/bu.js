@@ -17,6 +17,8 @@ class Bu.Polyline extends Bu.Object2D
 		@pointNormalizedPos = []
 		@keyPoints = @vertices
 
+		@fill off
+
 		@on "pointChange", =>
 			if @vertices.length > 1
 				@updateLines()

@@ -19,6 +19,7 @@ class Bu.Spline extends Bu.Object2D
 		@controlPointsAhead = []
 		@controlPointsBehind = []
 
+		@fill off
 		@smoothFactor = Bu.DEFAULT_SPLINE_SMOOTH
 		@_smoother = no
 
