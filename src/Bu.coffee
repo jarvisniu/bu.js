@@ -68,13 +68,13 @@ Bu.rand = (from, to) ->
 		from = 0
 	Math.random() * (to - from) + from
 
-# radian to deg
+# convert an angle from radian to deg
 Bu.r2d = (r) -> (r * 180 / Math.PI).toFixed(1)
 
 # get current time
 Bu.now = if window?.performance? then -> window.performance.now() else -> Date.now()
 
-# combine the given options(last item in arguments) with the default options
+# combine the given options (last item of arguments) with the default options
 Bu.combineOptions = (args, defaultOptions) ->
 	defaultOptions = {} if not defaultOptions?
 	givenOptions = args[args.length - 1]
@@ -109,7 +109,7 @@ Bu.data = (key, value) ->
 Function::property = (prop, desc) ->
 	Object.defineProperty @prototype, prop, desc
 
-# throttle
+# throttle: limit the frequency of function call
 Function::throttle = (limit = 0.5) ->
 	currTime = 0
 	lastTime = 0
@@ -120,7 +120,7 @@ Function::throttle = (limit = 0.5) ->
 			@apply null, arguments
 			lastTime = currTime
 
-# debounce
+# debounce: delay the call of function
 Function::debounce = (delay = 0.5) ->
 	args = null
 	timeout = null
@@ -134,7 +134,7 @@ Function::debounce = (delay = 0.5) ->
 		timeout = setTimeout later, delay * 1000
 
 
-# Array
+# Iterate this Array and do something with the items
 Array::each or= (fn) ->
 	i = 0
 	while i < @length
@@ -142,6 +142,7 @@ Array::each or= (fn) ->
 		i++
 	return @
 
+# Iterate this Array and map the items to a new Array
 Array::map or= (fn) ->
 	arr = []
 	i = 0
