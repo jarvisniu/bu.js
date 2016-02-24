@@ -19,9 +19,17 @@ class Bu.Spline extends Bu.Object2D
 		@controlPointsAhead = []
 		@controlPointsBehind = []
 
-		@smooth = Bu.DEFAULT_SPLINE_SMOOTH
+		@smoothFactor = Bu.DEFAULT_SPLINE_SMOOTH
+		@_smoother = no
 
 		calcControlPoints @
+
+	@property 'smoother',
+		get: -> @_smoother
+		set: (val) ->
+			oldVal = @_smoother
+			@_smoother = val
+			calcControlPoints @ if oldVal != @_smoother
 
 	clone: -> new Bu.Spline @vertices
 
@@ -44,12 +52,12 @@ class Bu.Spline extends Bu.Object2D
 				theta2 = Math.atan2 p[i + 1].y - p[i].y, p[i + 1].x - p[i].x
 				len1 = Bu.bevel p[i].y - p[i - 1].y, p[i].x - p[i - 1].x
 				len2 = Bu.bevel p[i].y - p[i + 1].y, p[i].x - p[i + 1].x
-				theta = theta1 + (theta2 - theta1) * len1 / (len1 + len2)
+				theta = theta1 + (theta2 - theta1) * if spline._smoother then len1 / (len1 + len2) else 0.5
 				theta += Math.PI if Math.abs(theta - theta1) > Math.PI / 2
-				xA = p[i].x - len1 * spline.smooth * Math.cos(theta)
-				yA = p[i].y - len1 * spline.smooth * Math.sin(theta)
-				xB = p[i].x + len2 * spline.smooth * Math.cos(theta)
-				yB = p[i].y + len2 * spline.smooth * Math.sin(theta)
+				xA = p[i].x - len1 * spline.smoothFactor * Math.cos(theta)
+				yA = p[i].y - len1 * spline.smoothFactor * Math.sin(theta)
+				xB = p[i].x + len2 * spline.smoothFactor * Math.cos(theta)
+				yB = p[i].y + len2 * spline.smoothFactor * Math.sin(theta)
 				spline.controlPointsAhead[i] = new Bu.Point xA, yA
 				spline.controlPointsBehind[i] = new Bu.Point xB, yB
 

@@ -71,6 +71,9 @@ Bu.rand = (from, to) ->
 # convert an angle from radian to deg
 Bu.r2d = (r) -> (r * 180 / Math.PI).toFixed(1)
 
+# convert an angle from deg to radian
+Bu.d2r = (r) -> r * Math.PI / 180
+
 # get current time
 Bu.now = if window?.performance? then -> window.performance.now() else -> Date.now()
 

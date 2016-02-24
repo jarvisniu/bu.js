@@ -56,6 +56,23 @@ class Bu.Polyline extends Bu.Object2D
 		else
 			return @pointNormalizedPos
 
+	compress: (strength = 0.8) ->
+		compressed = []
+		for own i of @vertices
+			if i < 2
+				compressed[i] = @vertices[i]
+			else
+				[pA, pM] = compressed[-2..-1]
+				pB = @vertices[i]
+				obliqueAngle = Math.abs(Math.atan2(pA.y - pM.y, pA.x - pM.x) - Math.atan2(pM.y - pB.y, pM.x - pB.x))
+				if obliqueAngle < strength * strength * Math.PI / 2
+					compressed[compressed.length - 1] = pB
+				else
+					compressed.push pB
+		@vertices = compressed
+		@keyPoints = @vertices
+		@
+
 	# edit
 
 	set = (points) ->

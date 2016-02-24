@@ -55,7 +55,13 @@
   <side-panel>
     <vertical-toolbar v-ref:toolbar></vertical-toolbar>
   </side-panel>
-  <div id="container"></div>
+  <div id="container">
+    <div style="position:absolute;">
+      <label>
+        <input type="checkbox" onclick="bu.isShowKeyPoints = this.checked;" checked>
+        Show key points
+      </label></div>
+  </div>
 </div>
 
 <script>
@@ -94,6 +100,11 @@
       tip: "Freeline",
       key: 'freeline',
       selected: false
+    }, {
+      icon: './vue/icons/freeline.png',
+      tip: "Smooth Freeline",
+      key: 'smoothFreeline',
+      selected: false
     }
   ];
 
@@ -121,7 +132,8 @@
         bu = new Bu({
           container: "#container",
           fillParent: true,
-          border: false
+          border: false,
+          showKeyPoints: true
         });
 
         reactors.point = new Bu.DrawPointReactor(bu);
@@ -130,6 +142,7 @@
         reactors.polyline = new Bu.DrawPolylineReactor(bu);
         reactors.polygon = new Bu.DrawPolygonReactor(bu);
         reactors.freeline = new Bu.DrawFreelineReactor(bu);
+        reactors.smoothFreeline = new Bu.DrawFreelineReactor(bu, true);
 
         reactors.point.enable();
       }

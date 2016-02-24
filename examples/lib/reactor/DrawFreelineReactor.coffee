@@ -2,7 +2,7 @@
 
 class Bu.DrawFreelineReactor extends Bu.ReactorBase
 
-	constructor: (@bu) ->
+	constructor: (@bu, @curvify = no) ->
 		super()
 
 		@lineSplitThresh = 8
@@ -12,7 +12,6 @@ class Bu.DrawFreelineReactor extends Bu.ReactorBase
 		mouseDownPos = new Bu.Point
 
 		polyline = null
-		line = null
 
 		@onMouseDown = (e) =>
 			mouseDownPos.set e.offsetX, e.offsetY
@@ -36,4 +35,13 @@ class Bu.DrawFreelineReactor extends Bu.ReactorBase
 			mouseButton = Bu.MOUSE_BUTTON_NONE
 			if polyline?
 				polyline.stroke Bu.DEFAULT_STROKE_STYLE
+
+				if @curvify
+					polyline.compress 0.5
+					spline = new Bu.Spline polyline
+					spline.smoothFactor = 0.1
+					@bu.shapes[@bu.shapes.length - 1] = spline
+				else
+					polyline.compress 0.2
+
 				polyline = null
