@@ -146,7 +146,7 @@ class Bu.Renderer
 			sy = 0 if Math.abs(sy) < 0.02
 		@context.scale sx, sy
 
-		@context.globalAlpha = shape.opacity
+		@context.globalAlpha *= shape.opacity
 		if shape.strokeStyle?
 			@context.strokeStyle = shape.strokeStyle
 			@context.lineWidth = shape.lineWidth
