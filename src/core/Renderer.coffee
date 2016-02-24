@@ -153,21 +153,36 @@ class Bu.Renderer
 			@context.lineCap = shape.lineCap if shape.lineCap?
 			@context.lineJoin = shape.lineJoin if shape.lineJoin?
 
+		@context.beginPath()
+
 		switch shape.type
-			when 'Point' then @drawPoint(shape)
-			when 'Line' then @drawLine(shape)
-			when 'Circle' then @drawCircle(shape)
-			when 'Triangle' then @drawTriangle(shape)
-			when 'Rectangle' then @drawRectangle(shape)
-			when 'Fan' then @drawFan(shape)
-			when 'Bow' then @drawBow(shape)
-			when 'Polygon' then @drawPolygon(shape)
-			when 'Polyline' then @drawPolyline(shape)
-			when 'Spline' then @drawSpline(shape)
-			when 'PointText' then @drawPointText(shape)
-			when 'Image' then @drawImage(shape)
-			when 'Bounds' then @drawBounds(shape)
+			when 'Point' then @drawPoint shape
+			when 'Line' then @drawLine shape
+			when 'Circle' then @drawCircle shape
+			when 'Triangle' then @drawTriangle shape
+			when 'Rectangle' then @drawRectangle shape
+			when 'Fan' then @drawFan shape
+			when 'Bow' then @drawBow shape
+			when 'Polygon' then @drawPolygon shape
+			when 'Polyline' then @drawPolyline shape
+			when 'Spline' then @drawSpline shape
+			when 'PointText' then @drawPointText shape
+			when 'Image' then @drawImage shape
+			when 'Bounds' then @drawBounds shape
 			else console.log 'drawShapes(): unknown shape: ', shape
+
+
+		if shape.fillStyle?
+			@context.fillStyle = shape.fillStyle
+			@context.fill()
+
+		if shape.dashStyle# and (shape.type == 'Spline' or shape.type == 'Rectangle' and shape.cornerRadius > 0)
+			@context.lineDashOffset = shape.dashOffset
+			@context.setLineDash? shape.dashStyle
+			@context.stroke()
+			@context.setLineDash []
+		else if shape.strokeStyle?
+			@context.stroke()
 
 		@drawShapes shape.children if shape.children?
 		@drawShapes shape.keyPoints if @isShowKeyPoints
@@ -175,186 +190,84 @@ class Bu.Renderer
 
 
 	drawPoint: (shape) ->
-		@context.globalAlpha = shape.opacity
-
-		@context.beginPath()
 		@context.arc shape.x, shape.y, Bu.POINT_RENDER_SIZE, 0, Math.PI * 2
-
-		if shape.fillStyle?
-			@context.fillStyle = shape.fillStyle
-			@context.fill()
-
-		if shape.strokeStyle?
-			@context.stroke()
 		@
 
 
 	drawLine: (shape) ->
-		if shape.strokeStyle?
-			@context.beginPath()
-			if shape.dashStyle
-				@context.dashedLine(
-					shape.points[0].x, shape.points[0].y,
-					shape.points[1].x, shape.points[1].y,
-					shape.dashStyle, shape.dashOffset
-				)
-			else
-				@context.moveTo shape.points[0].x, shape.points[0].y
-				@context.lineTo shape.points[1].x, shape.points[1].y
-
-			@context.stroke()
+		@context.moveTo shape.points[0].x, shape.points[0].y
+		@context.lineTo shape.points[1].x, shape.points[1].y
 		@
 
 
 	drawCircle: (shape) ->
-		@context.beginPath()
 		@context.arc shape.cx, shape.cy, shape.radius, 0, Math.PI * 2
-		@context.closePath()
-
-		if shape.fillStyle?
-			@context.fillStyle = shape.fillStyle
-			@context.fill()
-
-		if shape.strokeStyle?
-			if shape.dashStyle
-				@context.beginPath()
-				@context.dashedArc shape.cx, shape.cy, shape.radius, 0, Math.PI * 2, shape.dashStyle, shape.dashOffset
-			@context.stroke()
 		@
 
 
 	drawTriangle: (shape) ->
-		@context.beginPath()
 		@context.lineTo shape.points[0].x, shape.points[0].y
 		@context.lineTo shape.points[1].x, shape.points[1].y
 		@context.lineTo shape.points[2].x, shape.points[2].y
 		@context.closePath()
-
-		if shape.fillStyle?
-			@context.fillStyle = shape.fillStyle
-			@context.fill()
-
-		if shape.strokeStyle?
-			if shape.dashStyle
-				@context.beginPath() # clear prev lineTo
-				pts = shape.points
-				@context.dashedLine pts[0].x, pts[0].y, pts[1].x, pts[1].y, shape.dashStyle, shape.dashOffset
-				@context.dashedLine pts[1].x, pts[1].y, pts[2].x, pts[2].y, shape.dashStyle, shape.dashOffset
-				@context.dashedLine pts[2].x, pts[2].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashOffset
-			@context.stroke()
 		@
 
 
 	drawRectangle: (shape) ->
-		if shape.fillStyle?
-			@context.fillStyle = shape.fillStyle
-			@context.fillRect shape.position.x, shape.position.y, shape.size.width, shape.size.height
+		return @drawRoundRectangle shape if shape.cornerRadius != 0
+		@context.rect shape.position.x, shape.position.y, shape.size.width, shape.size.height
+		@
 
-		if shape.strokeStyle?
-			if not shape.dashStyle
-				@context.strokeRect(
-					shape.position.x
-					shape.position.y
-					shape.size.width
-					shape.size.height)
-			else
-				@context.beginPath()
-				xL = shape.position.x
-				xR = shape.pointRB.x
-				yT = shape.position.y
-				yB = shape.pointRB.y
-				@context.dashedLine xL, yT, xR, yT, shape.dashStyle, shape.dashOffset
-				@context.dashedLine xR, yT, xR, yB, shape.dashStyle, shape.dashOffset
-				@context.dashedLine xR, yB, xL, yB, shape.dashStyle, shape.dashOffset
-				@context.dashedLine xL, yB, xL, yT, shape.dashStyle, shape.dashOffset
-				@context.stroke()
+
+	drawRoundRectangle: (shape) ->
+		x1 = shape.position.x
+		x2 = shape.pointRB.x
+		y1 = shape.position.y
+		y2 = shape.pointRB.y
+		r = shape.cornerRadius
+
+		@context.moveTo x1, y1 + r
+		@context.arcTo x1, y1, x1 + r, y1, r
+		@context.lineTo x2 - r, y1
+		@context.arcTo x2, y1, x2, y1 + r, r
+		@context.lineTo x2, y2 - r
+		@context.arcTo x2, y2, x2 - r, y2, r
+		@context.lineTo x1 + r, y2
+		@context.arcTo x1, y2, x1, y2 - r, r
+		@context.closePath()
+
+		@context.setLineDash? shape.dashStyle if shape.strokeStyle? and shape.dashStyle
 		@
 
 
 	drawFan: (shape) ->
-		@context.beginPath()
 		@context.arc shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo
 		@context.lineTo shape.cx, shape.cy
 		@context.closePath()
-
-		if shape.fillStyle?
-			@context.fillStyle = shape.fillStyle
-			@context.fill()
-
-		if shape.strokeStyle?
-			if shape.dashStyle
-				@context.beginPath()
-				@context.dashedArc shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo, shape.dashStyle, shape.dashOffset
-				@context.dashedLine shape.cx, shape.cy,
-					shape.cx + shape.radius * Math.cos(shape.aFrom),
-					shape.cy + shape.radius * Math.sin(shape.aFrom),
-					shape.dashStyle, shape.dashOffset
-				@context.dashedLine shape.cx + shape.radius * Math.cos(shape.aTo),
-					shape.cy + shape.radius * Math.sin(shape.aTo),
-					shape.cx, shape.cy, shape.dashStyle, shape.dashOffset
-			@context.stroke()
 		@
 
 
 	drawBow: (shape) ->
-		@context.beginPath()
 		@context.arc shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo
 		@context.closePath()
-
-		if shape.fillStyle?
-			@context.fillStyle = shape.fillStyle
-			@context.fill()
-
-		if shape.strokeStyle?
-			if shape.dashStyle
-				@context.beginPath()
-				@context.dashedArc shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo, shape.dashStyle, shape.dashOffset
-				@context.dashedLine shape.string.points[1].x, shape.string.points[1].y,
-					shape.string.points[0].x, shape.string.points[0].y,
-					shape.dashStyle, shape.dashOffset
-			@context.stroke()
 		@
 
 
 	drawPolygon: (shape) ->
-		@context.beginPath()
 		for point in shape.vertices
 			@context.lineTo point.x, point.y
 		@context.closePath()
-
-		if shape.fillStyle?
-			@context.fillStyle = shape.fillStyle
-			@context.fill()
-
-		if shape.strokeStyle?
-			len = shape.vertices.length
-			if shape.dashStyle && len > 0
-				@context.beginPath()
-				pts = shape.vertices
-				for i in [0 ... len - 1]
-					@context.dashedLine pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashOffset
-				@context.dashedLine pts[len - 1].x, pts[len - 1].y, pts[0].x, pts[0].y, shape.dashStyle, shape.dashOffset
-			@context.stroke()
 		@
 
 
 	drawPolyline: (shape) ->
-		if shape.strokeStyle?
-			@context.beginPath()
-			if not shape.dashStyle
-				for point in shape.vertices
-					@context.lineTo point.x, point.y
-			else
-				pts = shape.vertices
-				for i in [ 0 ... pts.length - 1]
-					@context.dashedLine pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y, shape.dashStyle, shape.dashOffset
-			@context.stroke()
+		for point in shape.vertices
+			@context.lineTo point.x, point.y
 		@
 
 
 	drawSpline: (shape) ->
 		if shape.strokeStyle?
-			@context.beginPath()
 			len = shape.vertices.length
 			if len == 2
 				@context.moveTo shape.vertices[0].x, shape.vertices[0].y
@@ -370,12 +283,6 @@ class Bu.Renderer
 						shape.vertices[i].x,
 						shape.vertices[i].y
 					)
-			if shape.dashStyle and @context.setLineDash?
-				@context.setLineDash shape.dashStyle
-				@context.stroke()
-				@context.setLineDash [] # clear dashStyle
-			else
-				@context.stroke()
 		@
 
 
@@ -383,6 +290,7 @@ class Bu.Renderer
 		@context.textAlign = shape.textAlign
 		@context.textBaseline = shape.textBaseline
 		@context.font = shape.font
+
 		if shape.strokeStyle?
 			@context.strokeText shape.text, shape.x, shape.y
 		if shape.fillStyle?
@@ -402,13 +310,7 @@ class Bu.Renderer
 
 
 	drawBounds: (bounds) ->
-		@context.strokeStyle = bounds.strokeStyle
-		@context.beginPath()
-		@context.dashedLine bounds.x1, bounds.y1, bounds.x2, bounds.y1, bounds.dashStyle, bounds.dashOffset
-		@context.dashedLine bounds.x2, bounds.y1, bounds.x2, bounds.y2, bounds.dashStyle, bounds.dashOffset
-		@context.dashedLine bounds.x2, bounds.y2, bounds.x1, bounds.y2, bounds.dashStyle, bounds.dashOffset
-		@context.dashedLine bounds.x1, bounds.y2, bounds.x1, bounds.y1, bounds.dashStyle, bounds.dashOffset
-		@context.stroke()
+		@context.rect bounds.x1, bounds.y1, bounds.x2 - bounds.x1, bounds.y2 - bounds.y1
 		@
 
 

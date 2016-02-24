@@ -2,7 +2,7 @@
 
 class Bu.Rectangle extends Bu.Object2D
 
-	constructor: (x, y, width, height) ->
+	constructor: (x, y, width, height, cornerRadius = 0) ->
 		super()
 		@type = 'Rectangle'
 
@@ -15,7 +15,14 @@ class Bu.Rectangle extends Bu.Object2D
 		@pointLB = new Bu.Point(x, y + height)
 
 		@points = [@position, @pointRT, @pointRB, @pointLB]
-		@keyPoints = @points
+
+		@cornerRadius = cornerRadius
+
+	@property 'cornerRadius',
+		get: -> @_cornerRadius
+		set: (val) ->
+			@_cornerRadius = val
+			@keyPoints = if val > 0 then [] else @points
 
 	clone: -> new Bu.Rectangle @position.x, @position.y, @size.width, @size.height
 

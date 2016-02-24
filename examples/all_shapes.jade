@@ -37,7 +37,7 @@ html(lang="en")
         // row 1: circle, line, rectangle and triangle
         bu.shapes[0] = new Bu.Circle(100, 100, 50);
         bu.shapes[1] = new Bu.Line(200, 50, 250, 150);
-        bu.shapes[2] = new Bu.Rectangle(300, 50, 150, 100);
+        bu.shapes[2] = new Bu.Rectangle(315, 60, 120, 80);
         bu.shapes[3] = new Bu.Triangle(600, 50, 500, 150, 650, 150);
 
         // row 2: fan, bow, polygon (regular) and polygon (normal)
@@ -68,12 +68,13 @@ html(lang="en")
           new Bu.Point(315, 500),
           new Bu.Point(325, 480)
         ]);
+        bu.shapes[10] = new Bu.Rectangle(365, 400, 120, 80, 16);
 
         // labels
         bu.append([
           new Bu.PointText('Circle', 100, 170),
           new Bu.PointText('Line', 225, 170),
-          new Bu.PointText('Rectangle', 375, 170),
+          new Bu.PointText('Rectangle', 375, 170, 20),
           new Bu.PointText('Triangle', 575, 170),
 
           new Bu.PointText('Fan', 100, 325),
@@ -82,7 +83,8 @@ html(lang="en")
           new Bu.PointText('Polygon (Normal)', 575, 325),
 
           new Bu.PointText('Polyline', 125, 525),
-          new Bu.PointText('Spline', 275, 525)
+          new Bu.PointText('Spline', 275, 525),
+          new Bu.PointText('Rectangle (Round)', 425, 525)
         ]);
       }
 
