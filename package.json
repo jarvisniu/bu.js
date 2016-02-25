@@ -7,10 +7,9 @@
     "example": "examples"
   },
   "scripts": {
-    "build": "node tools/build.js",
-    "build-examples": "node tools/build-examples.js",
-    "examples": "node tools/run-examples.js",
-    "clean": "node tools/clean.js"
+    "examples": "gulp run",
+    "build": "gulp build",
+    "clean": "gulp clean"
   },
   "repository": {
     "type": "git",

@@ -108,8 +108,8 @@ gulp.task('watch', function () {
     gulp.watch(paths.examples, ['examples']);
 });
 
-gulp.task('run_examples', ['serve_examples', 'open_examples']);
+gulp.task('run', ['build', 'serve_examples', 'open_examples']);
 
 // default tasks
 
-gulp.task('default', ['watch', 'build', 'run_examples']);
+gulp.task('default', ['watch', 'build', 'run']);
