@@ -58,7 +58,6 @@ Build the lib file:
     - `renderer/` - Render the shapes to the screen
     - `extra/` - Utils components
     - `Bu.coffee(js)` - Namespace, constants, util functions and polyfills
-    - `Bu.dev.coffee(js)` - Dev edition of this lib
 - `tools/` - Util tools for this project
     - `concat-tool/` - Node concat tool
     - `build.js` - Node script for build this lib
