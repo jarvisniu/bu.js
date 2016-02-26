@@ -13,6 +13,7 @@ var plugins = require('gulp-load-plugins')();
 
 // config
 var port = 8080;
+var header = '// Bu.js - https://github.com/jarvisniu/Bu.js\n';
 var paths = {
     src_scripts: [
         'src/Bu.coffee',
@@ -54,6 +55,7 @@ gulp.task('src_scripts', function () {
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.coffee())
         .pipe(plugins.concat('bu.js'))
+        .pipe(plugins.header(header))
         .pipe(plugins.sourcemaps.write())
         .pipe(gulp.dest('build/'));
 });
@@ -63,7 +65,7 @@ gulp.task('min', function () {
         .pipe(plugins.concat('bu.min.js'))
         .pipe(plugins.coffee())
         .pipe(plugins.uglify())
-        .pipe(plugins.header('// Bu.js - https://github.com/jarvisniu/Bu.js\n'))
+        .pipe(plugins.header(header))
         .pipe(gulp.dest('build/'));
 });
 
