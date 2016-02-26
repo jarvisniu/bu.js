@@ -24,7 +24,7 @@ Bu.Event = ->
 
 		if listeners?
 			eventData or= {}
-			eventData.target = this
+			eventData.target = @
 			for listener in listeners
 				listener.call this, eventData
 				if listener.once

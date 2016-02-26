@@ -23,7 +23,7 @@ class Bu.Renderer
 		@tickCount = 0
 		@isRunning = no
 
-		@pixelRatio = window?.devicePixelRatio or 1
+		@pixelRatio = Bu.global.devicePixelRatio or 1
 
 		@dom = document.createElement 'canvas'
 		@context = @dom.getContext '2d'
@@ -44,7 +44,6 @@ class Bu.Renderer
 		@dom.style.background = '#eee'
 		@dom.oncontextmenu = -> false
 
-		window.canvas = @dom
 		Bu.animationRunner?.hookUp @
 
 		onResize = =>
@@ -63,7 +62,7 @@ class Bu.Renderer
 			@render()
 
 		if @fillParent
-			window.addEventListener 'resize', onResize
+			Bu.global.window.addEventListener 'resize', onResize
 			@dom.addEventListener 'DOMNodeInserted', onResize
 
 

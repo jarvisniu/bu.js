@@ -1,13 +1,19 @@
-# namespace, constants and utility functions
+# Bu.coffee: namespace, constants, utility functions and polyfills
 
-# global object
-global = window or this
+# Save the previous value of `global` variable.
+previousGlobal = global
 
-# namespace `Bu` is also a shortcut to class `Bu.Renderer`
+# Get the root object
+global = window or @
+
+# Define our namespace `Bu`. It is also a shortcut to class `Bu.Renderer`.
 global.Bu = () -> new Bu.Renderer arguments...
 
-# save global
+# Save the root object to our namespace.
 Bu.global = global
+
+# Return back the previous global variable.
+global = previousGlobal
 
 
 ###
@@ -82,7 +88,7 @@ Bu.r2d = (r) -> (r * 180 / Math.PI).toFixed(1)
 Bu.d2r = (r) -> r * Math.PI / 180
 
 # get current time
-Bu.now = if window?.performance? then -> window.performance.now() else -> Date.now()
+Bu.now = if Bu.global.performance? then -> Bu.global.performance.now() else -> Date.now()
 
 # combine the given options (last item of arguments) with the default options
 Bu.combineOptions = (args, defaultOptions) ->
@@ -115,11 +121,21 @@ Bu.data = (key, value) ->
 # polyfill
 ###
 
-# define a property for a class
+# Shortcut to define a property for a class. This is used to solve the problem
+# that CoffeeScript didn't support getters and setters.
+# class Person
+#   @constructor: (age) ->
+#     @_age = age
+#
+#   @property 'age',
+#     get: -> @_age
+#     set: (val) ->
+#       @_age = val
+#
 Function::property = (prop, desc) ->
 	Object.defineProperty @prototype, prop, desc
 
-# throttle: limit the frequency of function call
+# Make a copy of this function which has a limited shortest executing interval.
 Function::throttle = (limit = 0.5) ->
 	currTime = 0
 	lastTime = 0
@@ -130,7 +146,8 @@ Function::throttle = (limit = 0.5) ->
 			@apply null, arguments
 			lastTime = currTime
 
-# debounce: delay the call of function
+# Make a copy of this function whose execution will be continuously put off
+# after every calling of this function.
 Function::debounce = (delay = 0.5) ->
 	args = null
 	timeout = null
@@ -144,7 +161,7 @@ Function::debounce = (delay = 0.5) ->
 		timeout = setTimeout later, delay * 1000
 
 
-# Iterate this Array and do something with the items
+# Iterate this Array and do something with the items.
 Array::each or= (fn) ->
 	i = 0
 	while i < @length
@@ -152,7 +169,7 @@ Array::each or= (fn) ->
 		i++
 	return @
 
-# Iterate this Array and map the items to a new Array
+# Iterate this Array and map the items to a new Array.
 Array::map or= (fn) ->
 	arr = []
 	i = 0
@@ -161,9 +178,9 @@ Array::map or= (fn) ->
 		i++
 	return @
 
-# Log lib info, at most one time per minute
+# Display own lib info. It will appear one time per minute at most.
 lastBootTime = Bu.data 'lastInfo'
 currentTime = Date.now()
-if not lastBootTime? or currentTime - lastBootTime > 60 * 1000
+unless lastBootTime? and currentTime - lastBootTime < 60 * 1000
 	console.info? 'Bu.js v' + Bu.VERSION + ' - [https://github.com/jarvisniu/Bu.js]'
 	Bu.data 'lastInfo', currentTime

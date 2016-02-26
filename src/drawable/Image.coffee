@@ -16,7 +16,7 @@ class Bu.Image extends Bu.Object2D
 
 		@pivot = new Bu.Vector 0.5, 0.5
 
-		@image = new window.Image
+		@image = new Bu.global.Image
 		@loaded = false
 
 		@image.onload = (e) =>

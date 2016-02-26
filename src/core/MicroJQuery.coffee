@@ -197,4 +197,4 @@
 					ops.complete xhr, xhr.status if ops.complete?
 
 		xhr.open ops.method, url, ops.async, ops.username, ops.password
-		xhr.send null) window or this
+		xhr.send null) Bu.global
