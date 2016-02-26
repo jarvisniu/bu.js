@@ -8,7 +8,7 @@ var gulp = require('gulp');
 var del = require('del');
 var open = require('open');
 
-// Gulp plugins: coffee, concat, uglify, sourcemaps, jade, stylus, liveServer
+// Gulp plugins: coffee, concat, header, uglify, sourcemaps, jade, stylus, liveServer
 var plugins = require('gulp-load-plugins')();
 
 // config
@@ -63,6 +63,7 @@ gulp.task('min', function () {
         .pipe(plugins.concat('bu.min.js'))
         .pipe(plugins.coffee())
         .pipe(plugins.uglify())
+        .pipe(plugins.header('// Bu.js - https://github.com/jarvisniu/Bu.js\n'))
         .pipe(gulp.dest('build/'));
 });
 
