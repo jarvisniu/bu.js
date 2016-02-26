@@ -47,6 +47,13 @@
       overflow: hidden;
     }
 
+    #info {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      padding: 8px 0;
+    }
+
   </style>
 </head>
 <body>
@@ -56,7 +63,7 @@
     <vertical-toolbar v-ref:toolbar></vertical-toolbar>
   </side-panel>
   <div id="container">
-    <div style="position:absolute;">
+    <div id="info">
       <label>
         <input type="checkbox" onclick="bu.isShowKeyPoints = this.checked;" checked>
         Show key points
