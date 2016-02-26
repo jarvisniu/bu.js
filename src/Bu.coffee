@@ -160,3 +160,10 @@ Array::map or= (fn) ->
 		arr.push fn(@[i])
 		i++
 	return @
+
+# Log lib info, at most one time per minute
+lastBootTime = Bu.data 'lastInfo'
+currentTime = Date.now()
+if not lastBootTime? or currentTime - lastBootTime > 60 * 1000
+	console.info? 'Bu.js v' + Bu.VERSION + ' - [https://github.com/jarvisniu/Bu.js]'
+	Bu.data 'lastInfo', currentTime
