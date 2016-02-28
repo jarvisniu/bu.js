@@ -17,40 +17,43 @@ global = previousGlobal
 
 
 ###
-# constants
+# Constants
 ###
 
-# library version
+# Version info of this library
 Bu.VERSION = '0.3.3'
 
-# shapes related
+# Default render style of shapes
 Bu.DEFAULT_STROKE_STYLE = '#048'
 Bu.DEFAULT_FILL_STYLE = 'rgba(64, 128, 192, 0.5)'
 Bu.DEFAULT_DASH_STYLE = [8, 4]
 
-# curve related
-Bu.DEFAULT_SPLINE_SMOOTH = 0.25 # range in [0 ~ 1]
-
-# interaction related
+# Default render style when then mouse is hovered on
 Bu.DEFAULT_STROKE_STYLE_HOVER = 'rgba(255, 128, 0, 0.75)'
 Bu.DEFAULT_FILL_STYLE_HOVER = 'rgba(255, 128, 128, 0.5)'
 
-# texts related
+# The default color of rendered text, PointText for now
 Bu.DEFAULT_TEXT_FILL_STYLE = 'black'
 
-# default size
-Bu.DEFAULT_IMAGE_SIZE = 20
+# Point is rendered as a small circle on screen. This is the radius of the circle.
 Bu.POINT_RENDER_SIZE = 2.25
+
+# Point can have label aside it. This is the offset distance from the point.
 Bu.POINT_LABEL_OFFSET = 5
 
-# bounds related
+# Default render style of bounds
 Bu.DEFAULT_BOUND_STROKE_STYLE = '#444'
+
+# Default dash style of bounds
 Bu.DEFAULT_BOUND_DASH_STYLE = [6, 6]
 
-# computation related
+# Default smooth factor of spline, range in [0, 1] and 1 is the smoothest
+Bu.DEFAULT_SPLINE_SMOOTH = 0.25
+
+# How close a point to a line is regarded that the point is **ON** the line.
 Bu.DEFAULT_NEAR_DIST = 5
 
-# mouse interact
+# Enumeration of mouse button
 Bu.MOUSE_BUTTON_NONE = -1
 Bu.MOUSE_BUTTON_LEFT = 0
 Bu.MOUSE_BUTTON_MIDDLE = 1
@@ -58,10 +61,10 @@ Bu.MOUSE_BUTTON_RIGHT = 2
 
 
 ###
-# utility functions
+# Utility functions
 ###
 
-# calculate the mean value of several numbers
+# Calculate the mean value of numbers
 Bu.average = ()->
 	ns = arguments
 	ns = arguments[0] if typeof arguments[0] is 'object'
@@ -70,27 +73,27 @@ Bu.average = ()->
 		sum += i
 	sum / ns.length
 
-# calculate the hypotenuse from the cathetuses
+# Calculate the hypotenuse from the cathetuses
 Bu.bevel = (x, y) ->
 	Math.sqrt x * x + y * y
 
-# generate a random number between two numbers
+# Generate a random number between two numbers
 Bu.rand = (from, to) ->
 	if not to?
 		to = from
 		from = 0
 	Math.random() * (to - from) + from
 
-# convert an angle from radian to deg
+# Convert an angle from radian to deg
 Bu.r2d = (r) -> (r * 180 / Math.PI).toFixed(1)
 
-# convert an angle from deg to radian
+# Convert an angle from deg to radian
 Bu.d2r = (r) -> r * Math.PI / 180
 
-# get current time
+# Get the current timestamp
 Bu.now = if Bu.global.performance? then -> Bu.global.performance.now() else -> Date.now()
 
-# combine the given options (last item of arguments) with the default options
+# Combine the given options (last item of arguments) with the default options
 Bu.combineOptions = (args, defaultOptions) ->
 	defaultOptions = {} if not defaultOptions?
 	givenOptions = args[args.length - 1]
@@ -99,7 +102,7 @@ Bu.combineOptions = (args, defaultOptions) ->
 			defaultOptions[i] = givenOptions[i]
 	return defaultOptions
 
-# clone an Object or Array
+# Clone an Object or Array
 Bu.clone = (target, deep = false) ->
 	# TODO deal with deep
 	if target instanceof Array
@@ -109,16 +112,16 @@ Bu.clone = (target, deep = false) ->
 		clone = {}
 		clone[i] = target[i] for own i of target
 
-# use localStorage to persist data
+# Use localStorage to persist data
 Bu.data = (key, value) ->
 	if value?
 		localStorage['Bu.' + key] = JSON.stringify value
 	else
 		value = localStorage['Bu.' + key]
-		return if value? then JSON.parse value else null
+		if value? then JSON.parse value else null
 
 ###
-# polyfill
+# Polyfill
 ###
 
 # Shortcut to define a property for a class. This is used to solve the problem
@@ -178,7 +181,7 @@ Array::map or= (fn) ->
 		i++
 	return @
 
-# Display own lib info. It will appear one time per minute at most.
+# Display version info. It will appear at most one time a minute.
 lastBootTime = Bu.data 'lastInfo'
 currentTime = Date.now()
 unless lastBootTime? and currentTime - lastBootTime < 60 * 1000

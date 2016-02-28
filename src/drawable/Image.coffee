@@ -7,7 +7,7 @@ class Bu.Image extends Bu.Object2D
 		@type = 'Image'
 
 		@autoSize = yes
-		@size = new Bu.Size Bu.DEFAULT_IMAGE_SIZE, Bu.DEFAULT_IMAGE_SIZE
+		@size = new Bu.Size
 		@translate = new Bu.Vector x, y
 		@center = new Bu.Vector x + width / 2, y + height / 2
 		if width?
