@@ -12,7 +12,7 @@ var open = require('open');
 var plugins = require('gulp-load-plugins')();
 
 // config
-var port = 8080;
+var port = 3000;
 var header = '// Bu.js - https://github.com/jarvisniu/Bu.js\n';
 var paths = {
     src_scripts: [
