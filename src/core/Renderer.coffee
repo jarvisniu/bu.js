@@ -282,15 +282,26 @@ class Bu.Renderer
 
 
 	drawPointText: (shape) ->
-		@context.textAlign = shape.textAlign
-		@context.textBaseline = shape.textBaseline
-		@context.font = shape.font
+		if typeof shape.font == 'string'
+			@context.textAlign = shape.textAlign
+			@context.textBaseline = shape.textBaseline
+			@context.font = shape.font
 
-		if shape.strokeStyle?
-			@context.strokeText shape.text, shape.x, shape.y
-		if shape.fillStyle?
-			@context.fillStyle = shape.fillStyle
-			@context.fillText shape.text, shape.x, shape.y
+			if shape.strokeStyle?
+				@context.strokeText shape.text, shape.x, shape.y
+			if shape.fillStyle?
+				@context.fillStyle = shape.fillStyle
+				@context.fillText shape.text, shape.x, shape.y
+		else if shape.font instanceof Bu.SpriteSheet and shape.font.ready
+			xOffset = 0
+			for i in [0...shape.text.length]
+				char = shape.text[i]
+				charBitmap = shape.font.getFrameImage char
+				if charBitmap?
+					@context.drawImage charBitmap, shape.x + xOffset, shape.y
+					xOffset += charBitmap.width
+				else
+					xOffset += 10
 		@
 
 
