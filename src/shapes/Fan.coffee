@@ -18,10 +18,3 @@ class Bu.Fan extends Bu.Object2D
 		]
 
 	clone: -> new Bu.Fan @cx, @cy, @radius, @aFrom, @aTo
-
-	_containsPoint: (p) ->
-		dx = p.x - @cx
-		dy = p.y - @cy
-		a = Math.atan2(p.y - @cy, p.x - @cx)
-		a += Math.PI * 2 while a < @aFrom
-		return Bu.bevel(dx, dy) < @radius && a > @aFrom && a < @aTo

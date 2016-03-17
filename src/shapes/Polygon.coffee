@@ -83,14 +83,6 @@ class Bu.Polygon extends Bu.Object2D
 			@vertices.splice(insertIndex, 0, point)
 	# TODO add lines and triangles
 
-	# point related
-
-	_containsPoint: (p) ->
-		for triangle in @triangles
-			if triangle.containsPoint p
-				return true
-		return false
-
 	@generateRegularPoints = (cx, cy, radius, n, options) ->
 		angleDelta = options.angle
 		r = radius

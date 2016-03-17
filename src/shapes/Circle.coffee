@@ -42,9 +42,3 @@ class Bu.Circle extends Bu.Object2D
 			@_radius = val
 			@trigger 'radiusChanged', @
 			@
-
-	# point related
-	_containsPoint: (p) ->
-		dx = p.x - @cx
-		dy = p.y - @cy
-		return Bu.bevel(dx, dy) < @radius

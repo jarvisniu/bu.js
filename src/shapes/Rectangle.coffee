@@ -25,9 +25,3 @@ class Bu.Rectangle extends Bu.Object2D
 			@keyPoints = if val > 0 then [] else @points
 
 	clone: -> new Bu.Rectangle @position.x, @position.y, @size.width, @size.height
-
-	containsPoint: (point) ->
-		return point.x > @position.x and
-				point.y > @position.y and
-				point.x < @position.x + @size.width and
-				point.y < @position.y + @size.height

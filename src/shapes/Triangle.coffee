@@ -22,13 +22,3 @@ class Bu.Triangle extends Bu.Object2D
 		@keyPoints = @points
 
 	clone: => new Bu.Triangle @points[0], @points[1], @points[2]
-
-	# TODO test
-	area: () ->
-		[a, b, c] = @points
-		return Math.abs(((b.x - a.x) * (c.y - a.y)) - ((c.x - a.x) * (b.y - a.y))) / 2
-
-	_containsPoint: (p) ->
-		return @lines[0].isTwoPointsSameSide(p, @points[2]) and
-				@lines[1].isTwoPointsSameSide(p, @points[0]) and
-				@lines[2].isTwoPointsSameSide(p, @points[1])
