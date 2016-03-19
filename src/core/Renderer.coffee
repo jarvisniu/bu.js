@@ -96,10 +96,10 @@ class Bu.Renderer
 	toggle: ->
 		@isRunning = not @isRunning
 
-#	processArgs: (e) ->
-#		offsetX: e.offsetX * @pixelRatio
-#		offsetY: e.offsetY * @pixelRatio
-#		button: e.button
+	#	processArgs: (e) ->
+	#		offsetX: e.offsetX * @pixelRatio
+	#		offsetY: e.offsetY * @pixelRatio
+	#		button: e.button
 
 	append: (shape) ->
 		if shape instanceof Array
@@ -164,7 +164,8 @@ class Bu.Renderer
 			when 'PointText' then @drawPointText shape
 			when 'Image' then @drawImage shape
 			when 'Bounds' then @drawBounds shape
-			else console.log 'drawShapes(): unknown shape: ', shape
+			else
+				console.log 'drawShapes(): unknown shape: ', shape
 
 
 		if shape.fillStyle?
@@ -271,12 +272,12 @@ class Bu.Renderer
 				@context.moveTo shape.vertices[0].x, shape.vertices[0].y
 				for i in [1..len - 1]
 					@context.bezierCurveTo(
-						shape.controlPointsBehind[i - 1].x,
-						shape.controlPointsBehind[i - 1].y,
-						shape.controlPointsAhead[i].x,
-						shape.controlPointsAhead[i].y,
-						shape.vertices[i].x,
-						shape.vertices[i].y
+							shape.controlPointsBehind[i - 1].x
+							shape.controlPointsBehind[i - 1].y
+							shape.controlPointsAhead[i].x
+							shape.controlPointsAhead[i].y
+							shape.vertices[i].x
+							shape.vertices[i].y
 					)
 		@
 
@@ -293,12 +294,20 @@ class Bu.Renderer
 				@context.fillStyle = shape.fillStyle
 				@context.fillText shape.text, shape.x, shape.y
 		else if shape.font instanceof Bu.SpriteSheet and shape.font.ready
-			xOffset = 0
+			textWidth = shape.font.measureTextWidth shape.text
+			xOffset = switch shape.textAlign
+				when 'left' then 0
+				when 'center' then -textWidth / 2
+				when 'right' then -textWidth
+			yOffset = switch shape.textBaseline
+				when 'top' then 0
+				when 'middle' then -shape.font.height / 2
+				when 'bottom' then -shape.font.height
 			for i in [0...shape.text.length]
 				char = shape.text[i]
 				charBitmap = shape.font.getFrameImage char
 				if charBitmap?
-					@context.drawImage charBitmap, shape.x + xOffset, shape.y
+					@context.drawImage charBitmap, shape.x + xOffset, shape.y + yOffset
 					xOffset += charBitmap.width
 				else
 					xOffset += 10

@@ -21,8 +21,9 @@ html(lang="en")
     script(type="text/javascript").
 
       var bu;
-      var pointText;
+      var pointText, pivot;
       var fontSheet;
+      var x = 300, y = 200;
 
       var url = 'assets/sprite-sheets/nes-font.json';
       var text = 'Hello, Bu.js!';
@@ -35,9 +36,12 @@ html(lang="en")
         });
 
         pointText = new Bu.PointText();
-        pointText.translate.x = 300;
-        pointText.translate.y = 200;
+        pointText.translate.x = x;
+        pointText.translate.y = y;
         bu.append(pointText);
+
+        pivot = new Bu.Circle(x, y, 15);
+        bu.append(pivot);
 
         fontSheet = new Bu.SpriteSheet(url);
         pointText.font = fontSheet;
@@ -56,4 +60,20 @@ html(lang="en")
       br
       label Input your text:
         input(id="text" type="text" onkeyup="updateText(this.value);")
+      br
+      span Horizontal Align:
+        input#vAlignL(type="radio", name="vAlign", onclick="pointText.textAlign='left';")
+        label(for="vAlignL") left
+        input#vAlignC(type="radio", name="vAlign", onclick="pointText.textAlign='center';", checked)
+        label(for="vAlignC") center
+        input#vAlignR(type="radio", name="vAlign", onclick="pointText.textAlign='right';")
+        label(for="vAlignR") right
+      br
+      span Vertical Align:
+        input#hAlignT(type="radio", name="hAlign", onclick="pointText.textBaseline='top';")
+        label(for="hAlignT") top
+        input#hAlignM(type="radio", name="hAlign", onclick="pointText.textBaseline='middle';", checked)
+        label(for="hAlignM") middle
+        input#hAlignB(type="radio", name="hAlign", onclick="pointText.textBaseline='bottom';")
+        label(for="hAlignB") bottom
     div#container

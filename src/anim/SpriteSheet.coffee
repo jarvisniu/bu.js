@@ -6,6 +6,7 @@ class Bu.SpriteSheet
 		Bu.Event.apply @
 
 		@ready = no # If this sprite sheet is loaded and parsed.
+		@height = 0 # Height of this sprite
 
 		@data = null # The JSON data
 		@images = [] # The `Image` list loaded
@@ -42,6 +43,7 @@ class Bu.SpriteSheet
 			h = frames[i][3]
 			frameIndex = frames[i][4]
 			@frameImages[i] = clipImage @images[frameIndex], x, y, w, h
+			@height = h if @height == 0
 
 		@ready = yes
 		@trigger 'loaded'
@@ -51,6 +53,12 @@ class Bu.SpriteSheet
 		return null unless animation?
 
 		return @frameImages[animation.frames[index]]
+
+	measureTextWidth: (text) ->
+		width = 0
+		for char in text
+			width += @getFrameImage(char).width
+		width
 
 	# Static members
 
