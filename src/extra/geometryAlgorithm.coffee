@@ -38,8 +38,8 @@ Bu.geometryAlgorithm = G =
 				G.distanceFromPointToLine point, @
 			Bu.Line::isTwoPointsSameSide = (p1, p2) ->
 				G.twoPointsSameSideOfLine p1, p2, @
-			Bu.Line::footPointFrom = (point) ->
-				G.footPointFromPointToLine point, @
+			Bu.Line::footPointFrom = (point, saveTo) ->
+				G.footPointFromPointToLine point, @, saveTo
 			Bu.Line::getCrossPointWith = (line) ->
 				G.getCrossPointOfTwoLines line, @
 			Bu.Line::isCrossWithLine = (line) ->
@@ -114,14 +114,14 @@ Bu.geometryAlgorithm = G =
 				point.y < rectangle.position.y + rectangle.size.height
 
 	pointInTriangle: (point, triangle) ->
-		G.twoPointsSameSideOfLine(triangle.lines[0], triangle.points[2]) and
-				G.twoPointsSameSideOfLine(triangle.lines[1], triangle.points[0]) and
-				G.twoPointsSameSideOfLine(triangle.lines[2], triangle.points[1])
+		G.twoPointsSameSideOfLine(point, triangle.points[2], triangle.lines[0]) and
+				G.twoPointsSameSideOfLine(point, triangle.points[0], triangle.lines[1]) and
+				G.twoPointsSameSideOfLine(point, triangle.points[1], triangle.lines[2])
 
 	pointInFan: (point, fan) ->
-		dx = p.x - fan.cx
-		dy = p.y - fan.cy
-		a = Math.atan2(p.y - fan.cy, p.x - fan.cx)
+		dx = point.x - fan.cx
+		dy = point.y - fan.cy
+		a = Math.atan2(point.y - fan.cy, point.x - fan.cx)
 		a += Math.PI * 2 while a < fan.aFrom
 		return Bu.bevel(dx, dy) < fan.radius && a > fan.aFrom && a < fan.aTo
 
@@ -135,7 +135,7 @@ Bu.geometryAlgorithm = G =
 
 	pointInPolygon: (point, polygon) ->
 		for triangle in polygon.triangles
-			if triangle.containsPoint p
+			if triangle.containsPoint point
 				return true
 		false
 
