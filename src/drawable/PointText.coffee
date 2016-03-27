@@ -28,7 +28,11 @@ class Bu.PointText extends Bu.Object2D
 		@_fontSize = options.fontSize
 		@font = "#{ @_fontSize }px #{ @_fontFamily }" or options.font
 
-		@setContextAlign @align
+	@property 'align',
+		get: -> @_align
+		set: (val) ->
+			@_align = val
+			@setContextAlign @_align
 
 	@property 'fontFamily',
 		get: -> @_fontFamily
