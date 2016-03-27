@@ -26,14 +26,12 @@ AStar.NetGrid = (w, h) ->
 		@startNode = node
 		node.state = AStar.NODE_STATE_START
 		@engine.trigger 'nodeChanged', node.position
-		return
 
 	@setEnd = (x, y) ->
 		node = @getNode(x, y)
 		@endNode = node
 		node.state = AStar.NODE_STATE_END
 		@engine.trigger 'nodeChanged', node.position
-		return
 
 	# getters
 

@@ -13,7 +13,7 @@ class Bu.Line extends Bu.Object2D
 		else  # len >= 4
 			@points = [new Bu.Point(p1, p2), new Bu.Point(p3, p4)]
 
-		@length
+		@length = 0
 		@midpoint = new Bu.Point()
 		@keyPoints = @points
 
