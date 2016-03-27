@@ -164,6 +164,7 @@ class Bu.Renderer
 			when 'PointText' then @drawPointText shape
 			when 'Image' then @drawImage shape
 			when 'Bounds' then @drawBounds shape
+			when 'Group' # then do nothing
 			else
 				console.log 'drawShapes(): unknown shape: ', shape
 
