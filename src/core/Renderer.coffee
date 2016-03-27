@@ -13,6 +13,7 @@ class Bu.Renderer
 			fillParent: off
 			showKeyPoints: no
 			border: off
+			background: '#eee'
 		@width = options.width
 		@height = options.height
 		@fps = options.fps
@@ -41,7 +42,7 @@ class Bu.Renderer
 		@dom.style.border = 'solid 1px gray' if options.border? and options.border
 		@dom.style.cursor = 'crosshair'
 		@dom.style.boxSizing = 'content-box'
-		@dom.style.background = '#eee'
+		@dom.style.background = options.background
 		@dom.oncontextmenu = -> false
 
 		Bu.animationRunner?.hookUp @
