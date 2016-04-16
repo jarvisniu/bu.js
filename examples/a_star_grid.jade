@@ -93,7 +93,7 @@ html
                     GRID_SIZE,
                     GRID_SIZE
             );
-            bu.append(rectRows[i][j]);
+            bu.add(rectRows[i][j]);
           }
         }
 
@@ -109,7 +109,7 @@ html
             );
             //lineRows[i][j].stroke("rgba(0, 128, 255, 0.5");
             lineRows[i][j].lineWidth = 0.5;
-            bu.append(lineRows[i][j]);
+            bu.add(lineRows[i][j]);
           }
         }
 
@@ -141,9 +141,9 @@ html
             labelGRows[i][j].fontFamily =
                     labelHRows[i][j].fontFamily =
                             labelFRows[i][j].fontFamily = "SimSun";
-            bu.append(labelGRows[i][j]);
-            bu.append(labelHRows[i][j]);
-            bu.append(labelFRows[i][j]);
+            bu.add(labelGRows[i][j]);
+            bu.add(labelHRows[i][j]);
+            bu.add(labelFRows[i][j]);
             refreshNode(i, j);
           }
         }
@@ -155,7 +155,7 @@ html
                   MARGIN + OFFSET * i + GRID_SIZE / 2,
                   MARGIN / 2
           );
-          bu.append(axisTextX[i]);
+          bu.add(axisTextX[i]);
         }
         for (i = 0; i < yCount; i++) {
           axisTextY[i] = new Bu.PointText(
@@ -163,7 +163,7 @@ html
                   MARGIN / 2,
                   MARGIN + OFFSET * i + GRID_SIZE / 2
           );
-          bu.append(axisTextY[i]);
+          bu.add(axisTextY[i]);
         }
 
         engine.on("nodeChanged", function (e) {

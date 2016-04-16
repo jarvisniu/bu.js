@@ -20,7 +20,7 @@ class Bu.DrawFreelineReactor extends Bu.ReactorBase
 			if mouseButton == Bu.MOUSE_BUTTON_LEFT
 				polyline = new Bu.Polyline
 				polyline.stroke Bu.DEFAULT_STROKE_STYLE_HOVER
-				@bu.append polyline
+				@bu.add polyline
 
 		@onMouseMove = (e) =>
 			mousePos.set e.offsetX, e.offsetY

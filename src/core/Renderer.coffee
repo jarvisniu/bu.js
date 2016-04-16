@@ -102,13 +102,17 @@ class Bu.Renderer
 	#		offsetY: e.offsetY * @pixelRatio
 	#		button: e.button
 
-	append: (shape) ->
+	add: (shape) ->
 		if shape instanceof Array
 			@shapes.push s for s in shape
 		else
 			@shapes.push shape
 		@
 
+	remove: (shape) ->
+		index = @shapes.indexOf shape
+		@shapes.splice index, 1 if index > -1
+		@
 
 	render: ->
 		@context.save()

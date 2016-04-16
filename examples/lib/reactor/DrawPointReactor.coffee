@@ -16,7 +16,7 @@ class Bu.DrawPointReactor extends Bu.ReactorBase
 			mouseButton = e.button
 
 			drawingPoint = new Bu.Point e.offsetX, e.offsetY
-			@bu.append drawingPoint
+			@bu.add drawingPoint
 
 		@onMouseMove = (e) =>
 			mousePos.set e.offsetX, e.offsetY

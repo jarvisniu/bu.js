@@ -52,9 +52,9 @@ html(lang="en")
         polylineMorph = new Bu.PolylineMorph(polylineA, polylineB);
         polylineMorph.polyline.stroke("purple");
 
-        bu.append(polylineA);
-        bu.append(polylineB);
-        bu.append(polylineMorph.polyline);
+        bu.add(polylineA);
+        bu.add(polylineB);
+        bu.add(polylineMorph.polyline);
 
         splineA = new Bu.Spline(polylineA);
         splineB = new Bu.Spline(polylineB).stroke("red");
@@ -62,9 +62,9 @@ html(lang="en")
 
         splineA.visible = splineB.visible = splineM.visible = false;
 
-        bu.append(splineA);
-        bu.append(splineB);
-        bu.append(splineM);
+        bu.add(splineA);
+        bu.add(splineB);
+        bu.add(splineM);
 
         refreshLabel();
 

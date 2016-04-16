@@ -22,18 +22,18 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 				if not polygon?
 					polygon = new Bu.Polygon
 					polygon.fill(Bu.DEFAULT_FILL_STYLE_HOVER)
-					@bu.append polygon
+					@bu.add polygon
 
 				if not guideLineEnd?
 					guideLineEnd = new Bu.Line mousePos, mousePos
 					guideLineEnd.stroke Bu.DEFAULT_STROKE_STYLE_HOVER
 					guideLineEnd.dash()
-					@bu.append guideLineEnd
+					@bu.add guideLineEnd
 
 					guideLineStart = new Bu.Line mousePos, mousePos
 					guideLineStart.stroke Bu.DEFAULT_STROKE_STYLE_HOVER
 					guideLineStart.dash()
-					@bu.append guideLineStart
+					@bu.add guideLineStart
 				else if guideLineEnd.visible == off
 					guideLineEnd.setPoint1 mousePos
 					guideLineEnd.setPoint2 mousePos

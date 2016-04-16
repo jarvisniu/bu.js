@@ -36,11 +36,11 @@ html
         });
         generator = new Bu.RandomShapeGenerator(bu);
         line = generator.generateLine();
-        bu.append(line);
+        bu.add(line);
         lineVertical = new Bu.Line();
         lineVertical.dash();
         lineVertical.points[1].label = "T";
-        bu.append(lineVertical);
+        bu.add(lineVertical);
         bu.dom.addEventListener("mouseup", onMouseUp);
         bu.dom.addEventListener("mousemove", onMouseMove);
       }

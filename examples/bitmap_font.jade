@@ -38,10 +38,10 @@ html(lang="en")
         pointText = new Bu.PointText();
         pointText.translate.x = x;
         pointText.translate.y = y;
-        bu.append(pointText);
+        bu.add(pointText);
 
         pivot = new Bu.Circle(x, y, 15);
-        bu.append(pivot);
+        bu.add(pivot);
 
         fontSheet = new Bu.SpriteSheet(url);
         pointText.font = fontSheet;
