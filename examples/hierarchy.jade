@@ -35,14 +35,14 @@ html(lang="en")
 
         sun = new Bu.Circle(0, 0, 40);
         sun.fill("#F40").stroke("#820");
-        sun.translate.set(300, 300);
+        sun.position.set(300, 300);
 
         earth = new Bu.Circle(0, 0, 20);
         earth.fill("#06F").stroke("#038");
-        earth.translate.x = 150;
+        earth.position.x = 150;
 
         moon = new Bu.Circle(0, 0, 10);
-        moon.translate.x = 50;
+        moon.position.x = 50;
         moon.fill("#FF0").stroke("#880");
 
         earth.children.push(moon);

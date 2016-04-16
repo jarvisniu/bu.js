@@ -9,7 +9,7 @@ class Bu.Object2D
 		@visible = yes
 		@opacity = 1
 
-		@translate = new Bu.Vector
+		@position = new Bu.Vector
 		@rotation = 0
 		@_scale = new Bu.Vector 1, 1
 		@skew = new Bu.Vector

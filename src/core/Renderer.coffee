@@ -137,7 +137,7 @@ class Bu.Renderer
 	drawShape: (shape) =>
 		return @ unless shape.visible
 
-		@context.translate shape.translate.x, shape.translate.y
+		@context.translate shape.position.x, shape.position.y
 		@context.rotate shape.rotation
 		sx = shape.scale.x
 		sy = shape.scale.y
@@ -217,14 +217,14 @@ class Bu.Renderer
 
 	drawRectangle: (shape) ->
 		return @drawRoundRectangle shape if shape.cornerRadius != 0
-		@context.rect shape.position.x, shape.position.y, shape.size.width, shape.size.height
+		@context.rect shape.pointLT.x, shape.pointLT.y, shape.size.width, shape.size.height
 		@
 
 
 	drawRoundRectangle: (shape) ->
-		x1 = shape.position.x
+		x1 = shape.pointLT.x
 		x2 = shape.pointRB.x
-		y1 = shape.position.y
+		y1 = shape.pointLT.y
 		y2 = shape.pointRB.y
 		r = shape.cornerRadius
 

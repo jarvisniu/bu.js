@@ -42,8 +42,8 @@ html(lang="en")
 
         bunny = new Bu.Image(imageUrl);
         bunny.scale = 2;
-        bunny.translate.x = bu.width / 2;
-        bunny.translate.y = bu.height / 2;
+        bunny.position.x = bu.width / 2;
+        bunny.position.y = bu.height / 2;
 
         bu.add(bunny);
 
@@ -51,20 +51,20 @@ html(lang="en")
         animHelical = new Bu.Animation({
           duration: 2,
           init: function (anim) {
-            anim.data.ox = this.translate.x;
-            anim.data.oy = this.translate.y;
+            anim.data.ox = this.position.x;
+            anim.data.oy = this.position.y;
             anim.data.or = this.rotation;
           },
           update: function (t, data) {
             var theta = Math.PI * 8 * t;
             var radius = 300 * t;
-            this.translate.x = radius * Math.cos(theta) + data.ox;
-            this.translate.y = radius * Math.sin(theta) + data.oy;
+            this.position.x = radius * Math.cos(theta) + data.ox;
+            this.position.y = radius * Math.sin(theta) + data.oy;
             this.rotation = theta;
           },
           finish: function (anim) {
-            this.translate.x = anim.data.ox;
-            this.translate.y = anim.data.oy;
+            this.position.x = anim.data.ox;
+            this.position.y = anim.data.oy;
             this.rotation = anim.data.or;
           }
         });

@@ -72,15 +72,15 @@ Bu.geometryAlgorithm = G =
 				G.pointInPolygon point, @
 
 		if 'polyline' in shapes
-			Bu.Polygon::length = 0
-			Bu.Polygon::pointNormalizedPos = []
-			Bu.Polygon::calcLength = () ->
+			Bu.Polyline::length = 0
+			Bu.Polyline::pointNormalizedPos = []
+			Bu.Polyline::calcLength = () ->
 				@length = G.calcPolylineLength @
-			Bu.Polygon::calcPointNormalizedPos = ->
+			Bu.Polyline::calcPointNormalizedPos = ->
 				G.calcNormalizedVerticesPosOfPolyline @
-			Bu.Polygon::getNormalizedPos = (index) ->
+			Bu.Polyline::getNormalizedPos = (index) ->
 				if index? then @pointNormalizedPos[index] else @pointNormalizedPos
-			Bu.Polygon::compress = (strength = 0.8) ->
+			Bu.Polyline::compress = (strength = 0.8) ->
 				G.compressPolyline @, strength
 
 	# Point in shapes
@@ -108,10 +108,10 @@ Bu.geometryAlgorithm = G =
 		return Bu.bevel(dx, dy) < circle.radius
 
 	pointInRectangle: (point, rectangle) ->
-		point.x > rectangle.position.x and
-				point.y > rectangle.position.y and
-				point.x < rectangle.position.x + rectangle.size.width and
-				point.y < rectangle.position.y + rectangle.size.height
+		point.x > rectangle.pointLT.x and
+				point.y > rectangle.pointLT.y and
+				point.x < rectangle.pointLT.x + rectangle.size.width and
+				point.y < rectangle.pointLT.y + rectangle.size.height
 
 	pointInTriangle: (point, triangle) ->
 		G.twoPointsSameSideOfLine(point, triangle.points[2], triangle.lines[0]) and

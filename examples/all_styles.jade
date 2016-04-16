@@ -75,7 +75,7 @@ html(lang="en")
         bu.shapes[6] = bu.shapes[0].clone();
 
         bu.shapes[6].children.push(bu.shapes[0].clone());
-        bu.shapes[6].children[0].translate.x = 100;
+        bu.shapes[6].children[0].position.x = 100;
 
         bu.shapes[6].children.push(new Bu.PointText('.dashStyle', -100, 0));
         bu.shapes[6].children.push(new Bu.PointText('=[10, 10]', 0, 40));
@@ -100,10 +100,10 @@ html(lang="en")
         bu.shapes[8].lineJoin = 'round';
 
         // arrange
-        bu.shapes[0].translate.set(50, 90 * 3);
-        bu.shapes[1].translate.set(50, 90 * 6.5);
+        bu.shapes[0].position.set(50, 90 * 3);
+        bu.shapes[1].position.set(50, 90 * 6.5);
         for (var i = 2; i < 9; i++) {
-          bu.shapes[i].translate.set(300, 90 * i - 90);
+          bu.shapes[i].position.set(300, 90 * i - 90);
         }
 
         bu.on('update', function (frameCount) {

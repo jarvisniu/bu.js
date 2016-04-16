@@ -58,10 +58,10 @@ Bu.animations =
 
 	shake: new Bu.Animation
 		init: (anim, arg) ->
-			anim.data.ox = @translate.x
+			anim.data.ox = @position.x
 			anim.data.range = arg or 20
 		update: (t, data) ->
-			@translate.x = Math.sin(t * Math.PI * 8) * data.range + data.ox
+			@position.x = Math.sin(t * Math.PI * 8) * data.range + data.ox
 
 	# toggle: detect and save original status
 
@@ -108,19 +108,19 @@ Bu.animations =
 	moveTo: new Bu.Animation
 		init: (anim, args) ->
 			if args?
-				anim.from = @translate.x
+				anim.from = @position.x
 				anim.to = args
 			else
 				console.error 'animation moveTo need an argument'
 		update: (data) ->
-			@translate.x = data
+			@position.x = data
 
 	moveBy: new Bu.Animation
 		init: (anim, args) ->
 			if args?
-				anim.from = @translate.x
-				anim.to = @translate.x + parseFloat(args)
+				anim.from = @position.x
+				anim.to = @position.x + parseFloat(args)
 			else
 				console.error 'animation moveTo need an argument'
 		update: (data) ->
-			@translate.x = data
+			@position.x = data
