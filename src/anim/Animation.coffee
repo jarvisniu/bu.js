@@ -7,7 +7,8 @@ class Bu.Animation
 		@to = options.to
 		@data = options.data or {}
 		@duration = options.duration or 0.5
-		@repeat = if options.repeat? then options.repeat else false
+		@easing = options.easing or false
+		@repeat = !!options.repeat
 		@init = options.init
 		@update = options.update
 		@finish = options.finish

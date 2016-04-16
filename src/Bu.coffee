@@ -23,6 +23,10 @@ global = previousGlobal
 # Version info of this library
 Bu.VERSION = '0.3.3'
 
+# Math
+Bu.HALF_PI = Math.PI / 2
+Bu.TWO_PI = Math.PI * 2
+
 # Default render style of shapes
 Bu.DEFAULT_STROKE_STYLE = '#048'
 Bu.DEFAULT_FILL_STYLE = 'rgba(64, 128, 192, 0.5)'
