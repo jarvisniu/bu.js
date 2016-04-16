@@ -13,7 +13,7 @@ A JavaScript 2D graphics library based on HTML5 Canvas
 ## Features
 
 - Easy-to-use API
-- Rich shape types and geometry algorithm
+- Emphasize geometry
 - High-definition screen supported
 - Modularization design made it easy to customise and extend
 
@@ -39,17 +39,15 @@ A JavaScript 2D graphics library based on HTML5 Canvas
     - `math/` - Math related stuff like vector and matrix
     - `shapes/` - Shape representation and geometry computation algorithm
     - `drawable/` - Other thing like Image, Text etc. that can be displayed on the screen
-    - `anim/` - Animation system of this lib
+    - `anim/` - Animation system
     - `extra/` - Utils components
 
 
 ## Credits
 
 - **Three.js** for inspirations and API style
-- **CoffeeScript** for elegant grammar for JavaScript
-- **Gulp** for extremely handy build tool
-- **Jade** for elegant HTML
-- **Stylus** for simplification to CSS
+- **CoffeeScript** for providing an elegant way to write JavaScript
+- **Gulp** for handy building
 
 
 ## License
