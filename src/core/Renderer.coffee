@@ -12,7 +12,6 @@ class Bu.Renderer
 			fps: 60
 			fillParent: off
 			showKeyPoints: no
-			border: off
 			background: '#eee'
 		@width = options.width
 		@height = options.height
@@ -39,7 +38,6 @@ class Bu.Renderer
 			@dom.style.height = @height + 'px'
 			@dom.width = @width * @pixelRatio
 			@dom.height = @height * @pixelRatio
-		@dom.style.border = 'solid 1px gray' if options.border? and options.border
 		@dom.style.cursor = 'crosshair'
 		@dom.style.boxSizing = 'content-box'
 		@dom.style.background = options.background

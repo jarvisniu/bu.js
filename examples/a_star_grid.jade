@@ -1,19 +1,24 @@
 doctype html
 html
   head
-    meta(charset='utf-8')
+    meta(charset="utf-8")
     title AStar Grid
     style.
+      
+      #container {
+        display: inline-flex;
+        border: solid 1px gray;
+      }
 
       #toolbar {
         padding-bottom: 8px;
       }
 
-    script(src='../build/bu.js')
-    script(src='./lib/a-star/AStar.js')
-    script(src='./lib/a-star/Node.js')
-    script(src='./lib/a-star/Engine.js')
-    script(src='./lib/a-star/NetGrid.js')
+    script(src="../build/bu.js")
+    script(src="./lib/a-star/AStar.js")
+    script(src="./lib/a-star/Node.js")
+    script(src="./lib/a-star/Engine.js")
+    script(src="./lib/a-star/NetGrid.js")
     script.
 
       // net info
@@ -58,7 +63,7 @@ html
 
         // append dom
         bu = new Bu({
-          container: document.body,
+          container: "#container",
           border: true,
           showKeyPoints: false,
           width: OFFSET * net.width + MARGIN * 2,
@@ -269,3 +274,4 @@ html
       button#btnRun Run
       button#btnRunSlowly Run slowly
       button#btnNextStep Next step
+    #container

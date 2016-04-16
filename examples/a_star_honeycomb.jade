@@ -1,19 +1,24 @@
 doctype html
 html
   head
-    meta(charset='utf-8')
+    meta(charset="utf-8")
     title AStar Honeycomb
     style.
+
+      #container {
+        display: inline-flex;
+        border: solid 1px gray;
+      }
 
       #toolbar {
         padding-bottom: 8px;
       }
 
-    script(src='../build/bu.js')
-    script(src='./lib/a-star/AStar.js')
-    script(src='./lib/a-star/Node.js')
-    script(src='./lib/a-star/Engine.js')
-    script(src='./lib/a-star/NetHoneycomb.js')
+    script(src="../build/bu.js")
+    script(src="./lib/a-star/AStar.js")
+    script(src="./lib/a-star/Node.js")
+    script(src="./lib/a-star/Engine.js")
+    script(src="./lib/a-star/NetHoneycomb.js")
     script.
 
       // net info
@@ -54,24 +59,23 @@ html
         net.setEnd(END_POS.x, END_POS.y);
 
         bu = new Bu({
-          container: document.body,
-          border: true,
+          container: '#container',
           showKeyPoints: false,
           width: MARGIN * 2 + getCentralX(net.width - 1, net.height - 1) - OFFSET_X / 2,
           height: MARGIN * 2 + getCentralY(net.width - 1, net.height - 1) - OFFSET_Y / 2
         });
-        bu.dom.addEventListener("mousedown", onMouseDown);
-        bu.dom.addEventListener("mousemove", onMouseMove);
-        bu.dom.addEventListener("mouseup", onMouseUp);
+        bu.dom.addEventListener('mousedown', onMouseDown);
+        bu.dom.addEventListener('mousemove', onMouseMove);
+        bu.dom.addEventListener('mouseup', onMouseUp);
 
         // bind events
-        $("#btnRun").on("click", function () {
+        $('#btnRun').on('click', function () {
           engine.run();
         });
-        $("#btnRunSlowly").on("click", function () {
+        $('#btnRunSlowly').on('click', function () {
           engine.run(10);
         });
-        $("#btnNextStep").on("click", function () {
+        $('#btnNextStep').on('click', function () {
           engine.step();
         });
 
@@ -100,7 +104,7 @@ html
             cx = getCentralX(i, j);
             cy = getCentralY(i, j);
             lineRows[i][j] = new Bu.Line(cx, cy, cx, cy);
-            //lineRows[i][j].stroke("rgba(0, 128, 255, 0.5");
+            //lineRows[i][j].stroke('rgba(0, 128, 255, 0.5');
             lineRows[i][j].lineWidth = 0.5;
             bu.add(lineRows[i][j]);
           }
@@ -115,27 +119,27 @@ html
           for (j = 0; j < yCount; j++) {
             cx = getCentralX(i, j);
             cy = getCentralY(i, j);
-            labelGRows[i][j] = new Bu.PointText("",
+            labelGRows[i][j] = new Bu.PointText('',
                     cx - OFFSET_X / 2 + 3,
                     cy,
-                    {align: "++"}
+                    {align: '++'}
             );
-            labelHRows[i][j] = new Bu.PointText("",
+            labelHRows[i][j] = new Bu.PointText('',
                     cx + OFFSET_X / 2 - 3,
                     cy,
-                    {align: "-+"}
+                    {align: '-+'}
             );
-            labelFRows[i][j] = new Bu.PointText("",
+            labelFRows[i][j] = new Bu.PointText('',
                     cx,
                     cy - GRID_SIZE / 4,
-                    {align: "00"}
+                    {align: '00'}
             );
 
             labelGRows[i][j].fillStyle =
-                    labelHRows[i][j].fillStyle = "#666";
+                    labelHRows[i][j].fillStyle = '#666';
             labelGRows[i][j].fontFamily =
                     labelHRows[i][j].fontFamily =
-                            labelFRows[i][j].fontFamily = "SimSun";
+                            labelFRows[i][j].fontFamily = 'SimSun';
             bu.add(labelGRows[i][j]);
             bu.add(labelHRows[i][j]);
             bu.add(labelFRows[i][j]);
@@ -161,13 +165,13 @@ html
           bu.add(axisTextY[i]);
         }
 
-        engine.on("nodeChanged", function (e) {
+        engine.on('nodeChanged', function (e) {
           refreshNode(e.x, e.y);
         });
 
-        engine.on("finished", function (e) {
+        engine.on('finished', function (e) {
           console.log('result: ', e);
-          if (!e.success) alert("no solution!");
+          if (!e.success) alert('no solution!');
         });
       }
 
@@ -176,7 +180,7 @@ html
 
         var rect = hexagonRows[i][j];
 
-        rect.strokeStyle = "gray";
+        rect.strokeStyle = 'gray';
         rect.fillStyle = AStar.getStateColor(node.state);
 
         // draw path with prevNode
@@ -238,7 +242,7 @@ html
           isClearing = true;
         }
 
-        engine.trigger("nodeChanged", node.position);
+        engine.trigger('nodeChanged', node.position);
       }
 
       function onMouseMove(e) {
@@ -258,7 +262,7 @@ html
               node.state = AStar.NODE_STATE_OBSTACLE;
           }
 
-          engine.trigger("nodeChanged", node.position);
+          engine.trigger('nodeChanged', node.position);
         }
       }
 
@@ -272,3 +276,4 @@ html
       button#btnRun Run
       button#btnRunSlowly Run slowly
       button#btnNextStep Next step
+    #container
