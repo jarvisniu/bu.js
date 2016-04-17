@@ -29,7 +29,7 @@ class Bu.RandomShapeGenerator
 			else console.warn 'not support shape: ' + type
 
 	generateCircle: ->
-		circle = new Bu.Circle @randomX(), @randomY(), @randomRadius()
+		circle = new Bu.Circle @randomRadius(), @randomX(), @randomY()
 		circle.center.label = 'O'
 		return circle
 

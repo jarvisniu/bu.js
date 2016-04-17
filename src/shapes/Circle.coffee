@@ -2,7 +2,7 @@
 
 class Bu.Circle extends Bu.Object2D
 
-	constructor: (cx = 0, cy = 0, @_radius = 1) ->
+	constructor: (@_radius = 1, cx = 0, cy = 0) ->
 		super()
 		@type = 'Circle'
 
@@ -11,7 +11,7 @@ class Bu.Circle extends Bu.Object2D
 
 		@keyPoints = [@_center]
 
-	clone: () -> new Bu.Circle @cx, @cy, @radius
+	clone: () -> new Bu.Circle @radius, @cx, @cy
 
 	# property
 

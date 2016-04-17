@@ -19,7 +19,7 @@ class Bu.Bounds
 				for v in @target.points
 					@expandByPoint(v)
 			when 'Circle', 'Bow', 'Fan'
-				@expandByCircle(@target)
+				@expandByCircle @target
 				@target.on 'centerChanged', =>
 					@clear()
 					@expandByCircle @target

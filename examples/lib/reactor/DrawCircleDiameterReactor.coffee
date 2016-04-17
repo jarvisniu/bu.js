@@ -21,7 +21,7 @@ class Bu.DrawCircleDiameterReactor extends Bu.ReactorBase
 				isConfirmed = yes
 			else
 				mousePosDown.set e.offsetX, e.offsetY
-				circle = new Bu.Circle mousePosDown.x, mousePosDown.y, 1
+				circle = new Bu.Circle 1, mousePosDown.x, mousePosDown.y
 				@bu.add circle
 
 				line = new Bu.Line mousePosDown, mousePosDown
