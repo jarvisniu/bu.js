@@ -124,3 +124,10 @@ Bu.animations =
 				console.error 'animation moveTo need an argument'
 		update: (data) ->
 			@position.x = data
+
+	discolor: new Bu.Animation
+		init: (anim, desColor) ->
+			anim.from = new Bu.Color @fillStyle
+			anim.to = new Bu.Color desColor
+		update: (data) ->
+			@fillStyle = data.toRGBA()

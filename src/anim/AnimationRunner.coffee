@@ -37,11 +37,7 @@ class Bu.AnimationRunner
 				t = easingFunctions[anim.easing] t
 
 			if anim.from?
-				if anim.from instanceof Object
-					for own key of anim.from when key of anim.to
-						task.current[key] = anim.to[key] * t - anim.from[key] * (t - 1)
-				else
-					task.current = anim.to * t - anim.from * (t - 1)
+				interpolateTask task, t
 				anim.update.apply task.target, [task.current, t]
 			else
 				anim.update.apply task.target, [t, task.current]
@@ -50,6 +46,29 @@ class Bu.AnimationRunner
 	# hook up on an renderer, remove own setInternal
 	hookUp: (renderer) ->
 		renderer.on 'update', => @update()
+
+    # Private functions
+	interpolateNum = (a, b, t) -> b * t - a * (t - 1)
+	interpolateObject = (a, b, t, c) ->
+		if a instanceof Bu.Color
+			c.setRGBA interpolateNum(a.r, b.r, t), interpolateNum(a.g, b.g, t), interpolateNum(a.b, b.b, t), interpolateNum(a.a, b.a, t)
+		else
+			console.error "AnimationRunner.interpolateObject() doesn't support object type: ", a
+	interpolateTask = (task, t) ->
+		anim = task.animation
+		if anim.from instanceof Array
+			for own key of anim.from when key of anim.to
+				if typeof anim.from[key] == 'number'
+					task.current[key] = interpolateNum anim.from[key], anim.to[key], t
+				else
+					task.current[key] = new Bu.Color unless task.current[key] instanceof Bu.Color
+					interpolateObject anim.from[key], anim.to[key], t, task.current[key]
+		else
+			if typeof anim.from == 'number'
+				task.current = interpolateNum anim.from, anim.to, t
+			else
+				task.current = new Bu.Color unless task.current instanceof Bu.Color # TODO Object type need to according to anim.from
+				interpolateObject anim.from, anim.to, t, task.current
 
 	DEFAULT_EASING_FUNCTION = 'quad'
 	easingFunctions =

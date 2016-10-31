@@ -41,6 +41,7 @@ class Bu.Object2D
 			@animate anim[i], args for own i of anim
 		else
 			anim.apply @, args
+		@
 
 	containsPoint: (p) ->
 		if @bounds? and not @bounds.containsPoint p

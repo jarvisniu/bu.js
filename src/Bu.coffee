@@ -21,7 +21,7 @@ global = previousGlobal
 ###
 
 # Version info of this library
-Bu.VERSION = '0.3.3'
+Bu.VERSION = '0.3.4'
 
 # Math
 Bu.HALF_PI = Math.PI / 2
