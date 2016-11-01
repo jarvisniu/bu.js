@@ -3,6 +3,7 @@
  */
 
 var fs = require('fs');
+var path = require('path');
 
 var gulp = require('gulp');
 var del = require('del');
@@ -37,16 +38,31 @@ var paths = {
         'build/*',
         'src/**/*.js',
         'src/**/*.js.map',
-        'examples/lib/**/*.js',
-        'examples/lib/**/*.js.map',
+        'examples/lib/*/*.js',
+        'examples/lib/*/*.js.map',
         'examples/*.html',
         'examples/vue/*.css'
-    ]
+    ],
+    dist: [
+        'logo.png',
+        'build/*.js',
+        'examples/assets/**',
+        'examples/*.html',
+        'examples/*.htm',
+        'examples/js/*.js',
+        'examples/lib/a-star/*.js*',
+        'examples/lib/morph/*.js*',
+        'examples/lib/reactor/*.js*',
+        'examples/vue/*.vue',
+        'examples/vue/*.css',
+        'examples/vue/icons/*',
+    ],
+    distTo: 'dist/'
 };
 
-// atom tasks
+// tasks
 
-gulp.task('clean', function () {
+gulp.task('clean_src', function () {
     return del(paths.clean);
 });
 
@@ -92,7 +108,7 @@ gulp.task('stylus', function () {
         .pipe(gulp.dest('examples/vue/'));
 });
 
-gulp.task('serve_examples', ['src_scripts', 'ext_scripts', 'examples', 'stylus'], function () {
+gulp.task('serve_examples', ['build'], function () {
     plugins.liveServer.static('./', port).start();
 });
 
@@ -100,9 +116,9 @@ gulp.task('open_examples', ['serve_examples'], function () {
     open('http://localhost:' + port + '/examples/');
 });
 
-// compound tasks
+gulp.task('clean', ['clean_src', 'clean_dist']);
 
-gulp.task('build', ['clean', 'src_scripts', 'ext_scripts', 'stylus', 'examples']);
+gulp.task('build', ['clean_src', 'src_scripts', 'ext_scripts', 'stylus', 'examples']);
 
 gulp.task('watch', function () {
     gulp.watch(paths.src_scripts, ['src_scripts']);
@@ -113,6 +129,28 @@ gulp.task('watch', function () {
 
 gulp.task('run', ['build', 'serve_examples', 'open_examples']);
 
-// default tasks
+// distribution
+
+gulp.task('clean_dist', function () {
+    return del(paths.distTo + '**');
+});
+
+gulp.task('build_dist', ['clean_dist', 'build'], function () {
+    for (var i in paths.dist)
+        gulp.src(paths.dist[i])
+            .pipe(gulp.dest(paths.distTo + path.dirname(paths.dist[i])));
+});
+
+gulp.task('serve_dist', ['build_dist'], function () {
+    plugins.liveServer.static('./', port).start();
+});
+
+gulp.task('open_dist', ['serve_dist'], function () {
+    open('http://localhost:' + port + '/' + paths.distTo + 'examples/');
+});
+
+gulp.task('dist', ['open_dist']);
+
+// default
 
 gulp.task('default', ['watch', 'build', 'run']);
