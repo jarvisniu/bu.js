@@ -1,4 +1,4 @@
-###
+#----------------------------------------------------------------------
 # MicroJQuery - A micro version of jQuery
 #
 # Supported features:
@@ -22,7 +22,7 @@
 #     .removeAttr(name) - remove an attribute
 #   Notes:
 #        # is planned but not implemented
-###
+#----------------------------------------------------------------------
 
 ((global) ->
 
@@ -164,19 +164,21 @@
 	global.$.ready = (onLoad) ->
 		document.addEventListener 'DOMContentLoaded', onLoad
 
-	### $.ajax()
-		options:
-			url: string
-			====
-			async = true: bool
-			## data: object - query parameters TODO: implement this
-			method = GET: POST, PUT, DELETE, HEAD
-			username: string
-			password: string
-			success: function
-			error: function
-			complete: function
-	###
+	#----------------------------------------------------------------------
+	# $.ajax()
+	#	options:
+	#		url: string
+	#		====
+	#		async = true: bool
+	#	data: object - query parameters TODO: implement this
+	#		method = GET: POST, PUT, DELETE, HEAD
+	#		username: string
+	#		password: string
+	#		success: function
+	#		error: function
+	#		complete: function
+	#----------------------------------------------------------------------
+
 	global.$.ajax = (url, ops) ->
 		if !ops
 			if typeof url == 'object'

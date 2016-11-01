@@ -16,9 +16,9 @@ Bu.global = global
 global = previousGlobal
 
 
-###
+#----------------------------------------------------------------------
 # Constants
-###
+#----------------------------------------------------------------------
 
 # Version info of this library
 Bu.VERSION = '0.3.4'
@@ -64,9 +64,9 @@ Bu.MOUSE_BUTTON_MIDDLE = 1
 Bu.MOUSE_BUTTON_RIGHT = 2
 
 
-###
+#----------------------------------------------------------------------
 # Utility functions
-###
+#----------------------------------------------------------------------
 
 # Calculate the mean value of numbers
 Bu.average = ()->
@@ -130,9 +130,9 @@ Bu.data = (key, value) ->
 		value = localStorage['Bu.' + key]
 		if value? then JSON.parse value else null
 
-###
+#----------------------------------------------------------------------
 # Polyfill
-###
+#----------------------------------------------------------------------
 
 # Shortcut to define a property for a class. This is used to solve the problem
 # that CoffeeScript didn't support getters and setters.
