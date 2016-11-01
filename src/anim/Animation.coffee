@@ -16,11 +16,13 @@ class Bu.Animation
 	apply: (target, args) ->
 		Bu.animationRunner.add @, target, args
 
-# prefab animations
+# Prefab Animations
 # The names are according to jQuery UI
 Bu.animations =
 
-	# simple
+	#----------------------------------------------------------------------
+	# Simple
+	#----------------------------------------------------------------------
 
 	fadeIn: new Bu.Animation
 		update: (t) ->
@@ -63,7 +65,9 @@ Bu.animations =
 		update: (t, data) ->
 			@position.x = Math.sin(t * Math.PI * 8) * data.range + data.ox
 
-	# toggle: detect and save original status
+	#----------------------------------------------------------------------
+	# Toggled: detect and save original status
+	#----------------------------------------------------------------------
 
 	puff: new Bu.Animation
 		duration: 0.15
@@ -103,7 +107,9 @@ Bu.animations =
 		update: (data) ->
 			@scale.y = data
 
-	# with arguments
+	#----------------------------------------------------------------------
+	# With Arguments
+	#----------------------------------------------------------------------
 
 	moveTo: new Bu.Animation
 		init: (anim, args) ->
@@ -127,7 +133,8 @@ Bu.animations =
 
 	discolor: new Bu.Animation
 		init: (anim, desColor) ->
+			desColor = new Bu.Color desColor if typeof desColor == 'string'
 			anim.from = new Bu.Color @fillStyle
-			anim.to = new Bu.Color desColor
+			anim.to = desColor
 		update: (data) ->
 			@fillStyle = data.toRGBA()

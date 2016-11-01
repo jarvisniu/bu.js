@@ -81,6 +81,12 @@ Bu.average = ()->
 Bu.bevel = (x, y) ->
 	Math.sqrt x * x + y * y
 
+# Limit a number by minimum value and maximum value
+Bu.clamp = (x, min, max) ->
+	x = min if x < min
+	x = max if x > max
+	x
+
 # Generate a random number between two numbers
 Bu.rand = (from, to) ->
 	if not to?

@@ -1,15 +1,24 @@
 # Parse and serialize color
-# TODO Support hsl(0, 100%, 50%) and rgb(100%, 0%, 0%) format.
+# TODO Support hsl(0, 100%, 50%) format.
 
 class Bu.Color
-    constructor: (@r = 255, @g = 255, @b = 255, @a = 1) ->
-        @a = 1 if @a > 1
-        @a = 0 if @a < 0
 
-        if typeof @r == 'string'
-            @parse @r
-        else if @r instanceof Bu.Colorful
-            @setRGBA @r.r, @r.g, @r.b, @r.a
+    constructor: () ->
+        if arguments.length == 0
+            @r = @g = @b = 255
+            @a = 1
+        if arguments.length == 1
+            arg = arguments[0]
+            if typeof arg == 'string'
+                @parse arg
+                @a = clampAlpha @a
+            else if arg instanceof Bu.Colorful
+                @copy arg
+        else # arguments.length == 3 or 4
+            @r = arguments[0]
+            @g = arguments[1]
+            @b = arguments[2]
+            @a = arguments[3] or 1
 
     parse: (str) ->
         if found = str.match RE_RGBA
@@ -21,6 +30,16 @@ class Bu.Color
             @r = parseInt found[1]
             @g = parseInt found[2]
             @b = parseInt found[3]
+            @a = 1
+        else if found = str.match RE_RGBA_PER
+            @r = parseInt(found[1] * 255 / 100)
+            @g = parseInt(found[2] * 255 / 100)
+            @b = parseInt(found[3] * 255 / 100)
+            @a = parseFloat found[4]
+        else if found = str.match RE_RGB_PER
+            @r = parseInt(found[1] * 255 / 100)
+            @g = parseInt(found[2] * 255 / 100)
+            @b = parseInt(found[3] * 255 / 100)
             @a = 1
         else if found = str.match RE_HEX3
             hex = found[1]
@@ -47,17 +66,26 @@ class Bu.Color
             console.error "Bu.Color.parse(\"#{ str }\") error."
         @
 
+    copy: (color) ->
+        @r = color.r
+        @g = color.g
+        @b = color.b
+        @a = color.a
+        @
+
     setRGB: (r, g, b) ->
         @r = parseInt r
         @g = parseInt g
         @b = parseInt b
         @a = 1
+        @
 
     setRGBA: (r, g, b, a) ->
         @r = parseInt r
         @g = parseInt g
         @b = parseInt b
-        @a = parseFloat a
+        @a = clampAlpha parseFloat a
+        @
 
     toRGB: ->
         "rgb(#{ @r }, #{ @g }, #{ @b })"
@@ -66,10 +94,17 @@ class Bu.Color
         "rgba(#{ @r }, #{ @g }, #{ @b }, #{ @a })"
 
 
+    # Private functions
+
+    clampAlpha = (a) -> Bu.clamp a, 0, 1
+
+
     # Private variables
 
     RE_RGB = /rgb\(\s*(\d+),\s*(\d+),\s*(\d+)\s*\)/i
     RE_RGBA = /rgba\(\s*(\d+),\s*(\d+),\s*(\d+)\s*,\s*([.\d]+)\s*\)/i
+    RE_RGB_PER = /rgb\(\s*(\d+)%,\s*(\d+)%,\s*(\d+)%\s*\)/i
+    RE_RGBA_PER = /rgba\(\s*(\d+)%,\s*(\d+)%,\s*(\d+)%\s*,\s*([.\d]+)\s*\)/i
     RE_HEX3 = /#([0-9A-F]{3})\s*$/i
     RE_HEX6 = /#([0-9A-F]{6})\s*$/i
     CSS3_COLORS =
