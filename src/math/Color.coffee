@@ -12,7 +12,7 @@ class Bu.Color
             if typeof arg == 'string'
                 @parse arg
                 @a = clampAlpha @a
-            else if arg instanceof Bu.Colorful
+            else if arg instanceof Bu.Color
                 @copy arg
         else # arguments.length == 3 or 4
             @r = arguments[0]

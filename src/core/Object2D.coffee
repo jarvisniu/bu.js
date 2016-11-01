@@ -28,7 +28,7 @@ class Bu.Object2D
 			if typeof val == 'number'
 				@_scale.x = @_scale.y = val
 			else
-				@scale = val
+				@_scale = val
 
 	animate: (anim, args) ->
 		if typeof anim == 'string'

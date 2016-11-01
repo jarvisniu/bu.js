@@ -5,14 +5,19 @@ class Bu.AnimationRunner
 	constructor: () ->
 		@runningAnimations = []
 
-	add: (animation, target, args) ->
-		@runningAnimations.push
-			animation: animation
-			target: target
-			startTime: Bu.now()
-			current: animation.data
-			finished: no
-		animation.init?.call target, animation, args
+	add: (anim, target, args) ->
+		anim.init?.call target, anim, args
+		if isAnimationLegal anim
+			task =
+				animation: anim
+				target: target
+				startTime: Bu.now()
+				current: anim.data
+				finished: no
+			@runningAnimations.push task
+			initTask task, anim
+		else
+			console.error 'Bu.AnimationRunner: animation setting is ilegal: ', animation
 
 	update: ->
 		now = Bu.now()
@@ -47,28 +52,55 @@ class Bu.AnimationRunner
 	hookUp: (renderer) ->
 		renderer.on 'update', => @update()
 
+    #----------------------------------------------------------------------
     # Private functions
+    #----------------------------------------------------------------------
+
+	isAnimationLegal = (anim) ->
+		return true unless anim.from? and anim.to?
+
+		if Bu.isPlainObject anim.from
+			for own key of anim.from
+				return false unless anim.to[key]?
+		else
+			return false unless anim.to?
+		true
+
+	initTask = (task, anim) ->
+		# create task.current object
+		if anim.from?
+			if Bu.isPlainObject anim.from
+				for own key of anim.from
+					task.current[key] = new anim.from[key].constructor
+			else
+				task.current = new anim.from.constructor
+
+	interpolateTask = (task, t) ->
+		anim = task.animation
+		if typeof anim.from == 'number'
+			task.current = interpolateNum anim.from, anim.to, t
+		else if anim.from instanceof Bu.Color
+			# task.current = new Bu.Color unless task.current instanceof Bu.Color
+			interpolateObject anim.from, anim.to, t, task.current
+		else if Bu.isPlainObject anim.from
+			for own key of anim.from
+				if typeof anim.from[key] == 'number'
+					task.current[key] = interpolateNum anim.from[key], anim.to[key], t
+				else
+					# task.current[key] = new Bu.Color unless task.current[key] instanceof Bu.Color
+					interpolateObject anim.from[key], anim.to[key], t, task.current[key]
+
 	interpolateNum = (a, b, t) -> b * t - a * (t - 1)
+
 	interpolateObject = (a, b, t, c) ->
 		if a instanceof Bu.Color
 			c.setRGBA interpolateNum(a.r, b.r, t), interpolateNum(a.g, b.g, t), interpolateNum(a.b, b.b, t), interpolateNum(a.a, b.a, t)
 		else
 			console.error "AnimationRunner.interpolateObject() doesn't support object type: ", a
-	interpolateTask = (task, t) ->
-		anim = task.animation
-		if anim.from instanceof Array
-			for own key of anim.from when key of anim.to
-				if typeof anim.from[key] == 'number'
-					task.current[key] = interpolateNum anim.from[key], anim.to[key], t
-				else
-					task.current[key] = new Bu.Color unless task.current[key] instanceof Bu.Color
-					interpolateObject anim.from[key], anim.to[key], t, task.current[key]
-		else
-			if typeof anim.from == 'number'
-				task.current = interpolateNum anim.from, anim.to, t
-			else
-				task.current = new Bu.Color unless task.current instanceof Bu.Color # TODO Object type need to according to anim.from
-				interpolateObject anim.from, anim.to, t, task.current
+
+	#----------------------------------------------------------------------
+	# Private variables
+	#----------------------------------------------------------------------
 
 	DEFAULT_EASING_FUNCTION = 'quad'
 	easingFunctions =

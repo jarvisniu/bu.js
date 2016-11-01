@@ -1,4 +1,4 @@
-# animation
+# animation class and preset animations
 
 class Bu.Animation
 
@@ -16,8 +16,8 @@ class Bu.Animation
 	apply: (target, args) ->
 		Bu.animationRunner.add @, target, args
 
-# Prefab Animations
-# The names are according to jQuery UI
+# Preset Animations
+# Some of the animations are consistent with jQuery UI
 Bu.animations =
 
 	#----------------------------------------------------------------------
@@ -76,8 +76,12 @@ Bu.animations =
 				opacity: @opacity
 				scale: @scale.x
 			anim.to =
-				opacity: if @opacity == 1 then 0 else 1
-				scale: if @opacity == 1 then @scale.x * 1.5 else @scale.x / 1.5
+				if @opacity == 1
+					opacity: 0
+					scale: @scale.x * 1.5
+				else
+					opacity: 1
+					scale: @scale.x / 1.5
 		update: (data) ->
 			@opacity = data.opacity
 			@scale = data.scale

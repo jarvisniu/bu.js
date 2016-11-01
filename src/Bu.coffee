@@ -112,6 +112,10 @@ Bu.combineOptions = (args, defaultOptions) ->
 			defaultOptions[i] = givenOptions[i]
 	return defaultOptions
 
+# Check if an object if an plain object, not instance of class/function
+Bu.isPlainObject = (o) ->
+	o instanceof Object and o.constructor.name == 'Object'
+
 # Clone an Object or Array
 Bu.clone = (target, deep = false) ->
 	# TODO deal with deep
