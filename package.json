@@ -6,11 +6,6 @@
   "directories": {
     "example": "examples"
   },
-  "scripts": {
-    "examples": "gulp run",
-    "build": "gulp build",
-    "clean": "gulp clean"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jarvisniu/Bu.js.git"
