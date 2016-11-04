@@ -5,7 +5,7 @@ A JavaScript 2D graphics library based on HTML5 Canvas
 
 ![](logo.png)
 
-[Demos](http://jarvisniu.com/Bu.js/) -
+[Demos](http://jarvisniu.com/Bu.js/examples/) -
 [Guides](https://github.com/jarvisniu/Bu.js/wiki/Guides) -
 [API](https://github.com/jarvisniu/Bu.js/wiki/API) -
 [Change Log](CHANGELOG.md)
