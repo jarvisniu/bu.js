@@ -7,24 +7,17 @@ class Bu.Renderer
 		@type = 'Renderer'
 
 		options = Bu.combineOptions arguments,
-			width: 800
-			height: 600
+			container: 'body'
 			fps: 60
-			fillParent: off
 			showKeyPoints: no
 			background: '#eee'
-		@width = options.width
-		@height = options.height
-		@fps = options.fps
-		@container = options.container
-		@fillParent = options.fillParent
-		@isShowKeyPoints = options.showKeyPoints
+		@[k] = options[k] for k in ['container', 'width', 'height', 'fps', 'showKeyPoints', 'width', 'height']
+		@container = document.querySelector @container if typeof @container is 'string'
+		@fillParent = if typeof @width != 'number'
 
 		@tickCount = 0
 		@isRunning = no
-
 		@pixelRatio = Bu.global.devicePixelRatio or 1
-
 		@dom = document.createElement 'canvas'
 		@context = @dom.getContext '2d'
 		@context.textBaseline = 'top'
@@ -43,8 +36,6 @@ class Bu.Renderer
 		@dom.style.background = options.background
 		@dom.oncontextmenu = -> false
 
-		Bu.animationRunner?.hookUp @
-
 		onResize = =>
 			canvasRatio = @dom.height / @dom.width
 			containerRatio = @container.clientHeight / @container.clientWidth
@@ -61,6 +52,8 @@ class Bu.Renderer
 			@render()
 
 		if @fillParent
+			@width = @container.clientWidth
+			@height = @container.clientHeight
 			Bu.global.window.addEventListener 'resize', onResize
 			@dom.addEventListener 'DOMNodeInserted', onResize
 
@@ -78,11 +71,12 @@ class Bu.Renderer
 		tick()
 
 		# init
-		if @container?
-			@container = document.querySelector @container if typeof @container is 'string'
-			setTimeout =>
-				@container.appendChild @dom
-			, 100
+		setTimeout =>
+			@container.appendChild @dom
+		, 100
+
+		Bu.animationRunner?.hookUp @
+
 		@isRunning = true
 
 
@@ -185,7 +179,7 @@ class Bu.Renderer
 			@context.stroke()
 
 		@drawShapes shape.children if shape.children?
-		@drawShapes shape.keyPoints if @isShowKeyPoints
+		@drawShapes shape.keyPoints if @showKeyPoints
 		@
 
 

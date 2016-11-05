@@ -8,7 +8,7 @@ html(lang="en")
     script(src="./lib/reactor/MovePointReactor.js")
     style.
 
-      html, body, #container {
+      html, body {
         margin: 0;
         width: 100%;
         height: 100%;
@@ -33,10 +33,7 @@ html(lang="en")
       $.ready(init);
 
       function init() {
-        bu = new Bu({
-          container: "#container",
-          fillParent: true
-        });
+        bu = new Bu();
         bu.dom.style.cursor = "default";
 
         movePointReactor = new Bu.MovePointReactor(bu);
@@ -51,4 +48,3 @@ html(lang="en")
 
   body
     div#info Move a point by dragging it.
-    div#container

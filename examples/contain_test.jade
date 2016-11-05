@@ -6,7 +6,7 @@ html
     script(src="../build/bu.js")
     style.
 
-      html, body, #container {
+      html, body {
         margin: 0;
         width: 100%;
         height: 100%;
@@ -30,9 +30,7 @@ html
 
       function init() {
         bu = new Bu({
-          container: "#container",
           showKeyPoints: true,
-          fillParent: true
         });
 
         generator = new Bu.RandomShapeGenerator(bu);
@@ -74,4 +72,3 @@ html
 
   body
     div#info Move cursor to test. Click to regenerate shapes.
-    div#container

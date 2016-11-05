@@ -60,9 +60,9 @@ html
 
         bu = new Bu({
           container: '#container',
-          showKeyPoints: false,
           width: MARGIN * 2 + getCentralX(net.width - 1, net.height - 1) - OFFSET_X / 2,
-          height: MARGIN * 2 + getCentralY(net.width - 1, net.height - 1) - OFFSET_Y / 2
+          height: MARGIN * 2 + getCentralY(net.width - 1, net.height - 1) - OFFSET_Y / 2,
+          showKeyPoints: false,
         });
         bu.dom.addEventListener('mousedown', onMouseDown);
         bu.dom.addEventListener('mousemove', onMouseMove);

@@ -64,10 +64,9 @@ html
         // append dom
         bu = new Bu({
           container: "#container",
-          border: true,
-          showKeyPoints: false,
           width: OFFSET * net.width + MARGIN * 2,
-          height: OFFSET * net.height + MARGIN * 2
+          height: OFFSET * net.height + MARGIN * 2,
+          showKeyPoints: false,
         });
         bu.dom.addEventListener("mousedown", onMouseDown);
         bu.dom.addEventListener("mousemove", onMouseMove);
