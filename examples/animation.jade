@@ -1,110 +1,110 @@
 doctype html
 html(lang="en")
-  head
-    meta(charset="utf-8")
-    title Bu.js demo - shapes
-    script(src="../build/bu.js")
-    style.
+    head
+        meta(charset="utf-8")
+        title Bu.js demo - shapes
+        script(src="../build/bu.js")
+        style.
 
-      html, body {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-      }
+            html, body {
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
 
-      #info {
-        position: absolute;
-        width: 100%;
-        line-height: 26px;
-        text-align: center;
-        padding: 8px 0;
-      }
+            #info {
+                position: absolute;
+                width: 100%;
+                line-height: 26px;
+                text-align: center;
+                padding: 8px 0;
+            }
 
-      #inputMove {
-        width: 50px;
-      }
+            #inputMove {
+                width: 50px;
+            }
 
-    script(type="text/javascript").
+        script(type="text/javascript").
 
-      var bu, bunny;
-      var animSpin, animHelical;
-      var imageUrl = "./assets/textures/bunny.png";
+            var bu, bunny;
+            var animSpin, animHelical;
+            var imageUrl = "./assets/textures/bunny.png";
 
-      $.ready(init);
+            $.ready(init);
 
-      function init() {
-        bu = new Bu();
+            function init() {
+                bu = new Bu();
 
-        bunny = new Bu.Image(imageUrl);
-        bunny.scale = 2;
-        bunny.position.x = bu.width / 2;
-        bunny.position.y = bu.height / 2;
+                bunny = new Bu.Image(imageUrl);
+                bunny.scale = 2;
+                bunny.position.x = bu.width / 2;
+                bunny.position.y = bu.height / 2;
 
-        bu.add(bunny);
+                bu.add(bunny);
 
-        // custom animation
-        animHelical = new Bu.Animation({
-          duration: 2,
-          init: function (anim) {
-            anim.data.ox = this.position.x;
-            anim.data.oy = this.position.y;
-            anim.data.or = this.rotation;
-          },
-          update: function (t, data) {
-            var theta = Math.PI * 8 * t;
-            var radius = 300 * t;
-            this.position.x = radius * Math.cos(theta) + data.ox;
-            this.position.y = radius * Math.sin(theta) + data.oy;
-            this.rotation = theta;
-          },
-          finish: function (anim) {
-            this.position.x = anim.data.ox;
-            this.position.y = anim.data.oy;
-            this.rotation = anim.data.or;
-          }
-        });
+                // custom animation
+                animHelical = new Bu.Animation({
+                    duration: 2,
+                    init: function (anim) {
+                        anim.data.ox = this.position.x;
+                        anim.data.oy = this.position.y;
+                        anim.data.or = this.rotation;
+                    },
+                    update: function (t, data) {
+                        var theta = Math.PI * 8 * t;
+                        var radius = 300 * t;
+                        this.position.x = radius * Math.cos(theta) + data.ox;
+                        this.position.y = radius * Math.sin(theta) + data.oy;
+                        this.rotation = theta;
+                    },
+                    finish: function (anim) {
+                        this.position.x = anim.data.ox;
+                        this.position.y = anim.data.oy;
+                        this.rotation = anim.data.or;
+                    }
+                });
 
 
-        $('#prefab button').attr('onclick', 'prefabAnim(this.innerText);');
-        $('#withArgs button').attr('onclick', 'bunny.animate(this.innerText, $("#inputMove").val());');
-        $('#spinIn').attr('onclick', 'bunny.animate("spinIn", 2);');
-        $('#helical').on('click', applyHelical);
-        $('#multiple').on('click', applyMultiple);
-      }
+                $('#prefab button').attr('onclick', 'prefabAnim(this.innerText);');
+                $('#withArgs button').attr('onclick', 'bunny.animate(this.innerText, $("#inputMove").val());');
+                $('#spinIn').attr('onclick', 'bunny.animate("spinIn", 2);');
+                $('#helical').on('click', applyHelical);
+                $('#multiple').on('click', applyMultiple);
+            }
 
-      function prefabAnim(type) {
-        bunny.animate(type);
-      }
+            function prefabAnim(type) {
+                bunny.animate(type);
+            }
 
-      function applyHelical() {
-        bunny.animate(animHelical); // first writing
-      }
+            function applyHelical() {
+                bunny.animate(animHelical); // first writing
+            }
 
-      function applyMultiple() {
-        bunny.animate(['moveBy', 'spin'], $("#inputMove").val());
-      }
+            function applyMultiple() {
+                bunny.animate(['moveBy', 'spin'], $("#inputMove").val());
+            }
 
-  body
-    div#info
-      span Click the buttons to play the animations.
-      div#prefab Prefab:
-        button fadeOut
-        button fadeIn
-        button spin
-        button spinOut
-        button#spinIn spinIn
-        button shake
-        br
-        span Toggle (need to click twice):
-        button puff
-        button clip
-        button flipX
-      div#withArgs With arguments:
-        button#moveBy moveBy
-        button#moveTo moveTo
-        input(type="text" id="inputMove" name="move" value="160")
-      div Multiple(Mix):
-        button#multiple move + spin
-      div Custom:
-        button#helical helical
+    body
+        div#info
+            span Click the buttons to play the animations.
+            div#prefab Prefab:
+                button fadeOut
+                button fadeIn
+                button spin
+                button spinOut
+                button#spinIn spinIn
+                button shake
+                br
+                span Toggle (need to click twice):
+                button puff
+                button clip
+                button flipX
+            div#withArgs With arguments:
+                button#moveBy moveBy
+                button#moveTo moveTo
+                input(type="text" id="inputMove" name="move" value="160")
+            div Multiple(Mix):
+                button#multiple move + spin
+            div Custom:
+                button#helical helical

@@ -1,118 +1,118 @@
 doctype html
 html(lang="en")
-  head
-    meta(charset="utf-8")
-    title Bu.js Examples
-    style.
-      * {
-        margin: 0;
-        padding: 0;
-      }
+    head
+        meta(charset="utf-8")
+        title Bu.js Examples
+        style.
+            * {
+                margin: 0;
+                padding: 0;
+            }
 
-      html,
-      body {
-        height: 100%;
-        font-family: "Calibri Light", Calibri, Arial, sans-serif;
-        overflow: hidden;
-      }
+            html,
+            body {
+                height: 100%;
+                font-family: "Calibri Light", Calibri, Arial, sans-serif;
+                overflow: hidden;
+            }
 
-      /* side */
+            /* side */
 
-      #side {
-        position: absolute;
-        overflow-y: scroll;
-        box-sizing: border-box;
-        padding: 20px;
-        width: 250px;
-        height: 100%;
-        border-right: solid #bbb 2px;
-      }
+            #side {
+                position: absolute;
+                overflow-y: scroll;
+                box-sizing: border-box;
+                padding: 20px;
+                width: 250px;
+                height: 100%;
+                border-right: solid #bbb 2px;
+            }
 
-      #side #logo {
-        width: 180px;
-        height: 180px;
-      }
+            #side #logo {
+                width: 180px;
+                height: 180px;
+            }
 
-      #side a {
-        display: block;
-        padding: 2px 0;
-        text-decoration: none;
-        color: #28b;
-      }
+            #side a {
+                display: block;
+                padding: 2px 0;
+                text-decoration: none;
+                color: #28b;
+            }
 
-      #side h1 {
-        font-size: 28px;
-        padding-bottom: 8px;
-      }
+            #side h1 {
+                font-size: 28px;
+                padding-bottom: 8px;
+            }
 
-      #side h1 a {
-        display: inline;
-      }
+            #side h1 a {
+                display: inline;
+            }
 
-      #side h1 a :hover {
-        text-decoration: underline;
-      }
+            #side h1 a :hover {
+                text-decoration: underline;
+            }
 
-      #side h2 {
-        padding: 12px 0;
-        color: #666;
-        font-size: 20px;
-      }
+            #side h2 {
+                padding: 12px 0;
+                color: #666;
+                font-size: 20px;
+            }
 
-      /* container */
+            /* container */
 
-      #container {
-        padding-left: 250px;
-        width: calc(100% - 250px);
-        height: 100%;
-      }
+            #container {
+                padding-left: 250px;
+                width: calc(100% - 250px);
+                height: 100%;
+            }
 
-      #container iframe {
-        width: 100%;
-        height: 100%;
-      }
+            #container iframe {
+                width: 100%;
+                height: 100%;
+            }
 
-    script(type="text/javascript").
+        script(type="text/javascript").
 
-      var hashPath, frame;
+            var hashPath, frame;
 
-      document.addEventListener("DOMContentLoaded", init);
+            document.addEventListener("DOMContentLoaded", init);
 
-      function init() {
-        frame = document.querySelector("iframe");
-        window.addEventListener("hashchange", onHashChanged);
-        onHashChanged();
-      }
+            function init() {
+                frame = document.querySelector("iframe");
+                window.addEventListener("hashchange", onHashChanged);
+                onHashChanged();
+            }
 
-      function onHashChanged() {
-        hashPath = location.hash.replace("#!/", "");
-        if (hashPath.length > 0)
-          frame.src = hashPath;
-      }
+            function onHashChanged() {
+                hashPath = location.hash.replace("#!/", "");
+                if (hashPath.length > 0)
+                    frame.src = hashPath;
+            }
 
 body
-  #side
-    a(href="https://github.com/jarvisniu/Bu.js" target="_blank")
-      img(id="logo" src="../logo.png")
-    h1 Bu.js Examples
+    #side
+        a(href="https://github.com/jarvisniu/Bu.js" target="_blank")
+            img(id="logo" src="../logo.png")
+        h1 Bu.js Examples
 
-    h2 Graphics
-    a(href="#!/all_shapes.html") All Shapes
-    a(href="#!/all_styles.html") All Styles
-    a(href="#!/bitmap_font.html") Bitmap Font
-    a(href="#!/animation.html") Animation
-    a(href="#!/hierarchy.html") Hierarchy
-    h2 Interactive
-    a(href="#!/drag_point.html") Drag to Move Point
-    a(href="#!/draw_shapes.html") Draw Shapes
-    h2 Geometry
-    a(href="#!/contain_test.html") Shapes Containing Point Test
-    a(href="#!/line_near_point.html") Point Near Line Test
-    a(href="#!/point_to_line_distance.html") Distance of Point To Line
-    h2 Algorithm
-    a(href="#!/delaunay_triangulation.html") Delaunay Triangulation
-    a(href="#!/polyline_morph.html") Polyline Morph
-    a(href="#!/a_star_grid.html") A Star Grid
-    a(href="#!/a_star_honeycomb.html") A Star Honeycomb
-  #container
-    iframe(name="web", src="about:blank", frameborder="0")
+        h2 Graphics
+        a(href="#!/all_shapes.html") All Shapes
+        a(href="#!/all_styles.html") All Styles
+        a(href="#!/bitmap_font.html") Bitmap Font
+        a(href="#!/animation.html") Animation
+        a(href="#!/hierarchy.html") Hierarchy
+        h2 Interactive
+        a(href="#!/drag_point.html") Drag to Move Point
+        a(href="#!/draw_shapes.html") Draw Shapes
+        h2 Geometry
+        a(href="#!/contain_test.html") Shapes Containing Point Test
+        a(href="#!/line_near_point.html") Point Near Line Test
+        a(href="#!/point_to_line_distance.html") Distance of Point To Line
+        h2 Algorithm
+        a(href="#!/delaunay_triangulation.html") Delaunay Triangulation
+        a(href="#!/polyline_morph.html") Polyline Morph
+        a(href="#!/a_star_grid.html") A Star Grid
+        a(href="#!/a_star_honeycomb.html") A Star Honeycomb
+    #container
+        iframe(name="web", src="about:blank", frameborder="0")

@@ -1,50 +1,50 @@
 doctype html
 html(lang="en")
-  head
-    meta(charset="utf-8")
-    title Drag to Move Point
-    script(src="../build/bu.js")
-    script(src="./lib/reactor/ReactorBase.js")
-    script(src="./lib/reactor/MovePointReactor.js")
-    style.
+    head
+        meta(charset="utf-8")
+        title Drag to Move Point
+        script(src="../build/bu.js")
+        script(src="./lib/reactor/ReactorBase.js")
+        script(src="./lib/reactor/MovePointReactor.js")
+        style.
 
-      html, body {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-      }
+            html, body {
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
 
-      #info {
-        position: absolute;
-        width: 100%;
-        text-align: center;
-        padding: 8px 0;
-      }
+            #info {
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                padding: 8px 0;
+            }
 
-    script(type="text/javascript").
+        script(type="text/javascript").
 
-      var bu;
-      var movePointReactor;
+            var bu;
+            var movePointReactor;
 
-      var POINT_COUNT = 10;
-      var points = [];
+            var POINT_COUNT = 10;
+            var points = [];
 
-      $.ready(init);
+            $.ready(init);
 
-      function init() {
-        bu = new Bu();
-        bu.dom.style.cursor = "default";
+            function init() {
+                bu = new Bu();
+                bu.dom.style.cursor = "default";
 
-        movePointReactor = new Bu.MovePointReactor(bu);
-        movePointReactor.enable();
+                movePointReactor = new Bu.MovePointReactor(bu);
+                movePointReactor.enable();
 
-        for (var i = 0; i < POINT_COUNT; i++) {
-          points[i] = new Bu.Point(Bu.rand(bu.width), Bu.rand(bu.height));
-          points[i].label = "P" + i;
-        }
-        bu.add(points);
-      }
+                for (var i = 0; i < POINT_COUNT; i++) {
+                    points[i] = new Bu.Point(Bu.rand(bu.width), Bu.rand(bu.height));
+                    points[i].label = "P" + i;
+                }
+                bu.add(points);
+            }
 
-  body
-    div#info Move a point by dragging it.
+    body
+        div#info Move a point by dragging it.

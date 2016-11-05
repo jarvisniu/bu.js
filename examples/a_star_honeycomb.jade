@@ -1,279 +1,279 @@
 doctype html
 html
-  head
-    meta(charset="utf-8")
-    title AStar Honeycomb
-    style.
+    head
+        meta(charset="utf-8")
+        title AStar Honeycomb
+        style.
 
-      #container {
-        display: inline-flex;
-        border: solid 1px gray;
-      }
+            #container {
+                display: inline-flex;
+                border: solid 1px gray;
+            }
 
-      #toolbar {
-        padding-bottom: 8px;
-      }
+            #toolbar {
+                padding-bottom: 8px;
+            }
 
-    script(src="../build/bu.js")
-    script(src="./lib/a-star/AStar.js")
-    script(src="./lib/a-star/Node.js")
-    script(src="./lib/a-star/Engine.js")
-    script(src="./lib/a-star/NetHoneycomb.js")
-    script.
+        script(src="../build/bu.js")
+        script(src="./lib/a-star/AStar.js")
+        script(src="./lib/a-star/Node.js")
+        script(src="./lib/a-star/Engine.js")
+        script(src="./lib/a-star/NetHoneycomb.js")
+        script.
 
-      // net info
-      var START_POS = {x: 2, y: 5};
-      var END_POS = {x: 13, y: 5};
+            // net info
+            var START_POS = {x: 2, y: 5};
+            var END_POS = {x: 13, y: 5};
 
-      // rendering config
-      var MARGIN = 40.5;
-      var GRID_SIZE = 50;
-      var GAP_SIZE = 4;
-      var GRID_SIZE_X = GRID_SIZE * 1.732 / 2;
-      var OFFSET_X = GRID_SIZE_X + GAP_SIZE;
-      var OFFSET_Y = OFFSET_X * 1.732 / 2;
+            // rendering config
+            var MARGIN = 40.5;
+            var GRID_SIZE = 50;
+            var GAP_SIZE = 4;
+            var GRID_SIZE_X = GRID_SIZE * 1.732 / 2;
+            var OFFSET_X = GRID_SIZE_X + GAP_SIZE;
+            var OFFSET_Y = OFFSET_X * 1.732 / 2;
 
-      // components
-      var net = new AStar.NetHoneycomb();
-      var engine = new AStar.Engine(net);
-      net.engine = engine;
-      var bu;
+            // components
+            var net = new AStar.NetHoneycomb();
+            var engine = new AStar.Engine(net);
+            net.engine = engine;
+            var bu;
 
-      // shapes
-      var hexagonRows = [];
-      var lineRows = [];
-      var labelGRows = [];
-      var labelHRows = [];
-      var labelFRows = [];
-      var axisTextX = [];
-      var axisTextY = [];
+            // shapes
+            var hexagonRows = [];
+            var lineRows = [];
+            var labelGRows = [];
+            var labelHRows = [];
+            var labelFRows = [];
+            var axisTextX = [];
+            var axisTextY = [];
 
-      // interactive
-      var isMouseDown = false;
-      var isClearing;
+            // interactive
+            var isMouseDown = false;
+            var isClearing;
 
-      $.ready(init);
+            $.ready(init);
 
-      function init() {
-        net.setStart(START_POS.x, START_POS.y);
-        net.setEnd(END_POS.x, END_POS.y);
+            function init() {
+                net.setStart(START_POS.x, START_POS.y);
+                net.setEnd(END_POS.x, END_POS.y);
 
-        bu = new Bu({
-          container: '#container',
-          width: MARGIN * 2 + getCentralX(net.width - 1, net.height - 1) - OFFSET_X / 2,
-          height: MARGIN * 2 + getCentralY(net.width - 1, net.height - 1) - OFFSET_Y / 2,
-          showKeyPoints: false,
-        });
-        bu.dom.addEventListener('mousedown', onMouseDown);
-        bu.dom.addEventListener('mousemove', onMouseMove);
-        bu.dom.addEventListener('mouseup', onMouseUp);
+                bu = new Bu({
+                    container: '#container',
+                    width: MARGIN * 2 + getCentralX(net.width - 1, net.height - 1) - OFFSET_X / 2,
+                    height: MARGIN * 2 + getCentralY(net.width - 1, net.height - 1) - OFFSET_Y / 2,
+                    showKeyPoints: false,
+                });
+                bu.dom.addEventListener('mousedown', onMouseDown);
+                bu.dom.addEventListener('mousemove', onMouseMove);
+                bu.dom.addEventListener('mouseup', onMouseUp);
 
-        // bind events
-        $('#btnRun').on('click', function () {
-          engine.run();
-        });
-        $('#btnRunSlowly').on('click', function () {
-          engine.run(10);
-        });
-        $('#btnNextStep').on('click', function () {
-          engine.step();
-        });
+                // bind events
+                $('#btnRun').on('click', function () {
+                    engine.run();
+                });
+                $('#btnRunSlowly').on('click', function () {
+                    engine.run(10);
+                });
+                $('#btnNextStep').on('click', function () {
+                    engine.step();
+                });
 
-        var i, j;
-        var xCount = net.width;
-        var yCount = net.height;
-        var cx, cy;
+                var i, j;
+                var xCount = net.width;
+                var yCount = net.height;
+                var cx, cy;
 
-        // add grid hexagons
-        for (i = 0; i < xCount; i++) {
-          hexagonRows[i] = [];
-          for (j = 0; j < yCount; j++) {
-            cx = getCentralX(i, j);
-            cy = getCentralY(i, j);
-            hexagonRows[i][j] = new Bu.Polygon(cx, cy, GRID_SIZE / 2, 6, {
-              angle: Math.PI / 6
-            });
-            bu.add(hexagonRows[i][j]);
-          }
-        }
+                // add grid hexagons
+                for (i = 0; i < xCount; i++) {
+                    hexagonRows[i] = [];
+                    for (j = 0; j < yCount; j++) {
+                        cx = getCentralX(i, j);
+                        cy = getCentralY(i, j);
+                        hexagonRows[i][j] = new Bu.Polygon(cx, cy, GRID_SIZE / 2, 6, {
+                            angle: Math.PI / 6
+                        });
+                        bu.add(hexagonRows[i][j]);
+                    }
+                }
 
-        // add grid path lines
-        for (i = 0; i < xCount; i++) {
-          lineRows[i] = [];
-          for (j = 0; j < yCount; j++) {
-            cx = getCentralX(i, j);
-            cy = getCentralY(i, j);
-            lineRows[i][j] = new Bu.Line(cx, cy, cx, cy);
-            //lineRows[i][j].stroke('rgba(0, 128, 255, 0.5');
-            lineRows[i][j].lineWidth = 0.5;
-            bu.add(lineRows[i][j]);
-          }
-        }
+                // add grid path lines
+                for (i = 0; i < xCount; i++) {
+                    lineRows[i] = [];
+                    for (j = 0; j < yCount; j++) {
+                        cx = getCentralX(i, j);
+                        cy = getCentralY(i, j);
+                        lineRows[i][j] = new Bu.Line(cx, cy, cx, cy);
+                        //lineRows[i][j].stroke('rgba(0, 128, 255, 0.5');
+                        lineRows[i][j].lineWidth = 0.5;
+                        bu.add(lineRows[i][j]);
+                    }
+                }
 
-        // add grid labels
-        for (i = 0; i < xCount; i++) {
-          labelGRows[i] = [];
-          labelHRows[i] = [];
-          labelFRows[i] = [];
+                // add grid labels
+                for (i = 0; i < xCount; i++) {
+                    labelGRows[i] = [];
+                    labelHRows[i] = [];
+                    labelFRows[i] = [];
 
-          for (j = 0; j < yCount; j++) {
-            cx = getCentralX(i, j);
-            cy = getCentralY(i, j);
-            labelGRows[i][j] = new Bu.PointText('',
-                    cx - OFFSET_X / 2 + 3,
-                    cy,
-                    {align: '++'}
-            );
-            labelHRows[i][j] = new Bu.PointText('',
-                    cx + OFFSET_X / 2 - 3,
-                    cy,
-                    {align: '-+'}
-            );
-            labelFRows[i][j] = new Bu.PointText('',
-                    cx,
-                    cy - GRID_SIZE / 4,
-                    {align: '00'}
-            );
+                    for (j = 0; j < yCount; j++) {
+                        cx = getCentralX(i, j);
+                        cy = getCentralY(i, j);
+                        labelGRows[i][j] = new Bu.PointText('',
+                            cx - OFFSET_X / 2 + 3,
+                            cy,
+                            {align: '++'}
+                        );
+                        labelHRows[i][j] = new Bu.PointText('',
+                            cx + OFFSET_X / 2 - 3,
+                            cy,
+                            {align: '-+'}
+                        );
+                        labelFRows[i][j] = new Bu.PointText('',
+                            cx,
+                            cy - GRID_SIZE / 4,
+                            {align: '00'}
+                        );
 
-            labelGRows[i][j].fillStyle =
-                    labelHRows[i][j].fillStyle = '#666';
-            labelGRows[i][j].fontFamily =
-                    labelHRows[i][j].fontFamily =
-                            labelFRows[i][j].fontFamily = 'SimSun';
-            bu.add(labelGRows[i][j]);
-            bu.add(labelHRows[i][j]);
-            bu.add(labelFRows[i][j]);
-            refreshNode(i, j);
-          }
-        }
+                        labelGRows[i][j].fillStyle =
+                            labelHRows[i][j].fillStyle = '#666';
+                        labelGRows[i][j].fontFamily =
+                            labelHRows[i][j].fontFamily =
+                                labelFRows[i][j].fontFamily = 'SimSun';
+                        bu.add(labelGRows[i][j]);
+                        bu.add(labelHRows[i][j]);
+                        bu.add(labelFRows[i][j]);
+                        refreshNode(i, j);
+                    }
+                }
 
-        // add axis labels
-        for (i = 0; i < xCount; i++) {
-          axisTextX[i] = new Bu.PointText(
-                  i + 1,
-                  getCentralX(i, -1),
-                  MARGIN / 2
-          );
-          bu.add(axisTextX[i]);
-        }
-        for (i = 0; i < yCount; i++) {
-          axisTextY[i] = new Bu.PointText(
-                  i + 1,
-                  getCentralX(-1, i),
-                  getCentralY(-1, i)
-          );
-          bu.add(axisTextY[i]);
-        }
+                // add axis labels
+                for (i = 0; i < xCount; i++) {
+                    axisTextX[i] = new Bu.PointText(
+                        i + 1,
+                        getCentralX(i, -1),
+                        MARGIN / 2
+                    );
+                    bu.add(axisTextX[i]);
+                }
+                for (i = 0; i < yCount; i++) {
+                    axisTextY[i] = new Bu.PointText(
+                        i + 1,
+                        getCentralX(-1, i),
+                        getCentralY(-1, i)
+                    );
+                    bu.add(axisTextY[i]);
+                }
 
-        engine.on('nodeChanged', function (e) {
-          refreshNode(e.x, e.y);
-        });
+                engine.on('nodeChanged', function (e) {
+                    refreshNode(e.x, e.y);
+                });
 
-        engine.on('finished', function (e) {
-          console.log('result: ', e);
-          if (!e.success) alert('no solution!');
-        });
-      }
+                engine.on('finished', function (e) {
+                    console.log('result: ', e);
+                    if (!e.success) alert('no solution!');
+                });
+            }
 
-      function refreshNode(i, j) {
-        var node = net.getNode(i, j);
+            function refreshNode(i, j) {
+                var node = net.getNode(i, j);
 
-        var rect = hexagonRows[i][j];
+                var rect = hexagonRows[i][j];
 
-        rect.strokeStyle = 'gray';
-        rect.fillStyle = AStar.getStateColor(node.state);
+                rect.strokeStyle = 'gray';
+                rect.fillStyle = AStar.getStateColor(node.state);
 
-        // draw path with prevNode
-        if (node.prevNode) {
-          var x = getCentralX(node.prevNode.position.x, node.prevNode.position.y);
-          var y = getCentralY(node.prevNode.position.x, node.prevNode.position.y);
-          lineRows[i][j].setPoint2(new Bu.Point(x, y));
-        }
+                // draw path with prevNode
+                if (node.prevNode) {
+                    var x = getCentralX(node.prevNode.position.x, node.prevNode.position.y);
+                    var y = getCentralY(node.prevNode.position.x, node.prevNode.position.y);
+                    lineRows[i][j].setPoint2(new Bu.Point(x, y));
+                }
 
-        // set shortest path lineWidth
-        if (node.state == AStar.NODE_STATE_SHORTEST || node.state == AStar.NODE_STATE_END)
-          lineRows[i][j].lineWidth = 5;
+                // set shortest path lineWidth
+                if (node.state == AStar.NODE_STATE_SHORTEST || node.state == AStar.NODE_STATE_END)
+                    lineRows[i][j].lineWidth = 5;
 
-        // set text
-        if (node.state != AStar.NODE_STATE_OBSTACLE && node.state != AStar.NODE_STATE_DEFAULT) {
-          labelGRows[i][j].text = node.g * 10;
-          labelHRows[i][j].text = node.h * 10;
-          labelFRows[i][j].text = node.f() * 10;
-        }
-      }
+                // set text
+                if (node.state != AStar.NODE_STATE_OBSTACLE && node.state != AStar.NODE_STATE_DEFAULT) {
+                    labelGRows[i][j].text = node.g * 10;
+                    labelHRows[i][j].text = node.h * 10;
+                    labelFRows[i][j].text = node.f() * 10;
+                }
+            }
 
-      function getPolygon(x, y) {
-        return hexagonRows[x][y];
-      }
+            function getPolygon(x, y) {
+                return hexagonRows[x][y];
+            }
 
-      function getCentralX(i, j) {
-        return MARGIN + OFFSET_X * i + (OFFSET_X / 2) * j + GRID_SIZE_X / 2;
-      }
+            function getCentralX(i, j) {
+                return MARGIN + OFFSET_X * i + (OFFSET_X / 2) * j + GRID_SIZE_X / 2;
+            }
 
-      function getCentralY(i, j) {
-        return MARGIN + OFFSET_Y * j + GRID_SIZE_X / 2;
-      }
+            function getCentralY(i, j) {
+                return MARGIN + OFFSET_Y * j + GRID_SIZE_X / 2;
+            }
 
-      function pixelToIndexX(x, y) {
-        return Math.round((x - MARGIN * 0.75) / OFFSET_X - y / OFFSET_Y / 2);
-      }
+            function pixelToIndexX(x, y) {
+                return Math.round((x - MARGIN * 0.75) / OFFSET_X - y / OFFSET_Y / 2);
+            }
 
-      function pixelToIndexY(x, y) {
-        return Math.round((y - MARGIN - GRID_SIZE_X / 2) / OFFSET_Y);
-      }
+            function pixelToIndexY(x, y) {
+                return Math.round((y - MARGIN - GRID_SIZE_X / 2) / OFFSET_Y);
+            }
 
-      function onMouseDown(e) {
+            function onMouseDown(e) {
 
-        isMouseDown = true;
+                isMouseDown = true;
 
-        var x = pixelToIndexX(e.offsetX, e.offsetY);
-        var y = pixelToIndexY(e.offsetX, e.offsetY);
-        if (x < 0 || y < 0 || x >= net.width || y >= net.height) return;
+                var x = pixelToIndexX(e.offsetX, e.offsetY);
+                var y = pixelToIndexY(e.offsetX, e.offsetY);
+                if (x < 0 || y < 0 || x >= net.width || y >= net.height) return;
 
-        var node = net.getNode(x, y);
+                var node = net.getNode(x, y);
 
-        // left button
+                // left button
 
-        if (node.state == AStar.NODE_STATE_DEFAULT) {
-          node.state = AStar.NODE_STATE_OBSTACLE;
-          isClearing = false;
-        } else if (node.state == AStar.NODE_STATE_OBSTACLE) {
-          node.state = AStar.NODE_STATE_DEFAULT;
-          isClearing = true;
-        }
+                if (node.state == AStar.NODE_STATE_DEFAULT) {
+                    node.state = AStar.NODE_STATE_OBSTACLE;
+                    isClearing = false;
+                } else if (node.state == AStar.NODE_STATE_OBSTACLE) {
+                    node.state = AStar.NODE_STATE_DEFAULT;
+                    isClearing = true;
+                }
 
-        engine.trigger('nodeChanged', node.position);
-      }
+                engine.trigger('nodeChanged', node.position);
+            }
 
-      function onMouseMove(e) {
+            function onMouseMove(e) {
 
-        if (isMouseDown) {
-          var x = pixelToIndexX(e.offsetX, e.offsetY);
-          var y = pixelToIndexY(e.offsetX, e.offsetY);
-          if (x < 0 || y < 0 || x >= net.width || y >= net.height) return;
+                if (isMouseDown) {
+                    var x = pixelToIndexX(e.offsetX, e.offsetY);
+                    var y = pixelToIndexY(e.offsetX, e.offsetY);
+                    if (x < 0 || y < 0 || x >= net.width || y >= net.height) return;
 
-          var node = net.getNode(x, y);
+                    var node = net.getNode(x, y);
 
-          if (isClearing) {
-            if (node.state == AStar.NODE_STATE_OBSTACLE)
-              node.state = AStar.NODE_STATE_DEFAULT;
-          } else {
-            if (node.state == AStar.NODE_STATE_DEFAULT)
-              node.state = AStar.NODE_STATE_OBSTACLE;
-          }
+                    if (isClearing) {
+                        if (node.state == AStar.NODE_STATE_OBSTACLE)
+                            node.state = AStar.NODE_STATE_DEFAULT;
+                    } else {
+                        if (node.state == AStar.NODE_STATE_DEFAULT)
+                            node.state = AStar.NODE_STATE_OBSTACLE;
+                    }
 
-          engine.trigger('nodeChanged', node.position);
-        }
-      }
+                    engine.trigger('nodeChanged', node.position);
+                }
+            }
 
-      function onMouseUp(e) {
-        isMouseDown = false;
-      }
+            function onMouseUp(e) {
+                isMouseDown = false;
+            }
 
-  body
-    div Click the blocks to add/remove obstacles.
-    #toolbar
-      button#btnRun Run
-      button#btnRunSlowly Run slowly
-      button#btnNextStep Next step
-    #container
+    body
+        div Click the blocks to add/remove obstacles.
+        #toolbar
+            button#btnRun Run
+            button#btnRunSlowly Run slowly
+            button#btnNextStep Next step
+        #container

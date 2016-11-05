@@ -1,61 +1,61 @@
 doctype html
 html
-  head
-    meta(charset="utf-8")
-    title Distance from Point to Line
-    script(src="../build/bu.js")
-    style.
+    head
+        meta(charset="utf-8")
+        title Distance from Point to Line
+        script(src="../build/bu.js")
+        style.
 
-      html, body {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-      }
+            html, body {
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
 
-      #info {
-        position: absolute;
-        width: 100%;
-        text-align: center;
-        padding: 8px 0;
-      }
+            #info {
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                padding: 8px 0;
+            }
 
-    script(type="text/javascript").
+        script(type="text/javascript").
 
-      var bu, generator;
-      var line, lineVertical;
-      var mousePos = new Bu.Point();
+            var bu, generator;
+            var line, lineVertical;
+            var mousePos = new Bu.Point();
 
-      $.ready(init);
+            $.ready(init);
 
-      function init() {
-        bu = new Bu({
-          showKeyPoints: true,
-        });
-        generator = new Bu.RandomShapeGenerator(bu);
-        line = generator.generateLine();
-        bu.add(line);
-        lineVertical = new Bu.Line();
-        lineVertical.dash();
-        lineVertical.points[1].label = "T";
-        bu.add(lineVertical);
-        bu.dom.addEventListener("mouseup", onMouseUp);
-        bu.dom.addEventListener("mousemove", onMouseMove);
-      }
+            function init() {
+                bu = new Bu({
+                    showKeyPoints: true,
+                });
+                generator = new Bu.RandomShapeGenerator(bu);
+                line = generator.generateLine();
+                bu.add(line);
+                lineVertical = new Bu.Line();
+                lineVertical.dash();
+                lineVertical.points[1].label = "T";
+                bu.add(lineVertical);
+                bu.dom.addEventListener("mouseup", onMouseUp);
+                bu.dom.addEventListener("mousemove", onMouseMove);
+            }
 
-      function onMouseMove(e) {
+            function onMouseMove(e) {
 
-        mousePos.x = e.offsetX;
-        mousePos.y = e.offsetY;
-        var dist = line.distanceTo(mousePos);
-        lineVertical.points[0].copy(mousePos);
-        line.footPointFrom(mousePos, lineVertical.points[1]);
-        lineVertical.points[0].label = "Distance: " + Math.round(dist);
-      }
+                mousePos.x = e.offsetX;
+                mousePos.y = e.offsetY;
+                var dist = line.distanceTo(mousePos);
+                lineVertical.points[0].copy(mousePos);
+                line.footPointFrom(mousePos, lineVertical.points[1]);
+                lineVertical.points[0].label = "Distance: " + Math.round(dist);
+            }
 
-      function onMouseUp() {
-        line = bu.shapes[0] = generator.generateLine();
-      }
+            function onMouseUp() {
+                line = bu.shapes[0] = generator.generateLine();
+            }
 
-  body
-    div#info Move cursor to measure the distance. Click to change another line.
+    body
+        div#info Move cursor to measure the distance. Click to change another line.

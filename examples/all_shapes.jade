@@ -1,104 +1,104 @@
 doctype html
 html(lang="en")
-  head
-    meta(charset="utf-8")
-    title Bu.js demo - shapes
-    script(src="../build/bu.js")
-    style.
+    head
+        meta(charset="utf-8")
+        title Bu.js demo - shapes
+        script(src="../build/bu.js")
+        style.
 
-      html, body {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-      }
+            html, body {
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
 
-      #info {
-        position: absolute;
-        width: 100%;
-        text-align: center;
-        padding: 8px 0;
-      }
+            #info {
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                padding: 8px 0;
+            }
 
-    script(type="text/javascript").
+        script(type="text/javascript").
 
-      var bu;
+            var bu;
 
-      $.ready(init);
+            $.ready(init);
 
-      function init() {
-        bu = new Bu({
-          showKeyPoints: true,
-        });
+            function init() {
+                bu = new Bu({
+                    showKeyPoints: true,
+                });
 
-        // row 1: circle, line, rectangle and triangle
-        bu.shapes[0] = new Bu.Circle(50, 100, 100);
-        bu.shapes[1] = new Bu.Line(200, 50, 250, 150);
-        bu.shapes[2] = new Bu.Rectangle(315, 60, 120, 80);
-        bu.shapes[3] = new Bu.Triangle(600, 50, 500, 150, 650, 150);
+                // row 1: circle, line, rectangle and triangle
+                bu.shapes[0] = new Bu.Circle(50, 100, 100);
+                bu.shapes[1] = new Bu.Line(200, 50, 250, 150);
+                bu.shapes[2] = new Bu.Rectangle(315, 60, 120, 80);
+                bu.shapes[3] = new Bu.Triangle(600, 50, 500, 150, 650, 150);
 
-        // row 2: fan, bow, polygon (regular) and polygon (normal)
-        bu.shapes[4] = new Bu.Fan(100, 275, 60, - Math.PI * 5 / 6, -Math.PI / 6);
-        bu.shapes[5] = new Bu.Bow(185, 250, 60, Math.PI / 3, - Math.PI / 3);
-        bu.shapes[6] = new Bu.Polygon(375, 250, 50, 6);
-        bu.shapes[7] = new Bu.Polygon([
-                new Bu.Point(500, 200),
-                new Bu.Point(650, 200),
-                new Bu.Point(620, 280),
-                new Bu.Point(550, 300)
-        ]);
+                // row 2: fan, bow, polygon (regular) and polygon (normal)
+                bu.shapes[4] = new Bu.Fan(100, 275, 60, - Math.PI * 5 / 6, -Math.PI / 6);
+                bu.shapes[5] = new Bu.Bow(185, 250, 60, Math.PI / 3, - Math.PI / 3);
+                bu.shapes[6] = new Bu.Polygon(375, 250, 50, 6);
+                bu.shapes[7] = new Bu.Polygon([
+                    new Bu.Point(500, 200),
+                    new Bu.Point(650, 200),
+                    new Bu.Point(620, 280),
+                    new Bu.Point(550, 300)
+                ]);
 
-        // row 3: polyline and spline
-        bu.shapes[8] = new Bu.Polyline([
-          new Bu.Point(50, 420),
-          new Bu.Point(60, 400),
-          new Bu.Point(150, 400),
-          new Bu.Point(75, 500),
-          new Bu.Point(165, 500),
-          new Bu.Point(175, 480)
-        ]);
-        bu.shapes[9] = new Bu.Spline([
-          new Bu.Point(200, 420),
-          new Bu.Point(210, 400),
-          new Bu.Point(300, 400),
-          new Bu.Point(225, 500),
-          new Bu.Point(315, 500),
-          new Bu.Point(325, 480)
-        ]);
-        bu.shapes[10] = new Bu.Rectangle(365, 400, 120, 80, 16);
+                // row 3: polyline and spline
+                bu.shapes[8] = new Bu.Polyline([
+                    new Bu.Point(50, 420),
+                    new Bu.Point(60, 400),
+                    new Bu.Point(150, 400),
+                    new Bu.Point(75, 500),
+                    new Bu.Point(165, 500),
+                    new Bu.Point(175, 480)
+                ]);
+                bu.shapes[9] = new Bu.Spline([
+                    new Bu.Point(200, 420),
+                    new Bu.Point(210, 400),
+                    new Bu.Point(300, 400),
+                    new Bu.Point(225, 500),
+                    new Bu.Point(315, 500),
+                    new Bu.Point(325, 480)
+                ]);
+                bu.shapes[10] = new Bu.Rectangle(365, 400, 120, 80, 16);
 
-        // labels
-        bu.add([
-          new Bu.PointText('Circle', 100, 170),
-          new Bu.PointText('Line', 225, 170),
-          new Bu.PointText('Rectangle', 375, 170, 20),
-          new Bu.PointText('Triangle', 575, 170),
+                // labels
+                bu.add([
+                    new Bu.PointText('Circle', 100, 170),
+                    new Bu.PointText('Line', 225, 170),
+                    new Bu.PointText('Rectangle', 375, 170, 20),
+                    new Bu.PointText('Triangle', 575, 170),
 
-          new Bu.PointText('Fan', 100, 325),
-          new Bu.PointText('Bow', 225, 325),
-          new Bu.PointText('Polygon (Regular)', 375, 325),
-          new Bu.PointText('Polygon (Normal)', 575, 325),
+                    new Bu.PointText('Fan', 100, 325),
+                    new Bu.PointText('Bow', 225, 325),
+                    new Bu.PointText('Polygon (Regular)', 375, 325),
+                    new Bu.PointText('Polygon (Normal)', 575, 325),
 
-          new Bu.PointText('Polyline', 125, 525),
-          new Bu.PointText('Spline', 275, 525),
-          new Bu.PointText('Rectangle (Round)', 425, 525)
-        ]);
-      }
+                    new Bu.PointText('Polyline', 125, 525),
+                    new Bu.PointText('Spline', 275, 525),
+                    new Bu.PointText('Rectangle (Round)', 425, 525)
+                ]);
+            }
 
-      function setDashStroke(on) {
-        bu.shapes.each(function(shape) {
-          shape.dash(on ? true : false);
-        });
-      }
+            function setDashStroke(on) {
+                bu.shapes.each(function(shape) {
+                    shape.dash(on ? true : false);
+                });
+            }
 
-  body
-    div#info
-      span All supported shapes.
-      div(style="float: right; text-align: left;")
-        label
-          input(type="checkbox" onclick="bu.isShowKeyPoints = this.checked;" checked)
-          | Show key points
-        br
-        label
-          input(type="checkbox" onclick="setDashStroke(this.checked);")
-          | Dashed stroke
+    body
+        div#info
+            span All supported shapes.
+            div(style="float: right; text-align: left;")
+                label
+                    input(type="checkbox" onclick="bu.isShowKeyPoints = this.checked;" checked)
+                    | Show key points
+                br
+                label
+                    input(type="checkbox" onclick="setDashStroke(this.checked);")
+                    | Dashed stroke

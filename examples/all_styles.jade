@@ -1,116 +1,116 @@
 doctype html
 html(lang="en")
-  head
-    meta(charset="utf-8")
-    title Bu.js demo - shapes
-    script(src="../build/bu.js")
-    style.
+    head
+        meta(charset="utf-8")
+        title Bu.js demo - shapes
+        script(src="../build/bu.js")
+        style.
 
-      #container {
-        display: inline-flex;
-        border: solid 1px gray;
-        width: 600px;
-        height: 800px;
-      }
+            #container {
+                display: inline-flex;
+                border: solid 1px gray;
+                width: 600px;
+                height: 800px;
+            }
 
-      #info {
-        position: absolute;
-        width: 90%;
-        text-align: center;
-        padding: 8px 0;
-      }
+            #info {
+                position: absolute;
+                width: 90%;
+                text-align: center;
+                padding: 8px 0;
+            }
 
-    script(type="text/javascript").
+        script(type="text/javascript").
 
-      var bu;
+            var bu;
 
-      $.ready(init);
+            $.ready(init);
 
-      function init() {
-        bu = new Bu({
-          container: '#container',
-        });
+            function init() {
+                bu = new Bu({
+                    container: '#container',
+                });
 
-        // default circle
-        bu.shapes[0] = new Bu.Circle(30);
-        bu.shapes[0].children.push(new Bu.PointText('circle', 55, 0));
-        bu.shapes[0].children.push(new Bu.Line(90, -90 * 2, 90, 90 * 2));
+                // default circle
+                bu.shapes[0] = new Bu.Circle(30);
+                bu.shapes[0].children.push(new Bu.PointText('circle', 55, 0));
+                bu.shapes[0].children.push(new Bu.Line(90, -90 * 2, 90, 90 * 2));
 
-        // default polyline
-        bu.shapes[1] = new Bu.Polyline(0, -20, -30, 20, 30, 20);
-        bu.shapes[1].lineWidth = 10;
-        bu.shapes[1].children.push(new Bu.PointText('polyline', 55, 0));
-        bu.shapes[1].children.push(new Bu.Line(90, -90 * 0.5, 90, 90 * 0.5));
+                // default polyline
+                bu.shapes[1] = new Bu.Polyline(0, -20, -30, 20, 30, 20);
+                bu.shapes[1].lineWidth = 10;
+                bu.shapes[1].children.push(new Bu.PointText('polyline', 55, 0));
+                bu.shapes[1].children.push(new Bu.Line(90, -90 * 0.5, 90, 90 * 0.5));
 
-        // lineWidth
-        bu.shapes[2] = bu.shapes[0].clone();
-        bu.shapes[2].children.push(new Bu.PointText('.lineWidth', -100, 0));
-        bu.shapes[2].children.push(new Bu.PointText('=5', 0, 40));
+                // lineWidth
+                bu.shapes[2] = bu.shapes[0].clone();
+                bu.shapes[2].children.push(new Bu.PointText('.lineWidth', -100, 0));
+                bu.shapes[2].children.push(new Bu.PointText('=5', 0, 40));
 
-        bu.shapes[2].lineWidth = 5;
+                bu.shapes[2].lineWidth = 5;
 
-        // strokeStyle
-        bu.shapes[3] = bu.shapes[0].clone();
-        bu.shapes[3].children.push(new Bu.PointText('.strokeStyle', -100, 0));
-        bu.shapes[3].children.push(new Bu.PointText('="red"', 0, 40));
+                // strokeStyle
+                bu.shapes[3] = bu.shapes[0].clone();
+                bu.shapes[3].children.push(new Bu.PointText('.strokeStyle', -100, 0));
+                bu.shapes[3].children.push(new Bu.PointText('="red"', 0, 40));
 
-        bu.shapes[3].strokeStyle = 'red';
+                bu.shapes[3].strokeStyle = 'red';
 
-        // fillStyle
-        bu.shapes[4] = bu.shapes[0].clone();
-        bu.shapes[4].children.push(new Bu.PointText('.fillStyle', -100, 0));
-        bu.shapes[4].children.push(new Bu.PointText('="pink"', 0, 40));
+                // fillStyle
+                bu.shapes[4] = bu.shapes[0].clone();
+                bu.shapes[4].children.push(new Bu.PointText('.fillStyle', -100, 0));
+                bu.shapes[4].children.push(new Bu.PointText('="pink"', 0, 40));
 
-        bu.shapes[4].fillStyle = 'pink';
+                bu.shapes[4].fillStyle = 'pink';
 
-        // opacity
-        bu.shapes[5] = bu.shapes[0].clone();
-        bu.shapes[5].children.push(new Bu.PointText('.opacity', -100, 0));
-        bu.shapes[5].children.push(new Bu.PointText('=0.5', 0, 40));
+                // opacity
+                bu.shapes[5] = bu.shapes[0].clone();
+                bu.shapes[5].children.push(new Bu.PointText('.opacity', -100, 0));
+                bu.shapes[5].children.push(new Bu.PointText('=0.5', 0, 40));
 
-        bu.shapes[5].opacity = 0.5;
+                bu.shapes[5].opacity = 0.5;
 
-        // dashStyle
-        bu.shapes[6] = bu.shapes[0].clone();
+                // dashStyle
+                bu.shapes[6] = bu.shapes[0].clone();
 
-        bu.shapes[6].children.push(bu.shapes[0].clone());
-        bu.shapes[6].children[0].position.x = 100;
+                bu.shapes[6].children.push(bu.shapes[0].clone());
+                bu.shapes[6].children[0].position.x = 100;
 
-        bu.shapes[6].children.push(new Bu.PointText('.dashStyle', -100, 0));
-        bu.shapes[6].children.push(new Bu.PointText('=[10, 10]', 0, 40));
-        bu.shapes[6].children.push(new Bu.PointText('dashOffset++', 100, 40));
+                bu.shapes[6].children.push(new Bu.PointText('.dashStyle', -100, 0));
+                bu.shapes[6].children.push(new Bu.PointText('=[10, 10]', 0, 40));
+                bu.shapes[6].children.push(new Bu.PointText('dashOffset++', 100, 40));
 
-        bu.shapes[6].dashStyle = bu.shapes[6].children[0].dashStyle = [10, 10];
+                bu.shapes[6].dashStyle = bu.shapes[6].children[0].dashStyle = [10, 10];
 
-        // lineCap
-        bu.shapes[7] = bu.shapes[1].clone();
-        bu.shapes[7].lineWidth = 10;
-        bu.shapes[7].children.push(new Bu.PointText('.lineCap', -100, 0));
-        bu.shapes[7].children.push(new Bu.PointText('="round"', 0, 40));
+                // lineCap
+                bu.shapes[7] = bu.shapes[1].clone();
+                bu.shapes[7].lineWidth = 10;
+                bu.shapes[7].children.push(new Bu.PointText('.lineCap', -100, 0));
+                bu.shapes[7].children.push(new Bu.PointText('="round"', 0, 40));
 
-        bu.shapes[7].lineCap = 'round';
+                bu.shapes[7].lineCap = 'round';
 
-        // lineJoin
-        bu.shapes[8] = bu.shapes[1].clone();
-        bu.shapes[8].lineWidth = 10;
-        bu.shapes[8].children.push(new Bu.PointText('.lineJoin', -100, 0));
-        bu.shapes[8].children.push(new Bu.PointText('="round"', 0, 40));
+                // lineJoin
+                bu.shapes[8] = bu.shapes[1].clone();
+                bu.shapes[8].lineWidth = 10;
+                bu.shapes[8].children.push(new Bu.PointText('.lineJoin', -100, 0));
+                bu.shapes[8].children.push(new Bu.PointText('="round"', 0, 40));
 
-        bu.shapes[8].lineJoin = 'round';
+                bu.shapes[8].lineJoin = 'round';
 
-        // arrange
-        bu.shapes[0].position.set(50, 90 * 3);
-        bu.shapes[1].position.set(50, 90 * 6.5);
-        for (var i = 2; i < 9; i++) {
-          bu.shapes[i].position.set(300, 90 * i - 90);
-        }
+                // arrange
+                bu.shapes[0].position.set(50, 90 * 3);
+                bu.shapes[1].position.set(50, 90 * 6.5);
+                for (var i = 2; i < 9; i++) {
+                    bu.shapes[i].position.set(300, 90 * i - 90);
+                }
 
-        bu.on('update', function (frameCount) {
-          bu.shapes[6].children[0].dashOffset++;
-        });
-      }
+                bu.on('update', function (frameCount) {
+                    bu.shapes[6].children[0].dashOffset++;
+                });
+            }
 
-  body
-    div#info
-      span All supported styles.
-    div#container
+    body
+        div#info
+            span All supported styles.
+        div#container

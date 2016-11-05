@@ -1,58 +1,58 @@
 doctype html
 html(lang="en")
-  head
-    meta(charset="utf-8")
-    title Bu.js demo - hierarchy
-    script(src="../build/bu.js")
-    style.
-      html, body {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-      }
+    head
+        meta(charset="utf-8")
+        title Bu.js demo - hierarchy
+        script(src="../build/bu.js")
+        style.
+            html, body {
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
 
-      #info {
-        position: absolute;
-        width: 100%;
-        line-height: 26px;
-        text-align: center;
-        padding: 8px 0;
-      }
+            #info {
+                position: absolute;
+                width: 100%;
+                line-height: 26px;
+                text-align: center;
+                padding: 8px 0;
+            }
 
-    script(type="text/javascript").
+        script(type="text/javascript").
 
-      var bu, sun, earth, moon;
+            var bu, sun, earth, moon;
 
-      $.ready(init);
+            $.ready(init);
 
-      function init() {
-        bu = new Bu();
+            function init() {
+                bu = new Bu();
 
-        sun = new Bu.Circle(40);
-        sun.fill("#F40").stroke("#820");
-        sun.position.set(300, 300);
+                sun = new Bu.Circle(40);
+                sun.fill("#F40").stroke("#820");
+                sun.position.set(300, 300);
 
-        earth = new Bu.Circle(20);
-        earth.fill("#06F").stroke("#038");
-        earth.position.x = 150;
+                earth = new Bu.Circle(20);
+                earth.fill("#06F").stroke("#038");
+                earth.position.x = 150;
 
-        moon = new Bu.Circle(10);
-        moon.position.x = 50;
-        moon.fill("#FF0").stroke("#880");
+                moon = new Bu.Circle(10);
+                moon.position.x = 50;
+                moon.fill("#FF0").stroke("#880");
 
-        earth.children.push(moon);
-        sun.children.push(earth);
-        bu.add(sun);
+                earth.children.push(moon);
+                sun.children.push(earth);
+                bu.add(sun);
 
-        setInterval(anim, 1000 / 60);
-      }
+                setInterval(anim, 1000 / 60);
+            }
 
-      function anim() {
-        sun.rotation += 0.02;
-        earth.rotation += 0.1;
-      }
+            function anim() {
+                sun.rotation += 0.02;
+                earth.rotation += 0.1;
+            }
 
-  body
-    div#info
-      span Simulate the solar system to demonstrate the hierarchical management.
+    body
+        div#info
+            span Simulate the solar system to demonstrate the hierarchical management.

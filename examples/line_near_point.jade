@@ -1,65 +1,65 @@
 doctype html
 html
-  head
-    meta(charset="utf-8")
-    title Point on Line Test
-    script(src="../build/bu.js")
-    style.
+    head
+        meta(charset="utf-8")
+        title Point on Line Test
+        script(src="../build/bu.js")
+        style.
 
-      html, body {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-      }
+            html, body {
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
 
-      #info {
-        position: absolute;
-        width: 100%;
-        text-align: center;
-        padding: 8px 0;
-      }
+            #info {
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                padding: 8px 0;
+            }
 
-    script(type="text/javascript").
+        script(type="text/javascript").
 
-      var bu, generator;
-      var line, polyline;
-      var mousePos = new Bu.Point();
+            var bu, generator;
+            var line, polyline;
+            var mousePos = new Bu.Point();
 
-      $.ready(init);
+            $.ready(init);
 
-      function init() {
-        bu = new Bu({
-          showKeyPoints: true,
-        });
-        generator = new Bu.RandomShapeGenerator(bu);
+            function init() {
+                bu = new Bu({
+                    showKeyPoints: true,
+                });
+                generator = new Bu.RandomShapeGenerator(bu);
 
-        generateLines();
+                generateLines();
 
-        bu.dom.addEventListener("mouseup", generateLines);
-        bu.dom.addEventListener("mousemove", onMouseMove);
-      }
+                bu.dom.addEventListener("mouseup", generateLines);
+                bu.dom.addEventListener("mousemove", onMouseMove);
+            }
 
-      function onMouseMove(e) {
+            function onMouseMove(e) {
 
-        mousePos.x = e.offsetX;
-        mousePos.y = e.offsetY;
+                mousePos.x = e.offsetX;
+                mousePos.y = e.offsetY;
 
-        if (mousePos.isNear(line))
-          line.stroke(Bu.DEFAULT_STROKE_STYLE_HOVER);
-        else
-          line.stroke();
+                if (mousePos.isNear(line))
+                    line.stroke(Bu.DEFAULT_STROKE_STYLE_HOVER);
+                else
+                    line.stroke();
 
-        if (mousePos.isNear(polyline))
-          polyline.stroke(Bu.DEFAULT_STROKE_STYLE_HOVER);
-        else
-          polyline.stroke();
-      }
+                if (mousePos.isNear(polyline))
+                    polyline.stroke(Bu.DEFAULT_STROKE_STYLE_HOVER);
+                else
+                    polyline.stroke();
+            }
 
-      function generateLines() {
-        line = bu.shapes[0] = generator.generateLine();
-        polyline = bu.shapes[1] = generator.generatePolyline();
-      }
+            function generateLines() {
+                line = bu.shapes[0] = generator.generateLine();
+                polyline = bu.shapes[1] = generator.generatePolyline();
+            }
 
-  body
-    div#info Move cursor over the line to test. Click to change another group of lines.
+    body
+        div#info Move cursor over the line to test. Click to change another group of lines.
