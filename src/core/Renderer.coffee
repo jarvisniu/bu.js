@@ -13,7 +13,7 @@ class Bu.Renderer
 			background: '#eee'
 		@[k] = options[k] for k in ['container', 'width', 'height', 'fps', 'showKeyPoints', 'width', 'height']
 		@container = document.querySelector @container if typeof @container is 'string'
-		@fillParent = if typeof @width != 'number'
+		@fillParent = typeof @width != 'number'
 
 		@tickCount = 0
 		@isRunning = no
