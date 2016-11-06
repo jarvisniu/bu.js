@@ -31,7 +31,7 @@ class Bu.Renderer
 			@dom.style.height = @height + 'px'
 			@dom.width = @width * @pixelRatio
 			@dom.height = @height * @pixelRatio
-		@dom.style.cursor = 'crosshair'
+		@dom.style.cursor = options.cursor or 'default'
 		@dom.style.boxSizing = 'content-box'
 		@dom.style.background = options.background
 		@dom.oncontextmenu = -> false
