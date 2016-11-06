@@ -32,7 +32,8 @@ class Bu.Polyline extends Bu.Object2D
 				@lines[i].set @vertices[i], @vertices[i + 1]
 			else
 				@lines[i] = new Bu.Line @vertices[i], @vertices[i + 1]
-	# TODO remove the rest
+		# TODO remove the rest
+		@
 
 	# edit
 
@@ -46,6 +47,7 @@ class Bu.Polyline extends Bu.Object2D
 			@vertices.splice points.length
 
 		@trigger "pointChange", @
+		@
 
 	addPoint: (point, insertIndex) ->
 		if not insertIndex?
@@ -58,3 +60,4 @@ class Bu.Polyline extends Bu.Object2D
 			@vertices.splice insertIndex, 0, point
 		# TODO add lines
 		@trigger "pointChange", @
+		@
