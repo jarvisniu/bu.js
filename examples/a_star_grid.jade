@@ -62,11 +62,11 @@ html
 				net.setEnd(END_POS.x, END_POS.y);
 
 				// append dom
-				bu = new Bu({
+				bu = new Bu.Renderer({
 					container: "#container",
 					width: OFFSET * net.width + MARGIN * 2,
 					height: OFFSET * net.height + MARGIN * 2,
-					showKeyPoints: false,
+					cursor: 'crosshair',
 				});
 				bu.dom.addEventListener("mousedown", onMouseDown);
 				bu.dom.addEventListener("mousemove", onMouseMove);

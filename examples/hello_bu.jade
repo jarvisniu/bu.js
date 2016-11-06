@@ -2,27 +2,15 @@ doctype html
 html(lang="en")
 	head
 		meta(charset="utf-8")
-		title Bu.js demo - hierarchy
+		title Hello Bu.js
 		script(src="../build/bu.js")
-		style.
-			html, body {
-				margin: 0;
-				width: 100%;
-				height: 100%;
-				overflow: hidden;
-			}
-
-			#info {
-				position: absolute;
-				width: 100%;
-				line-height: 26px;
-				text-align: center;
-				padding: 8px 0;
-			}
-
 		script(type="text/javascript").
 
 			var bu = new Bu.App({
+				canvas: {
+					width: 600,
+					height: 600,
+				},
 				objects: {
 					sun: new Bu.Circle(40),
 					earth: new Bu.Circle(20),
@@ -44,15 +32,11 @@ html(lang="en")
 					o.earth.fill("#06F").stroke("#038");
 					o.earth.position.x = 150;
 
-					o.moon.position.x = 50;
 					o.moon.fill("#FF0").stroke("#880");
+					o.moon.position.x = 50;
 				},
 				update: function () {
 					this.$objects.sun.rotation += 0.02;
 					this.$objects.earth.rotation += 0.1;
 				},
 			});
-
-	body
-		div#info
-			span Simulate the solar system to demonstrate the hierarchical management.

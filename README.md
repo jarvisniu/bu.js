@@ -3,12 +3,13 @@ Bu.js
 
 A JavaScript 2D graphics library based on HTML5 Canvas
 
-![](logo.png)
+[![](logo.png)](http://jarvisniu.com/Bu.js/examples/)
 
 [Demos](http://jarvisniu.com/Bu.js/examples/) -
 [Guides](https://github.com/jarvisniu/Bu.js/wiki/Guides) -
 [API](https://github.com/jarvisniu/Bu.js/wiki/API) -
-[Change Log](CHANGELOG.md)
+[ChangeLog](CHANGELOG.md) - 
+[Download](https://cdn.rawgit.com/jarvisniu/Bu.js/v0.3.4/build/bu.min.js)
 
 
 ## Features

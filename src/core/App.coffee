@@ -34,8 +34,10 @@ class Bu.App
 
 	init: () ->
 		# canvas
-		@$canvas = new Bu
+		@$canvas = new Bu.Renderer
 			container: @options.canvas.container
+			width: @options.canvas.width
+			height: @options.canvas.height
 			showKeyPoints: @options.canvas.showKeyPoints
 			background: @options.canvas.background
 		@$canvas.dom.style.cursor and= @options.canvas.cursor

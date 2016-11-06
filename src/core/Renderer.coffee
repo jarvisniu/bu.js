@@ -11,9 +11,9 @@ class Bu.Renderer
 			fps: 60
 			showKeyPoints: no
 			background: '#eee'
-		@[k] = options[k] for k in ['container', 'width', 'height', 'fps', 'showKeyPoints', 'width', 'height']
+		@[k] = options[k] for k in ['container', 'width', 'height', 'fps', 'showKeyPoints']
 		@container = document.querySelector @container if typeof @container is 'string'
-		@fillParent = typeof @width != 'number'
+		@fillParent = typeof options.width != 'number'
 
 		@tickCount = 0
 		@isRunning = no

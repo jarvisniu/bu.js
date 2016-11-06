@@ -6,8 +6,8 @@ previousGlobal = global
 # Get the root object
 global = window or @
 
-# Define our namespace `Bu`. It is also a shortcut to class `Bu.Renderer`.
-global.Bu = () -> new Bu.Renderer arguments...
+# Define our namespace `Bu`.
+global.Bu = {}
 
 # Save the root object to our namespace.
 Bu.global = global

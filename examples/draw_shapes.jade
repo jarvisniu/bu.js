@@ -132,10 +132,8 @@ script.
 			},
 			ready: function () {
 				this.$refs.toolbar.items = iconButtons;
-				bu = new Bu({
+				bu = new Bu.Renderer({
 					container: "#container",
-					fillParent: true,
-					border: false,
 					showKeyPoints: true,
 					cursor: 'crosshair',
 				});

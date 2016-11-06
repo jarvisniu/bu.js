@@ -58,11 +58,11 @@ html
 				net.setStart(START_POS.x, START_POS.y);
 				net.setEnd(END_POS.x, END_POS.y);
 
-				bu = new Bu({
+				bu = new Bu.Renderer({
 					container: '#container',
 					width: MARGIN * 2 + getCentralX(net.width - 1, net.height - 1) - OFFSET_X / 2,
 					height: MARGIN * 2 + getCentralY(net.width - 1, net.height - 1) - OFFSET_Y / 2,
-					showKeyPoints: false,
+					cursor: 'crosshair',
 				});
 				bu.dom.addEventListener('mousedown', onMouseDown);
 				bu.dom.addEventListener('mousemove', onMouseMove);

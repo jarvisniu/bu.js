@@ -33,7 +33,7 @@ html(lang="en")
 			$.ready(init);
 
 			function init() {
-				bu = new Bu();
+				bu = new Bu.Renderer();
 				generatePoints();
 				document.getElementById("btnRandom").onclick = randomLines;
 				document.getElementById("btnAll").onclick = allLines;
