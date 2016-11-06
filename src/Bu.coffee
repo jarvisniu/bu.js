@@ -112,19 +112,33 @@ Bu.combineOptions = (args, defaultOptions) ->
 			defaultOptions[i] = givenOptions[i]
 	return defaultOptions
 
-# Check if an object if an plain object, not instance of class/function
+# Check if an object is an plain object, not instance of class/function
 Bu.isPlainObject = (o) ->
 	o instanceof Object and o.constructor.name == 'Object'
 
+# Check if an object is a function
+Bu.isFunction = (o) ->
+	o instanceof Object and o.constructor.name == 'Function'
+
 # Clone an Object or Array
-Bu.clone = (target, deep = false) ->
-	# TODO deal with deep
-	if target instanceof Array
-		clone = []
-		clone[i] = target[i] for own i of target
-	else if target instanceof Object
-		clone = {}
-		clone[i] = target[i] for own i of target
+Bu.clone = (target) ->
+	if typeof(target) != 'object' or target == null or Bu.isFunction target
+		return target
+	else
+		# FIXME cause stack overflow when its a circular structure
+		if target instanceof Array
+			clone = []
+		else if Bu.isPlainObject target
+			clone = {}
+		else # instance of class
+			clone = Object.create target.constructor.prototype
+
+		for own i of target
+			clone[i] = Bu.clone target[i]
+
+		if clone.constructor.name == 'Function'
+			console.log(clone);
+		return clone
 
 # Use localStorage to persist data
 Bu.data = (key, value) ->

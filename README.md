@@ -14,7 +14,7 @@ A JavaScript 2D graphics library based on HTML5 Canvas
 ## Features
 
 - Easy-to-use API
-- Emphasize geometry
+- Include rich geometry shapes and algorithms
 - High-definition screen supported
 - Modularization design made it easy to customise and extend
 

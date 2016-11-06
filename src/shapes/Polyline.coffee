@@ -24,9 +24,16 @@ class Bu.Polyline extends Bu.Object2D
 				@calcPointNormalizedPos?()
 		@trigger "pointChange", @
 
-	clone: => new Bu.Polyline @vertices
+	clone: ->
+		polyline = new Bu.Polyline @vertices
+		polyline.strokeStyle = @strokeStyle
+		polyline.fillStyle = @fillStyle
+		polyline.dashStyle = @dashStyle
+		polyline.lineWidth = @lineWidth
+		polyline.dashOffset = @dashOffset
+		polyline
 
-	updateLines: =>
+	updateLines: ->
 		for i in [0 ... @vertices.length - 1]
 			if @lines[i]?
 				@lines[i].set @vertices[i], @vertices[i + 1]

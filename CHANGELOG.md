@@ -12,5 +12,6 @@ Remove: Outdated or deprecated feature were removed
 #### v0.3.4
 
 - Add class `Bu.Color`
-- Update `Bu.Animation` support color gradient
+- Update `Bu.Animation` to support color transform animation
 - Add function `Bu.clamp()`
+- Add `Bu.App`, the declarative app framework

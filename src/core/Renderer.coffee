@@ -131,6 +131,7 @@ class Bu.Renderer
 
 		@context.translate shape.position.x, shape.position.y
 		@context.rotate shape.rotation
+#		console.log shape
 		sx = shape.scale.x
 		sy = shape.scale.y
 		if sx / sy > 100 or sx / sy < 0.01

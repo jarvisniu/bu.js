@@ -1,65 +1,68 @@
 doctype html
 html
-    head
-        meta(charset="utf-8")
-        title Point on Line Test
-        script(src="../build/bu.js")
-        style.
+	head
+		meta(charset="utf-8")
+		title Point on Line Test
+		script(src="../build/bu.js")
+		style.
 
-            html, body {
-                margin: 0;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-            }
+			html, body {
+				margin: 0;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
 
-            #info {
-                position: absolute;
-                width: 100%;
-                text-align: center;
-                padding: 8px 0;
-            }
+			#info {
+				position: absolute;
+				width: 100%;
+				text-align: center;
+				padding: 8px 0;
+			}
 
-        script(type="text/javascript").
+		script(type="text/javascript").
 
-            var bu, generator;
-            var line, polyline;
-            var mousePos = new Bu.Point();
+			var bu = new Bu.App({
+				canvas: {
+					showKeyPoints: true,
+					cursor: 'crosshair',
+				},
+				data: {
+					generator: null,
+					mousePos: new Bu.Point(),
+				},
+				init: function () {
+					this.generator = new Bu.RandomShapeGenerator(this.$canvas);
+					this.generateLines();
+				},
+				methods: {
+					generateLines: function () {
+						this.$objects.line = this.$canvas.shapes[0] = this.generator.generateLine();
+						this.$objects.polyline = this.$canvas.shapes[1] = this.generator.generatePolyline();
+					},
+				},
+				events: {
+					'mouseup': function (e) {
+						this.generateLines();
+					},
+					'mousemove': function (e) {
+						var o = this.$objects;
 
-            $.ready(init);
+						this.mousePos.x = e.offsetX;
+						this.mousePos.y = e.offsetY;
 
-            function init() {
-                bu = new Bu({
-                    showKeyPoints: true,
-                });
-                generator = new Bu.RandomShapeGenerator(bu);
+						if (this.mousePos.isNear(o.line))
+							o.line.stroke(Bu.DEFAULT_STROKE_STYLE_HOVER);
+						else
+							o.line.stroke();
 
-                generateLines();
+						if (this.mousePos.isNear(o.polyline))
+							o.polyline.stroke(Bu.DEFAULT_STROKE_STYLE_HOVER);
+						else
+							o.polyline.stroke();
+					},
+				},
+			});
 
-                bu.dom.addEventListener("mouseup", generateLines);
-                bu.dom.addEventListener("mousemove", onMouseMove);
-            }
-
-            function onMouseMove(e) {
-
-                mousePos.x = e.offsetX;
-                mousePos.y = e.offsetY;
-
-                if (mousePos.isNear(line))
-                    line.stroke(Bu.DEFAULT_STROKE_STYLE_HOVER);
-                else
-                    line.stroke();
-
-                if (mousePos.isNear(polyline))
-                    polyline.stroke(Bu.DEFAULT_STROKE_STYLE_HOVER);
-                else
-                    polyline.stroke();
-            }
-
-            function generateLines() {
-                line = bu.shapes[0] = generator.generateLine();
-                polyline = bu.shapes[1] = generator.generatePolyline();
-            }
-
-    body
-        div#info Move cursor over the line to test. Click to change another group of lines.
+	body
+		div#info Move cursor over the line to test. Click to change another group of lines.

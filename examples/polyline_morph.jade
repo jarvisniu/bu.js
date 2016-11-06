@@ -1,124 +1,131 @@
 doctype html
 html(lang="en")
-    head
-        title Polyline Morph
-        meta(charset="utf-8")
-        script(src="../build/bu.js")
-        script(src="./lib/morph/PolylineMorph.js")
-        script(src="js/ClipMeter.min.js")
-        style.
+	head
+		title Polyline Morph
+		meta(charset="utf-8")
+		script(src="../build/bu.js")
+		script(src="./lib/morph/PolylineMorph.js")
+		script(src="js/ClipMeter.min.js")
+		style.
 
-            html, body {
-                margin: 0;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-            }
+			html, body {
+				margin: 0;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
 
-            #info {
-                position: absolute;
-                width: 100%;
-                text-align: center;
-                padding: 8px 0;
-            }
+			#info {
+				position: absolute;
+				width: 100%;
+				text-align: center;
+				padding: 8px 0;
+			}
 
-        script(type="text/javascript").
+		script(type="text/javascript").
+			var bu = new Bu.App({
+				canvas: {
+					showKeyPoints: true,
+					cursor: 'crosshair',
+				},
+				data: {
+					time: 0,
+					forward: true,
+				},
+				objects: function () {
+					var polylineA = new Bu.Polyline()
+							.addPoint(new Bu.Point(100, 300))
+							.addPoint(new Bu.Point(250, 100))
+							.addPoint(new Bu.Point(400, 300));
+					var polylineB = new Bu.Polyline().stroke("red")
+							.addPoint(new Bu.Point(100, 400))
+							.addPoint(new Bu.Point(250, 350))
+							.addPoint(new Bu.Point(400, 400));
+					var polylineMorph = new Bu.PolylineMorph(polylineA, polylineB);
+					polylineMorph.polyline.stroke("purple");
+					var splineA = new Bu.Spline(polylineA);
+					var splineB = new Bu.Spline(polylineB).stroke("red");
+					var splineM = new Bu.Spline(polylineMorph.polyline).stroke("purple");
 
-            var bu;
-            var polylineA, polylineB, polylineMorph;
-            var splineA, splineB, splineM;
-            var time = 0, forward = true;
+					this.polylineMorph = polylineMorph;
 
-            $.ready(init);
+					return {
+						polylineA: polylineA,
+						polylineB: polylineB,
+						polylineM: polylineMorph.polyline,
+						splineA: splineA,
+						splineB: splineB,
+						splineM: splineM,
+					}
+				},
+				init: function () {
+					var o = this.$objects;
 
-            function init() {
-                bu = new Bu({
-                    showKeyPoints: true,
-                });
-                bu.dom.addEventListener("mousedown", onMouseDown);
+					o.splineA.visible = o.splineB.visible = o.splineM.visible = false;
 
-                polylineA = new Bu.Polyline();
-                polylineA.addPoint(new Bu.Point(100, 300));
-                polylineA.addPoint(new Bu.Point(250, 100));
-                polylineA.addPoint(new Bu.Point(400, 300));
+					this.$canvas.add(o.polylineA);
+					this.$canvas.add(o.polylineB);
+					this.$canvas.add(o.polylineM);
+					this.$canvas.add(o.splineA);
+					this.$canvas.add(o.splineB);
+					this.$canvas.add(o.splineM);
 
-                polylineB = new Bu.Polyline().stroke("red");
-                polylineB.addPoint(new Bu.Point(100, 400));
-                polylineB.addPoint(new Bu.Point(250, 350));
-                polylineB.addPoint(new Bu.Point(400, 400));
+					this.refreshLabel();
+				},
+				update: function () {
+					if (this.forward) {
+						this.time += 0.01;
+						if (this.time > 1.2) this.forward = false;
+					} else {
+						this.time -= 0.01;
+						if (this.time < -0.2) this.forward = true;
+					}
+					this.polylineMorph.setTime(Math.min(1, Math.max(0, this.time)));
+				},
+				methods: {
+					refreshLabel: function () {
+						var o = this.$objects;
 
-                polylineMorph = new Bu.PolylineMorph(polylineA, polylineB);
-                polylineMorph.polyline.stroke("purple");
+						for (var i in o.polylineA.vertices) {
+							if (!o.polylineA.vertices.hasOwnProperty(i)) continue;
+							o.polylineA.vertices[i].label = i;
+						}
+						for (i in o.polylineB.vertices) {
+							if (!o.polylineB.vertices.hasOwnProperty(i)) continue;
+							o.polylineB.vertices[i].label = i;
+						}
+					},
+				},
+				events: {
+					mousedown: function (e) {
+						var newPoint = new Bu.Point(e.offsetX, e.offsetY);
+						if (e.button == 0) {
+							this.$objects.polylineA.addPoint(newPoint);
+						} else {
+							this.$objects.polylineB.addPoint(newPoint);
+						}
+						this.refreshLabel();
+						this.polylineMorph.update();
+					},
+					'toggleSpline': function (isOn) {
+						var o = this.$objects;
+						if (isOn) {
+							o.polylineA.visible = o.polylineB.visible = o.polylineM.visible = false;
+							o.splineA.visible = o.splineB.visible = o.splineM.visible = true;
+						} else {
+							o.polylineA.visible = o.polylineB.visible = o.polylineM.visible = true;
+							o.splineA.visible = o.splineB.visible = o.splineM.visible = false;
+						}
+					}
+				},
+			});
 
-                bu.add(polylineA);
-                bu.add(polylineB);
-                bu.add(polylineMorph.polyline);
-
-                splineA = new Bu.Spline(polylineA);
-                splineB = new Bu.Spline(polylineB).stroke("red");
-                splineM = new Bu.Spline(polylineMorph.polyline).stroke("purple");
-
-                splineA.visible = splineB.visible = splineM.visible = false;
-
-                bu.add(splineA);
-                bu.add(splineB);
-                bu.add(splineM);
-
-                refreshLabel();
-
-                setInterval(animate, 1000 / 60);
-            }
-
-            function onMouseDown(e) {
-
-                var newPoint = new Bu.Point(e.offsetX, e.offsetY);
-                if (e.button == 0) {
-                    polylineA.addPoint(newPoint);
-                } else {
-                    polylineB.addPoint(newPoint);
-                }
-                refreshLabel();
-                polylineMorph.update();
-            }
-
-            function refreshLabel() {
-                for (var i in polylineA.vertices) {
-                    if (!polylineA.vertices.hasOwnProperty(i)) continue;
-                    polylineA.vertices[i].label = i;
-                }
-                for (i in polylineB.vertices) {
-                    if (!polylineB.vertices.hasOwnProperty(i)) continue;
-                    polylineB.vertices[i].label = i;
-                }
-            }
-
-            function animate() {
-                if (forward == true) {
-                    time += 0.01;
-                    if (time > 1.2) forward = false;
-                } else {
-                    time -= 0.01;
-                    if (time < -0.2) forward = true;
-                }
-                polylineMorph.setTime(Math.min(1, Math.max(0, time)));
-            }
-
-            function onRadioSwitch() {
-                if (document.getElementById('radioPolyline').checked) {
-                    polylineA.visible = polylineB.visible = polylineMorph.polyline.visible = true;
-                    splineA.visible = splineB.visible = splineM.visible = false;
-                } else {
-                    polylineA.visible = polylineB.visible = polylineMorph.polyline.visible = false;
-                    splineA.visible = splineB.visible = splineM.visible = true;
-                }
-            }
-
-    body
-        div#info Click (left/right button) to add points to the lines.
-            div#switch Line style:
-                label
-                    input#radioPolyline(type="radio" name="lineType" onclick="onRadioSwitch()" checked)
-                    | Polyline
-                label
-                    input(type="radio" name="lineType" onclick="onRadioSwitch()")
-                    | Spline
+	body
+		div#info Click (left/right button) to add points to the lines.
+			div#switch Line style:
+				label
+					input(type="radio" name="lineType" onclick="bu.trigger('toggleSpline', !this.checked);" checked)
+					| Polyline
+				label
+					input(type="radio" name="lineType" onclick="bu.trigger('toggleSpline', this.checked);")
+					| Spline

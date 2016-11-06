@@ -1,74 +1,86 @@
 doctype html
 html
-    head
-        meta(charset="utf-8")
-        title Contains Point
-        script(src="../build/bu.js")
-        style.
+	head
+		meta(charset="utf-8")
+		title Contains Point
+		script(src="../build/bu.js")
+		style.
 
-            html, body {
-                margin: 0;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-            }
+			html, body {
+				margin: 0;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
 
-            #info {
-                position: absolute;
-                width: 100%;
-                text-align: center;
-                padding: 8px 0;
-            }
+			#info {
+				position: absolute;
+				width: 100%;
+				text-align: center;
+				padding: 8px 0;
+			}
 
-        script(type="text/javascript").
+		script(type="text/javascript").
 
-            var bu, generator;
-            var circle, triangle, rectangle, bow, fan, polygon;
-            var mousePos = new Bu.Point();
+			var bu = new Bu.App({
+				canvas: {
+					cursor: 'crosshair',
+					showKeyPoints: true,
+				},
+				data: {
+					mousePos: new Bu.Point(),
+				},
+				objects: function () {
+					this.generator = new Bu.RandomShapeGenerator(this.$canvas);
 
-            $.ready(init);
+					// circle,
+					return {
+						circle: this.generator.generateCircle(),
+						triangle: this.generator.generateTriangle(),
+						rectangle: this.generator.generateRectangle(),
+						fan: this.generator.generateFan(),
+						bow: this.generator.generateBow(),
+						polygon: this.generator.generatePolygon(),
+					};
+				},
+				hierarchy: {
+					circle: {},
+					triangle: {},
+					fan: {},
+					bow: {},
+					polygon:{},
+				},
+				init: function () {
+					// `Bound` are used to accelerate the hit testing
+					for (var i in this.$canvas.shapes) {
+						if (!this.$canvas.shapes.hasOwnProperty(i)) continue;
+						this.$canvas.shapes[i].bounds = new Bu.Bounds(this.$canvas.shapes[i]);
+					}
+				},
+				methods: {
+					regenerateShapes: function () {
+						console.log("TODO: implement Bu.RandomShapeGenerator.randomize(shape);");
+					},
+				},
+				events: {
+					mousemove: function (e) {
+						this.mousePos.x = e.offsetX;
+						this.mousePos.y = e.offsetY;
+						for (var i in this.$canvas.shapes) {
+							if (!this.$canvas.shapes.hasOwnProperty(i)) continue;
+							var shape = this.$canvas.shapes[i];
+							if (shape.containsPoint(this.mousePos))
+								shape.fill(Bu.DEFAULT_FILL_STYLE_HOVER);
+							else
+								shape.fill();
+						}
+					},
+					mouseup: function () {
+						this.regenerateShapes();
+					},
+				},
+			});
 
-            function init() {
-                bu = new Bu({
-                    showKeyPoints: true,
-                });
-
-                generator = new Bu.RandomShapeGenerator(bu);
-                generateShapes();
-
-                bu.dom.addEventListener("mouseup", generateShapes);
-                bu.dom.addEventListener("mousemove", onMouseMove);
-            }
-
-            function onMouseMove(e) {
-
-                mousePos.x = e.offsetX;
-                mousePos.y = e.offsetY;
-
-                for (var i in bu.shapes) {
-                    if (!bu.shapes.hasOwnProperty(i)) continue;
-                    var shape = bu.shapes[i];
-                    if (shape.containsPoint(mousePos))
-                        shape.fill(Bu.DEFAULT_FILL_STYLE_HOVER);
-                    else
-                        shape.fill();
-                }
-            }
-
-            function generateShapes() {
-                bu.shapes[0] = circle = generator.generateCircle();
-                bu.shapes[1] = triangle = generator.generateTriangle();
-                bu.shapes[2] = rectangle = generator.generateRectangle();
-                bu.shapes[3] = fan = generator.generateFan();
-                bu.shapes[4] = bow = generator.generateBow();
-                bu.shapes[5] = polygon = generator.generatePolygon();
-
-                // use `Bound` to accelerate containing test
-                for (var i in bu.shapes) {
-                    if (!bu.shapes.hasOwnProperty(i)) continue;
-                    bu.shapes[i].bounds = new Bu.Bounds(bu.shapes[i]);
-                }
-            }
-
-    body
-        div#info Move cursor to test. Click to regenerate shapes.
+	body
+		div#info Move cursor to test.
+		// Click to regenerate shapes.

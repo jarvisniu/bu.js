@@ -1,153 +1,153 @@
 doctype html
 html(lang="en")
-    head
-        meta(charset="utf-8")
-        title Delaunay Triangulation
-        script(src="js/ClipMeter.min.js")
-        script(src="../build/bu.js")
-        style.
+	head
+		meta(charset="utf-8")
+		title Delaunay Triangulation
+		script(src="js/ClipMeter.min.js")
+		script(src="../build/bu.js")
+		style.
 
-            html, body {
-                margin: 0;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-            }
+			html, body {
+				margin: 0;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
 
-            #info {
-                position: absolute;
-                width: 100%;
-                text-align: center;
-                padding: 8px 0;
-            }
+			#info {
+				position: absolute;
+				width: 100%;
+				text-align: center;
+				padding: 8px 0;
+			}
 
-        script(type="text/javascript").
+		script(type="text/javascript").
 
-            var POINT_COUNT = 64;
-            var LINE_COUNT = 50;
+			var POINT_COUNT = 64;
+			var LINE_COUNT = 50;
 
-            var bu;
-            var points = [];
-            var lines = [];
+			var bu;
+			var points = [];
+			var lines = [];
 
-            $.ready(init);
+			$.ready(init);
 
-            function init() {
-                bu = new Bu();
-                generatePoints();
-                document.getElementById("btnRandom").onclick = randomLines;
-                document.getElementById("btnAll").onclick = allLines;
-                document.getElementById("btnNoCross").onclick = noCrossLines;
-                document.getElementById("btnDelaunay").onclick = delaunayLines;
-            }
+			function init() {
+				bu = new Bu();
+				generatePoints();
+				document.getElementById("btnRandom").onclick = randomLines;
+				document.getElementById("btnAll").onclick = allLines;
+				document.getElementById("btnNoCross").onclick = noCrossLines;
+				document.getElementById("btnDelaunay").onclick = delaunayLines;
+			}
 
-            function generatePoints() {
-                for (var i = 0; i < POINT_COUNT; i++) {
-                    var x = Bu.rand(20, bu.width - 40);
-                    var y = Bu.rand(20, bu.height - 40);
-                    points[i] = new Bu.Point(x, y);
-                    points[i].label = i;
-                    bu.add(points[i]);
-                }
-            }
+			function generatePoints() {
+				for (var i = 0; i < POINT_COUNT; i++) {
+					var x = Bu.rand(20, bu.width - 40);
+					var y = Bu.rand(20, bu.height - 40);
+					points[i] = new Bu.Point(x, y);
+					points[i].label = i;
+					bu.add(points[i]);
+				}
+			}
 
-            // generate lines
+			// generate lines
 
-            function randomLines() {
-                lines = [];
-                for (var i = 0; i < LINE_COUNT; i++) {
-                    var p1 = points[Math.floor(Bu.rand(POINT_COUNT))];
-                    var p2 = points[Math.floor(Bu.rand(POINT_COUNT))];
-                    var line = new Bu.Line(p1, p2);
-                    line.strokeStyle = "#f40";
-                    lines.push(line);
-                    bu.add(line);
-                }
-            }
+			function randomLines() {
+				lines = [];
+				for (var i = 0; i < LINE_COUNT; i++) {
+					var p1 = points[Math.floor(Bu.rand(POINT_COUNT))];
+					var p2 = points[Math.floor(Bu.rand(POINT_COUNT))];
+					var line = new Bu.Line(p1, p2);
+					line.strokeStyle = "#f40";
+					lines.push(line);
+					bu.add(line);
+				}
+			}
 
-            function allLines() {
-                lines = [];
-                for (var i = 0; i < POINT_COUNT; i++) {
-                    for (var j = i + 1; j < POINT_COUNT; j++) {
-                        var line = new Bu.Line(points[i], points[j]);
-                        line.strokeStyle = "rgba(0, 0, 0, 0.1)";
-                        lines.push(line);
-                        bu.add(line);
-                    }
-                }
-            }
+			function allLines() {
+				lines = [];
+				for (var i = 0; i < POINT_COUNT; i++) {
+					for (var j = i + 1; j < POINT_COUNT; j++) {
+						var line = new Bu.Line(points[i], points[j]);
+						line.strokeStyle = "rgba(0, 0, 0, 0.1)";
+						lines.push(line);
+						bu.add(line);
+					}
+				}
+			}
 
-            function noCrossLines() {
-                lines = [];
-                for (var i = 0; i < POINT_COUNT; i++) {
-                    for (var j = i + 1; j < POINT_COUNT; j++) {
-                        var line = new Bu.Line(points[i], points[j]);
-                        line.strokeStyle = "#808";
-                        if (!isLineCrossWithAny(line, lines)) {
-                            lines.push(line);
-                            bu.add(line);
-                            // console.log("Add: ", i, j);
-                        } else {
-                            // console.log("Not add: ", i, j);
-                        }
-                    }
-                }
-            }
+			function noCrossLines() {
+				lines = [];
+				for (var i = 0; i < POINT_COUNT; i++) {
+					for (var j = i + 1; j < POINT_COUNT; j++) {
+						var line = new Bu.Line(points[i], points[j]);
+						line.strokeStyle = "#808";
+						if (!isLineCrossWithAny(line, lines)) {
+							lines.push(line);
+							bu.add(line);
+							// console.log("Add: ", i, j);
+						} else {
+							// console.log("Not add: ", i, j);
+						}
+					}
+				}
+			}
 
-            function delaunayLines() {
-                var i;
-                lines = [];
-                for (i = 0; i < POINT_COUNT; i++) {
-                    for (var j = i + 1; j < POINT_COUNT; j++) {
-                        lines.push(new Bu.Line(points[i], points[j]));
-                    }
-                }
-                for (i = 0; i < lines.length; i++) {
-                    while (lineTryKillOthers(lines[i], lines))
-                        lineTryKillOthers(lines[i], lines);
-                }
-                for (i = 0; i < lines.length; i++) {
-                    lines[i].strokeStyle = "#088";
-                    bu.add(lines[i]);
-                }
-            }
+			function delaunayLines() {
+				var i;
+				lines = [];
+				for (i = 0; i < POINT_COUNT; i++) {
+					for (var j = i + 1; j < POINT_COUNT; j++) {
+						lines.push(new Bu.Line(points[i], points[j]));
+					}
+				}
+				for (i = 0; i < lines.length; i++) {
+					while (lineTryKillOthers(lines[i], lines))
+						lineTryKillOthers(lines[i], lines);
+				}
+				for (i = 0; i < lines.length; i++) {
+					lines[i].strokeStyle = "#088";
+					bu.add(lines[i]);
+				}
+			}
 
-            // geometry algorithm
-            function isLineCrossWithAny(line, lines) {
-                for (var i = 0; i < lines.length; i++) {
-                    if (line.isCrossWithLine(lines[i])) {
-                        // console.log("crossed with line: [" + lineGroup[i].p1.index + " - " + lineGroup[i].p2.index + "]");
-                        return true;
-                    }
-                }
-                return false;
-            }
+			// geometry algorithm
+			function isLineCrossWithAny(line, lines) {
+				for (var i = 0; i < lines.length; i++) {
+					if (line.isCrossWithLine(lines[i])) {
+						// console.log("crossed with line: [" + lineGroup[i].p1.index + " - " + lineGroup[i].p2.index + "]");
+						return true;
+					}
+				}
+				return false;
+			}
 
-            function lineTryKillOthers(line, lines) {
-                // step 1: To see whether itself will be killed
-                for (var i = 0; i < lines.length; i++) {
-                    if (line.isCrossWithLine(lines[i]) && line.length > lines[i].length) {
-                        // console.log("[" + line.p1.index + "-" + line.p2.index + "] suicide by [" + lines[i].p1.index + "-" + lines[i].p2.index + "]");
-                        lines.splice(lines.indexOf(line), 1); // willBeenKilled
-                        return true;
-                    }
-                }
-                // console.log("[" + line.p1.index + "-" + line.p2.index + "] killing its crosses.");
-                for (var i = 0; i < lines.length; i++) {
-                    if (line.isCrossWithLine(lines[i])) {
-                        // console.log("    [" + lines[i].p1.index + "-" + lines[i].p2.index + "] be killing");
-                        lines.splice(i, 1);
-                    }
-                }
-                return false;
-            }
+			function lineTryKillOthers(line, lines) {
+				// step 1: To see whether itself will be killed
+				for (var i = 0; i < lines.length; i++) {
+					if (line.isCrossWithLine(lines[i]) && line.length > lines[i].length) {
+						// console.log("[" + line.p1.index + "-" + line.p2.index + "] suicide by [" + lines[i].p1.index + "-" + lines[i].p2.index + "]");
+						lines.splice(lines.indexOf(line), 1); // willBeenKilled
+						return true;
+					}
+				}
+				// console.log("[" + line.p1.index + "-" + line.p2.index + "] killing its crosses.");
+				for (var i = 0; i < lines.length; i++) {
+					if (line.isCrossWithLine(lines[i])) {
+						// console.log("    [" + lines[i].p1.index + "-" + lines[i].p2.index + "] be killing");
+						lines.splice(i, 1);
+					}
+				}
+				return false;
+			}
 
 body
-    div#info
-        span Delaunay Triangulation
-        br
-        button#btnDelaunay Delaunay
-        button#btnNoCross No Cross
-        button#btnRandom Random
-        button#btnAll All
-    div#container
+	div#info
+		span Delaunay Triangulation
+		br
+		button#btnDelaunay Delaunay
+		button#btnNoCross No Cross
+		button#btnRandom Random
+		button#btnAll All
+	div#container
