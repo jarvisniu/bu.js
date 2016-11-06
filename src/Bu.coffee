@@ -108,7 +108,7 @@ Bu.combineOptions = (args, defaultOptions) ->
 	defaultOptions = {} if not defaultOptions?
 	givenOptions = args[args.length - 1]
 	if typeof givenOptions is 'object'
-		for i of givenOptions
+		for i of givenOptions when givenOptions[i]?
 			defaultOptions[i] = givenOptions[i]
 	return defaultOptions
 
