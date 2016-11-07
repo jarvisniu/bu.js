@@ -4,6 +4,4 @@ class Bu.Size
 	constructor: (@width, @height) ->
 		@type = 'Size'
 
-	set: (width, height) ->
-		@width = width
-		@height = height
+	set: (@width, @height) ->
