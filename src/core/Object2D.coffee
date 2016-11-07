@@ -51,6 +51,11 @@ class Bu.Object2D
 			anim.apply @, args
 		@
 
+	# Create Bounds for this object
+	createBounds: ->
+		@bounds = new Bu.Bounds @
+		@
+
 	# Hit testing
 	containsPoint: (p) ->
 		if @bounds? and not @bounds.containsPoint p

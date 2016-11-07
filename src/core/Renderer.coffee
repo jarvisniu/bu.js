@@ -10,8 +10,9 @@ class Bu.Renderer
 			container: 'body'
 			fps: 60
 			showKeyPoints: no
+			showBounds: no
 			background: '#eee'
-		@[k] = options[k] for k in ['container', 'width', 'height', 'fps', 'showKeyPoints']
+		@[k] = options[k] for k in ['container', 'width', 'height', 'fps', 'showKeyPoints', 'showBounds']
 		@container = document.querySelector @container if typeof @container is 'string'
 		@fillParent = typeof options.width != 'number'
 
@@ -127,7 +128,6 @@ class Bu.Renderer
 
 		@context.translate shape.position.x, shape.position.y
 		@context.rotate shape.rotation
-#		console.log shape
 		sx = shape.scale.x
 		sy = shape.scale.y
 		if sx / sy > 100 or sx / sy < 0.01
@@ -157,7 +157,6 @@ class Bu.Renderer
 			when 'Spline' then @drawSpline shape
 			when 'PointText' then @drawPointText shape
 			when 'Image' then @drawImage shape
-			when 'Bounds' then @drawBounds shape
 			when 'Group' # then do nothing
 			else
 				console.log 'drawShapes(): unknown shape: ', shape
@@ -167,7 +166,7 @@ class Bu.Renderer
 			@context.fillStyle = shape.fillStyle
 			@context.fill()
 
-		if shape.dashStyle# and (shape.type == 'Spline' or shape.type == 'Rectangle' and shape.cornerRadius > 0)
+		if shape.dashStyle
 			@context.lineDashOffset = shape.dashOffset
 			@context.setLineDash? shape.dashStyle
 			@context.stroke()
@@ -177,7 +176,9 @@ class Bu.Renderer
 
 		@drawShapes shape.children if shape.children?
 		@drawShapes shape.keyPoints if @showKeyPoints
+		@drawBounds shape.bounds if @showBounds and shape.bounds?
 		@
+
 
 
 	drawPoint: (shape) ->
@@ -320,5 +321,19 @@ class Bu.Renderer
 
 
 	drawBounds: (bounds) ->
+		@context.beginPath()
+		@context.strokeStyle = Bu.Renderer.BOUNDS_STROKE_STYLE
+		@context.setLineDash? Bu.Renderer.BOUNDS_DASH_STYLE
 		@context.rect bounds.x1, bounds.y1, bounds.x2 - bounds.x1, bounds.y2 - bounds.y1
+		@context.stroke()
 		@
+
+#----------------------------------------------------------------------
+# Static members
+#----------------------------------------------------------------------
+
+# Stroke style of bounds
+Bu.Renderer.BOUNDS_STROKE_STYLE = 'red'
+
+# Dash style of bounds
+Bu.Renderer.BOUNDS_DASH_STYLE = [6, 6]

@@ -39,6 +39,7 @@ class Bu.App
 			width: @options.canvas.width
 			height: @options.canvas.height
 			showKeyPoints: @options.canvas.showKeyPoints
+			showBounds: @options.canvas.showBounds
 			background: @options.canvas.background
 		@$canvas.dom.style.cursor and= @options.canvas.cursor
 

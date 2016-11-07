@@ -45,12 +45,6 @@ Bu.POINT_RENDER_SIZE = 2.25
 # Point can have label aside it. This is the offset distance from the point.
 Bu.POINT_LABEL_OFFSET = 5
 
-# Default render style of bounds
-Bu.DEFAULT_BOUND_STROKE_STYLE = '#444'
-
-# Default dash style of bounds
-Bu.DEFAULT_BOUND_DASH_STYLE = [6, 6]
-
 # Default smooth factor of spline, range in [0, 1] and 1 is the smoothest
 Bu.DEFAULT_SPLINE_SMOOTH = 0.25
 
@@ -120,13 +114,17 @@ Bu.isPlainObject = (o) ->
 Bu.isFunction = (o) ->
 	o instanceof Object and o.constructor.name == 'Function'
 
+# Check if an object is a Array
+Bu.isArray = (o) ->
+	o instanceof Array
+
 # Clone an Object or Array
 Bu.clone = (target) ->
 	if typeof(target) != 'object' or target == null or Bu.isFunction target
 		return target
 	else
 		# FIXME cause stack overflow when its a circular structure
-		if target instanceof Array
+		if Bu.isArray target
 			clone = []
 		else if Bu.isPlainObject target
 			clone = {}

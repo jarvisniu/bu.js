@@ -10,10 +10,13 @@ class Bu.Bounds
 		@point1 = new Bu.Vector
 		@point2 = new Bu.Vector
 
-		@strokeStyle = Bu.DEFAULT_BOUND_STROKE_STYLE
-		@dashStyle = Bu.DEFAULT_BOUND_DASH_STYLE
-		@dashOffset = 0
+		@update()
 
+	containsPoint: (p) ->
+		@x1 < p.x && @x2 > p.x && @y1 < p.y && @y2 > p.y
+
+	update: ->
+		@clear()
 		switch @target.type
 			when 'Line', 'Triangle', 'Rectangle'
 				for v in @target.points
@@ -31,9 +34,6 @@ class Bu.Bounds
 					@expandByPoint(v)
 			else
 				console.warn 'Bounds: not support shape type "' + @target.type + '"'
-
-	containsPoint: (p) ->
-		@x1 < p.x && @x2 > p.x && @y1 < p.y && @y2 > p.y
 
 	clear: () ->
 		@x1 = @y1 = @x2 = @y2 = 0
