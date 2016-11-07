@@ -32,7 +32,7 @@ html
 		script(type="text/javascript").
 
 			var bu = new Bu.App({
-				canvas: {
+				renderer: {
 					cursor: 'crosshair',
 					showKeyPoints: true,
 					showBounds: true,
@@ -62,7 +62,7 @@ html
 					polygon:{},
 				},
 				init: function () {
-					this.randomizer.setRange(this.$canvas.width, this.$canvas.height);
+					this.randomizer.setRange(this.$renderer.width, this.$renderer.height);
 				},
 				methods: {
 					regenerateShapes: function () {
@@ -74,9 +74,9 @@ html
 					mousemove: function (e) {
 						this.mousePos.x = e.offsetX;
 						this.mousePos.y = e.offsetY;
-						for (var i in this.$canvas.shapes) {
-							if (!this.$canvas.shapes.hasOwnProperty(i)) continue;
-							var shape = this.$canvas.shapes[i];
+						for (var i in this.$renderer.shapes) {
+							if (!this.$renderer.shapes.hasOwnProperty(i)) continue;
+							var shape = this.$renderer.shapes[i];
 							if (shape.containsPoint(this.mousePos))
 								shape.fill(Bu.DEFAULT_FILL_STYLE_HOVER);
 							else
@@ -94,5 +94,5 @@ html
 			span Move cursor to test. Click to regenerate shapes.
 			div#control
 				label
-					input(type="checkbox" onclick="bu.$canvas.showBounds = this.checked;" checked)
+					input(type="checkbox" onclick="bu.$renderer.showBounds = this.checked;" checked)
 					| Show Bounds

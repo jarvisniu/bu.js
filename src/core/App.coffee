@@ -4,7 +4,7 @@
 All supported constructor options:
 (The appearance sequence is the process sequence.)
 {
-    canvas: # settings to the canvas
+    renderer: # settings to the renderer
     	container: '#container' # css selector of the container dom or itself
         cursor: 'crosshand' # the default cursor style on the <canvas>
         background: 'pink' # the default background of the <canvas>
@@ -24,7 +24,7 @@ class Bu.App
 	$objects: {}
 
 	constructor: (@options = {}) ->
-		for k in ["canvas", "camera", "data", "objects", "hierarchy", "methods", "events"]
+		for k in ["renderer", "camera", "data", "objects", "hierarchy", "methods", "events"]
 			@options[k] or= {}
 
 		if document.readyState == 'complete'
@@ -33,15 +33,15 @@ class Bu.App
 			document.addEventListener 'DOMContentLoaded', => @init()
 
 	init: () ->
-		# canvas
-		@$canvas = new Bu.Renderer
-			container: @options.canvas.container
-			width: @options.canvas.width
-			height: @options.canvas.height
-			showKeyPoints: @options.canvas.showKeyPoints
-			showBounds: @options.canvas.showBounds
-			background: @options.canvas.background
-		@$canvas.dom.style.cursor and= @options.canvas.cursor
+		# renderer
+		@$renderer = new Bu.Renderer
+			container: @options.renderer.container
+			width: @options.renderer.width
+			height: @options.renderer.height
+			showKeyPoints: @options.renderer.showKeyPoints
+			showBounds: @options.renderer.showBounds
+			background: @options.renderer.background
+		@$renderer.dom.style.cursor and= @options.renderer.cursor
 
 		# data
 		if Bu.isFunction @options.data
@@ -63,7 +63,7 @@ class Bu.App
 			for own name of children
 				parent.push @$objects[name]
 				assembleObjects children[name], @$objects[name].children
-		assembleObjects @options.hierarchy, @$canvas.shapes
+		assembleObjects @options.hierarchy, @$renderer.shapes
 
 		# init
 		@options.init?.call @
@@ -72,16 +72,16 @@ class Bu.App
 		@events = @options.events
 		for type of @events
 			if type == 'mousedown'
-				@$canvas.dom.addEventListener 'mousedown', (e) => @events['mousedown'].call this, e
+				@$renderer.dom.addEventListener 'mousedown', (e) => @events['mousedown'].call this, e
 			else if type == 'mousemove'
-				@$canvas.dom.addEventListener 'mousemove', (e) => @events['mousemove'].call this, e
+				@$renderer.dom.addEventListener 'mousemove', (e) => @events['mousemove'].call this, e
 			else if type == 'mouseup'
-				@$canvas.dom.addEventListener 'mouseup', (e) => @events['mouseup'].call this, e
+				@$renderer.dom.addEventListener 'mouseup', (e) => @events['mouseup'].call this, e
 		# TODO add supports for "keydown.Ctrl+F", "mousedown.Left"
 
 		# update
 		if @options.update?
-			@$canvas.on 'update', => @options.update.apply this, arguments
+			@$renderer.on 'update', => @options.update.apply this, arguments
 
 	trigger: (type, arg) ->
 		@events[type]?.call @, arg

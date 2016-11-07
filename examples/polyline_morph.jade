@@ -24,7 +24,7 @@ html(lang="en")
 
 		script(type="text/javascript").
 			var bu = new Bu.App({
-				canvas: {
+				renderer: {
 					showKeyPoints: true,
 					cursor: 'crosshair',
 				},
@@ -60,16 +60,8 @@ html(lang="en")
 				},
 				init: function () {
 					var o = this.$objects;
-
 					o.splineA.visible = o.splineB.visible = o.splineM.visible = false;
-
-					this.$canvas.add(o.polylineA);
-					this.$canvas.add(o.polylineB);
-					this.$canvas.add(o.polylineM);
-					this.$canvas.add(o.splineA);
-					this.$canvas.add(o.splineB);
-					this.$canvas.add(o.splineM);
-
+					this.$renderer.add([o.polylineA, o.polylineB, o.polylineM, o.splineA, o.splineB, o.splineM]);
 					this.refreshLabel();
 				},
 				update: function () {

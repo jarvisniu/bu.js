@@ -32,7 +32,7 @@ html(lang="en")
 		script(type="text/javascript").
 
 			var bu = new Bu.App({
-				canvas: {
+				renderer: {
 					showKeyPoints: true,
 				},
 				objects: {
@@ -106,7 +106,7 @@ html(lang="en")
 				},
 				methods: {
 					setDashStroke: function (on) {
-						this.$canvas.shapes.each(function (shape) {
+						this.$renderer.shapes.each(function (shape) {
 							shape.dash(on ? true : false);
 						});
 					}
@@ -118,7 +118,7 @@ html(lang="en")
 			span All supported shapes.
 			div#control
 				label
-					input(type="checkbox" onclick="bu.$canvas.showKeyPoints = this.checked;" checked)
+					input(type="checkbox" onclick="bu.$renderer.showKeyPoints = this.checked;" checked)
 					| Show key points
 				br
 				label

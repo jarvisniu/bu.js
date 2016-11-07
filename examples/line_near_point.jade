@@ -23,7 +23,7 @@ html
 		script(type="text/javascript").
 
 			var bu = new Bu.App({
-				canvas: {
+				renderer: {
 					showKeyPoints: true,
 					cursor: 'crosshair',
 				},
@@ -41,7 +41,7 @@ html
 					polyline: {},
 				},
 				init: function () {
-					this.randomizer.setRange(this.$canvas.width, this.$canvas.height);
+					this.randomizer.setRange(this.$renderer.width, this.$renderer.height);
 				},
 				events: {
 					mouseup: function (e) {
