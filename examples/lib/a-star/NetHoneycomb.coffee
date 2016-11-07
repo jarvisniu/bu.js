@@ -9,8 +9,8 @@ AStar.NetHoneycomb = (w, h) ->
 	@engine = null
 	@nodes = []
 
-	@width = 15 or w
-	@height = 10 or h
+	@width = w or 15
+	@height = h or 10
 
 	@startNode = null
 	@endNode = null
