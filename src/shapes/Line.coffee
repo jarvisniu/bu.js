@@ -17,11 +17,11 @@ class Bu.Line extends Bu.Object2D
 		@midpoint = new Bu.Point()
 		@keyPoints = @points
 
-		@on "pointChange", =>
+		@on "changed", =>
 			@length = @points[0].distanceTo(@points[1])
 			@midpoint.set((@points[0].x + @points[1].x) / 2, (@points[0].y + @points[1].y) / 2)
 
-		@trigger "pointChange", @
+		@trigger "changed"
 
 	clone: -> new Bu.Line @points[0], @points[1]
 
@@ -34,7 +34,7 @@ class Bu.Line extends Bu.Object2D
 		else
 			@points[0] = a1
 			@points[1] = a2
-		@trigger "pointChange", @
+		@trigger "changed"
 		@
 
 	setPoint1: (a1, a2) ->
@@ -42,7 +42,7 @@ class Bu.Line extends Bu.Object2D
 			@points[0].set a1, a2
 		else
 			@points[0].copy a1
-		@trigger "pointChange", @
+		@trigger "changed"
 		@
 
 	setPoint2: (a1, a2) ->
@@ -50,5 +50,5 @@ class Bu.Line extends Bu.Object2D
 			@points[1].set a1, a2
 		else
 			@points[1].copy a1
-		@trigger "pointChange", @
+		@trigger "changed"
 		@

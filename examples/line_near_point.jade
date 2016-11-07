@@ -27,28 +27,29 @@ html
 					showKeyPoints: true,
 					cursor: 'crosshair',
 				},
-				data: function() {
-					var randomizer = new Bu.ShapeRandomizer();
-					return {
-						mousePos: new Bu.Point(),
-						randomizer: randomizer,
-					}
+				data: {
+					mousePos: new Bu.Point(),
+					randomizer: new Bu.ShapeRandomizer(),
+				},
+				objects: function() {
+					var line = this.randomizer.generateLine();
+					var polyline= this.randomizer.generatePolyline();
+					return { line, polyline, };
+				},
+				hierarchy: {
+					line: {},
+					polyline: {},
 				},
 				init: function () {
 					this.randomizer.setRange(this.$canvas.width, this.$canvas.height);
-					this.generateLines();
-				},
-				methods: {
-					generateLines: function () {
-						this.$objects.line = this.$canvas.shapes[0] = this.randomizer.generateLine();
-						this.$objects.polyline = this.$canvas.shapes[1] = this.randomizer.generatePolyline();
-					},
 				},
 				events: {
-					'mouseup': function (e) {
-						this.generateLines();
+					mouseup: function (e) {
+						var o = this.$objects;
+						// Randomize the lines
+						this.randomizer.randomize([o.line, o.polyline]);
 					},
-					'mousemove': function (e) {
+					mousemove: function (e) {
 						var o = this.$objects;
 
 						this.mousePos.x = e.offsetX;

@@ -17,12 +17,12 @@ class Bu.Polyline extends Bu.Object2D
 
 		@fill off
 
-		@on "pointChange", =>
+		@on "changed", =>
 			if @vertices.length > 1
 				@updateLines()
 				@calcLength?()
 				@calcPointNormalizedPos?()
-		@trigger "pointChange", @
+		@trigger "changed"
 
 	clone: ->
 		polyline = new Bu.Polyline @vertices
@@ -53,7 +53,7 @@ class Bu.Polyline extends Bu.Object2D
 		if @vertices.length > points.length
 			@vertices.splice points.length
 
-		@trigger "pointChange", @
+		@trigger "changed"
 		@
 
 	addPoint: (point, insertIndex) ->
@@ -66,5 +66,5 @@ class Bu.Polyline extends Bu.Object2D
 		else
 			@vertices.splice insertIndex, 0, point
 		# TODO add lines
-		@trigger "pointChange", @
+		@trigger "changed"
 		@

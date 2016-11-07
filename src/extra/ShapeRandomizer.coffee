@@ -162,7 +162,7 @@ class Bu.ShapeRandomizer
 			polyline.addPoint point
 		polyline
 
-	randomizePolyine: (polyline) ->
+	randomizePolyline: (polyline) ->
 		vertex.set @randomX(), @randomY() for vertex in polyline.vertices
 		polyline.trigger 'changed'
 		@
