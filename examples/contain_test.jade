@@ -20,47 +20,54 @@ html
 				padding: 8px 0;
 			}
 
+			#control {
+				float: right;
+				text-align: left;
+				border: solid 1px silver;
+				background-color: white;
+				margin-right: 8px;
+				padding: 4px;
+			}
+
 		script(type="text/javascript").
 
 			var bu = new Bu.App({
 				canvas: {
 					cursor: 'crosshair',
 					showKeyPoints: true,
+					showBounds: true,
 				},
 				data: {
 					mousePos: new Bu.Point(),
 				},
 				objects: function () {
-					this.randomizer = new Bu.ShapeRandomizer();
+					var r = this.randomizer = new Bu.ShapeRandomizer();
 
 					// circle,
 					return {
-						circle: this.randomizer.generateCircle(),
-						triangle: this.randomizer.generateTriangle(),
-						rectangle: this.randomizer.generateRectangle(),
-						fan: this.randomizer.generateFan(),
-						bow: this.randomizer.generateBow(),
-						polygon: this.randomizer.generatePolygon(),
+						circle: r.generateCircle().createBounds(),
+						triangle: r.generateTriangle().createBounds(),
+						rectangle: r.generateRectangle(),
+						fan: r.generateFan().createBounds(),
+						bow: r.generateBow().createBounds(),
+						polygon: r.generatePolygon().createBounds(),
 					};
 				},
 				hierarchy: {
 					circle: {},
 					triangle: {},
+					rectangle: {},
 					fan: {},
 					bow: {},
 					polygon:{},
 				},
 				init: function () {
 					this.randomizer.setRange(this.$canvas.width, this.$canvas.height);
-					// Add bounds
-					for (var i in this.$canvas.shapes) {
-						if (!this.$canvas.shapes.hasOwnProperty(i)) continue;
-						this.$canvas.shapes[i].bounds = new Bu.Bounds(this.$canvas.shapes[i]);
-					}
 				},
 				methods: {
 					regenerateShapes: function () {
-						console.log("TODO: implement Bu.ShapeRandomizer.randomize(shape);");
+						var o = this.$objects;
+						this.randomizer.randomize([o.circle, o.triangle, o.rectangle, o.fan, o.bow, o.polygon]);
 					},
 				},
 				events: {
@@ -83,5 +90,9 @@ html
 			});
 
 	body
-		div#info Move cursor to test.
-		// Click to regenerate shapes.
+		div#info
+			span Move cursor to test. Click to regenerate shapes.
+			div#control
+				label
+					input(type="checkbox" onclick="bu.$canvas.showBounds = this.checked;" checked)
+					| Show Bounds

@@ -1,5 +1,4 @@
 # Used to generate random shapes
-# TODO finish the randomizeShape functions
 
 class Bu.ShapeRandomizer
 
@@ -34,6 +33,22 @@ class Bu.ShapeRandomizer
 			when 'line' then @generateLine()
 			when 'polyline' then @generatePolyline()
 			else console.warn 'not support shape: ' + type
+		@rangeHeight = h
+
+	randomize: (shape) ->
+		if Bu.isArray shape
+			@randomize s for s in shape
+		else
+			switch shape.type
+				when 'Circle' then @randomizeCircle shape
+				when 'Bow' then @randomizeBow shape
+				when 'Triangle' then @randomizeTriangle shape
+				when 'Rectangle' then @randomizeRectangle shape
+				when 'Fan' then @randomizeFan shape
+				when 'Polygon' then @randomizePolygon shape
+				when 'Line' then @randomizeLine shape
+				when 'Polyline' then @randomizePolyline shape
+				else console.warn 'not support shape: ' + shape.type
 
 	generateCircle: ->
 		circle = new Bu.Circle @randomRadius(), @randomX(), @randomY()
@@ -44,7 +59,7 @@ class Bu.ShapeRandomizer
 		circle.cx = @randomX()
 		circle.cy = @randomY()
 		circle.radius = @randomRadius()
-		circle
+		@
 
 	generateBow: ->
 		aFrom = Bu.rand Math.PI * 2
@@ -54,6 +69,30 @@ class Bu.ShapeRandomizer
 		bow.string.points[0].label = 'A'
 		bow.string.points[1].label = 'B'
 		bow
+
+	randomizeBow: (bow) ->
+		aFrom = Bu.rand Math.PI * 2
+		aTo = aFrom + Bu.rand Math.PI / 2, Math.PI * 2
+
+		bow.cx = @randomX()
+		bow.cy = @randomY()
+		bow.radius = @randomRadius()
+		bow.aFrom = aFrom
+		bow.aTo = aTo
+		bow.trigger 'changed'
+		@
+
+	generateFan: ->
+		aFrom = Bu.rand Math.PI * 2
+		aTo = aFrom + Bu.rand Math.PI / 2, Math.PI * 2
+
+		fan = new Bu.Fan @randomX(), @randomY(), @randomRadius(), aFrom, aTo
+		fan.center.label = 'O'
+		fan.string.points[0].label = 'A'
+		fan.string.points[1].label = 'B'
+		fan
+
+	randomizeFan: @::randomizeBow
 
 	generateTriangle: ->
 		points = []
@@ -66,22 +105,28 @@ class Bu.ShapeRandomizer
 		triangle.points[2].label = 'C'
 		triangle
 
+	randomizeTriangle: (triangle) ->
+		triangle.points[i].set @randomX(), @randomY() for i in [0..2]
+		triangle.trigger 'changed'
+		@
+
 	generateRectangle: ->
-		new Bu.Rectangle(
+		rect = new Bu.Rectangle(
 			Bu.rand(@rangeWidth)
 			Bu.rand(@rangeHeight)
 			Bu.rand(@rangeWidth / 2)
 			Bu.rand(@rangeHeight / 2)
 		)
+		rect.pointLT.label = 'A'
+		rect.pointRT.label = 'B'
+		rect.pointRB.label = 'C'
+		rect.pointLB.label = 'D'
+		rect
 
-	generateFan: ->
-		aFrom = Bu.rand Math.PI * 2
-		aTo = aFrom + Bu.rand Math.PI / 2, Math.PI * 2
-
-		fan = new Bu.Fan @randomX(), @randomY(), @randomRadius(), aFrom, aTo
-		fan.string.points[0].label = 'A'
-		fan.string.points[1].label = 'B'
-		fan
+	randomizeRectangle: (rectangle) ->
+		rectangle.set @randomX(), @randomY(), @randomX(), @randomY()
+		rectangle.trigger 'changed'
+		@
 
 	generatePolygon: ->
 		points = []
@@ -93,11 +138,21 @@ class Bu.ShapeRandomizer
 
 		new Bu.Polygon points
 
+	randomizePolygon: (polygon) ->
+		vertex.set @randomX(), @randomY() for vertex in polygon.vertices
+		polygon.trigger 'changed'
+		@
+
 	generateLine: ->
 		line = new Bu.Line @randomX(), @randomY(), @randomX(), @randomY()
 		line.points[0].label = 'A'
 		line.points[1].label = 'B'
 		line
+
+	randomizeLine: (line) ->
+		point.set @randomX(), @randomY() for point in line.points
+		line.trigger 'changed'
+		@
 
 	generatePolyline: ->
 		polyline = new Bu.Polyline
@@ -106,3 +161,8 @@ class Bu.ShapeRandomizer
 			point.label = 'P' + i
 			polyline.addPoint point
 		polyline
+
+	randomizePolyine: (polyline) ->
+		vertex.set @randomX(), @randomY() for vertex in polyline.vertices
+		polyline.trigger 'changed'
+		@
