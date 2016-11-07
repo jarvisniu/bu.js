@@ -1,8 +1,7 @@
 # Used to generate random shapes
-# TODO rename to ShapeRandomizer
 # TODO finish the randomizeShape functions
 
-class Bu.RandomShapeGenerator
+class Bu.ShapeRandomizer
 
 	MARGIN = 30
 

@@ -27,23 +27,27 @@ html
 					showKeyPoints: true,
 					cursor: 'crosshair',
 				},
-				data: {
-					mousePos: new Bu.Point(),
-					generator: null,
+				data: function() {
+					var randomizer = new Bu.ShapeRandomizer();
+					return {
+						mousePos: new Bu.Point(),
+						randomizer: randomizer,
+					}
 				},
 				objects: function() {
-					this.generator = new Bu.RandomShapeGenerator();
-					this.generator.setRange(this.$canvas.width, this.$canvas.height);
 					var lineVertical = new Bu.Line().dash();
 					lineVertical.points[1].label = "T";
 					return {
-						line: this.generator.generateLine(),
+						line: this.randomizer.generateLine(),
 						lineVertical: lineVertical,
 					}
 				},
 				hierarchy: {
 					line: {},
 					lineVertical: {},
+				},
+				init: function() {
+					this.randomizer.setRange(this.$canvas.width, this.$canvas.height);
 				},
 				events: {
 					'mousemove': function (e) {
@@ -57,7 +61,7 @@ html
 						o.lineVertical.points[0].label = "Distance: " + Math.round(dist);
 					},
 					'mouseup': function (e) {
-						this.$objects.line = this.$canvas.shapes[0] = this.generator.generateLine();
+						this.$objects.line = this.$canvas.shapes[0] = this.randomizer.generateLine();
 					},
 				},
 			});

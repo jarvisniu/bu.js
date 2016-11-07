@@ -27,19 +27,21 @@ html
 					showKeyPoints: true,
 					cursor: 'crosshair',
 				},
-				data: {
-					generator: null,
-					mousePos: new Bu.Point(),
+				data: function() {
+					var randomizer = new Bu.ShapeRandomizer();
+					return {
+						mousePos: new Bu.Point(),
+						randomizer: randomizer,
+					}
 				},
 				init: function () {
-					this.generator = new Bu.RandomShapeGenerator();
-					this.generator.setRange(this.$canvas.width, this.$canvas.height);
+					this.randomizer.setRange(this.$canvas.width, this.$canvas.height);
 					this.generateLines();
 				},
 				methods: {
 					generateLines: function () {
-						this.$objects.line = this.$canvas.shapes[0] = this.generator.generateLine();
-						this.$objects.polyline = this.$canvas.shapes[1] = this.generator.generatePolyline();
+						this.$objects.line = this.$canvas.shapes[0] = this.randomizer.generateLine();
+						this.$objects.polyline = this.$canvas.shapes[1] = this.randomizer.generatePolyline();
 					},
 				},
 				events: {
