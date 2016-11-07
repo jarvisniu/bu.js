@@ -31,7 +31,7 @@ html
 					mousePos: new Bu.Point(),
 				},
 				objects: function () {
-					this.generator = new Bu.RandomShapeGenerator(this.$canvas);
+					this.generator = new Bu.RandomShapeGenerator();
 
 					// circle,
 					return {
@@ -51,7 +51,8 @@ html
 					polygon:{},
 				},
 				init: function () {
-					// `Bound` are used to accelerate the hit testing
+					this.generator.setRange(this.$canvas.width, this.$canvas.height);
+					// Add bounds
 					for (var i in this.$canvas.shapes) {
 						if (!this.$canvas.shapes.hasOwnProperty(i)) continue;
 						this.$canvas.shapes[i].bounds = new Bu.Bounds(this.$canvas.shapes[i]);

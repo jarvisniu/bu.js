@@ -1,20 +1,28 @@
-# generator random shapes
+# Used to generate random shapes
+# TODO rename to ShapeRandomizer
+# TODO finish the randomizeShape functions
 
 class Bu.RandomShapeGenerator
 
 	MARGIN = 30
 
-	constructor: (@bu) ->
+	rangeWidth: 800
+	rangeHeight: 450
+
+	constructor: ->
 
 	randomX: ->
-		return Bu.rand MARGIN, @bu.width - MARGIN * 2
+		Bu.rand MARGIN, @rangeWidth - MARGIN * 2
 
 	randomY: ->
-		return Bu.rand MARGIN, @bu.height - MARGIN * 2
+		Bu.rand MARGIN, @rangeHeight - MARGIN * 2
 
 	randomRadius: ->
-		return Bu.rand 5, Math.min(@bu.width, @bu.height) / 2
+		Bu.rand 5, Math.min(@rangeWidth, @rangeHeight) / 2
 
+	setRange: (w, h) ->
+		@rangeWidth = w
+		@rangeHeight = h
 
 	generate: (type) ->
 		switch type
@@ -31,7 +39,13 @@ class Bu.RandomShapeGenerator
 	generateCircle: ->
 		circle = new Bu.Circle @randomRadius(), @randomX(), @randomY()
 		circle.center.label = 'O'
-		return circle
+		circle
+
+	randomizeCircle: (circle) ->
+		circle.cx = @randomX()
+		circle.cy = @randomY()
+		circle.radius = @randomRadius()
+		circle
 
 	generateBow: ->
 		aFrom = Bu.rand Math.PI * 2
@@ -40,7 +54,7 @@ class Bu.RandomShapeGenerator
 		bow = new Bu.Bow @randomX(), @randomY(), @randomRadius(), aFrom, aTo
 		bow.string.points[0].label = 'A'
 		bow.string.points[1].label = 'B'
-		return bow
+		bow
 
 	generateTriangle: ->
 		points = []
@@ -51,14 +65,14 @@ class Bu.RandomShapeGenerator
 		triangle.points[0].label = 'A'
 		triangle.points[1].label = 'B'
 		triangle.points[2].label = 'C'
-		return triangle
+		triangle
 
 	generateRectangle: ->
-		return new Bu.Rectangle(
-			Bu.rand(@bu.width)
-			Bu.rand(@bu.height)
-			Bu.rand(@bu.width / 2)
-			Bu.rand(@bu.height / 2)
+		new Bu.Rectangle(
+			Bu.rand(@rangeWidth)
+			Bu.rand(@rangeHeight)
+			Bu.rand(@rangeWidth / 2)
+			Bu.rand(@rangeHeight / 2)
 		)
 
 	generateFan: ->
@@ -68,7 +82,7 @@ class Bu.RandomShapeGenerator
 		fan = new Bu.Fan @randomX(), @randomY(), @randomRadius(), aFrom, aTo
 		fan.string.points[0].label = 'A'
 		fan.string.points[1].label = 'B'
-		return fan
+		fan
 
 	generatePolygon: ->
 		points = []
@@ -78,13 +92,13 @@ class Bu.RandomShapeGenerator
 			point.label = 'P' + i
 			points.push point
 
-		return new Bu.Polygon points
+		new Bu.Polygon points
 
 	generateLine: ->
 		line = new Bu.Line @randomX(), @randomY(), @randomX(), @randomY()
 		line.points[0].label = 'A'
 		line.points[1].label = 'B'
-		return line
+		line
 
 	generatePolyline: ->
 		polyline = new Bu.Polyline
@@ -92,4 +106,4 @@ class Bu.RandomShapeGenerator
 			point = new Bu.Point @randomX(), @randomY()
 			point.label = 'P' + i
 			polyline.addPoint point
-		return polyline
+		polyline

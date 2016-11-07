@@ -32,7 +32,8 @@ html
 					generator: null,
 				},
 				objects: function() {
-					this.generator = new Bu.RandomShapeGenerator(this.$canvas);
+					this.generator = new Bu.RandomShapeGenerator();
+					this.generator.setRange(this.$canvas.width, this.$canvas.height);
 					var lineVertical = new Bu.Line().dash();
 					lineVertical.points[1].label = "T";
 					return {
