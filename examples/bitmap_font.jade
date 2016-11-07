@@ -40,8 +40,8 @@ html(lang="en")
 					document.querySelector("#text").value = this.text;
 					this.updateText(this.text);
 
-					this.$renderer.add(this.$objects.pivot);
-					this.$renderer.add(this.$objects.pointText);
+					this.$renderer.scene.addChild(this.$objects.pivot);
+					this.$renderer.scene.addChild(this.$objects.pointText);
 				},
 				methods: {
 					updateText: function (text) {

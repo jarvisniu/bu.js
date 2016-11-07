@@ -98,7 +98,7 @@ html
 									GRID_SIZE,
 									GRID_SIZE
 							);
-							this.$renderer.add(o.rectRows[i][j]);
+							this.$renderer.scene.addChild(o.rectRows[i][j]);
 						}
 					}
 					// add grid path lines
@@ -113,7 +113,7 @@ html
 							);
 							//o.lineRows[i][j].stroke("rgba(0, 128, 255, 0.5");
 							o.lineRows[i][j].lineWidth = 0.5;
-							this.$renderer.add(o.lineRows[i][j]);
+							this.$renderer.scene.addChild(o.lineRows[i][j]);
 						}
 					}
 					// add grid labels
@@ -144,9 +144,9 @@ html
 									= o.labelHRows[i][j].fontFamily
 									= o.labelFRows[i][j].fontFamily
 									= "SimSun";
-							this.$renderer.add(o.labelGRows[i][j]);
-							this.$renderer.add(o.labelHRows[i][j]);
-							this.$renderer.add(o.labelFRows[i][j]);
+							this.$renderer.scene.addChild(o.labelGRows[i][j]);
+							this.$renderer.scene.addChild(o.labelHRows[i][j]);
+							this.$renderer.scene.addChild(o.labelFRows[i][j]);
 							this.refreshNode(i, j);
 						}
 					}
@@ -157,7 +157,7 @@ html
 								MARGIN + OFFSET * i + GRID_SIZE / 2,
 								MARGIN / 2
 						);
-						this.$renderer.add(o.axisTextX[i]);
+						this.$renderer.scene.addChild(o.axisTextX[i]);
 					}
 					for (i = 0; i < yCount; i++) {
 						o.axisTextY[i] = new Bu.PointText(
@@ -165,7 +165,7 @@ html
 								MARGIN / 2,
 								MARGIN + OFFSET * i + GRID_SIZE / 2
 						);
-						this.$renderer.add(o.axisTextY[i]);
+						this.$renderer.scene.addChild(o.axisTextY[i]);
 					}
 					this.engine.on("nodeChanged", (e) => {
 						this.refreshNode(e.x, e.y);

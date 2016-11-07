@@ -85,19 +85,6 @@ class Bu.Renderer
 	continue: -> @isRunning = true
 	toggle: -> @isRunning = not @isRunning
 
-	# Add object(s) to the scene
-	add: (shape) ->
-		if Bu.isArray shape
-			@scene.children.push s for s in shape
-		else
-			@scene.children.push shape
-		@
-
-	# Remove object from the scene
-	remove: (shape) ->
-		index = @scene.children.indexOf shape
-		@scene.children.splice index, 1 if index > -1
-		@
 
 	# Perform the full render process
 	render: ->

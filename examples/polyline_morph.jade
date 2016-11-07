@@ -61,7 +61,7 @@ html(lang="en")
 				init: function () {
 					var o = this.$objects;
 					o.splineA.visible = o.splineB.visible = o.splineM.visible = false;
-					this.$renderer.add([o.polylineA, o.polylineB, o.polylineM, o.splineA, o.splineB, o.splineM]);
+					this.$renderer.scene.addChild([o.polylineA, o.polylineB, o.polylineM, o.splineA, o.splineB, o.splineM]);
 					this.refreshLabel();
 				},
 				update: function () {

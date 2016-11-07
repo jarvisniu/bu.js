@@ -34,6 +34,21 @@ class Bu.Object2D
 			else
 				@_scale = val
 
+
+	# Add object(s) to children
+	addChild: (shape) ->
+		if Bu.isArray shape
+			@children.push s for s in shape
+		else
+			@children.push shape
+		@
+
+	# Remove object from children
+	removeChild: (shape) ->
+		index = @children.indexOf shape
+		@children.splice index, 1 if index > -1
+		@
+
 	# Apply an animation on this object
 	# The type of `anim` may be:
 	#     1. Preset animations: the animation name(string type), ie. key in `Bu.animations`

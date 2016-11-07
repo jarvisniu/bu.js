@@ -40,7 +40,7 @@ html(lang="en")
 						this.points[i] = new Bu.Point(Bu.rand(this.$renderer.width), Bu.rand(this.$renderer.height));
 						this.points[i].label = "P" + i;
 					}
-					this.$renderer.add(this.points);
+					this.$renderer.scene.addChild(this.points);
 				},
 			});
 

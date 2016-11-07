@@ -22,11 +22,11 @@ class Bu.DrawCircleReactor extends Bu.ReactorBase
 			else
 				mousePosDown.set e.offsetX, e.offsetY
 				circle = new Bu.Circle 1, mousePosDown.x, mousePosDown.y
-				@bu.add circle
+				@bu.scene.addChild circle
 
 				line = new Bu.Line mousePosDown, mousePosDown
 				line.stroke '#f44'
-				@bu.add line
+				@bu.scene.addChild line
 				isConfirmed = no
 			mouseButton = e.button
 
