@@ -87,7 +87,7 @@ class Bu.Renderer
 
 	# Add object(s) to the scene
 	add: (shape) ->
-		if shape instanceof Array
+		if Bu.isArray shape
 			@shapes.push s for s in shape
 		else
 			@shapes.push shape

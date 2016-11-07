@@ -19,7 +19,7 @@ class Bu.Polygon extends Bu.Object2D
 		options = Bu.combineOptions arguments,
 			angle: 0
 
-		if points instanceof Array
+		if Bu.isArray points
 			@vertices = points if points?
 		else
 			if arguments.length < 4
