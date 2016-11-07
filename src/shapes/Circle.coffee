@@ -10,8 +10,12 @@ class Bu.Circle extends Bu.Object2D
 		@bounds = null # for accelerate contain test
 
 		@keyPoints = [@_center]
+		@on 'centerChanged', @updateKeyPoints
 
 	clone: () -> new Bu.Circle @radius, @cx, @cy
+
+	updateKeyPoints: ->
+		@keyPoints[0].set @cx, @cy
 
 	# property
 

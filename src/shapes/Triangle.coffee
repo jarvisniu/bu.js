@@ -20,5 +20,15 @@ class Bu.Triangle extends Bu.Object2D
 		#@center = new Bu.Point Bu.average(p1.x, p2.x, p3.x), Bu.average(p1.y, p2.y, p3.y)
 		@points = [p1, p2, p3]
 		@keyPoints = @points
+		@on 'changed', @update
+		@on 'changed', => @.bounds?.update()
 
-	clone: => new Bu.Triangle @points[0], @points[1], @points[2]
+	clone: -> new Bu.Triangle @points[0], @points[1], @points[2]
+
+	update: ->
+		@lines[0].points[0].copy @points[0]
+		@lines[0].points[1].copy @points[1]
+		@lines[1].points[0].copy @points[1]
+		@lines[1].points[1].copy @points[2]
+		@lines[2].points[0].copy @points[2]
+		@lines[2].points[1].copy @points[0]

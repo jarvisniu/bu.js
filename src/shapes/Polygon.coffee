@@ -34,6 +34,16 @@ class Bu.Polygon extends Bu.Object2D
 				n = arguments[3]
 			@vertices = Bu.Polygon.generateRegularPoints x, y, radius, n, options
 
+		@onVerticesChanged()
+		@on 'changed', @onVerticesChanged
+		@on 'changed', => @.bounds?.update()
+		@keyPoints = @vertices
+
+	clone: -> new Bu.Polygon @vertices
+
+	onVerticesChanged: ->
+		@lines = []
+		@triangles = []
 		# init lines
 		if @vertices.length > 1
 			for i in [0 ... @vertices.length - 1]
@@ -44,10 +54,6 @@ class Bu.Polygon extends Bu.Object2D
 		if @vertices.length > 2
 			for i in [1 ... @vertices.length - 1]
 				@triangles.push(new Bu.Triangle(@vertices[0], @vertices[i], @vertices[i + 1]))
-
-		@keyPoints = @vertices
-
-	clone: -> new Bu.Polygon @vertices
 
 	# detect
 
