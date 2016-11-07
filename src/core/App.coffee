@@ -42,12 +42,16 @@ class Bu.App
 			background: @options.canvas.background
 		@$canvas.dom.style.cursor and= @options.canvas.cursor
 
-		# data & methods
+		# data
+		if Bu.isFunction @options.data
+			@options.data = @options.data.apply this
 		@[k] = @options.data[k] for k of @options.data
+
+		# methods
 		@[k] = @options.methods[k] for k of @options.methods
 
 		# objects
-		if @options.objects instanceof Function
+		if Bu.isFunction @options.objects
 			@$objects = @options.objects.apply this
 		else
 			@$objects[name] = @options.objects[name] for name of @options.objects
