@@ -40,7 +40,7 @@ class Bu.DrawFreelineReactor extends Bu.ReactorBase
 					polyline.compress 0.5
 					spline = new Bu.Spline polyline
 					spline.smoothFactor = 0.1
-					@bu.shapes[@bu.shapes.length - 1] = spline
+					@bu.scene.children[@bu.scene.children.length - 1] = spline
 				else
 					polyline.compress 0.2
 

@@ -72,11 +72,13 @@ html
 				},
 				events: {
 					mousemove: function (e) {
+						var o = this.$objects;
 						this.mousePos.x = e.offsetX;
 						this.mousePos.y = e.offsetY;
-						for (var i in this.$renderer.shapes) {
-							if (!this.$renderer.shapes.hasOwnProperty(i)) continue;
-							var shape = this.$renderer.shapes[i];
+						
+						for (var i in o) {
+							if (!o.hasOwnProperty(i)) continue;
+							var shape = o[i];
 							if (shape.containsPoint(this.mousePos))
 								shape.fill(Bu.DEFAULT_FILL_STYLE_HOVER);
 							else

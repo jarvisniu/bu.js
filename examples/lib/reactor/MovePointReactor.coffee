@@ -38,7 +38,7 @@ class Bu.MovePointReactor extends Bu.ReactorBase
 						hoveredPoint.fill()
 						hoveredPoint = null
 				else
-					for shape in @bu.shapes
+					for shape in @bu.scene.children
 						if shape.type is 'Point' and shape.isNear mousePos
 							hoveredPoint = shape
 							hoveredPoint.lineWidth = 1

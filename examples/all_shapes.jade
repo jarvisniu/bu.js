@@ -106,7 +106,7 @@ html(lang="en")
 				},
 				methods: {
 					setDashStroke: function (on) {
-						this.$renderer.shapes.each(function (shape) {
+						this.$renderer.scene.children.each(function (shape) {
 							shape.dash(on ? true : false);
 						});
 					}

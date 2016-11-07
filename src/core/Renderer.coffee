@@ -25,7 +25,7 @@ class Bu.Renderer
 		@clipMeter = new ClipMeter() if ClipMeter?
 
 		# API
-		@shapes = []
+		@scene = new Bu.Scene()
 
 		if not @fillParent
 			@dom.style.width = @width + 'px'
@@ -88,15 +88,15 @@ class Bu.Renderer
 	# Add object(s) to the scene
 	add: (shape) ->
 		if Bu.isArray shape
-			@shapes.push s for s in shape
+			@scene.children.push s for s in shape
 		else
-			@shapes.push shape
+			@scene.children.push shape
 		@
 
 	# Remove object from the scene
 	remove: (shape) ->
-		index = @shapes.indexOf shape
-		@shapes.splice index, 1 if index > -1
+		index = @scene.children.indexOf shape
+		@scene.children.splice index, 1 if index > -1
 		@
 
 	# Perform the full render process
@@ -104,7 +104,7 @@ class Bu.Renderer
 		@context.save()
 		@context.scale @pixelRatio, @pixelRatio
 		@clearCanvas()
-		@drawShapes @shapes
+		@drawShape @scene
 		@context.restore()
 		@
 
