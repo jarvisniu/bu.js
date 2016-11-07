@@ -157,9 +157,9 @@ class Bu.Renderer
 			when 'Spline' then @drawSpline shape
 			when 'PointText' then @drawPointText shape
 			when 'Image' then @drawImage shape
-			when 'Group' # then do nothing
+			when 'Object2D', 'Scene' # then do nothing
 			else
-				console.log 'drawShapes(): unknown shape: ', shape
+				console.log 'drawShapes(): unknown shape: ', shape.type, shape
 
 
 		if shape.fillStyle?
@@ -279,29 +279,31 @@ class Bu.Renderer
 
 
 	drawPointText: (shape) ->
-		if typeof shape.font == 'string'
+		font = shape.font or Bu.DEFAULT_FONT
+
+		if typeof font == 'string'
 			@context.textAlign = shape.textAlign
 			@context.textBaseline = shape.textBaseline
-			@context.font = shape.font
+			@context.font = font
 
 			if shape.strokeStyle?
 				@context.strokeText shape.text, shape.x, shape.y
 			if shape.fillStyle?
 				@context.fillStyle = shape.fillStyle
 				@context.fillText shape.text, shape.x, shape.y
-		else if shape.font instanceof Bu.SpriteSheet and shape.font.ready
-			textWidth = shape.font.measureTextWidth shape.text
+		else if font instanceof Bu.SpriteSheet and font.ready
+			textWidth = font.measureTextWidth shape.text
 			xOffset = switch shape.textAlign
 				when 'left' then 0
 				when 'center' then -textWidth / 2
 				when 'right' then -textWidth
 			yOffset = switch shape.textBaseline
 				when 'top' then 0
-				when 'middle' then -shape.font.height / 2
-				when 'bottom' then -shape.font.height
+				when 'middle' then -font.height / 2
+				when 'bottom' then -font.height
 			for i in [0...shape.text.length]
 				char = shape.text[i]
-				charBitmap = shape.font.getFrameImage char
+				charBitmap = font.getFrameImage char
 				if charBitmap?
 					@context.drawImage charBitmap, shape.x + xOffset, shape.y + yOffset
 					xOffset += charBitmap.width

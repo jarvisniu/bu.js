@@ -21,18 +21,21 @@ class Bu.PointText extends Bu.Object2D
 
 		options = Bu.combineOptions arguments,
 			align: '00'
-			fontFamily: 'Verdana'
-			fontSize: 11
 		@align = options.align
-		@_fontFamily = options.fontFamily
-		@_fontSize = options.fontSize
-		@font = "#{ @_fontSize }px #{ @_fontFamily }" or options.font
+		if options.font?
+			@font = options.font
+		else if options.fontFamily? or options.fontSize?
+			@_fontFamily = options.fontFamily or Bu.DEFAULT_FONT_FAMILY
+			@_fontSize = options.fontSize or Bu.DEFAULT_FONT_SIZE
+			@font = "#{ @_fontSize }px #{ @_fontFamily }"
+		else
+			@font = null
 
 	@property 'align',
 		get: -> @_align
 		set: (val) ->
 			@_align = val
-			@setContextAlign @_align
+			@setAlign @_align
 
 	@property 'fontFamily',
 		get: -> @_fontFamily
@@ -46,7 +49,7 @@ class Bu.PointText extends Bu.Object2D
 			@_fontSize = val
 			@font = "#{ @_fontSize }px #{ @_fontFamily }"
 
-	setContextAlign: (align) =>
+	setAlign: (align) ->
 		if align.length == 1
 			align = '' + align + align
 		alignX = align.substring(0, 1)
@@ -59,3 +62,4 @@ class Bu.PointText extends Bu.Object2D
 			when '-' then 'bottom'
 			when '0' then 'middle'
 			when '+' then 'top'
+		@

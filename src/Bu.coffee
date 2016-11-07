@@ -45,6 +45,13 @@ Bu.POINT_RENDER_SIZE = 2.25
 # Point can have label aside it. This is the offset distance from the point.
 Bu.POINT_LABEL_OFFSET = 5
 
+# Default font for the text
+Bu.DEFAULT_FONT_FAMILY = 'Verdana'
+Bu.DEFAULT_FONT_SIZE = 11
+Bu.DEFAULT_FONT = '11px Verdana'
+
+# -------------------------------------------------------------------
+
 # Default smooth factor of spline, range in [0, 1] and 1 is the smoothest
 Bu.DEFAULT_SPLINE_SMOOTH = 0.25
 
