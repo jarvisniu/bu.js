@@ -1,4 +1,4 @@
-# canvas renderer
+# Used to render all the drawable objects to the canvas
 
 class Bu.Renderer
 
@@ -79,21 +79,12 @@ class Bu.Renderer
 
 		@isRunning = true
 
+	# Pause/continue/toggle the rendering loop
+	pause: -> @isRunning = false
+	continue: -> @isRunning = true
+	toggle: -> @isRunning = not @isRunning
 
-	pause: ->
-		@isRunning = false
-
-	continue: ->
-		@isRunning = true
-
-	toggle: ->
-		@isRunning = not @isRunning
-
-	#	processArgs: (e) ->
-	#		offsetX: e.offsetX * @pixelRatio
-	#		offsetY: e.offsetY * @pixelRatio
-	#		button: e.button
-
+	# Add object(s) to the scene
 	add: (shape) ->
 		if shape instanceof Array
 			@shapes.push s for s in shape
@@ -101,11 +92,13 @@ class Bu.Renderer
 			@shapes.push shape
 		@
 
+	# Remove object from the scene
 	remove: (shape) ->
 		index = @shapes.indexOf shape
 		@shapes.splice index, 1 if index > -1
 		@
 
+	# Perform the full render process
 	render: ->
 		@context.save()
 		@context.scale @pixelRatio, @pixelRatio
@@ -114,10 +107,12 @@ class Bu.Renderer
 		@context.restore()
 		@
 
+	# Clear the canvas
 	clearCanvas: ->
 		@context.clearRect 0, 0, @width, @height
 		@
 
+	# Draw an array of drawables
 	drawShapes: (shapes) =>
 		if shapes?
 			for shape in shapes
@@ -126,6 +121,7 @@ class Bu.Renderer
 				@context.restore()
 		@
 
+	# Draw an drawable to the canvas
 	drawShape: (shape) =>
 		return @ unless shape.visible
 

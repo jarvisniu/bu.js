@@ -5,12 +5,12 @@ class Bu.SpriteSheet
 	constructor: (@url) ->
 		Bu.Event.apply @
 
-		@ready = no # If this sprite sheet is loaded and parsed.
-		@height = 0 # Height of this sprite
+		@ready = no  # If this sprite sheet is loaded and parsed.
+		@height = 0  # Height of this sprite
 
-		@data = null # The JSON data
-		@images = [] # The `Image` list loaded
-		@frameImages = [] # Parsed frame images
+		@data = null  # The JSON data
+		@images = []  # The `Image` list loaded
+		@frameImages = []  # Parsed frame images
 
 		# load and trigger parseData()
 		$.ajax @url, success: (text) =>
@@ -60,7 +60,9 @@ class Bu.SpriteSheet
 			width += @getFrameImage(char).width
 		width
 
-	# Static members
+	#----------------------------------------------------------------------
+	# Private members
+	#----------------------------------------------------------------------
 
 	canvas = document.createElement 'canvas'
 	context = canvas.getContext '2d'

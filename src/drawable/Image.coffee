@@ -1,4 +1,4 @@
-# draw bitmap
+# Used to render bitmap to the screen
 
 class Bu.Image extends Bu.Object2D
 

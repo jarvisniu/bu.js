@@ -1,4 +1,4 @@
-# Geometry Algorithm Gather
+# Geometry Algorithm Collection
 
 Bu.geometryAlgorithm = G =
 

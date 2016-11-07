@@ -33,6 +33,11 @@ class Bu.Object2D
 			else
 				@_scale = val
 
+	# Apply an animation on this object
+	# The type of `anim` may be:
+	#     1. Preset animations: the animation name(string type), ie. key in `Bu.animations`
+	#     2. Custom animations: the animation object of `Bu.Animation` type
+	#     3. Multiple animations: An array whose children are above two types
 	animate: (anim, args) ->
 		if typeof anim == 'string'
 			if anim of Bu.animations
@@ -46,6 +51,7 @@ class Bu.Object2D
 			anim.apply @, args
 		@
 
+	# Hit testing
 	containsPoint: (p) ->
 		if @bounds? and not @bounds.containsPoint p
 			return no

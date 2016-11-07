@@ -1,4 +1,5 @@
 # Add color to the shapes
+# This object is dedicated to mixed-in the Object2D.
 
 Bu.Colorful = () ->
 	@strokeStyle = Bu.DEFAULT_STROKE_STYLE
@@ -8,6 +9,7 @@ Bu.Colorful = () ->
 	@lineWidth = 1
 	@dashOffset = 0
 
+	# Set the stroke style of the `Object2D`
 	@stroke = (v) ->
 		v = true if not v?
 		switch v
@@ -17,6 +19,7 @@ Bu.Colorful = () ->
 				@strokeStyle = v
 		@
 
+	# Set the fill style of the `Object2D`
 	@fill = (v) ->
 		v = true if not v?
 		switch v
@@ -26,6 +29,7 @@ Bu.Colorful = () ->
 				@fillStyle = v
 		@
 
+	# Set the dash style of the `Object2D`
 	@dash = (v) ->
 		v = true if not v?
 		v = [v, v] if typeof v is 'number'

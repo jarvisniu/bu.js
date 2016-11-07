@@ -1,4 +1,4 @@
-# draw text by a point
+# Render text around a point
 
 class Bu.PointText extends Bu.Object2D
 

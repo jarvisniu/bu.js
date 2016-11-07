@@ -1,4 +1,5 @@
-# add event listener to custom objects
+# Add event listener feature to custom objects
+
 Bu.Event = ->
 	types = {}
 

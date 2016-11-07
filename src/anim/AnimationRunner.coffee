@@ -1,4 +1,4 @@
-# run the animations
+# Run the animation tasks
 
 class Bu.AnimationRunner
 
@@ -32,7 +32,7 @@ class Bu.AnimationRunner
 					t = 0
 					task.startTime = Bu.now()
 				else
-					## TODO remove out of array
+					# TODO remove the finished tasks out
 					t = 1
 					task.finished = yes
 
@@ -48,7 +48,7 @@ class Bu.AnimationRunner
 				anim.update.apply task.target, [t, task.current]
 			if finish then anim.finish?.call task.target, anim
 
-	# hook up on an renderer, remove own setInternal
+	# Hook up on an renderer, remove own setInternal
 	hookUp: (renderer) ->
 		renderer.on 'update', => @update()
 
@@ -67,7 +67,7 @@ class Bu.AnimationRunner
 		true
 
 	initTask = (task, anim) ->
-		# create task.current object
+		# Create the `task.current` object
 		if anim.from?
 			if Bu.isPlainObject anim.from
 				for own key of anim.from
@@ -80,14 +80,12 @@ class Bu.AnimationRunner
 		if typeof anim.from == 'number'
 			task.current = interpolateNum anim.from, anim.to, t
 		else if anim.from instanceof Bu.Color
-			# task.current = new Bu.Color unless task.current instanceof Bu.Color
 			interpolateObject anim.from, anim.to, t, task.current
 		else if Bu.isPlainObject anim.from
 			for own key of anim.from
 				if typeof anim.from[key] == 'number'
 					task.current[key] = interpolateNum anim.from[key], anim.to[key], t
 				else
-					# task.current[key] = new Bu.Color unless task.current[key] instanceof Bu.Color
 					interpolateObject anim.from[key], anim.to[key], t, task.current[key]
 
 	interpolateNum = (a, b, t) -> b * t - a * (t - 1)
@@ -130,5 +128,5 @@ class Bu.AnimationRunner
 
 		# TODO add quart, quint, expo, circ, back, elastic, bounce
 
-# global unique instance
+# Define the global unique instance of this class
 Bu.animationRunner = new Bu.AnimationRunner
