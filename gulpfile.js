@@ -12,9 +12,12 @@ var open = require('open');
 // Gulp plugins: coffee, concat, header, uglify, sourcemaps, jade, stylus, liveServer
 var plugins = require('gulp-load-plugins')();
 
+// get version number from `package.json`
+var BU_VER = require('./package.json').version;
+
 // config
 var port = 3000;
-var header = '// Bu.js - https://github.com/jarvisniu/Bu.js\n';
+var header = '// Bu.js v' + BU_VER + ' - https://github.com/jarvisniu/Bu.js\n';
 var paths = {
     src_scripts: [
         'src/Bu.coffee',
