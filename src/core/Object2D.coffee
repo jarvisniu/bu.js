@@ -1,4 +1,4 @@
-# hierarchy manage
+# Base class of all shapes and other renderable objects
 
 class Bu.Object2D
 
@@ -17,8 +17,11 @@ class Bu.Object2D
 		#@toWorldMatrix = new Bu.Matrix()
 		#@updateMatrix ->
 
-		@bounds = null # for accelerate contain test
+		# geometry related
+		@bounds = null # used to accelerate the hit testing
 		@keyPoints = null
+
+		# hierarchy
 		@children = []
 		@parent = null
 
