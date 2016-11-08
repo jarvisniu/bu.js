@@ -12,14 +12,6 @@ A JavaScript 2D graphics library based on HTML5 Canvas
 [Download](https://cdn.rawgit.com/jarvisniu/Bu.js/v0.3.5/build/bu.min.js)
 
 
-## Features
-
-- Object-oriented and modularization design
-- Easy-to-use API
-- Rich geometry shapes and algorithms
-- High-definition screen supported
-
-
 ## Hello World
 
 ``` html
@@ -34,9 +26,9 @@ A JavaScript 2D graphics library based on HTML5 Canvas
                 height: 600,
             },
             objects: {
-                sun: new Bu.Circle(40),
-                earth: new Bu.Circle(20),
-                moon: new Bu.Circle(10),
+                sun: new Bu.Circle(40).fill("#F40").stroke("#820"),
+                earth: new Bu.Circle(20).fill("#06F").stroke("#038"),
+                moon: new Bu.Circle(10).fill("#FF0").stroke("#880"),
             },
             hierarchy: {
                 sun: {
@@ -47,14 +39,8 @@ A JavaScript 2D graphics library based on HTML5 Canvas
             },
             init: function () {
                 var o = this.$objects;
-
-                o.sun.fill("#F40").stroke("#820");
                 o.sun.position.set(300, 300);
-
-                o.earth.fill("#06F").stroke("#038");
                 o.earth.position.x = 150;
-
-                o.moon.fill("#FF0").stroke("#880");
                 o.moon.position.x = 50;
             },
             update: function () {
@@ -68,12 +54,21 @@ A JavaScript 2D graphics library based on HTML5 Canvas
 ```
 
 
+## Features
+
+- Object-oriented and modularization design
+- Easy-to-use API
+- Rich geometry shapes and algorithms
+- High-definition screen supported
+
+
 ## How to Build
 
-1. Install [Node](https://nodejs.org/)
-2. Install [Gulp](http://gulpjs.com/): `npm install -g gulp`
-3. Install the dependencies: `npm install`
-4. Build the lib and run the examples: `gulp run`
+1. Download or clone this project;
+1. Install [Node](https://nodejs.org/);
+2. Install [Gulp](http://gulpjs.com/): `npm install -g gulp`;
+3. Install the dependencies: `npm install`;
+4. Build and run the examples: `gulp`.
 
 
 ## Code Layout
