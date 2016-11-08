@@ -27,10 +27,7 @@ class Bu.App
 		for k in ["renderer", "camera", "data", "objects", "hierarchy", "methods", "events"]
 			@options[k] or= {}
 
-		if document.readyState == 'complete'
-			@init()
-		else
-			document.addEventListener 'DOMContentLoaded', => @init()
+		Bu.ready @init, @
 
 	init: () ->
 		# renderer

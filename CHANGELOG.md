@@ -9,6 +9,8 @@ Change Log
 - Changed `Renderer.add/remove()` to `Object2D.add/removeChild()`
 - Updated `shapes` to respond `changed` event
 - Added `Renderer.drawBounds` to show the bounding boxes
+- Added `Bu.ready()` to execute callback when ready
+- Added `imageSmoothing` option for renderer
 
 
 ## 0.3.4 / 2016-11-07

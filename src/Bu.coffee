@@ -156,6 +156,13 @@ Bu.data = (key, value) ->
 		value = localStorage['Bu.' + key]
 		if value? then JSON.parse value else null
 
+# Execute a callback function when the document is ready
+Bu.ready = (cb, context, args) ->
+	if document.readyState == 'complete'
+		cb.apply context, args
+	else
+		document.addEventListener 'DOMContentLoaded', -> cb.apply context, args
+
 #----------------------------------------------------------------------
 # Polyfill
 #----------------------------------------------------------------------

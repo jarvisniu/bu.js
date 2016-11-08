@@ -40,7 +40,6 @@ class Bu.Renderer
 
 		@context.textBaseline = 'top'
 		@context.imageSmoothingEnabled = options.imageSmoothing
-		@context["#{v}ImageSmoothingEnabled"] = options.imageSmoothing for v in Bu.BROWSER_VENDOR_PREFIXES
 
 
 		onResize = =>
@@ -77,10 +76,9 @@ class Bu.Renderer
 
 		tick()
 
-		# init
-		setTimeout =>
+		appendDom = =>
 			@container.appendChild @dom
-		, 100
+		setTimeout appendDom, 1
 
 		Bu.animationRunner?.hookUp @
 
