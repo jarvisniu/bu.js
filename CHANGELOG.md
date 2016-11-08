@@ -2,7 +2,7 @@ Change Log
 ==========
 
 
-## 0.3.5 / WIP
+## 0.3.5 / 2016-11-09
 
 - Changed `RandomShapeGenerator` to `ShapeRandomizer`
 - Changed `Renderer.shapes` to `Renderer.scene`

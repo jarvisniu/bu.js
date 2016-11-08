@@ -1,6 +1,6 @@
 {
   "name": "bu.js",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "A JavaScript 2D graphics library based on HTML5 Canvas",
   "main": "build/bu.js",
   "directories": {

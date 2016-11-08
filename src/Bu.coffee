@@ -21,7 +21,7 @@ global = previousGlobal
 #----------------------------------------------------------------------
 
 # Version info of this library
-Bu.VERSION = '0.3.4'
+Bu.VERSION = '0.3.5'
 
 # Browser vendor prefixes, used in experimental features
 Bu.BROWSER_VENDOR_PREFIXES = ['webkit', 'moz', 'ms']

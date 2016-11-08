@@ -120,7 +120,7 @@ gulp.task('open_examples', ['serve_examples'], function () {
 
 gulp.task('clean', ['clean_src', 'clean_dist']);
 
-gulp.task('build', ['clean_src', 'src_scripts', 'ext_scripts', 'stylus', 'examples']);
+gulp.task('build', ['clean', 'src_scripts', 'ext_scripts', 'stylus', 'examples']);
 
 gulp.task('watch', function () {
     gulp.watch(paths.src_scripts, ['src_scripts']);
@@ -152,6 +152,8 @@ gulp.task('open_dist', ['serve_dist'], function () {
 });
 
 gulp.task('dist', ['open_dist']);
+
+gulp.task('release', ['min', 'src_scripts']);
 
 // default
 
