@@ -19,8 +19,8 @@ html
                     highScore2: 20000,
                     scrollAnim: new Bu.Animation({
                         duration: 3,
-                        update: function(t) {
-                            return this.position.y = (1 - t) * 512;
+                        update: function(anim) {
+                            return this.position.y = (1 - anim.t) * 512;
                         }
                     }),
                 },
@@ -62,10 +62,9 @@ html
                     
                     Bu.DEFAULT_FONT = this.font;
                     this.sheet.once('loaded', () => {
-            		    console.log('sheet.ready');
                         o.selector.image = this.sheet.getFrameImage('tank_p1');
                     });
                     
-                    var scrollAnimTask = this.scrollAnim.apply(o.sceneStart);
+                    var scrollAnimTask = this.scrollAnim.applyTo(o.sceneStart);
                 },
             });

@@ -55,16 +55,16 @@ class Bu.Object2D
 	#     2. Custom animations: the animation object of `Bu.Animation` type
 	#     3. Multiple animations: An array whose children are above two types
 	animate: (anim, args) ->
+		args = [args] unless Bu.isArray args
 		if typeof anim == 'string'
 			if anim of Bu.animations
-				Bu.animations[anim].apply @, args
+				Bu.animations[anim].applyTo @, args
 			else
 				console.warn "Bu.animations[\"#{ anim }\"] doesn't exists."
 		else if Bu.isArray anim
-			args = [args] unless Bu.isArray args
 			@animate anim[i], args for own i of anim
 		else
-			anim.apply @, args
+			anim.applyTo @, args
 		@
 
 	# Create Bounds for this object
