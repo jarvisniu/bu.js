@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Contains test</title>
+    <script src="../build/bu.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #info {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            padding: 8px 0;
+        }
+
+        #control {
+            float: right;
+            text-align: left;
+            border: solid 1px silver;
+            background-color: white;
+            margin-right: 8px;
+            padding: 4px;
+        }
+    </style>
+    <script type="text/javascript">
+        var bu = new Bu.App({
+            renderer: {
+                cursor: 'crosshair',
+                showKeyPoints: true,
+                showBounds: true,
+            },
+            data: {
+                mousePos: new Bu.Point(),
+            },
+            objects: function() {
+                var r = this.randomizer = new Bu.ShapeRandomizer();
+
+                // circle,
+                return {
+                    circle: r.generateCircle().createBounds(),
+                    triangle: r.generateTriangle().createBounds(),
+                    rectangle: r.generateRectangle(),
+                    fan: r.generateFan().createBounds(),
+                    bow: r.generateBow().createBounds(),
+                    polygon: r.generatePolygon().createBounds(),
+                };
+            },
+            hierarchy: {
+                circle: {},
+                triangle: {},
+                rectangle: {},
+                fan: {},
+                bow: {},
+                polygon: {},
+            },
+            init: function() {
+                this.randomizer.setRange(this.$renderer.width, this.$renderer.height);
+            },
+            methods: {
+                regenerateShapes: function() {
+                    var o = this.$objects;
+                    this.randomizer.randomize([o.circle, o.triangle, o.rectangle, o.fan, o.bow, o.polygon]);
+                },
+            },
+            events: {
+                mousemove: function(e) {
+                    var o = this.$objects;
+                    this.mousePos.x = e.offsetX;
+                    this.mousePos.y = e.offsetY;
+
+                    for (var i in o) {
+                        if (!o.hasOwnProperty(i)) continue;
+                        var shape = o[i];
+                        if (shape.containsPoint(this.mousePos))
+                            shape.fill(Bu.DEFAULT_FILL_STYLE_HOVER);
+                        else
+                            shape.fill();
+                    }
+                },
+                mouseup: function() {
+                    this.regenerateShapes();
+                },
+            },
+        });
+    </script>
+</head>
+
+<body>
+    <div id="info"><span>Move cursor to test. Click to regenerate shapes.</span>
+        <div id="control">
+            <label>
+                <input type="checkbox" onclick="bu.$renderer.showBounds = this.checked;" checked>Show Bounds
+            </label>
+        </div>
+    </div>
+</body>
+
+</html>

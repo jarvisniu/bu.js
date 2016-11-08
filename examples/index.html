@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bu.js Examples</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: "Calibri Light", Calibri, Arial, sans-serif;
+            overflow: hidden;
+        }
+        /* side */
+
+        #side {
+            position: absolute;
+            overflow-y: scroll;
+            box-sizing: border-box;
+            padding: 20px;
+            width: 250px;
+            height: 100%;
+            border-right: solid #bbb 2px;
+        }
+
+        #side #logo {
+            width: 180px;
+            height: 180px;
+        }
+
+        #side a {
+            display: block;
+            padding: 2px 0;
+            text-decoration: none;
+            color: #28b;
+        }
+
+        #side h1 {
+            font-size: 28px;
+            padding-bottom: 8px;
+        }
+
+        #side h1 a {
+            display: inline;
+        }
+
+        #side h1 a :hover {
+            text-decoration: underline;
+        }
+
+        #side h2 {
+            padding: 12px 0;
+            color: #666;
+            font-size: 20px;
+        }
+        /* container */
+
+        #container {
+            padding-left: 250px;
+            width: calc(100% - 250px);
+            height: 100%;
+        }
+
+        #container iframe {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script type="text/javascript">
+        var hashPath, frame;
+
+        document.addEventListener("DOMContentLoaded", init);
+
+        function init() {
+            frame = document.querySelector("iframe");
+            window.addEventListener("hashchange", onHashChanged);
+            onHashChanged();
+        }
+
+        function onHashChanged() {
+            hashPath = location.hash.replace("#!/", "");
+            if (hashPath.length > 0)
+                frame.src = hashPath;
+        }
+    </script>
+</head>
+
+</html>
+
+<body>
+    <div id="side">
+        <a href="https://github.com/jarvisniu/Bu.js" target="_blank">
+            <img id="logo" src="../logo.png">
+        </a>
+        <h1>Bu.js Examples</h1>
+
+        <h2>Graphics</h2>
+        <a href="#!/hello_bu.html">Hello Bu.js</a>
+        <a href="#!/all_shapes.html">All Shapes</a>
+        <a href="#!/all_styles.html">All Styles</a>
+        <a href="#!/bitmap_font.html">Bitmap Font</a>
+        <a href="#!/animation.html">Animation</a>
+
+        <h2>Interactive</h2>
+        <a href="#!/drag_point.html">Drag to Move Point</a>
+        <a href="#!/draw_shapes.html">Draw Shapes</a>
+
+        <h2>Geometry</h2>
+        <a href="#!/contain_test.html">Shapes Containing Point Test</a>
+        <a href="#!/line_near_point.html">Point Near Line Test</a>
+        <a href="#!/point_to_line_distance.html">Distance of Point To Line</a>
+
+        <h2>Algorithm Visualization</h2>
+        <a href="#!/a_star_grid.html">A Star Grid</a>
+        <a href="#!/a_star_honeycomb.html">A Star Honeycomb</a>
+        <a href="#!/delaunay_triangulation.html">Delaunay Triangulation</a>
+        <a href="#!/polyline_morph.html">Polyline Morph</a>
+
+        <h2>Game</h2>
+        <a href="#!/tank.html">Tank (In Progress)</a>
+    </div>
+    <div id="container">
+        <iframe name="web" src="about:blank" frameborder="0"></iframe>
+    </div>
+</body>

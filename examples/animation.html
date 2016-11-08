@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Animation</title>
+    <script src="../build/bu.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #info {
+            position: absolute;
+            width: 100%;
+            line-height: 26px;
+            text-align: center;
+            padding: 8px 0;
+        }
+
+        input {
+            width: 50px;
+        }
+    </style>
+    <script type="text/javascript">
+        var bu, bunny, circle;
+        var animSpin, animHelical;
+        var imageUrl = "./assets/textures/bunny.png";
+
+        $.ready(init);
+
+        function init() {
+            bu = new Bu.Renderer();
+
+            bunny = new Bu.Image(imageUrl);
+            bunny.scale = 2;
+            bunny.position.x = bu.width / 2;
+            bunny.position.y = bu.height / 2;
+
+            bu.scene.addChild(bunny);
+
+            circle = new Bu.Circle(50, 100, 100).fill("white");
+            bu.scene.addChild(circle);
+
+            // custom animation
+            animHelical = new Bu.Animation({
+                duration: 2,
+                init: function(anim) {
+                    anim.data.ox = this.position.x;
+                    anim.data.oy = this.position.y;
+                    anim.data.or = this.rotation;
+                },
+                update: function(anim) {
+                    var theta = Math.PI * 8 * anim.t;
+                    var radius = 300 * anim.t;
+                    this.position.x = radius * Math.cos(theta) + anim.data.ox;
+                    this.position.y = radius * Math.sin(theta) + anim.data.oy;
+                    this.rotation = theta;
+                },
+                finish: function(anim) {
+                    this.position.x = anim.data.ox;
+                    this.position.y = anim.data.oy;
+                    this.rotation = anim.data.or;
+                }
+            });
+
+
+            $('#prefab button').attr('onclick', 'prefabAnim(this.innerText);');
+            $('#moveBy').attr('onclick', 'bunny.animate("moveBy", $("#inputMove").val());');
+            $('#moveTo').attr('onclick', 'bunny.animate("moveTo", $("#inputMove").val());');
+            $('#blink').attr('onclick', 'circle.animate("blink");');
+            $('#discolor').attr('onclick', 'circle.animate("discolor", $("#inputDiscolor").val());');
+            $('#spinIn').attr('onclick', 'bunny.animate("spinIn", 2);');
+            $('#helical').on('click', applyHelical);
+            $('#multiple').on('click', applyMultiple);
+        }
+
+        function prefabAnim(type) {
+            bunny.animate(type);
+        }
+
+        function applyHelical() {
+            bunny.animate(animHelical); // first writing
+        }
+
+        function applyMultiple() {
+            bunny.animate(['moveBy', 'spin'], $("#inputMove").val());
+        }
+    </script>
+</head>
+
+<body>
+    <div id="info"><span>Click the buttons to play the animations.</span>
+        <div id="prefab">Prefab:
+            <button>fadeOut</button>
+            <button>fadeIn</button>
+            <button>spin</button>
+            <button>spinOut</button>
+            <button id="spinIn">spinIn</button>
+            <button>shake</button><br><span>Toggle (need to click twice):</span>
+            <button>puff</button>
+            <button>clip</button>
+            <button>flipX</button>
+        </div>
+        <div>With arguments:
+            <button id="moveBy">moveBy</button>
+            <button id="moveTo">moveTo</button>
+            <input type="text" id="inputMove" name="move" value="160">
+        </div>
+        <div>Background Color:
+            <button id="blink">blink</button>
+            <button id="discolor">discolor</button>
+            <input type="text" id="inputDiscolor" name="move" value="red">
+        </div>
+        <div>Multiple(Mix):
+            <button id="multiple">move + spin</button>
+        </div>
+        <div>Custom:
+            <button id="helical">helical</button>
+        </div>
+    </div>
+</body>
+
+</html>

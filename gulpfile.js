@@ -9,7 +9,7 @@ var gulp = require('gulp');
 var del = require('del');
 var open = require('open');
 
-// Gulp plugins: coffee, concat, header, uglify, sourcemaps, jade, stylus, liveServer
+// Gulp plugins: coffee, concat, header, uglify, sourcemaps, stylus, liveServer
 var plugins = require('gulp-load-plugins')();
 
 // get version number from `package.json`
@@ -34,16 +34,12 @@ var paths = {
     stylus: [
         'examples/vue/*.styl'
     ],
-    examples: [
-        'examples/*.jade'
-    ],
     clean: [
         'build/*',
         'src/**/*.js',
         'src/**/*.js.map',
         'examples/lib/*/*.js',
         'examples/lib/*/*.js.map',
-        'examples/*.html',
         'examples/vue/*.css'
     ],
     dist: [
@@ -96,14 +92,6 @@ gulp.task('ext_scripts', function () {
         .pipe(gulp.dest('examples/lib/'));
 });
 
-gulp.task('examples', function () {
-    return gulp.src(paths.examples)
-        .pipe(plugins.jade({
-            pretty: true
-        }))
-        .pipe(gulp.dest('examples/'));
-});
-
 gulp.task('stylus', function () {
     return gulp.src(paths.stylus)
         .pipe(plugins.stylus())
@@ -120,13 +108,12 @@ gulp.task('open_examples', ['serve_examples'], function () {
 
 gulp.task('clean', ['clean_src', 'clean_dist']);
 
-gulp.task('build', ['clean', 'src_scripts', 'ext_scripts', 'stylus', 'examples']);
+gulp.task('build', ['clean', 'src_scripts', 'ext_scripts', 'stylus']);
 
 gulp.task('watch', function () {
     gulp.watch(paths.src_scripts, ['src_scripts']);
     gulp.watch(paths.ext_scripts, ['ext_scripts']);
     gulp.watch(paths.stylus, ['stylus']);
-    gulp.watch(paths.examples, ['examples']);
 });
 
 gulp.task('run', ['build', 'serve_examples', 'open_examples']);
