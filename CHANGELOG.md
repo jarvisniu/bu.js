@@ -11,6 +11,7 @@ Change Log
 - Added `Renderer.drawBounds` to show the bounding boxes
 - Added `Bu.ready()` to execute callback when ready
 - Added `imageSmoothing` option for renderer
+- Added type checking functions `Bu.isNumber` and `Bu.isString`
 
 
 ## 0.3.4 / 2016-11-07

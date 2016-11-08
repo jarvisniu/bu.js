@@ -17,13 +17,13 @@ class Bu.AnimationTask
         @current = Bu.clone @from
 
     interpolate: ->
-        if typeof @from == 'number' # TODO Bu.isNumber
+        if Bu.isNumber @from
             @current = interpolateNum @from, @to, @t
         else if @from instanceof Bu.Color
             interpolateObject @from, @to, @t, @current
         else if Bu.isPlainObject @from
             for own key of @from
-                if typeof @from[key] == 'number'
+                if Bu.isNumber @from[key]
                     @current[key] = interpolateNum @from[key], @to[key], @t
                 else
                     interpolateObject @from[key], @to[key], @t, @current[key]

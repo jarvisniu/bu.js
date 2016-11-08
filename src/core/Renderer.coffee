@@ -24,8 +24,8 @@ class Bu.Renderer
 			showBounds: no
 			imageSmoothing: yes
 		@[k] = options[k] for k in ['container', 'width', 'height', 'fps', 'showKeyPoints', 'showBounds']
-		@container = document.querySelector @container if typeof @container is 'string'
-		@fillParent = typeof options.width != 'number'
+		@container = document.querySelector @container if Bu.isString @container
+		@fillParent = not Bu.isNumber options.width
 
 		# Set DOM styles
 		if not @fillParent
@@ -270,7 +270,7 @@ class Bu.Renderer
 	drawPointText: (shape) ->
 		font = shape.font or Bu.DEFAULT_FONT
 
-		if typeof font == 'string'
+		if Bu.isString font
 			@context.textAlign = shape.textAlign
 			@context.textBaseline = shape.textBaseline
 			@context.font = font

@@ -29,7 +29,7 @@ class Bu.Object2D
 	@property 'scale',
 		get: -> @_scale
 		set: (val) ->
-			if typeof val == 'number'
+			if Bu.isNumber val
 				@_scale.x = @_scale.y = val
 			else
 				@_scale = val
@@ -56,7 +56,7 @@ class Bu.Object2D
 	#     3. Multiple animations: An array whose children are above two types
 	animate: (anim, args) ->
 		args = [args] unless Bu.isArray args
-		if typeof anim == 'string'
+		if Bu.isString anim
 			if anim of Bu.animations
 				Bu.animations[anim].applyTo @, args
 			else

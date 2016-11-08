@@ -16,7 +16,7 @@ Bu.geometryAlgorithm = G =
 		]
 
 	injectInto: (shapes) ->
-		shapes = [shapes] if typeof shapes == 'string'
+		shapes = [shapes] if Bu.isString shapes
 
 		if 'point' in shapes
 			Bu.Point::inCircle = (circle) ->

@@ -149,7 +149,7 @@ Bu.animations =
 	discolor: new Bu.Animation
 		init: (anim) ->
 			desColor = anim.arg
-			desColor = new Bu.Color desColor if typeof desColor == 'string'
+			desColor = new Bu.Color desColor if Bu.isString desColor
 			anim.from = new Bu.Color @fillStyle
 			anim.to = desColor
 		update: (anim) ->

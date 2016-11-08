@@ -9,7 +9,7 @@ class Bu.Color
 
         if arguments.length == 1
             arg = arguments[0]
-            if typeof arg == 'string'
+            if Bu.isString arg
                 @parse arg
                 @a = clampAlpha @a
             else if arg instanceof Bu.Color

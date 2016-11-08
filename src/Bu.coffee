@@ -111,10 +111,18 @@ Bu.now = if Bu.global.performance? then -> Bu.global.performance.now() else -> D
 Bu.combineOptions = (args, defaultOptions) ->
 	defaultOptions = {} if not defaultOptions?
 	givenOptions = args[args.length - 1]
-	if typeof givenOptions is 'object'
+	if Bu.isPlainObject givenOptions
 		for i of givenOptions when givenOptions[i]?
 			defaultOptions[i] = givenOptions[i]
 	return defaultOptions
+
+# Check if an variable is a number
+Bu.isNumber = (o) ->
+	typeof o == 'number'
+
+# Check if an variable is a string
+Bu.isString = (o) ->
+	typeof o == 'string'
 
 # Check if an object is an plain object, not instance of class/function
 Bu.isPlainObject = (o) ->
