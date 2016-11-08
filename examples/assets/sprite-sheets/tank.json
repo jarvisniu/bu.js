@@ -1,0 +1,33 @@
+{
+	"animations": {
+		"concret": {"frames": [0]},
+		"grass": {"frames": [1]},
+		"block": {"frames": [2]},
+		"river": {"frames": [3]},
+		"ice": {"frames": [4]},
+		"base": {"frames": [5]},
+		"star": {"frames": [6]},
+		"tank_p1": {"frames": [8]},
+		"tank_e1": {"frames": [9]},
+		"tank_e2": {"frames": [10]},
+		"tank_e3": {"frames": [11]},
+		"tank_mark_p": {"frames": [12]},
+		"tank_mark_e": {"frames": [13]}
+	},
+	"frames": [
+		[0, 0, 16, 16],
+		[16],
+		[32],
+		[48],
+		[0, 16],
+		[16],
+		[32],
+		[48],
+		[0, 32],
+		[16],
+		[32],
+		[48],
+		[0, 48, 8, 8],
+		[8]
+	]
+}

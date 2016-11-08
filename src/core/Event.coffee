@@ -29,5 +29,4 @@ Bu.Event = ->
 			for listener in listeners
 				listener.call this, eventData
 				if listener.once
-					listeners.splice i, 1
-					i -= 1
+					listeners.splice listeners.indexOf(listener), 1

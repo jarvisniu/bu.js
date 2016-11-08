@@ -49,6 +49,7 @@ class Bu.SpriteSheet
 		@trigger 'loaded'
 
 	getFrameImage: (key, index = 0) ->
+		return null unless @ready
 		animation = @data.animations[key]
 		return null unless animation?
 

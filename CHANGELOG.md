@@ -1,17 +1,29 @@
-## Change Log
+Change Log
+==========
 
-<!--
-==== Change Type ====
-Add: New features were added
-Update: Enhance current class
-Improve: Use new technics to improve the porformance, UI etc
-Fix: Bugs were fixed
-Remove: Outdated or deprecated feature were removed
--->
 
-#### v0.3.4
+## 0.3.5 / WIP
 
-- Add class `Bu.Color`
-- Update `Bu.Animation` to support color transform animation
-- Add function `Bu.clamp()`
-- Add `Bu.App`, the declarative app framework
+- Changed `RandomShapeGenerator` to `ShapeRandomizer`
+- Changed `Renderer.shapes` to `Renderer.scene`
+- Changed `Renderer.add/remove()` to `Object2D.add/removeChild()`
+- Updated `shapes` to respond `changed` event
+- Added `Renderer.drawBounds` to show the bounding boxes
+
+
+## 0.3.4 / 2016-11-07
+
+- Added class `Bu.Color`
+- Updated `Bu.Animation` to support color transform animation
+- Added function `Bu.clamp()`
+- Added class `Bu.App`, the declarative app framework
+
+
+## Change Type
+
+- **Added**: New features were added
+- **Updated**: Enhance current class
+- **Improved**: Use new technics to improve the porformance, UI etc
+- **Fixed**: Bugs were fixed
+- **Removed**: Outdated or deprecated feature were removed
+- **Changed**: Breaking changes were made

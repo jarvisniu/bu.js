@@ -16,12 +16,18 @@ class Bu.Image extends Bu.Object2D
 
 		@pivot = new Bu.Vector 0.5, 0.5
 
-		@image = new Bu.global.Image
-		@loaded = false
+		@_image = new Bu.global.Image
+		@ready = false
 
-		@image.onload = (e) =>
+		@_image.onload = (e) =>
 			if @autoSize
-				@size.set @image.width, @image.height
-			@loaded = true
+				@size.set @_image.width, @_image.height
+			@ready = true
 
-		@image.src = @url
+		@_image.src = @url if @url?
+
+	@property 'image',
+		get: -> @_image
+		set: (val) ->
+			@_image = val
+			@ready = yes

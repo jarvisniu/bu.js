@@ -300,7 +300,7 @@ class Bu.Renderer
 
 
 	drawImage: (shape) ->
-		if shape.loaded
+		if shape.ready
 			w = shape.size.width
 			h = shape.size.height
 			dx = -w * shape.pivot.x
