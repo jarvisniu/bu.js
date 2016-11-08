@@ -8,19 +8,67 @@ A JavaScript 2D graphics library based on HTML5 Canvas
 [Demos](http://jarvisniu.com/Bu.js/examples/) -
 [Guides](https://github.com/jarvisniu/Bu.js/wiki/Guides) -
 [API](https://github.com/jarvisniu/Bu.js/wiki/API) -
-[ChangeLog](CHANGELOG.md) - 
-[Download](https://cdn.rawgit.com/jarvisniu/Bu.js/v0.3.4/build/bu.min.js)
+[ChangeLog](CHANGELOG.md) -
+[Download](https://cdn.rawgit.com/jarvisniu/Bu.js/v0.3.5/build/bu.min.js)
 
 
 ## Features
 
+- Object-oriented and modularization design
 - Easy-to-use API
-- Include rich geometry shapes and algorithms
+- Rich geometry shapes and algorithms
 - High-definition screen supported
-- Modularization design made it easy to customise and extend
 
 
-## How to use
+## Hello World
+
+``` html
+<!DOCTYPE html>
+<html>
+<body>
+    <script src="https://cdn.rawgit.com/jarvisniu/Bu.js/v0.3.5/build/bu.min.js"></script>
+    <script type="text/javascript">
+        var bu = new Bu.App({
+            renderer: {
+                width: 600,
+                height: 600,
+            },
+            objects: {
+                sun: new Bu.Circle(40),
+                earth: new Bu.Circle(20),
+                moon: new Bu.Circle(10),
+            },
+            hierarchy: {
+                sun: {
+                    earth: {
+                        moon: {}
+                    }
+                }
+            },
+            init: function () {
+                var o = this.$objects;
+
+                o.sun.fill("#F40").stroke("#820");
+                o.sun.position.set(300, 300);
+
+                o.earth.fill("#06F").stroke("#038");
+                o.earth.position.x = 150;
+
+                o.moon.fill("#FF0").stroke("#880");
+                o.moon.position.x = 50;
+            },
+            update: function () {
+                this.$objects.sun.rotation += 0.02;
+                this.$objects.earth.rotation += 0.1;
+            },
+        });
+    </script>
+</body>
+</html>
+```
+
+
+## How to Build
 
 1. Install [Node](https://nodejs.org/)
 2. Install [Gulp](http://gulpjs.com/): `npm install -g gulp`
