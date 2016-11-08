@@ -23,6 +23,9 @@ global = previousGlobal
 # Version info of this library
 Bu.VERSION = '0.3.4'
 
+# Browser vendor prefixes, used in experimental features
+Bu.BROWSER_VENDOR_PREFIXES = ['webkit', 'moz', 'ms']
+
 # Math
 Bu.HALF_PI = Math.PI / 2
 Bu.TWO_PI = Math.PI * 2

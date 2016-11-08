@@ -34,14 +34,7 @@ class Bu.App
 
 	init: () ->
 		# renderer
-		@$renderer = new Bu.Renderer
-			container: @options.renderer.container
-			width: @options.renderer.width
-			height: @options.renderer.height
-			showKeyPoints: @options.renderer.showKeyPoints
-			showBounds: @options.renderer.showBounds
-			background: @options.renderer.background
-		@$renderer.dom.style.cursor and= @options.renderer.cursor
+		@$renderer = new Bu.Renderer @options.renderer
 
 		# data
 		if Bu.isFunction @options.data

@@ -6,27 +6,28 @@ class Bu.Renderer
 		Bu.Event.apply @
 		@type = 'Renderer'
 
+		# API
+		@scene = new Bu.Scene()
+		@tickCount = 0
+		@isRunning = yes
+		@pixelRatio = Bu.global.devicePixelRatio or 1
+		@dom = document.createElement 'canvas'
+		@context = @dom.getContext '2d'
+		@clipMeter = new ClipMeter() if ClipMeter?
+
+		# Recieve options
 		options = Bu.combineOptions arguments,
 			container: 'body'
+			background: '#eee'
 			fps: 60
 			showKeyPoints: no
 			showBounds: no
-			background: '#eee'
+			imageSmoothing: yes
 		@[k] = options[k] for k in ['container', 'width', 'height', 'fps', 'showKeyPoints', 'showBounds']
 		@container = document.querySelector @container if typeof @container is 'string'
 		@fillParent = typeof options.width != 'number'
 
-		@tickCount = 0
-		@isRunning = no
-		@pixelRatio = Bu.global.devicePixelRatio or 1
-		@dom = document.createElement 'canvas'
-		@context = @dom.getContext '2d'
-		@context.textBaseline = 'top'
-		@clipMeter = new ClipMeter() if ClipMeter?
-
-		# API
-		@scene = new Bu.Scene()
-
+		# Set DOM styles
 		if not @fillParent
 			@dom.style.width = @width + 'px'
 			@dom.style.height = @height + 'px'
@@ -36,6 +37,11 @@ class Bu.Renderer
 		@dom.style.boxSizing = 'content-box'
 		@dom.style.background = options.background
 		@dom.oncontextmenu = -> false
+
+		@context.textBaseline = 'top'
+		@context.imageSmoothingEnabled = options.imageSmoothing
+		@context["#{v}ImageSmoothingEnabled"] = options.imageSmoothing for v in Bu.BROWSER_VENDOR_PREFIXES
+
 
 		onResize = =>
 			canvasRatio = @dom.height / @dom.width
@@ -77,8 +83,6 @@ class Bu.Renderer
 		, 100
 
 		Bu.animationRunner?.hookUp @
-
-		@isRunning = true
 
 	# Pause/continue/toggle the rendering loop
 	pause: -> @isRunning = false
