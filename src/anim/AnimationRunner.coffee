@@ -6,7 +6,7 @@ class Bu.AnimationRunner
 		@runningAnimations = []
 
 	add: (task) ->
-		task.animation.init?.call task.target, task
+		task.init()
 		if task.animation.isLegal()
 			task.startTime = Bu.now()
 			@runningAnimations.push task
@@ -36,7 +36,7 @@ class Bu.AnimationRunner
 				t = easingFunctions[anim.easing] t
 
 			task.t = t
-			task.interpolate t if anim.from?
+			task.interpolate()
 
 			anim.update.call task.target, task
 			if finish then anim.finish?.call task.target, task

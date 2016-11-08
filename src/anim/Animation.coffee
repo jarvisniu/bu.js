@@ -82,14 +82,11 @@ Bu.animations =
 
 	puff: new Bu.Animation
 		duration: 0.15
-		from:
-			opacity: 0
-			scale: 0
 		init: (anim) ->
-			anim.animation.from =
+			anim.from =
 				opacity: @opacity
 				scale: @scale.x
-			anim.animation.to =
+			anim.to =
 				if @opacity == 1
 					opacity: 0
 					scale: @scale.x * 1.5
@@ -101,29 +98,27 @@ Bu.animations =
 			@scale = anim.current.scale
 
 	clip: new Bu.Animation
-		from: 1
 		init: (anim) ->
 			if @scale.y != 0
-				anim.animation.from = @scale.y
-				anim.animation.to = 0
+				anim.from = @scale.y
+				anim.to = 0
 			else
-				anim.animation.from = @scale.y
-				anim.animation.to = @scale.x
+				anim.from = @scale.y
+				anim.to = @scale.x
 		update: (anim) ->
 			@scale.y = anim.current
 
 	flipX: new Bu.Animation
-		from: 0
 		init: (anim) ->
-			anim.animation.from = @scale.x
-			anim.animation.to = -anim.animation.from
+			anim.from = @scale.x
+			anim.to = -anim.from
 		update: (anim) ->
 			@scale.x = anim.current
 
 	flipY: new Bu.Animation
 		init: (anim) ->
-			anim.animation.from = @scale.y
-			anim.animation.to = -anim.animation.from
+			anim.from = @scale.y
+			anim.to = -anim.from
 		update: (anim) ->
 			@scale.y = anim.current
 
@@ -132,11 +127,10 @@ Bu.animations =
 	#----------------------------------------------------------------------
 
 	moveTo: new Bu.Animation
-		from: 0
 		init: (anim) ->
 			if anim.arg?
-				anim.animation.from = @position.x
-				anim.animation.to = parseFloat anim.arg
+				anim.from = @position.x
+				anim.to = parseFloat anim.arg
 			else
 				console.error 'animation moveTo need an argument'
 		update: (anim) ->
@@ -145,19 +139,18 @@ Bu.animations =
 	moveBy: new Bu.Animation
 		init: (anim) ->
 			if anim.args?
-				anim.animation.from = @position.x
-				anim.animation.to = @position.x + parseFloat(anim.args)
+				anim.from = @position.x
+				anim.to = @position.x + parseFloat(anim.args)
 			else
 				console.error 'animation moveTo need an argument'
 		update: (anim) ->
 			@position.x = anim.current
 
 	discolor: new Bu.Animation
-		from: new Bu.Color
 		init: (anim) ->
 			desColor = anim.arg
 			desColor = new Bu.Color desColor if typeof desColor == 'string'
-			anim.animation.from = new Bu.Color @fillStyle
-			anim.animation.to = desColor
+			anim.from = new Bu.Color @fillStyle
+			anim.to = desColor
 		update: (anim) ->
 			@fillStyle = anim.current.toRGBA()

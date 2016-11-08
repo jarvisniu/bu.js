@@ -4,9 +4,9 @@
 class Bu.Color
 
     constructor: () ->
-        if arguments.length == 0
-            @r = @g = @b = 255
-            @a = 1
+        @r = @g = @b = 255
+        @a = 1
+
         if arguments.length == 1
             arg = arguments[0]
             if typeof arg == 'string'
@@ -14,7 +14,7 @@ class Bu.Color
                 @a = clampAlpha @a
             else if arg instanceof Bu.Color
                 @copy arg
-        else # arguments.length == 3 or 4
+        else # if arguments.length == 3 or 4
             @r = arguments[0]
             @g = arguments[1]
             @b = arguments[2]

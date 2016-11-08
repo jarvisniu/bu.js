@@ -21,13 +21,13 @@ html(lang="en")
 				padding: 8px 0;
 			}
 
-			#inputMove {
+			input {
 				width: 50px;
 			}
 
 		script(type="text/javascript").
 
-			var bu, bunny;
+			var bu, bunny, circle;
 			var animSpin, animHelical;
 			var imageUrl = "./assets/textures/bunny.png";
 
@@ -42,6 +42,9 @@ html(lang="en")
 				bunny.position.y = bu.height / 2;
 
 				bu.scene.addChild(bunny);
+				
+				circle = new Bu.Circle(50, 100, 100).fill("white");
+				bu.scene.addChild(circle);
 
 				// custom animation
 				animHelical = new Bu.Animation({
@@ -67,7 +70,10 @@ html(lang="en")
 
 
 				$('#prefab button').attr('onclick', 'prefabAnim(this.innerText);');
-				$('#withArgs button').attr('onclick', 'bunny.animate(this.innerText, $("#inputMove").val());');
+				$('#moveBy').attr('onclick', 'bunny.animate("moveBy", $("#inputMove").val());');
+				$('#moveTo').attr('onclick', 'bunny.animate("moveTo", $("#inputMove").val());');
+				$('#blink').attr('onclick', 'circle.animate("blink");');
+				$('#discolor').attr('onclick', 'circle.animate("discolor", $("#inputDiscolor").val());');
 				$('#spinIn').attr('onclick', 'bunny.animate("spinIn", 2);');
 				$('#helical').on('click', applyHelical);
 				$('#multiple').on('click', applyMultiple);
@@ -100,10 +106,14 @@ html(lang="en")
 				button puff
 				button clip
 				button flipX
-			div#withArgs With arguments:
+			div With arguments:
 				button#moveBy moveBy
 				button#moveTo moveTo
 				input(type="text" id="inputMove" name="move" value="160")
+			div Background Color:
+				button#blink blink
+				button#discolor discolor
+				input(type="text" id="inputDiscolor" name="move" value="red")
 			div Multiple(Mix):
 				button#multiple move + spin
 			div Custom:

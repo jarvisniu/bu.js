@@ -5,22 +5,28 @@ class Bu.AnimationTask
     constructor: (@animation, @target, @args = []) ->
         @startTime = 0
         @finished = no
+        @from = Bu.clone @animation.from
         @current = Bu.clone @animation.from
+        @to = Bu.clone @animation.to
         @data = {}
         @t = 0
         @arg = @args[0]
 
-    interpolate: (t) ->
-        if typeof @animation.from == 'number'
-            @current = interpolateNum @animation.from, @animation.to, t
-        else if @animation.from instanceof Bu.Color
-            interpolateObject @animation.from, @animation.to, t, @current
-        else if Bu.isPlainObject @animation.from
-            for own key of @animation.from
-                if typeof @animation.from[key] == 'number'
-                    @current[key] = interpolateNum @animation.from[key], @animation.to[key], t
+    init: ->
+        @animation.init?.call @target, @
+        @current = Bu.clone @from
+
+    interpolate: ->
+        if typeof @from == 'number' # TODO Bu.isNumber
+            @current = interpolateNum @from, @to, @t
+        else if @from instanceof Bu.Color
+            interpolateObject @from, @to, @t, @current
+        else if Bu.isPlainObject @from
+            for own key of @from
+                if typeof @from[key] == 'number'
+                    @current[key] = interpolateNum @from[key], @to[key], @t
                 else
-                    interpolateObject @animation.from[key], @animation.to[key], t, @current[key]
+                    interpolateObject @from[key], @to[key], @t, @current[key]
 
     interpolateNum = (a, b, t) -> b * t - a * (t - 1)
 
