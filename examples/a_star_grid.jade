@@ -68,6 +68,8 @@ html
 				init: function() {
 					var o = this.$objects;
 					
+					Bu.animations.discolor.duration = 0.2;
+					
 					// set the map
 					this.net.setStart(START_POS.x, START_POS.y);
 					this.net.setEnd(END_POS.x, END_POS.y);
@@ -183,7 +185,7 @@ html
 
 						var rect = this.$objects.rectRows[i][j];
 						rect.strokeStyle = "gray";
-						rect.fillStyle = AStar.getStateColor(node.state);
+						rect.animate('discolor', AStar.getStateColor(node.state));
 
 						// draw path with prevNode
 						if (node.prevNode) {

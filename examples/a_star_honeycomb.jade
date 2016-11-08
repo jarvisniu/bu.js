@@ -70,6 +70,7 @@ html
 				init: function() {
 					var o = this.$objects;
 					
+					Bu.animations.discolor.duration = 0.2;
 					
 					// set the map
 					this.net.setStart(START_POS.x, START_POS.y);
@@ -188,7 +189,7 @@ html
 
 						var hexagon = this.$objects.hexagonRows[i][j];
 						hexagon.strokeStyle = "gray";
-						hexagon.fillStyle = AStar.getStateColor(node.state);
+						hexagon.animate('discolor', AStar.getStateColor(node.state));
 
 						// draw path with prevNode
 						if (node.prevNode) {
