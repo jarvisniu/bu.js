@@ -7,7 +7,8 @@ class Bu.Renderer
 		@type = 'Renderer'
 
 		# API
-		@scene = new Bu.Scene()
+		@scene = new Bu.Scene
+		@camera = new Bu.Camera
 		@tickCount = 0
 		@isRunning = yes
 		@pixelRatio = Bu.global.devicePixelRatio or 1
@@ -22,12 +23,12 @@ class Bu.Renderer
 			fps: 60
 			showKeyPoints: no
 			showBounds: no
+			originAtCenter: no
 			imageSmoothing: yes
 		@[k] = options[k] for k in ['container', 'width', 'height', 'fps', 'showKeyPoints', 'showBounds']
-		@container = document.querySelector @container if Bu.isString @container
-		@fillParent = not Bu.isNumber options.width
 
 		# Set DOM styles
+		@fillParent = not Bu.isNumber options.width
 		if not @fillParent
 			@dom.style.width = @width + 'px'
 			@dom.style.height = @height + 'px'
@@ -38,7 +39,14 @@ class Bu.Renderer
 		@dom.style.background = options.background
 		@dom.oncontextmenu = -> false
 
+
+		@container = document.querySelector @container if Bu.isString @container
+		if @fillParent and @container == document.body
+			$('body').style('margin', 0).style('overflow', 'hidden');
+			$('html, body').style('width', '100%').style('height', '100%')
+
 		@context.textBaseline = 'top'
+		@originAtCenter = options.originAtCenter
 		@context.imageSmoothingEnabled = options.imageSmoothing
 
 
@@ -91,8 +99,22 @@ class Bu.Renderer
 	# Perform the full render process
 	render: ->
 		@context.save()
-		@context.scale @pixelRatio, @pixelRatio
+
+		# Clear the canvas
 		@clearCanvas()
+
+		# Move center from left-top corner to screen center
+		@context.translate @width / 2, @height / 2 if @originAtCenter
+
+		# Zoom the canvas with devicePixelRatio to support high definition screen
+		@context.scale @pixelRatio, @pixelRatio
+
+		# Transform the camera
+		@context.scale 1 / @camera.scale.x, 1 / @camera.scale.y
+		@context.rotate -@camera.rotation
+		@context.translate -@camera.position.x, -@camera.position.y
+
+		# Draw the scene tree
 		@drawShape @scene
 		@context.restore()
 		@

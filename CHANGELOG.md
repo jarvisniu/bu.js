@@ -3,6 +3,9 @@ Change Log
 
 ## 0.3.6 / WIP
 
+- Added `Camera` class, allowed us to move the field of vision
+- Added `Renderer.originAtCenter` property, allowed to change
+    the origin point from left-top corner to the screen center
 
 
 ## 0.3.5 / 2016-11-09

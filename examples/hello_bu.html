@@ -8,8 +8,7 @@
     <script type="text/javascript">
         var bu = new Bu.App({
             renderer: {
-                width: 600,
-                height: 600,
+                originAtCenter: true,
             },
             objects: {
                 sun: new Bu.Circle(40).fill("#F40").stroke("#820"),
@@ -24,11 +23,8 @@
                 }
             },
             init: function() {
-                var o = this.$objects;
-
-                o.sun.position.set(300, 300);
-                o.earth.position.x = 150;
-                o.moon.position.x = 50;
+                this.$objects.earth.position.x = 150;
+                this.$objects.moon.position.x = 50;
             },
             update: function() {
                 this.$objects.sun.rotation += 0.02;
