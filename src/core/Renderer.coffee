@@ -89,6 +89,7 @@ class Bu.Renderer
 		setTimeout appendDom, 1
 
 		Bu.animationRunner?.hookUp @
+		Bu.dashFlowManager?.hookUp @
 
 	# Pause/continue/toggle the rendering loop
 	pause: -> @isRunning = false

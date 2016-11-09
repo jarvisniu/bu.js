@@ -136,13 +136,12 @@
                 o.circleOpacity.opacity = 0.5;
                 // dashStyle
                 o.circleDashStyle1.dashStyle = o.circleDashStyle2.dashStyle = [10, 10];
+                // dashFlow
+                o.circleDashStyle2.dashFlow(true);
                 // lineCap
                 o.polylineLineCap.lineCap = 'round';
                 // lineJoin
                 o.polylineLineJoin.lineJoin = 'round';
-            },
-            update: function() {
-                this.$objects.circleDashStyle2.dashOffset++;
             },
         });
     </script>

@@ -8,6 +8,7 @@ Bu.Colorful = () ->
 
 	@lineWidth = 1
 	@dashOffset = 0
+	@dashFlowSpeed = 0
 
 	# Set the stroke style of the `Object2D`
 	@stroke = (v) ->
@@ -38,4 +39,11 @@ Bu.Colorful = () ->
 			when true then @dashStyle = Bu.DEFAULT_DASH_STYLE
 			else
 				@dashStyle = v
+		@
+
+	# Set the dash flowing speed
+	@dashFlow = (speed) ->
+		speed = 1 if speed == true
+		speed = 0 if speed == false
+		Bu.dashFlowManager.setSpeed @, speed
 		@

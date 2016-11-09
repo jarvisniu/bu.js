@@ -11,7 +11,7 @@ class Bu.AnimationRunner
 			task.startTime = Bu.now()
 			@runningAnimations.push task
 		else
-			console.error 'Bu.AnimationRunner: animation setting is ilegal: ', task.animation
+			console.error 'Bu.AnimationRunner: animation setting is illegal: ', task.animation
 
 	update: ->
 		now = Bu.now()
