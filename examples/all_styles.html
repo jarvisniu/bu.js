@@ -26,30 +26,20 @@
                 container: '#container',
             },
             objects: function() {
-                var circle = new Bu.Circle(30);
-                circle.position.set(50, 90 * 3);
+                var circle = new Bu.Circle(30).translate(50, 90 * 3);
 
-                var circleLineWidth = circle.clone();
-                circleLineWidth.position.set(300, 90);
-                var circleStrokeStyle = circle.clone();
-                circleStrokeStyle.position.set(300, 90 * 2);
-                var circleFillStyle = circle.clone();
-                circleFillStyle.position.set(300, 90 * 3);
-                var circleOpacity = circle.clone();
-                circleOpacity.position.set(300, 90 * 4);
-                var circleDashStyle1 = circle.clone();
-                circleDashStyle1.position.set(300, 90 * 5);
-                var circleDashStyle2 = circle.clone();
-                circleDashStyle2.position.set(400, 90 * 5);
+                var circleLineWidth = circle.clone().translate(300, 90);
+                var circleStrokeStyle = circle.clone().translate(300, 90 * 2);
+                var circleFillStyle = circle.clone().translate(300, 90 * 3);
+                var circleOpacity = circle.clone().translate(300, 90 * 4);
+                var circleDashStyle1 = circle.clone().translate(300, 90 * 5);
+                var circleDashStyle2 = circle.clone().translate(400, 90 * 5);
 
-                var polyline = new Bu.Polyline(0, -20, -30, 20, 30, 20);
-                polyline.position.set(50, 90 * 6.5);
+                var polyline = new Bu.Polyline(0, -20, -30, 20, 30, 20).translate(50, 90 * 6.5);
                 polyline.lineWidth = 10;
 
-                var polylineLineCap = polyline.clone();
-                polylineLineCap.position.set(300, 90 * 6);
-                var polylineLineJoin = polyline.clone();
-                polylineLineJoin.position.set(300, 90 * 7);
+                var polylineLineCap = polyline.clone().translate(300, 90 * 6);
+                var polylineLineJoin = polyline.clone().translate(300, 90 * 7);
 
                 return {
                     circleBase: circle,

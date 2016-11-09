@@ -6,7 +6,7 @@ Change Log
 - Added `Camera` class, allowed us to move the field of vision
 - Added `Renderer.originAtCenter` property, allowed to change
     the origin point from left-top corner to the screen center
-
+- Added `Object2D.translate()` and `.rotate()` to transform an object
 
 ## 0.3.5 / 2016-11-09
 

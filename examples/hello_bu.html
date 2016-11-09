@@ -11,9 +11,9 @@
                 originAtCenter: true,
             },
             objects: {
-                sun: new Bu.Circle(40).fill("#F40").stroke("#820"),
-                earth: new Bu.Circle(20).fill("#06F").stroke("#038"),
-                moon: new Bu.Circle(10).fill("#FF0").stroke("#880"),
+                sun: new Bu.Circle(40).fill("#F40"),
+                earth: new Bu.Circle(20).translate(150, 0).fill("#06F"),
+                moon: new Bu.Circle(10).translate(50, 0).fill("#FF0"),
             },
             hierarchy: {
                 sun: {
@@ -21,10 +21,6 @@
                         moon: {}
                     }
                 }
-            },
-            init: function() {
-                this.$objects.earth.position.x = 150;
-                this.$objects.moon.position.x = 50;
             },
             update: function() {
                 this.$objects.sun.rotation += 0.02;

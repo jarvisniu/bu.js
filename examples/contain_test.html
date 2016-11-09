@@ -31,11 +31,10 @@
             },
             data: {
                 mousePos: new Bu.Point(),
+                randomizer: new Bu.ShapeRandomizer(),
             },
             objects: function() {
-                var r = this.randomizer = new Bu.ShapeRandomizer();
-
-                // circle,
+                var r = this.randomizer;
                 return {
                     circle: r.generateCircle().createBounds(),
                     triangle: r.generateTriangle().createBounds(),

@@ -34,6 +34,16 @@ class Bu.Object2D
 			else
 				@_scale = val
 
+	# Translate an object
+	translate: (dx, dy) ->
+		@position.x += dx
+		@position.y += dy
+		@
+
+	# Rotate an object
+	rotate: (da) ->
+		@rotation += da
+		@
 
 	# Add object(s) to children
 	addChild: (shape) ->
