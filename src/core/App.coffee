@@ -21,9 +21,9 @@ All supported constructor options:
 
 class Bu.App
 
-	$objects: {}
-
 	constructor: (@options = {}) ->
+		@$objects = {}
+
 		for k in ["renderer", "camera", "data", "objects", "hierarchy", "methods", "events"]
 			@options[k] or= {}
 
