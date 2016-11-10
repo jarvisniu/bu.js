@@ -1,26 +1,18 @@
-# Bu.coffee: namespace, constants, utility functions and polyfills
+# Namespace, constants, utility functions and polyfills
 
-# Save the previous value of `global` variable.
-previousGlobal = global
+#----------------------------------------------------------------------
+# Namespace
+#----------------------------------------------------------------------
 
-# Get the root object
 global = window or @
-
-# Define our namespace `Bu`.
-global.Bu = {}
-
-# Save the root object to our namespace.
-Bu.global = global
-
-# Return back the previous global variable.
-global = previousGlobal
+global.Bu = {global}
 
 
 #----------------------------------------------------------------------
 # Constants
 #----------------------------------------------------------------------
 
-# Version info of this library
+# Version info
 Bu.VERSION = '0.3.5'
 
 # Browser vendor prefixes, used in experimental features
@@ -30,18 +22,16 @@ Bu.BROWSER_VENDOR_PREFIXES = ['webkit', 'moz', 'ms']
 Bu.HALF_PI = Math.PI / 2
 Bu.TWO_PI = Math.PI * 2
 
-# Point is rendered as a small circle on screen. This is the radius of the circle.
-Bu.POINT_RENDER_SIZE = 2.25
-
-# Point can have label aside it. This is the offset distance from the point.
-Bu.POINT_LABEL_OFFSET = 5
-
 # Default font for the text
 Bu.DEFAULT_FONT_FAMILY = 'Verdana'
 Bu.DEFAULT_FONT_SIZE = 11
 Bu.DEFAULT_FONT = '11px Verdana'
 
-# -------------------------------------------------------------------
+# Point is rendered as a small circle on screen. This is the radius of the circle.
+Bu.POINT_RENDER_SIZE = 2.25
+
+# Point can have a label attached near it. This is the gap distance between them.
+Bu.POINT_LABEL_OFFSET = 5
 
 # Default smooth factor of spline, range in [0, 1] and 1 is the smoothest
 Bu.DEFAULT_SPLINE_SMOOTH = 0.25
@@ -49,7 +39,7 @@ Bu.DEFAULT_SPLINE_SMOOTH = 0.25
 # How close a point to a line is regarded that the point is **ON** the line.
 Bu.DEFAULT_NEAR_DIST = 5
 
-# Enumeration of mouse button
+# Enumeration of mouse buttons
 Bu.MOUSE_BUTTON_NONE = -1
 Bu.MOUSE_BUTTON_LEFT = 0
 Bu.MOUSE_BUTTON_MIDDLE = 1
@@ -160,7 +150,7 @@ Bu.ready = (cb, context, args) ->
 		document.addEventListener 'DOMContentLoaded', -> cb.apply context, args
 
 #----------------------------------------------------------------------
-# Polyfill
+# Polyfills
 #----------------------------------------------------------------------
 
 # Shortcut to define a property for a class. This is used to solve the problem
@@ -220,9 +210,9 @@ Array::map or= (fn) ->
 		i++
 	return @
 
-# Display version info. It will appear at most one time a minute.
-lastBootTime = Bu.data 'lastInfo'
+# Output version info to the console, at most one time in a minute.
 currentTime = Date.now()
-unless lastBootTime? and currentTime - lastBootTime < 60 * 1000
+lastTime = Bu.data 'version.timestamp'
+unless lastTime? and currentTime - lastTime < 60 * 1000
 	console.info? 'Bu.js v' + Bu.VERSION + ' - [https://github.com/jarvisniu/Bu.js]'
-	Bu.data 'lastInfo', currentTime
+	Bu.data 'version.timestamp', currentTime
