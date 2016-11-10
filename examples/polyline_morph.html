@@ -13,6 +13,18 @@
 			width: 100%;
 			text-align: center;
 			padding: 8px 0;
+			border-bottom: solid 1px gray;
+			color: white;
+			background-color: hsla(0, 0%, 0%, 0.4);
+		}
+
+		#control {
+			position: fixed;
+			border: solid 1px silver;
+			background-color: white;
+			top: 35px;
+			left: -1px;
+			padding: 4px;
 		}
 	</style>
 	<script type="text/javascript">
@@ -114,7 +126,10 @@
 </head>
 
 <body>
-<div id="info">Click (left/right button) to add points to the lines.
+<div id="info">
+	<span>Click (left/right button) to add points to the lines.</span>
+</div>
+<div id="control">
 	<div id="switch">
 		<span>Line style:</span>
 		<input type="radio" name="lineType" id="btnPolyline" checked>

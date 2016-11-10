@@ -6,20 +6,22 @@
 	<title>All shapes</title>
 	<script src="../build/bu.js"></script>
 	<style>
-
 		#info {
 			position: absolute;
 			width: 100%;
 			text-align: center;
 			padding: 8px 0;
+			border-bottom: solid 1px gray;
+			color: white;
+			background-color: hsla(0, 0%, 0%, 0.4);
 		}
 
 		#control {
-			float: right;
-			text-align: left;
+			position: fixed;
 			border: solid 1px silver;
 			background-color: white;
-			margin-right: 8px;
+			top: 8px;
+			left: 8px;
 			padding: 4px;
 		}
 	</style>
@@ -117,14 +119,15 @@
 </head>
 
 <body>
-<div id="info"><span>All supported shapes.</span>
-	<div id="control">
-		<input type="checkbox" id="btnKeyPoints" checked>
-		<label for="btnKeyPoints">Show key points</label>
-		<br>
-		<input type="checkbox" id="btnDashStroke">
-		<label for="btnDashStroke">Dashed stroke</label>
-	</div>
+<div id="info">
+	<span>All supported shapes.</span>
+</div>
+<div id="control">
+	<input type="checkbox" id="btnKeyPoints" checked>
+	<label for="btnKeyPoints">Show key points</label>
+	<br>
+	<input type="checkbox" id="btnDashStroke">
+	<label for="btnDashStroke">Dashed stroke</label>
 </div>
 </body>
 

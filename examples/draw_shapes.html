@@ -52,11 +52,13 @@
 			overflow: hidden;
 		}
 
-		#info {
-			position: absolute;
-			width: 90%;
-			text-align: center;
-			padding: 8px 0;
+		#control {
+			position: fixed;
+			border: solid 1px silver;
+			background-color: white;
+			top: 8px;
+			left: 48px;
+			padding: 4px;
 		}
 	</style>
 </head>
@@ -68,7 +70,7 @@
 		<vertical-toolbar v-ref:toolbar></vertical-toolbar>
 	</side-panel>
 	<div id="container">
-		<div id="info">
+		<div id="control">
 			<input id="btnShowKeyPoints" type="checkbox" checked>
 			<label for="btnShowKeyPoints">Show key points</label>
 		</div>

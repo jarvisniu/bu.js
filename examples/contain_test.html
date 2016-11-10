@@ -11,14 +11,17 @@
 			width: 100%;
 			text-align: center;
 			padding: 8px 0;
+			border-bottom: solid 1px gray;
+			color: white;
+			background-color: hsla(0, 0%, 0%, 0.4);
 		}
 
 		#control {
-			float: right;
-			text-align: left;
+			position: fixed;
 			border: solid 1px silver;
 			background-color: white;
-			margin-right: 8px;
+			top: 3px;
+			right: 4px;
 			padding: 4px;
 		}
 	</style>
@@ -91,11 +94,12 @@
 </head>
 
 <body>
-<div id="info"><span>Move cursor to test. Click to regenerate shapes.</span>
-	<div id="control">
-		<input id="btnShowBounds" type="checkbox" checked>
-		<label for="btnShowBounds">Show Bounds</label>
-	</div>
+<div id="info">
+	<span>Move cursor to test. Click to regenerate shapes.</span>
+</div>
+<div id="control">
+	<input id="btnShowBounds" type="checkbox" checked>
+	<label for="btnShowBounds">Show Bounds</label>
 </div>
 </body>
 

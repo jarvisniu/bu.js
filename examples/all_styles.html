@@ -6,25 +6,18 @@
 	<title>All styles</title>
 	<script src="../build/bu.js"></script>
 	<style>
-		#container {
-			display: inline-flex;
-			border: solid 1px gray;
-			width: 600px;
-			height: 700px;
-		}
-
 		#info {
 			position: absolute;
-			width: 90%;
+			width: 100%;
 			text-align: center;
 			padding: 8px 0;
+			border-bottom: solid 1px gray;
+			color: white;
+			background-color: hsla(0, 0%, 0%, 0.4);
 		}
 	</style>
 	<script type="text/javascript">
 		var bu = new Bu.App({
-			renderer: {
-				container: '#container',
-			},
 			objects: function () {
 				var circle = new Bu.Circle(30).translate(50, 90 * 3);
 
@@ -148,8 +141,9 @@
 </head>
 
 <body>
-<div id="info"><span>All supported styles.</span></div>
-<div id="container"></div>
+<div id="info">
+	<span>All supported styles.</span>
+</div>
 </body>
 
 </html>

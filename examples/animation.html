@@ -9,9 +9,19 @@
 		#info {
 			position: absolute;
 			width: 100%;
-			line-height: 26px;
 			text-align: center;
 			padding: 8px 0;
+			border-bottom: solid 1px gray;
+			color: white;
+			background-color: hsla(0, 0%, 0%, 0.4);
+		}
+
+		#control {
+			position: absolute;
+			width: 100%;
+			line-height: 26px;
+			text-align: center;
+			top: 36px;
 		}
 
 		input {
@@ -83,7 +93,10 @@
 </head>
 
 <body>
-<div id="info"><span>Click the buttons to play the animations.</span>
+<div id="info">
+	<span>Click the buttons to play the animations.</span>
+</div>
+<div id="control">
 	<div id="prefab">Prefab:
 		<button>fadeOut</button>
 		<button>fadeIn</button>
