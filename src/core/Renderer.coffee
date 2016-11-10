@@ -12,11 +12,9 @@ class Bu.Renderer
 		@tickCount = 0
 		@isRunning = yes
 		@pixelRatio = Bu.global.devicePixelRatio or 1
-		@dom = document.createElement 'canvas'
-		@context = @dom.getContext '2d'
 		@clipMeter = new ClipMeter() if ClipMeter?
 
-		# Recieve options
+		# Receive options
 		options = Bu.combineOptions arguments,
 			container: 'body'
 			background: '#eee'
@@ -25,31 +23,37 @@ class Bu.Renderer
 			showBounds: no
 			originAtCenter: no
 			imageSmoothing: yes
-		@[k] = options[k] for k in ['container', 'width', 'height', 'fps', 'showKeyPoints', 'showBounds']
 
-		# Set DOM styles
+		# Copy options
+		for name in ['container', 'width', 'height', 'fps', 'showKeyPoints', 'showBounds', 'originAtCenter']
+			@[name] = options[name]
+
+		# If options.width is not given, then fillParent is true
 		@fillParent = not Bu.isNumber options.width
-		if not @fillParent
-			@dom.style.width = @width + 'px'
-			@dom.style.height = @height + 'px'
-			@dom.width = @width * @pixelRatio
-			@dom.height = @height * @pixelRatio
+
+		# Convert width and height from dip(device independent pixels) to physical pixels
+		@width *= @pixelRatio
+		@height *= @pixelRatio
+
+		# Set canvas dom
+		@dom = document.createElement 'canvas'
 		@dom.style.cursor = options.cursor or 'default'
 		@dom.style.boxSizing = 'content-box'
 		@dom.style.background = options.background
 		@dom.oncontextmenu = -> false
 
-
-		@container = document.querySelector @container if Bu.isString @container
-		if @fillParent and @container == document.body
-			$('body').style('margin', 0).style('overflow', 'hidden');
-			$('html, body').style('width', '100%').style('height', '100%')
-
+		# Set context
+		@context = @dom.getContext '2d'
 		@context.textBaseline = 'top'
-		@originAtCenter = options.originAtCenter
 		@context.imageSmoothingEnabled = options.imageSmoothing
 
+		# Set container dom
+		@container = document.querySelector @container if Bu.isString @container
+		if @fillParent and @container == document.body
+			$('body').style('margin', 0).style('overflow', 'hidden')
+			$('html, body').style('width', '100%').style('height', '100%')
 
+		# Set sizes for renderer property, dom attribute and dom style
 		onResize = =>
 			canvasRatio = @dom.height / @dom.width
 			containerRatio = @container.clientHeight / @container.clientWidth
@@ -65,31 +69,37 @@ class Bu.Renderer
 			@dom.style.height = height + 'px'
 			@render()
 
-		if @fillParent
+		if not @fillParent
+			@dom.style.width = (@width / @pixelRatio) + 'px'
+			@dom.style.height = (@height / @pixelRatio) + 'px'
+			@dom.width = @width
+			@dom.height = @height
+		else
 			@width = @container.clientWidth
 			@height = @container.clientHeight
 			Bu.global.window.addEventListener 'resize', onResize
 			@dom.addEventListener 'DOMNodeInserted', onResize
 
-
+		# Run the loop
 		tick = =>
 			if @isRunning
 				@clipMeter.start() if @clipMeter?
 				@render()
-				@trigger 'update', {'tickCount': @tickCount}
+				@trigger 'update', @
 				@tickCount += 1
 				@clipMeter.tick() if @clipMeter?
-
 			requestAnimationFrame tick
-
 		tick()
 
+		# Append <canvas> dom into the container
 		appendDom = =>
 			@container.appendChild @dom
 		setTimeout appendDom, 1
 
-		Bu.animationRunner?.hookUp @
-		Bu.dashFlowManager?.hookUp @
+		# Hook up with running components
+		Bu.animationRunner.hookUp @
+		Bu.dashFlowManager.hookUp @
+
 
 	# Pause/continue/toggle the rendering loop
 	pause: -> @isRunning = false
