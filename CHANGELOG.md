@@ -8,6 +8,7 @@ Change Log
     the origin point from left-top corner to the screen center
 - Added `Object2D.translate()` and `.rotate()` to transform an object
 - Added `DashFlowManager` to move the `.dashOffset += 1` logic inside
+- Added `Object2D.hitTest()` to interact with mouse
 
 
 ## 0.3.5 / 2016-11-09

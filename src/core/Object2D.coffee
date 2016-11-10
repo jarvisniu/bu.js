@@ -82,7 +82,12 @@ class Bu.Object2D
 		@bounds = new Bu.Bounds @
 		@
 
-	# Hit testing
+	# Hit testing with unprojections
+	hitTest: (p) ->
+		p.unProject @
+		@containsPoint p
+
+	# Hit testing in the same coordinate
 	containsPoint: (p) ->
 		if @bounds? and not @bounds.containsPoint p
 			return no

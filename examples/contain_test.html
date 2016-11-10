@@ -30,7 +30,7 @@
 				showBounds: true,
 			},
 			data: {
-				mousePos: new Bu.Point(),
+				mousePos: new Bu.Vector(),
 				randomizer: new Bu.ShapeRandomizer(),
 			},
 			objects: function () {
@@ -57,6 +57,9 @@
 				$("#btnShowBounds").on('click', function () {
 					bu.$renderer.showBounds = this.checked;
 				});
+
+				// Hit-testing still works fine after transformations
+				this.$objects.circle.translate(100, 100).rotate(Bu.d2r(30));
 			},
 			methods: {
 				regenerateShapes: function () {
@@ -67,13 +70,12 @@
 			events: {
 				mousemove: function (e) {
 					var o = this.$objects;
-					this.mousePos.x = e.offsetX;
-					this.mousePos.y = e.offsetY;
 
 					for (var i in o) {
 						if (!o.hasOwnProperty(i)) continue;
 						var shape = o[i];
-						if (shape.containsPoint(this.mousePos))
+
+						if (shape.hitTest(this.mousePos.set(e.offsetX, e.offsetY)))
 							shape.fill(Bu.DEFAULT_FILL_STYLE_HOVER);
 						else
 							shape.fill();
@@ -84,6 +86,7 @@
 				},
 			},
 		});
+
 	</script>
 </head>
 
