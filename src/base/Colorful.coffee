@@ -43,7 +43,7 @@ Bu.Colorful = () ->
 
 	# Set the dash flowing speed
 	@dashFlow = (speed) ->
-		speed = 1 if speed == true
+		speed = 1 if speed == true or not speed?
 		speed = 0 if speed == false
 		Bu.dashFlowManager.setSpeed @, speed
 		@

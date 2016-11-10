@@ -22,7 +22,7 @@ var paths = {
     src_scripts: [
         'src/Bu.coffee',
         'src/math/*.coffee',
-        'src/core/Object2D.coffee',
+        'src/base/*.coffee',
         'src/core/*.coffee',
         'src/shapes/*.coffee',
         'src/drawable/*.coffee',
