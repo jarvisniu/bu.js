@@ -5,7 +5,6 @@ class Bu.Object2D
 	constructor: () ->
 		Bu.Colorful.apply @
 		Bu.Event.apply @
-		@type = 'Object2D'
 
 		@visible = yes
 		@opacity = 1

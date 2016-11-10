@@ -2,9 +2,11 @@
 
 class Bu.Point extends Bu.Object2D
 
+	type: 'Point'
+	fillable: yes
+
 	constructor: (@x = 0, @y = 0) ->
 		super()
-		@type = 'Point'
 
 		@lineWidth = 0.5
 		@_labelIndex = -1

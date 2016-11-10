@@ -2,9 +2,11 @@
 
 class Bu.Rectangle extends Bu.Object2D
 
+	type: 'Rectangle'
+	fillable: yes
+
 	constructor: (x, y, width, height, cornerRadius = 0) ->
 		super()
-		@type = 'Rectangle'
 
 		@center = new Bu.Point x + width / 2, y + height / 2
 		@size = new Bu.Size width, height

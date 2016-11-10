@@ -2,9 +2,11 @@
 
 class Bu.Circle extends Bu.Object2D
 
+	type: 'Circle'
+	fillable: yes
+
 	constructor: (@_radius = 1, cx = 0, cy = 0) ->
 		super()
-		@type = 'Circle'
 
 		@_center = new Bu.Point(cx, cy)
 		@bounds = null # for accelerate contain test

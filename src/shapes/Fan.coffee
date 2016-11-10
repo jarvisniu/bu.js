@@ -2,9 +2,11 @@
 
 class Bu.Fan extends Bu.Object2D
 
+	type: 'Fan'
+	fillable: yes
+
 	constructor: (@cx, @cy, @radius, @aFrom, @aTo) ->
 		super()
-		@type = 'Fan'
 
 		[@aFrom, @aTo] = [@aTo, @aFrom] if @aFrom > @aTo
 

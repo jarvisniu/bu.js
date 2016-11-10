@@ -2,9 +2,11 @@
 
 class Bu.Spline extends Bu.Object2D
 
+	type: 'Spline'
+	fillable: no
+
 	constructor: (vertices) ->
 		super()
-		@type = 'Spline'
 
 		if vertices instanceof Bu.Polyline
 			polyline = vertices

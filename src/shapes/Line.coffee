@@ -2,9 +2,11 @@
 
 class Bu.Line extends Bu.Object2D
 
+	type: 'Line'
+	fillable: no
+
 	constructor: (p1, p2, p3, p4) ->
 		super()
-		@type = 'Line'
 
 		if arguments.length < 2
 			@points = [new Bu.Point(), new Bu.Point()]

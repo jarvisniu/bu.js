@@ -2,9 +2,11 @@
 
 class Bu.Polyline extends Bu.Object2D
 
+	type: 'Polyline'
+	fillable: no
+
 	constructor: (@vertices = []) ->
 		super()
-		@type = 'Polyline'
 
 		if arguments.length > 1
 			vertices = []

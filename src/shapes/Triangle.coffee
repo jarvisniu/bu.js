@@ -2,9 +2,11 @@
 
 class Bu.Triangle extends Bu.Object2D
 
+	type: 'Triangle'
+	fillable: yes
+
 	constructor: (p1, p2, p3) ->
 		super()
-		@type = 'Triangle'
 
 		if arguments.length == 6
 			[x1, y1, x2, y2, x3, y3] = arguments

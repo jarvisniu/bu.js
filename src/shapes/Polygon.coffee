@@ -2,6 +2,9 @@
 
 class Bu.Polygon extends Bu.Object2D
 
+	type: 'Polygon'
+	fillable: yes
+
 	###
     constructors
     1. Polygon(points)
@@ -10,7 +13,6 @@ class Bu.Polygon extends Bu.Object2D
 	###
 	constructor: (points) ->
 		super()
-		@type = 'Polygon'
 
 		@vertices = []
 		@lines = []

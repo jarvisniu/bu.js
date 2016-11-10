@@ -2,9 +2,11 @@
 
 class Bu.Bow extends Bu.Object2D
 
+	type: 'Bow'
+	fillable: yes
+
 	constructor: (@cx, @cy, @radius, @aFrom, @aTo) ->
 		super()
-		@type = 'Bow'
 
 		[@aFrom, @aTo] = [@aTo, @aFrom] if @aFrom > @aTo
 
