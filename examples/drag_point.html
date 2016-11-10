@@ -2,44 +2,44 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Drag to Move Point</title>
-    <script src="../build/bu.js"></script>
-    <script src="./lib/reactor/ReactorBase.js"></script>
-    <script src="./lib/reactor/MovePointReactor.js"></script>
-    <style>
-        #info {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            padding: 8px 0;
-        }
-    </style>
-    <script type="text/javascript">
-        var bu = new Bu.App({
-            renderer: {
-                cursor: 'default',
-            },
-            data: {
-                POINT_COUNT: 10,
-                points: [],
-            },
-            init: function() {
-                this.movePointReactor = new Bu.MovePointReactor(this.$renderer);
-                this.movePointReactor.enable();
+	<meta charset="utf-8">
+	<title>Drag to Move Point</title>
+	<script src="../build/bu.js"></script>
+	<script src="./lib/reactor/ReactorBase.js"></script>
+	<script src="./lib/reactor/MovePointReactor.js"></script>
+	<style>
+		#info {
+			position: absolute;
+			width: 100%;
+			text-align: center;
+			padding: 8px 0;
+		}
+	</style>
+	<script type="text/javascript">
+		var bu = new Bu.App({
+			renderer: {
+				cursor: 'default',
+			},
+			data: {
+				POINT_COUNT: 10,
+				points: [],
+			},
+			init: function () {
+				this.movePointReactor = new Bu.MovePointReactor(this.$renderer);
+				this.movePointReactor.enable();
 
-                for (var i = 0; i < this.POINT_COUNT; i++) {
-                    this.points[i] = new Bu.Point(Bu.rand(this.$renderer.width), Bu.rand(this.$renderer.height));
-                    this.points[i].label = "P" + i;
-                }
-                this.$renderer.scene.addChild(this.points);
-            },
-        });
-    </script>
+				for (var i = 0; i < this.POINT_COUNT; i++) {
+					this.points[i] = new Bu.Point(Bu.rand(this.$renderer.width), Bu.rand(this.$renderer.height));
+					this.points[i].label = "P" + i;
+				}
+				this.$renderer.scene.addChild(this.points);
+			},
+		});
+	</script>
 </head>
 
 <body>
-    <div id="info">Move a point by dragging it.</div>
+<div id="info">Move a point by dragging it.</div>
 </body>
 
 </html>

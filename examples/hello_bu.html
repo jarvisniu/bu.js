@@ -2,32 +2,32 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Hello Bu.js</title>
-    <script src="../build/bu.js"></script>
-    <script type="text/javascript">
-        var bu = new Bu.App({
-            renderer: {
-                originAtCenter: true,
-            },
-            objects: {
-                sun: new Bu.Circle(40).fill("#F40"),
-                earth: new Bu.Circle(20).translate(150, 0).fill("#06F"),
-                moon: new Bu.Circle(10).translate(50, 0).fill("#FF0"),
-            },
-            hierarchy: {
-                sun: {
-                    earth: {
-                        moon: {}
-                    }
-                }
-            },
-            update: function() {
-                this.$objects.sun.rotation += 0.02;
-                this.$objects.earth.rotation += 0.1;
-            },
-        });
-    </script>
+	<meta charset="utf-8">
+	<title>Hello Bu.js</title>
+	<script src="../build/bu.js"></script>
+	<script type="text/javascript">
+		var bu = new Bu.App({
+			renderer: {
+				originAtCenter: true,
+			},
+			objects: {
+				sun: new Bu.Circle(40).fill("#F40"),
+				earth: new Bu.Circle(20).translate(150, 0).fill("#06F"),
+				moon: new Bu.Circle(10).translate(50, 0).fill("#FF0"),
+			},
+			hierarchy: {
+				sun: {
+					earth: {
+						moon: {}
+					}
+				}
+			},
+			update: function () {
+				this.$objects.sun.rotation += 0.02;
+				this.$objects.earth.rotation += 0.1;
+			},
+		});
+	</script>
 </head>
 
 </html>
