@@ -5,12 +5,18 @@ Bu.Colorful = () ->
 	@strokeStyle = Bu.DEFAULT_STROKE_STYLE
 	@fillStyle = Bu.DEFAULT_FILL_STYLE
 	@dashStyle = false
-
-	@lineWidth = 1
-	@dashOffset = 0
 	@dashFlowSpeed = 0
+	@lineWidth = 1
 
-	# Set the stroke style of the `Object2D`
+	@dashOffset = 0
+
+	# Set/copy style from other colorful object
+	@style = (o) ->
+		for k in ['strokeStyle', 'fillStyle', 'dashStyle', 'dashFlowSpeed', 'lineWidth']
+			@[k] = o[k]
+		@
+
+	# Set the stroke style
 	@stroke = (v) ->
 		v = true if not v?
 		switch v
@@ -20,7 +26,7 @@ Bu.Colorful = () ->
 				@strokeStyle = v
 		@
 
-	# Set the fill style of the `Object2D`
+	# Set the fill style
 	@fill = (v) ->
 		v = true if not v?
 		switch v
@@ -30,7 +36,7 @@ Bu.Colorful = () ->
 				@fillStyle = v
 		@
 
-	# Set the dash style of the `Object2D`
+	# Set the dash style
 	@dash = (v) ->
 		v = true if not v?
 		v = [v, v] if Bu.isNumber v
@@ -46,4 +52,9 @@ Bu.Colorful = () ->
 		speed = 1 if speed == true or not speed?
 		speed = 0 if speed == false
 		Bu.dashFlowManager.setSpeed @, speed
+		@
+
+	# Set the lineWidth
+	@setLineWidth = (w) ->
+		@lineWidth = w
 		@

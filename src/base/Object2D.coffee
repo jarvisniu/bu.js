@@ -45,6 +45,16 @@ class Bu.Object2D
 		@rotation += da
 		@
 
+	# Scale an object by
+	scaleBy: (ds) ->
+		@scale *= ds
+		@
+
+	# Scale an object to
+	scaleTo: (s) ->
+		@scale = s
+		@
+
 	# Add object(s) to children
 	addChild: (shape) ->
 		if Bu.isArray shape
