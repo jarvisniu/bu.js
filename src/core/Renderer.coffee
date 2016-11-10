@@ -184,7 +184,7 @@ class Bu.Renderer
 				console.log 'drawShapes(): unknown shape: ', shape.type, shape
 
 
-		if shape.fillStyle?
+		if shape.fillStyle? and shape.fillable
 			@context.fillStyle = shape.fillStyle
 			@context.fill()
 

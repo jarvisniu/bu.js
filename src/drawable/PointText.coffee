@@ -17,7 +17,7 @@ class Bu.PointText extends Bu.Object2D
 		super()
 		@type = 'PointText'
 		@strokeStyle = null # no stroke by default
-		@fillStyle = Bu.DEFAULT_TEXT_FILL_STYLE
+		@fillStyle = 'black'
 
 		options = Bu.combineOptions arguments,
 			align: '00'

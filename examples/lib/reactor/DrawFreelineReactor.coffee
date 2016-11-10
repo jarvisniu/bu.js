@@ -19,7 +19,7 @@ class Bu.DrawFreelineReactor extends Bu.ReactorBase
 
 			if mouseButton == Bu.MOUSE_BUTTON_LEFT
 				polyline = new Bu.Polyline
-				polyline.stroke Bu.DEFAULT_STROKE_STYLE_HOVER
+				polyline.style 'line'
 				@bu.scene.addChild polyline
 
 		@onMouseMove = (e) =>
@@ -34,7 +34,7 @@ class Bu.DrawFreelineReactor extends Bu.ReactorBase
 		@onMouseUp = =>
 			mouseButton = Bu.MOUSE_BUTTON_NONE
 			if polyline?
-				polyline.stroke Bu.DEFAULT_STROKE_STYLE
+				polyline.style()
 
 				if @curvify
 					polyline.compress 0.5

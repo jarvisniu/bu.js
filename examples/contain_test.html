@@ -79,9 +79,9 @@
 						var shape = o[i];
 
 						if (shape.hitTest(this.mousePos.set(e.offsetX, e.offsetY)))
-							shape.fill(Bu.DEFAULT_FILL_STYLE_HOVER);
+							shape.style('hover');
 						else
-							shape.fill();
+							shape.style();
 					}
 				},
 				mouseup: function () {

@@ -30,18 +30,6 @@ Bu.BROWSER_VENDOR_PREFIXES = ['webkit', 'moz', 'ms']
 Bu.HALF_PI = Math.PI / 2
 Bu.TWO_PI = Math.PI * 2
 
-# Default render style of shapes
-Bu.DEFAULT_STROKE_STYLE = '#048'
-Bu.DEFAULT_FILL_STYLE = 'rgba(64, 128, 192, 0.5)'
-Bu.DEFAULT_DASH_STYLE = [8, 4]
-
-# Default render style when then mouse is hovered on
-Bu.DEFAULT_STROKE_STYLE_HOVER = 'rgba(255, 128, 0, 0.75)'
-Bu.DEFAULT_FILL_STYLE_HOVER = 'rgba(255, 128, 128, 0.5)'
-
-# The default color of rendered text, PointText for now
-Bu.DEFAULT_TEXT_FILL_STYLE = 'black'
-
 # Point is rendered as a small circle on screen. This is the radius of the circle.
 Bu.POINT_RENDER_SIZE = 2.25
 

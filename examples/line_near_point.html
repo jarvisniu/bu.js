@@ -54,14 +54,14 @@
 					this.mousePos.y = e.offsetY;
 
 					if (this.mousePos.isNear(o.line))
-						o.line.stroke(Bu.DEFAULT_STROKE_STYLE_HOVER);
+						o.line.style('hover');
 					else
-						o.line.stroke();
+						o.line.style();
 
 					if (this.mousePos.isNear(o.polyline))
-						o.polyline.stroke(Bu.DEFAULT_STROKE_STYLE_HOVER);
+						o.polyline.style('hover');
 					else
-						o.polyline.stroke();
+						o.polyline.style();
 				},
 			},
 		});

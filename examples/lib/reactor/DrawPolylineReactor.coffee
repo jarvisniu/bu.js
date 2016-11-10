@@ -20,13 +20,12 @@ class Bu.DrawPolylineReactor extends Bu.ReactorBase
 			if mouseButton == Bu.MOUSE_BUTTON_LEFT
 				if not polyline?
 					polyline = new Bu.Polyline
-					polyline.stroke Bu.DEFAULT_STROKE_STYLE_HOVER
+					polyline.style 'selected'
 					@bu.scene.addChild polyline
 
 				if not line?
 					line = new Bu.Line mousePos, mousePos
-					line.stroke Bu.DEFAULT_STROKE_STYLE_HOVER
-					line.dash()
+					line.style 'dash'
 					@bu.scene.addChild line
 				else if line.visible == off
 					line.setPoint1 mousePos

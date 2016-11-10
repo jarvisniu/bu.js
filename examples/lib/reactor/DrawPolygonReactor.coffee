@@ -21,18 +21,16 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 			if mouseButton == Bu.MOUSE_BUTTON_LEFT
 				if not polygon?
 					polygon = new Bu.Polygon
-					polygon.fill(Bu.DEFAULT_FILL_STYLE_HOVER)
+					polygon.style 'hover'
 					@bu.scene.addChild polygon
 
 				if not guideLineEnd?
 					guideLineEnd = new Bu.Line mousePos, mousePos
-					guideLineEnd.stroke Bu.DEFAULT_STROKE_STYLE_HOVER
-					guideLineEnd.dash()
+					guideLineEnd.style 'dash'
 					@bu.scene.addChild guideLineEnd
 
 					guideLineStart = new Bu.Line mousePos, mousePos
-					guideLineStart.stroke Bu.DEFAULT_STROKE_STYLE_HOVER
-					guideLineStart.dash()
+					guideLineStart.style 'dash'
 					@bu.scene.addChild guideLineStart
 				else if guideLineEnd.visible == off
 					guideLineEnd.setPoint1 mousePos
@@ -58,9 +56,9 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 #				points[points.length - 1].set mousePos.x, mousePos.y
 			else if mouseButton == Bu.MOUSE_BUTTON_NONE and polygon?
 				if polygon.containsPoint mousePos
-					polygon.fill 'yellow'
+					polygon.style 'hover'
 				else
-					polygon.fill Bu.DEFAULT_FILL_STYLE_HOVER
+					polygon.style 'default'
 
 			if polygon
 				guideLineEnd.setPoint2 mousePos
