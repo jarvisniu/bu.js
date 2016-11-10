@@ -109,13 +109,12 @@
 
 <body>
     <div id="info">Click (left/right button) to add points to the lines.
-        <div id="switch">Line style:
-            <label>
-                <input type="radio" name="lineType" onclick="bu.trigger('toggleSpline', !this.checked);" checked>Polyline
-            </label>
-            <label>
-                <input type="radio" name="lineType" onclick="bu.trigger('toggleSpline', this.checked);">Spline
-            </label>
+        <div id="switch">
+            <span>Line style:</span>
+            <input type="radio" name="lineType" id="btnPolyline" onclick="bu.trigger('toggleSpline', !this.checked);" checked>
+            <label for="btnPolyline">Polyline</label>
+            <input type="radio" name="lineType" id="btnSpline" onclick="bu.trigger('toggleSpline', this.checked);">
+            <label for="btnSpline">Spline</label>
         </div>
     </div>
 </body>

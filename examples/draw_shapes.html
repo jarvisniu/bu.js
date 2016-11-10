@@ -68,9 +68,8 @@
         </side-panel>
         <div id="container">
             <div id="info">
-                <label>
-        <input type="checkbox" onclick="bu.showKeyPoints = this.checked;" checked>Show key points
-      </label>
+                <input id="btnShowKeyPoints" type="checkbox" checked>
+                <label for="btnShowKeyPoints">Show key points</label>
             </div>
         </div>
     </div>
@@ -151,6 +150,10 @@
                     reactors.smoothFreeline = new Bu.DrawFreelineReactor(bu, true);
 
                     reactors.point.enable();
+
+                    $("#btnShowKeyPoints").on('click', function () {
+                        bu.showKeyPoints = this.checked;
+                    });
                 }
             })
         });

@@ -54,6 +54,9 @@
             },
             init: function() {
                 this.randomizer.setRange(this.$renderer.width, this.$renderer.height);
+                $("#btnShowBounds").on('click', function () {
+                    bu.$renderer.showBounds = this.checked;
+                });
             },
             methods: {
                 regenerateShapes: function() {
@@ -87,9 +90,8 @@
 <body>
     <div id="info"><span>Move cursor to test. Click to regenerate shapes.</span>
         <div id="control">
-            <label>
-                <input type="checkbox" onclick="bu.$renderer.showBounds = this.checked;" checked>Show Bounds
-            </label>
+            <input id="btnShowBounds" type="checkbox" checked>
+            <label for="btnShowBounds">Show Bounds</label>
         </div>
     </div>
 </body>

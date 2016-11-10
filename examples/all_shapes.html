@@ -104,6 +104,14 @@
                     });
                 }
             },
+            init: function () {
+                $('#btnKeyPoints').on('click', function() {
+                    bu.$renderer.showKeyPoints = this.checked;
+                });
+                $('#btnDashStroke').on('click', function() {
+                    bu.setDashStroke(this.checked);
+                });
+            },
         });
     </script>
 </head>
@@ -111,12 +119,11 @@
 <body>
     <div id="info"><span>All supported shapes.</span>
         <div id="control">
-            <label>
-          <input type="checkbox" onclick="bu.$renderer.showKeyPoints = this.checked;" checked>Show key points
-        </label><br>
-            <label>
-          <input type="checkbox" onclick="bu.setDashStroke(this.checked);">Dashed stroke
-        </label>
+            <input type="checkbox" id="btnKeyPoints" checked>
+            <label for="btnKeyPoints">Show key points</label>
+            <br>
+            <input type="checkbox"  id="btnDashStroke">
+            <label for="btnDashStroke">Dashed stroke</label>
         </div>
     </div>
 </body>
