@@ -22,12 +22,11 @@ All supported constructor options:
 class Bu.App
 
 	constructor: (@options = {}) ->
-		# TODO do not save options
-		@inputManager = new Bu.InputManager
-		@$objects = {}
-
-		for k in ["renderer", "camera", "data", "objects", "hierarchy", "methods", "events"]
+		for k in ["renderer", "data", "objects", "hierarchy", "methods", "events"]
 			@options[k] or= {}
+
+		@$objects = {}
+		@inputManager = new Bu.InputManager
 
 		Bu.ready @init, @
 

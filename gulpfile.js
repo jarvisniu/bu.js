@@ -9,7 +9,7 @@ var gulp = require('gulp');
 var del = require('del');
 var open = require('open');
 
-// Gulp plugins: coffee, concat, header, uglify, sourcemaps, stylus, liveServer
+// Gulp plugins: coffee, concat, header, uglify, sourcemaps, liveServer
 var plugins = require('gulp-load-plugins')();
 
 // get version number from `package.json`
@@ -27,13 +27,10 @@ var paths = {
         'src/shapes/*.coffee',
         'src/drawable/*.coffee',
         'src/anim/*.coffee',
-        'src/extra/*.coffee'
+        'src/extra/*.coffee',
     ],
     ext_scripts: [
-        'examples/lib/**/*.coffee'
-    ],
-    stylus: [
-        'examples/vue/*.styl'
+        'examples/lib/**/*.coffee',
     ],
     clean: [
         'build/*',
@@ -41,7 +38,6 @@ var paths = {
         'src/**/*.js.map',
         'examples/lib/*/*.js',
         'examples/lib/*/*.js.map',
-        'examples/vue/*.css'
     ],
     dist: [
         'logo.png',
@@ -52,9 +48,6 @@ var paths = {
         'examples/lib/a-star/*.js*',
         'examples/lib/morph/*.js*',
         'examples/lib/reactor/*.js*',
-        'examples/vue/*.vue',
-        'examples/vue/*.css',
-        'examples/vue/icons/*',
     ],
     distTo: 'dist/'
 };
@@ -93,12 +86,6 @@ gulp.task('ext_scripts', function () {
         .pipe(gulp.dest('examples/lib/'));
 });
 
-gulp.task('stylus', function () {
-    return gulp.src(paths.stylus)
-        .pipe(plugins.stylus())
-        .pipe(gulp.dest('examples/vue/'));
-});
-
 gulp.task('serve_examples', ['build'], function () {
     plugins.liveServer.static('./', port).start();
 });
@@ -109,12 +96,11 @@ gulp.task('open_examples', ['serve_examples'], function () {
 
 gulp.task('clean', ['clean_src', 'clean_dist']);
 
-gulp.task('build', ['clean', 'src_scripts', 'ext_scripts', 'stylus']);
+gulp.task('build', ['clean', 'src_scripts', 'ext_scripts']);
 
 gulp.task('watch', function () {
     gulp.watch(paths.src_scripts, ['src_scripts']);
     gulp.watch(paths.ext_scripts, ['ext_scripts']);
-    gulp.watch(paths.stylus, ['stylus']);
 });
 
 gulp.task('run', ['build', 'serve_examples', 'open_examples']);
