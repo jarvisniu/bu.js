@@ -3,6 +3,7 @@ Change Log
 
 ## 0.3.6 / WIP
 
+- Changed name `Bu.Colorful` to `Bu.Styled`
 - Added `Camera` class, allowed us to move the field of vision
 - Added `Renderer.originAtCenter` property, allowed to change
     the origin point from left-top corner to the screen center
@@ -34,9 +35,9 @@ Change Log
 
 ## Change Type
 
+- **Changed**: Breaking changes were made
+- **Removed**: Outdated or deprecated feature were removed
+- **Fixed**: Bugs were fixed
 - **Added**: New features were added
 - **Updated**: Enhance current class
-- **Improved**: Use new technics to improve the porformance, UI etc
-- **Fixed**: Bugs were fixed
-- **Removed**: Outdated or deprecated feature were removed
-- **Changed**: Breaking changes were made
+- **Improved**: Use new techniques or algorithms to improve the performance, UI etc
