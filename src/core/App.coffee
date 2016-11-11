@@ -22,6 +22,8 @@ All supported constructor options:
 class Bu.App
 
 	constructor: (@options = {}) ->
+		# TODO do not save options
+		@inputManager = new Bu.InputManager
 		@$objects = {}
 
 		for k in ["renderer", "camera", "data", "objects", "hierarchy", "methods", "events"]
@@ -59,19 +61,8 @@ class Bu.App
 		@options.init?.call @
 
 		# events
-		@events = @options.events
-		for type of @events
-			if type == 'mousedown'
-				@$renderer.dom.addEventListener 'mousedown', (e) => @events['mousedown'].call this, e
-			else if type == 'mousemove'
-				@$renderer.dom.addEventListener 'mousemove', (e) => @events['mousemove'].call this, e
-			else if type == 'mouseup'
-				@$renderer.dom.addEventListener 'mouseup', (e) => @events['mouseup'].call this, e
-		# TODO add supports for "keydown.Ctrl+F", "mousedown.Left"
+		@inputManager.handleAppEvents @, @options.events
 
 		# update
 		if @options.update?
 			@$renderer.on 'update', => @options.update.apply this, arguments
-
-	trigger: (type, arg) ->
-		@events[type]?.call @, arg

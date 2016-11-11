@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Keyboard Control</title>
+	<script src="../build/bu.js"></script>
+	<style>
+		#info {
+			position: absolute;
+			width: 100%;
+			text-align: center;
+			padding: 8px 0;
+			border-bottom: solid 1px gray;
+			color: white;
+			background-color: hsla(0, 0%, 0%, 0.4);
+		}
+	</style>
+	<script>
+		var bu = new Bu.App({
+			renderer: {
+				originAtCenter: true,
+				background: 'lightblue',
+			},
+			objects: {
+				sun: new Bu.Circle(40, 80, -150).fill('orange').stroke('red')
+						.setLineWidth(20).dash([4, 8]).dashFlow(),
+				bunny: new Bu.Image("./assets/textures/bunny.png").scaleTo(2),
+				ground: new Bu.Rectangle(-1000, 40, 2000, 1000).fill('lightgreen'),
+			},
+			hierarchy: {
+				sun: {},
+				bunny: {},
+				ground: {},
+			},
+			init: function () {
+				window.focus();
+			},
+			events: {
+				"keydown.ArrowUp": function (e) {
+					this.$objects.bunny.animate('jump', 80);
+				},
+				"keydown.ArrowDown": function (e) {
+					this.$objects.bunny.animate('shake');
+				},
+				"keydown.ArrowLeft": function (e) {
+					this.$objects.bunny.animate('moveBy', -100);
+				},
+				"keydown.ArrowRight": function (e) {
+					this.$objects.bunny.animate('moveBy', 100);
+				},
+			},
+		});
+	</script>
+</head>
+<body>
+	<div id="info">Move the bunny with Up, Right, Left and Right keys.</div>
+</body>
+</html>

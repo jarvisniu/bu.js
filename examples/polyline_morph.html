@@ -69,10 +69,10 @@
 				this.$renderer.scene.addChild([o.polylineA, o.polylineB, o.polylineM, o.splineA, o.splineB, o.splineM]);
 				this.refreshLabel();
 				$('#btnPolyline').on('click', function () {
-					bu.trigger('toggleSpline', !this.checked);
+					bu.toggleSpline(!this.checked);
 				});
 				$('#btnSpline').on('click', function () {
-					bu.trigger('toggleSpline', this.checked);
+					bu.toggleSpline(this.checked);
 				});
 			},
 			update: function () {
@@ -98,6 +98,16 @@
 						o.polylineB.vertices[i].label = i;
 					}
 				},
+				toggleSpline: function (isOn) {
+					var o = this.$objects;
+					if (isOn) {
+						o.polylineA.visible = o.polylineB.visible = o.polylineM.visible = false;
+						o.splineA.visible = o.splineB.visible = o.splineM.visible = true;
+					} else {
+						o.polylineA.visible = o.polylineB.visible = o.polylineM.visible = true;
+						o.splineA.visible = o.splineB.visible = o.splineM.visible = false;
+					}
+				},
 			},
 			events: {
 				mousedown: function (e) {
@@ -110,16 +120,6 @@
 					this.refreshLabel();
 					this.polylineMorph.update();
 				},
-				'toggleSpline': function (isOn) {
-					var o = this.$objects;
-					if (isOn) {
-						o.polylineA.visible = o.polylineB.visible = o.polylineM.visible = false;
-						o.splineA.visible = o.splineB.visible = o.splineM.visible = true;
-					} else {
-						o.polylineA.visible = o.polylineB.visible = o.polylineM.visible = true;
-						o.splineA.visible = o.splineB.visible = o.splineM.visible = false;
-					}
-				}
 			},
 		});
 	</script>

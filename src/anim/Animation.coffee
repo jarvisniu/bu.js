@@ -76,6 +76,13 @@ Bu.animations =
 		update: (anim) ->
 			@position.x = Math.sin(anim.t * Math.PI * 8) * anim.data.range + anim.data.ox
 
+	jump: new Bu.Animation
+		init: (anim) ->
+			anim.data.oy = @position.y
+			anim.data.height = anim.arg or 100
+		update: (anim) ->
+			@position.y = - anim.data.height * Math.sin(anim.t * Math.PI) + anim.data.oy
+
 	#----------------------------------------------------------------------
 	# Toggled: detect and save original status
 	#----------------------------------------------------------------------
