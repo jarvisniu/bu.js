@@ -6,26 +6,7 @@
 	<title>Delaunay Triangulation</title>
 	<script src="js/ClipMeter.min.js"></script>
 	<script src="../build/bu.js"></script>
-	<style>
-		#info {
-			position: absolute;
-			width: 100%;
-			text-align: center;
-			padding: 8px 0;
-			border-bottom: solid 1px gray;
-			color: white;
-			background-color: hsla(0, 0%, 0%, 0.4);
-		}
-
-		#control {
-			position: fixed;
-			border: solid 1px silver;
-			background-color: white;
-			top: 28px;
-			left: 8px;
-			padding: 4px;
-		}
-	</style>
+	<link rel="stylesheet" href="css/example.css">
 	<script type="text/javascript">
 		var POINT_COUNT = 64;
 		var LINE_COUNT = 50;
@@ -154,6 +135,7 @@
 <div id="info">
 	<span>Delaunay Triangulation</span></div>
 <div id="control">
+	<div>Triangulate method:</div>
 	<button id="btnDelaunay">Delaunay</button>
 	<button id="btnNoCross">No Cross</button>
 	<button id="btnRandom">Random</button>

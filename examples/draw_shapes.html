@@ -16,31 +16,7 @@
 	<script src="./lib/reactor/DrawPolylineReactor.js"></script>
 	<script src="./lib/reactor/DrawPolygonReactor.js"></script>
 	<script src="./lib/reactor/DrawFreelineReactor.js"></script>
-	<style>
-		html {
-			-webkit-user-drag: none;
-			-webkit-user-select: none;
-		}
-
-		#info {
-			position: absolute;
-			width: 100%;
-			text-align: center;
-			padding: 4px 0;
-			border-bottom: solid 1px gray;
-			color: white;
-			background-color: hsla(0, 0%, 0%, 0.5);
-		}
-
-		#control {
-			position: fixed;
-			border: solid 1px silver;
-			background-color: white;
-			top: 34px;
-			left: 8px;
-			padding: 8px;
-		}
-	</style>
+	<link rel="stylesheet" href="css/example.css">
 	<script>
 		var bu = new Bu.App({
 			renderer: {
@@ -76,7 +52,7 @@
 </head>
 <body>
 <div id="info">
-	This is a geometry drawing program. Its something like a CAD program.
+	This is a geometry drawing board, kind like a CAD program.
 </div>
 <div id="control">
 	<div style="">Toolbox:</div>
