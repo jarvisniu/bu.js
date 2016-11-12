@@ -95,7 +95,7 @@ class Bu.Polygon extends Bu.Object2D
 		angleDelta = options.angle
 		r = radius
 		points = []
-		angleSection = Math.PI * 2 / n
+		angleSection = Bu.TWO_PI / n
 		for i in [0 ... n]
 			a = i * angleSection + angleDelta
 			x = cx + r * Math.cos(a)

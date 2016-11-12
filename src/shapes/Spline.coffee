@@ -56,7 +56,7 @@ class Bu.Spline extends Bu.Object2D
 				len1 = Bu.bevel p[i].y - p[i - 1].y, p[i].x - p[i - 1].x
 				len2 = Bu.bevel p[i].y - p[i + 1].y, p[i].x - p[i + 1].x
 				theta = theta1 + (theta2 - theta1) * if spline._smoother then len1 / (len1 + len2) else 0.5
-				theta += Math.PI if Math.abs(theta - theta1) > Math.PI / 2
+				theta += Math.PI if Math.abs(theta - theta1) > Bu.HALF_PI
 				xA = p[i].x - len1 * spline.smoothFactor * Math.cos(theta)
 				yA = p[i].y - len1 * spline.smoothFactor * Math.sin(theta)
 				xB = p[i].x + len2 * spline.smoothFactor * Math.cos(theta)

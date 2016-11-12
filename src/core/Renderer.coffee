@@ -204,7 +204,7 @@ class Bu.Renderer
 
 
 	drawPoint: (shape) ->
-		@context.arc shape.x, shape.y, Bu.POINT_RENDER_SIZE, 0, Math.PI * 2
+		@context.arc shape.x, shape.y, Bu.POINT_RENDER_SIZE, 0, Bu.TWO_PI
 		@
 
 
@@ -215,7 +215,7 @@ class Bu.Renderer
 
 
 	drawCircle: (shape) ->
-		@context.arc shape.cx, shape.cy, shape.radius, 0, Math.PI * 2
+		@context.arc shape.cx, shape.cy, shape.radius, 0, Bu.TWO_PI
 		@
 
 

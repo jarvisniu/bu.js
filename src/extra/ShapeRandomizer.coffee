@@ -62,8 +62,8 @@ class Bu.ShapeRandomizer
 		@
 
 	generateBow: ->
-		aFrom = Bu.rand Math.PI * 2
-		aTo = aFrom + Bu.rand Math.PI / 2, Math.PI * 2
+		aFrom = Bu.rand Bu.TWO_PI
+		aTo = aFrom + Bu.rand Bu.HALF_PI, Bu.TWO_PI
 
 		bow = new Bu.Bow @randomX(), @randomY(), @randomRadius(), aFrom, aTo
 		bow.string.points[0].label = 'A'
@@ -71,8 +71,8 @@ class Bu.ShapeRandomizer
 		bow
 
 	randomizeBow: (bow) ->
-		aFrom = Bu.rand Math.PI * 2
-		aTo = aFrom + Bu.rand Math.PI / 2, Math.PI * 2
+		aFrom = Bu.rand Bu.TWO_PI
+		aTo = aFrom + Bu.rand Bu.HALF_PI, Bu.TWO_PI
 
 		bow.cx = @randomX()
 		bow.cy = @randomY()
@@ -83,8 +83,8 @@ class Bu.ShapeRandomizer
 		@
 
 	generateFan: ->
-		aFrom = Bu.rand Math.PI * 2
-		aTo = aFrom + Bu.rand Math.PI / 2, Math.PI * 2
+		aFrom = Bu.rand Bu.TWO_PI
+		aTo = aFrom + Bu.rand Bu.HALF_PI, Bu.TWO_PI
 
 		fan = new Bu.Fan @randomX(), @randomY(), @randomRadius(), aFrom, aTo
 		fan.center.label = 'O'

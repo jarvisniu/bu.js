@@ -122,7 +122,7 @@ Bu.geometryAlgorithm = G =
 		dx = point.x - fan.cx
 		dy = point.y - fan.cy
 		a = Math.atan2(point.y - fan.cy, point.x - fan.cx)
-		a += Math.PI * 2 while a < fan.aFrom
+		a += Bu.TWO_PI while a < fan.aFrom
 		return Bu.bevel(dx, dy) < fan.radius && a > fan.aFrom && a < fan.aTo
 
 	pointInBow: (point, bow) ->
@@ -248,7 +248,7 @@ Bu.geometryAlgorithm = G =
 				[pA, pM] = compressed[-2..-1]
 				pB = polyline.vertices[i]
 				obliqueAngle = Math.abs(Math.atan2(pA.y - pM.y, pA.x - pM.x) - Math.atan2(pM.y - pB.y, pM.x - pB.x))
-				if obliqueAngle < strength * strength * Math.PI / 2
+				if obliqueAngle < strength * strength * Bu.HALF_PI
 					compressed[compressed.length - 1] = pB
 				else
 					compressed.push pB
