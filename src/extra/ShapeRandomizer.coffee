@@ -41,6 +41,7 @@ class Bu.ShapeRandomizer
 		else
 			switch shape.type
 				when 'Circle' then @randomizeCircle shape
+				when 'Ellipse' then @randomizeEllipse shape
 				when 'Bow' then @randomizeBow shape
 				when 'Triangle' then @randomizeTriangle shape
 				when 'Rectangle' then @randomizeRectangle shape
@@ -49,6 +50,12 @@ class Bu.ShapeRandomizer
 				when 'Line' then @randomizeLine shape
 				when 'Polyline' then @randomizePolyline shape
 				else console.warn 'not support shape: ' + shape.type
+
+	randomizePosition: (shape) ->
+		shape.position.x = @randomX()
+		shape.position.y = @randomY()
+		shape.trigger 'changed'
+		@
 
 	generateCircle: ->
 		circle = new Bu.Circle @randomRadius(), @randomX(), @randomY()
@@ -59,6 +66,17 @@ class Bu.ShapeRandomizer
 		circle.cx = @randomX()
 		circle.cy = @randomY()
 		circle.radius = @randomRadius()
+		@
+
+	generateEllipse: ->
+		ellipse = new Bu.Ellipse @randomRadius(), @randomRadius()
+		@randomizePosition ellipse
+		ellipse
+
+	randomizeEllipse: (ellipse) ->
+		ellipse.radiusX = @randomRadius()
+		ellipse.radiusY = @randomRadius()
+		@randomizePosition ellipse
 		@
 
 	generateBow: ->

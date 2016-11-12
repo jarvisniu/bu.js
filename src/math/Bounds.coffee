@@ -4,18 +4,20 @@ class Bu.Bounds
 
 	constructor: (@target) ->
 
+		# TODO use min, max: Vector
 		@x1 = @y1 = @x2 = @y2 = 0
-		@isEmpty = true
+		@isEmpty = yes
 
 		@point1 = new Bu.Vector
 		@point2 = new Bu.Vector
 
 		@update()
+		@bindEvent()
 
 	containsPoint: (p) ->
 		@x1 < p.x && @x2 > p.x && @y1 < p.y && @y2 > p.y
 
-	update: ->
+	update: =>
 		@clear()
 		switch @target.type
 			when 'Line', 'Triangle', 'Rectangle'
@@ -23,25 +25,33 @@ class Bu.Bounds
 					@expandByPoint(v)
 			when 'Circle', 'Bow', 'Fan'
 				@expandByCircle @target
-				@target.on 'centerChanged', =>
-					@clear()
-					@expandByCircle @target
-				@target.on 'radiusChanged', =>
-					@clear()
-					@expandByCircle @target
 			when 'Polyline', 'Polygon'
 				for v in @target.vertices
 					@expandByPoint(v)
+			when 'Ellipse'
+				@x1 = -@target.radiusX
+				@x2 = @target.radiusX
+				@y1 = -@target.radiusY
+				@y2 = @target.radiusY
 			else
-				console.warn 'Bounds: not support shape type "' + @target.type + '"'
+				console.warn "Bounds: not support shape type #{ @target.type }"
+
+	bindEvent: ->
+		switch @target.type
+			when 'Circle', 'Bow', 'Fan'
+				@target.on 'centerChanged', @update
+				@target.on 'radiusChanged', @update
+			when 'Ellipse'
+				@target.on 'changed', @update
 
 	clear: () ->
 		@x1 = @y1 = @x2 = @y2 = 0
-		@isEmpty = true
+		@isEmpty = yes
+		@
 
 	expandByPoint: (v) ->
 		if @isEmpty
-			@isEmpty = false
+			@isEmpty = no
 			@x1 = @x2 = v.x
 			@y1 = @y2 = v.y
 		else
@@ -49,12 +59,13 @@ class Bu.Bounds
 			@x2 = v.x if v.x > @x2
 			@y1 = v.y if v.y < @y1
 			@y2 = v.y if v.y > @y2
+		@
 
 	expandByCircle: (c) ->
 		cp = c.center
 		r = c.radius
 		if @isEmpty
-			@isEmpty = false
+			@isEmpty = no
 			@x1 = cp.x - r
 			@x2 = cp.x + r
 			@y1 = cp.y - r
@@ -64,3 +75,4 @@ class Bu.Bounds
 			@x2 = cp.x + r if cp.x + r > @x2
 			@y1 = cp.y - r if cp.y - r < @y1
 			@y2 = cp.y + r if cp.y + r > @y2
+		@

@@ -7,6 +7,7 @@ Bu.geometryAlgorithm = G =
 			'point'
 			'line'
 			'circle'
+			'ellipse'
 			'triangle'
 			'rectangle'
 			'fan'
@@ -48,6 +49,10 @@ Bu.geometryAlgorithm = G =
 		if 'circle' in shapes
 			Bu.Circle::_containsPoint = (point) ->
 				G.pointInCircle point, @
+
+		if 'ellipse' in shapes
+			Bu.Ellipse::_containsPoint = (point) ->
+				G.pointInEllipse point, @
 
 		if 'triangle' in shapes
 			Bu.Triangle::_containsPoint = (point) ->
@@ -106,6 +111,9 @@ Bu.geometryAlgorithm = G =
 		dx = point.x - circle.cx
 		dy = point.y - circle.cy
 		return Bu.bevel(dx, dy) < circle.radius
+
+	pointInEllipse: (point, ellipse) ->
+		return Bu.bevel(point.x / ellipse.radiusX, point.y / ellipse.radiusY) < 1
 
 	pointInRectangle: (point, rectangle) ->
 		point.x > rectangle.pointLT.x and

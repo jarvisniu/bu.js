@@ -21,6 +21,7 @@
 				var r = this.randomizer;
 				return {
 					circle: r.generateCircle().createBounds(),
+					ellipse: r.generateEllipse().createBounds(),
 					triangle: r.generateTriangle().createBounds(),
 					rectangle: r.generateRectangle(),
 					fan: r.generateFan().createBounds(),
@@ -30,6 +31,7 @@
 			},
 			hierarchy: {
 				circle: {},
+				ellipse: {},
 				triangle: {},
 				rectangle: {},
 				fan: {},
@@ -48,7 +50,7 @@
 			methods: {
 				regenerateShapes: function () {
 					var o = this.$objects;
-					this.randomizer.randomize([o.circle, o.triangle, o.rectangle, o.fan, o.bow, o.polygon]);
+					this.randomizer.randomize(this.$renderer.scene.children);
 				},
 			},
 			events: {
