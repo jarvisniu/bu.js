@@ -11,6 +11,9 @@
 				originAtCenter: true,
 				background: 'lightblue',
 			},
+			data: {
+				moveSpeed: 0,
+			},
 			objects: {
 				sun: new Bu.Circle(40, 80, -150).fill('orange').stroke('red')
 						.setLineWidth(20).dash([4, 8]).dashFlow(),
@@ -25,18 +28,20 @@
 			init: function () {
 				window.focus();
 			},
+			update: function() {
+				if (this.$inputManager.isKeyDown('Left'))
+					this.moveSpeed -= 1;
+				if (this.$inputManager.isKeyDown('Right'))
+					this.moveSpeed += 1;
+				this.$objects.bunny.position.x += this.moveSpeed;
+				this.moveSpeed *= 0.9;
+			},
 			events: {
 				"keydown.ArrowUp": function (e) {
 					this.$objects.bunny.animate('jump', 80);
 				},
 				"keydown.ArrowDown": function (e) {
 					this.$objects.bunny.animate('shake');
-				},
-				"keydown.ArrowLeft": function (e) {
-					this.$objects.bunny.animate('moveBy', -100);
-				},
-				"keydown.ArrowRight": function (e) {
-					this.$objects.bunny.animate('moveBy', 100);
 				},
 			},
 		});

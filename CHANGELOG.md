@@ -10,7 +10,7 @@ Change Log
 - Added `Object2D.translate()` and `.rotate()` to transform an object
 - Added `DashFlowManager` to move the `.dashOffset += 1` logic inside
 - Added `Object2D.hitTest()` to interact with mouse
-- Added keyboard control API
+- Added keyboard control API `Bu.InputManager`
 
 
 ## 0.3.5 / 2016-11-09
