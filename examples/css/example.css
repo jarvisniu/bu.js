@@ -32,5 +32,10 @@ body {
 	background-color: white;
 	top: 24px;
 	left: 8px;
-	padding: 4px;
+	padding: 8px;
+}
+
+button, input {
+	padding: 2px 4px;
+	margin: 2px;
 }

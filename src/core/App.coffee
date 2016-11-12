@@ -21,32 +21,32 @@ All supported constructor options:
 
 class Bu.App
 
-	constructor: (@options = {}) ->
+	constructor: (@$options = {}) ->
 		for k in ["renderer", "data", "objects", "hierarchy", "methods", "events"]
-			@options[k] or= {}
+			@$options[k] or= {}
 
 		@$objects = {}
-		@inputManager = new Bu.InputManager
+		@$inputManager = new Bu.InputManager
 
 		Bu.ready @init, @
 
 	init: () ->
 		# renderer
-		@$renderer = new Bu.Renderer @options.renderer
+		@$renderer = new Bu.Renderer @$options.renderer
 
 		# data
-		if Bu.isFunction @options.data
-			@options.data = @options.data.apply this
-		@[k] = @options.data[k] for k of @options.data
+		if Bu.isFunction @$options.data
+			@$options.data = @$options.data.apply this
+		@[k] = @$options.data[k] for k of @$options.data
 
 		# methods
-		@[k] = @options.methods[k] for k of @options.methods
+		@[k] = @$options.methods[k] for k of @$options.methods
 
 		# objects
-		if Bu.isFunction @options.objects
-			@$objects = @options.objects.apply this
+		if Bu.isFunction @$options.objects
+			@$objects = @$options.objects.apply this
 		else
-			@$objects[name] = @options.objects[name] for name of @options.objects
+			@$objects[name] = @$options.objects[name] for name of @$options.objects
 
 		# hierarchy
 		# TODO use an algorithm to avoid circular structure
@@ -54,14 +54,14 @@ class Bu.App
 			for own name of children
 				parent.children.push @$objects[name]
 				assembleObjects children[name], @$objects[name]
-		assembleObjects @options.hierarchy, @$renderer.scene
+		assembleObjects @$options.hierarchy, @$renderer.scene
 
 		# init
-		@options.init?.call @
+		@$options.init?.call @
 
 		# events
-		@inputManager.handleAppEvents @, @options.events
+		@$inputManager.handleAppEvents @, @$options.events
 
 		# update
-		if @options.update?
-			@$renderer.on 'update', => @options.update.apply this, arguments
+		if @$options.update?
+			@$renderer.on 'update', => @$options.update.apply this, arguments
