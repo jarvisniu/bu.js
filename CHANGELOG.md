@@ -12,6 +12,8 @@ Change Log
 - Added `Object2D.hitTest()` to interact with mouse
 - Added keyboard control API `Bu.InputManager`
 - Added shape ellipse
+- Add `Bu.Audio` to support sounds
+
 
 
 ## 0.3.5 / 2016-11-09

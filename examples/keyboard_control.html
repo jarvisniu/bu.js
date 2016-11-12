@@ -13,6 +13,7 @@
 			},
 			data: {
 				moveSpeed: 0,
+				moo: new Bu.Audio('assets/audio/cow.ogg'),
 			},
 			objects: {
 				sun: new Bu.Circle(40, 80, -150).fill('orange').stroke('red')
@@ -42,12 +43,13 @@
 				},
 				"keydown.ArrowDown": function (e) {
 					this.$objects.bunny.animate('shake');
+					this.moo.play();
 				},
 			},
 		});
 	</script>
 </head>
 <body>
-	<div id="info">Move the bunny with Up, Right, Left and Right keys.</div>
+	<div id="info">Control the bunny with arrow keys.</div>
 </body>
 </html>
