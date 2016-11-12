@@ -11,6 +11,7 @@ Change Log
 - Added `DashFlowManager` to move the `.dashOffset += 1` logic inside
 - Added `Object2D.hitTest()` to interact with mouse
 - Added keyboard control API `Bu.InputManager`
+- Added shape ellipse
 
 
 ## 0.3.5 / 2016-11-09

@@ -42,6 +42,7 @@
 					new Bu.Point(325, 480)
 				]),
 				roundedRect: new Bu.Rectangle(365, 400, 120, 80, 16),
+				ellipse: new Bu.Ellipse(45, 60).translate(580, 440),
 
 				circleLabel: new Bu.PointText('Circle', 100, 170),
 				lineLabel: new Bu.PointText('Line', 225, 170),
@@ -54,6 +55,7 @@
 				polylineLabel: new Bu.PointText('Polyline', 125, 525),
 				splineLabel: new Bu.PointText('Spline', 275, 525),
 				roundedRectLabel: new Bu.PointText('Rectangle (Round)', 425, 525),
+				ellipseLabel: new Bu.PointText('Ellipse', 580, 525),
 			},
 			hierarchy: {
 				circle: {},
@@ -67,6 +69,7 @@
 				polyline: {},
 				spline: {},
 				roundedRect: {},
+				ellipse: {},
 
 				circleLabel: {},
 				lineLabel: {},
@@ -79,6 +82,7 @@
 				polylineLabel: {},
 				splineLabel: {},
 				roundedRectLabel: {},
+				ellipseLabel: {},
 			},
 			methods: {
 				setDashStroke: function (on) {

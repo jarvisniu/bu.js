@@ -170,6 +170,7 @@ class Bu.Renderer
 			when 'Point' then @drawPoint shape
 			when 'Line' then @drawLine shape
 			when 'Circle' then @drawCircle shape
+			when 'Ellipse' then @drawEllipse shape
 			when 'Triangle' then @drawTriangle shape
 			when 'Rectangle' then @drawRectangle shape
 			when 'Fan' then @drawFan shape
@@ -216,6 +217,11 @@ class Bu.Renderer
 
 	drawCircle: (shape) ->
 		@context.arc shape.cx, shape.cy, shape.radius, 0, Bu.TWO_PI
+		@
+
+
+	drawEllipse: (shape) ->
+		@context.ellipse 0, 0, shape.radiusX, shape.radiusY, 0, Bu.TWO_PI, no
 		@
 
 
