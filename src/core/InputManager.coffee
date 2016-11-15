@@ -10,7 +10,7 @@ class Bu.InputManager
 		window.addEventListener 'keyup', (e) =>
 			@keyStates[e.keyCode] = no
 
-	# To detect whether a key is down
+	# To detect whether a key is pressed down
 	isKeyDown: (key) ->
 		keyCode = @keyToKeyCode key
 		@keyStates[keyCode]
@@ -23,8 +23,12 @@ class Bu.InputManager
 	# Recieve and bind the mouse/keyboard events listeners
 	handleAppEvents: (app, events) ->
 		keydownListeners = {}
+		keyupListeners = {}
+
 		window.addEventListener 'keydown', (e) =>
 			keydownListeners[e.keyCode]?.call app, e
+		window.addEventListener 'keyup', (e) =>
+			keyupListeners[e.keyCode]?.call app, e
 
 		for type of events
 			if type in ['mousedown', 'mousemove', 'mouseup', 'keydown', 'keyup']
@@ -33,27 +37,31 @@ class Bu.InputManager
 				key = type.substring 8
 				keyCode = @keyToKeyCode key
 				keydownListeners[keyCode] = events[type]
+			else if type.indexOf('keyup.') == 0
+				key = type.substring 6
+				keyCode = @keyToKeyCode key
+				keyupListeners[keyCode] = events[type]
 
 	# Map from keyIdentifiers/keyValues to keyCode
 	keyToKeyCodeMap:
-		Backspace: 8
-		Tab: 9
-		Enter: 13
-		Shift: 16
-		Control: 17
-		Alt: 18
-		CapsLock: 20
-		Escape: 27
-		' ': 32  # Space
-		PageUp: 33
-		PageDown: 34
-		End: 35
-		Home: 36
-		ArrowLeft: 37
-		ArrowUp: 38
-		ArrowRight: 39
-		ArrowDown: 40
-		Delete: 46
+		Backspace:    8
+		Tab:          9
+		Enter:       13
+		Shift:       16
+		Control:     17
+		Alt:         18
+		CapsLock:    20
+		Escape:      27
+		' ':         32  # Space
+		PageUp:      33
+		PageDown:    34
+		End:         35
+		Home:        36
+		ArrowLeft:   37
+		ArrowUp:     38
+		ArrowRight:  39
+		ArrowDown:   40
+		Delete:      46
 
 		1: 49
 		2: 50
@@ -91,15 +99,15 @@ class Bu.InputManager
 		Y: 89
 		Z: 90
 
-		F1: 112
-		F2: 113
-		F3: 114
-		F4: 115
-		F5: 116
-		F6: 117
-		F7: 118
-		F8: 119
-		F9: 120
+		F1:  112
+		F2:  113
+		F3:  114
+		F4:  115
+		F5:  116
+		F6:  117
+		F7:  118
+		F8:  119
+		F9:  120
 		F10: 121
 		F11: 122
 		F12: 123
@@ -116,18 +124,18 @@ class Bu.InputManager
 		']': 221
 		'\\': 220
 
-	# Map from not standard, but commonly known keyValues/keyIdentifiers
+	# Map from not standard, but commonly known keyValues/keyIdentifiers to keyCode
 	keyAliasToKeyMap:
-		Ctrl: 'Control'          #17
-		Ctl: 'Control'           #17
-		Esc: 'Escape'            #27
-		Space: ' '               #32
-		PgUp: 'PageUp'           #33
-		'Page Up': 'PageUp'      #33
-		PgDn: 'PageDown'         #34
-		'Page Down': 'PageDown'  #34
-		Left: 'ArrowLeft'        #37
-		Up: 'ArrowUp'            #38
-		Right: 'ArrowRight'      #39
-		Down: 'ArrowDown'        #40
-		Del: 'Delete'            #46
+		Ctrl:        'Control'     # 17
+		Ctl:         'Control'     # 17
+		Esc:         'Escape'      # 27
+		Space:       ' '           # 32
+		PgUp:        'PageUp'      # 33
+		'Page Up':   'PageUp'      # 33
+		PgDn:        'PageDown'    # 34
+		'Page Down': 'PageDown'    # 34
+		Left:        'ArrowLeft'   # 37
+		Up:          'ArrowUp'     # 38
+		Right:       'ArrowRight'  # 39
+		Down:        'ArrowDown'   # 40
+		Del:         'Delete'      # 46
