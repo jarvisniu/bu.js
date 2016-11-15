@@ -10,27 +10,51 @@ class Bu.InputManager
 		window.addEventListener 'keyup', (e) =>
 			@keyStates[e.keyCode] = no
 
+	# To detect whether a key is down
 	isKeyDown: (key) ->
 		keyCode = @keyToKeyCode key
 		@keyStates[keyCode]
 
+	# Convert from keyIdentifiers/keyValues to keyCode
 	keyToKeyCode: (key) ->
+		key = @keyAliasToKeyMap[key] or key
 		keyCode = @keyToKeyCodeMap[key]
-		return if keyCode? then keyCode	else null
 
+	# Recieve and bind the mouse/keyboard events listeners
 	handleAppEvents: (app, events) ->
 		keydownListeners = {}
 		window.addEventListener 'keydown', (e) =>
-			keydownListeners[e.key]?.call app, e
+			keydownListeners[e.keyCode]?.call app, e
 
 		for type of events
 			if type in ['mousedown', 'mousemove', 'mouseup', 'keydown', 'keyup']
 				app.$renderer.dom.addEventListener type, events[type].bind(app)
 			else if type.indexOf('keydown.') == 0
 				key = type.substring 8
-				keydownListeners[key] = events[type]
+				keyCode = @keyToKeyCode key
+				keydownListeners[keyCode] = events[type]
 
+	# Map from keyIdentifiers/keyValues to keyCode
 	keyToKeyCodeMap:
+		Backspace: 8
+		Tab: 9
+		Enter: 13
+		Shift: 16
+		Control: 17
+		Alt: 18
+		CapsLock: 20
+		Escape: 27
+		' ': 32  # Space
+		PageUp: 33
+		PageDown: 34
+		End: 35
+		Home: 36
+		ArrowLeft: 37
+		ArrowUp: 38
+		ArrowRight: 39
+		ArrowDown: 40
+		Delete: 46
+
 		1: 49
 		2: 50
 		3: 51
@@ -66,23 +90,7 @@ class Bu.InputManager
 		X: 88
 		Y: 89
 		Z: 90
-		Backspace: 8
-		Tab: 9
-		Enter: 13
-		Shift: 16
-		Ctrl: 17
-		Alt: 18
-		Esc: 27
-		Space: 32
-		PageUp: 33
-		PageDown: 34
-		End: 35
-		Home: 36
-		Left: 37
-		Up: 38
-		Right: 39
-		Down: 40
-		Del: 46
+
 		F1: 112
 		F2: 113
 		F3: 114
@@ -95,6 +103,7 @@ class Bu.InputManager
 		F10: 121
 		F11: 122
 		F12: 123
+
 		'`': 192
 		'=': 187
 		',': 188
@@ -106,3 +115,19 @@ class Bu.InputManager
 		'[': 219
 		']': 221
 		'\\': 220
+
+	# Map from not standard, but commonly known keyValues/keyIdentifiers
+	keyAliasToKeyMap:
+		Ctrl: 'Control'          #17
+		Ctl: 'Control'           #17
+		Esc: 'Escape'            #27
+		Space: ' '               #32
+		PgUp: 'PageUp'           #33
+		'Page Up': 'PageUp'      #33
+		PgDn: 'PageDown'         #34
+		'Page Down': 'PageDown'  #34
+		Left: 'ArrowLeft'        #37
+		Up: 'ArrowUp'            #38
+		Right: 'ArrowRight'      #39
+		Down: 'ArrowDown'        #40
+		Del: 'Delete'            #46
