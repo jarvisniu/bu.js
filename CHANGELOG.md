@@ -1,7 +1,10 @@
 Change Log
 ==========
 
-## 0.3.6 / WIP
+## WIP
+
+
+## 0.4.0 / 2016/11/15
 
 - Changed name `Bu.Colorful` to `Bu.Styled`
 - Added `Camera` class, allowed us to move the field of vision
@@ -12,8 +15,7 @@ Change Log
 - Added `Object2D.hitTest()` to interact with mouse
 - Added keyboard control API `Bu.InputManager`
 - Added shape ellipse
-- Add `Bu.Audio` to support sounds
-
+- Added `Bu.Audio` to support sounds
 
 
 ## 0.3.5 / 2016-11-09
