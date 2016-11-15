@@ -35,7 +35,7 @@ class Bu.DrawPolylineReactor extends Bu.ReactorBase
 				line.setPoint1 line.points[1]
 				polyline.addPoint mousePos.clone()
 			else if mouseButton == Bu.MOUSE_BUTTON_RIGHT
-				polyline.stroke()
+				polyline.style()
 				polyline = null
 				line.visible = off
 

@@ -46,6 +46,10 @@
 							bu.reactors[k].disable();
 					}
 				});
+
+				$('#btnShowKeyPoints').on('click', function () {
+					bu.$renderer.showKeyPoints = this.checked;
+				});
 			},
 		});
 	</script>

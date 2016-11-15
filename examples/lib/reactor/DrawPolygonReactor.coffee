@@ -44,7 +44,7 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 				guideLineEnd.setPoint1 guideLineEnd.points[1]
 				polygon.addPoint mousePos.clone()
 			else if mouseButton == Bu.MOUSE_BUTTON_RIGHT
-				polygon.fill()
+				polygon.style()
 				polygon = null
 				guideLineEnd.visible = off
 				guideLineStart.visible = off
@@ -56,9 +56,9 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 #				points[points.length - 1].set mousePos.x, mousePos.y
 			else if mouseButton == Bu.MOUSE_BUTTON_NONE and polygon?
 				if polygon.containsPoint mousePos
-					polygon.style 'hover'
+					polygon.fill 'hover'
 				else
-					polygon.style 'default'
+					polygon.fill 'selected'
 
 			if polygon
 				guideLineEnd.setPoint2 mousePos

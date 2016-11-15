@@ -26,7 +26,8 @@ Bu.Styled = () ->
 
 	# Set the stroke style
 	@stroke = (v) ->
-		v = true if not v?
+		v = true unless v?
+		v = Bu.styles[v].strokeStyle if Bu.styles? and v of Bu.styles
 		switch v
 			when true then @strokeStyle = Bu.Styled.DEFAULT_STROKE_STYLE
 			when false then @strokeStyle = null
@@ -36,7 +37,8 @@ Bu.Styled = () ->
 
 	# Set the fill style
 	@fill = (v) ->
-		v = true if not v?
+		v = true unless v?
+		v = Bu.styles[v].fillStyle if Bu.styles? and v of Bu.styles
 		switch v
 			when false then @fillStyle = null
 			when true then @fillStyle = Bu.Styled.DEFAULT_FILL_STYLE
@@ -46,7 +48,8 @@ Bu.Styled = () ->
 
 	# Set the dash style
 	@dash = (v) ->
-		v = true if not v?
+		v = true unless v?
+		v = Bu.styles[v].dashStyle if Bu.styles? and v of Bu.styles
 		v = [v, v] if Bu.isNumber v
 		switch v
 			when false then @dashStyle = null
@@ -75,8 +78,8 @@ Bu.Styled.DEFAULT_DASH_STYLE = [8, 4]
 
 Bu.styles =
 	default: new Bu.Styled().stroke().fill()
-	hover: new Bu.Styled().stroke('hsla(0, 100%, 25%, 0.75)').fill('hsla(0, 100%, 75%, 0.5)')
+	hover: new Bu.Styled().stroke('hsla(0, 100%, 40%, 0.75)').fill('hsla(0, 100%, 75%, 0.5)')
 	text: new Bu.Styled().stroke(false).fill('black')
 	line: new Bu.Styled().fill(false)
-	selected: new Bu.Styled().stroke('#AA0').fill()
+	selected: new Bu.Styled().setLineWidth(3)
 	dash: new Bu.Styled().dash()
