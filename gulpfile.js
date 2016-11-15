@@ -44,6 +44,7 @@ var paths = {
         'build/*.js',
         'examples/assets/**',
         'examples/*.html',
+        'examples/css/*.css',
         'examples/js/*.js',
         'examples/lib/a-star/*.js*',
         'examples/lib/morph/*.js*',

@@ -9,7 +9,7 @@ A JavaScript 2D graphics library based on HTML5 Canvas
 [Guides](https://github.com/jarvisniu/Bu.js/wiki/Guides) -
 [API](https://github.com/jarvisniu/Bu.js/wiki/API) -
 [ChangeLog](CHANGELOG.md) -
-[Download](https://cdn.rawgit.com/jarvisniu/Bu.js/v0.3.5/build/bu.min.js)
+[Download](https://cdn.rawgit.com/jarvisniu/Bu.js/v0.4.0/build/bu.min.js)
 
 
 ## Hello World
@@ -18,7 +18,7 @@ A JavaScript 2D graphics library based on HTML5 Canvas
 <!DOCTYPE html>
 <html>
 <body>
-    <script src="https://cdn.rawgit.com/jarvisniu/Bu.js/v0.3.5/build/bu.min.js"></script>
+    <script src="https://cdn.rawgit.com/jarvisniu/Bu.js/v0.4.0/build/bu.min.js"></script>
     <script type="text/javascript">
         var bu = new Bu.App({
             renderer: {
