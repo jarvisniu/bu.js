@@ -39,11 +39,12 @@ Bu.DEFAULT_SPLINE_SMOOTH = 0.25
 # How close a point to a line is regarded that the point is **ON** the line.
 Bu.DEFAULT_NEAR_DIST = 5
 
-# Enumeration of mouse buttons
-Bu.MOUSE_BUTTON_NONE = -1
-Bu.MOUSE_BUTTON_LEFT = 0
-Bu.MOUSE_BUTTON_MIDDLE = 1
-Bu.MOUSE_BUTTON_RIGHT = 2
+# Enumeration of mouse buttons, used to compare with `e.buttons` of mouse events
+Bu.MOUSE =
+	NONE:   0
+	LEFT:   1
+	RIGHT: 2
+	MIDDLE:  4
 
 
 #----------------------------------------------------------------------

@@ -7,7 +7,6 @@ class Bu.DrawFreelineReactor extends Bu.ReactorBase
 
 		@lineSplitThresh = 8
 
-		mouseButton = Bu.MOUSE_BUTTON_NONE
 		mousePos = new Bu.Point
 		mouseDownPos = new Bu.Point
 
@@ -15,16 +14,15 @@ class Bu.DrawFreelineReactor extends Bu.ReactorBase
 
 		@onMouseDown = (e) =>
 			mouseDownPos.set e.offsetX, e.offsetY
-			mouseButton = e.button
 
-			if mouseButton == Bu.MOUSE_BUTTON_LEFT
+			if e.buttons == Bu.MOUSE.LEFT
 				polyline = new Bu.Polyline
 				polyline.style 'line'
 				@bu.scene.addChild polyline
 
 		@onMouseMove = (e) =>
 			mousePos.set e.offsetX, e.offsetY
-			if mouseButton == Bu.MOUSE_BUTTON_LEFT
+			if e.buttons == Bu.MOUSE.LEFT
 				if mousePos.distanceTo(mouseDownPos) > @lineSplitThresh or polyline.vertices.length < 2
 					polyline.addPoint mousePos.clone()
 					mouseDownPos.copy mousePos
@@ -32,7 +30,6 @@ class Bu.DrawFreelineReactor extends Bu.ReactorBase
 					polyline.vertices[polyline.vertices.length - 1].copy mousePos
 
 		@onMouseUp = =>
-			mouseButton = Bu.MOUSE_BUTTON_NONE
 			if polyline?
 				polyline.style()
 

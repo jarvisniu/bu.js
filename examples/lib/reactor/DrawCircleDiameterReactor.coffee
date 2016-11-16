@@ -5,7 +5,6 @@ class Bu.DrawCircleDiameterReactor extends Bu.ReactorBase
 	constructor: (@bu) ->
 		super()
 
-		mouseButton = Bu.MOUSE_BUTTON_NONE
 		mousePos = new Bu.Point
 		mousePosDown = new Bu.Point
 
@@ -28,16 +27,14 @@ class Bu.DrawCircleDiameterReactor extends Bu.ReactorBase
 				line.stroke '#f44'
 				@bu.scene.addChild line
 				isConfirmed = no
-			mouseButton = e.button
 
 		# change radius
 		@onMouseMove = (e) ->
 			mousePos.set e.offsetX, e.offsetY
-			if (not isConfirmed) or (mouseButton == Bu.MOUSE_BUTTON_LEFT and circle?)
+			if (not isConfirmed) or (e.buttons == Bu.MOUSE.LEFT and circle?)
 				line.setPoint2(mousePos)
 				circle.radius = mousePos.distanceTo(mousePosDown) / 2
 				circle.center = line.midpoint
 
 		@onMouseUp = ->
-			mouseButton = Bu.MOUSE_BUTTON_NONE
 			isConfirmed = mousePos.distanceTo(mousePosDown) > Bu.POINT_RENDER_SIZE

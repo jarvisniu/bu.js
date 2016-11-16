@@ -3,6 +3,8 @@ Change Log
 
 ## WIP
 
+- Added API property `Renderer.background`
+
 
 ## 0.4.0 / 2016/11/15
 
@@ -36,6 +38,15 @@ Change Log
 - Updated `Bu.Animation` to support color transform animation
 - Added function `Bu.clamp()`
 - Added class `Bu.App`, the declarative app framework
+
+
+## 0.3.2 / 2016-02-24
+
+- Added shape `Bu.Spline`
+- Added hierarchy management
+- Updated animation to support easing functions
+- Changed shapes, computational algorithms were extracted out
+    and will be injected in their prototypes as need.
 
 
 ## Change Type

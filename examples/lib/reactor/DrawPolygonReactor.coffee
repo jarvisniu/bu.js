@@ -6,7 +6,6 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 	constructor: (@bu) ->
 		super()
 
-		mouseButton = Bu.MOUSE_BUTTON_NONE
 		mousePos = new Bu.Point
 		mouseDownPos = new Bu.Vector
 
@@ -16,9 +15,8 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 
 		@onMouseDown = (e) =>
 			mouseDownPos.set e.offsetX, e.offsetY
-			mouseButton = e.button
 
-			if mouseButton == Bu.MOUSE_BUTTON_LEFT
+			if e.buttons == Bu.MOUSE.LEFT
 				if not polygon?
 					polygon = new Bu.Polygon
 					polygon.style 'hover'
@@ -43,7 +41,7 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 
 				guideLineEnd.setPoint1 guideLineEnd.points[1]
 				polygon.addPoint mousePos.clone()
-			else if mouseButton == Bu.MOUSE_BUTTON_RIGHT
+			else if e.buttons == Bu.MOUSE.RIGHT
 				polygon.style()
 				polygon = null
 				guideLineEnd.visible = off
@@ -51,10 +49,10 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 
 		@onMouseMove = (e) =>
 			mousePos.set e.offsetX, e.offsetY
-			if mouseButton == Bu.MOUSE_BUTTON_LEFT
+			if e.buttons == Bu.MOUSE.LEFT
 				points = polygon.vertices
 #				points[points.length - 1].set mousePos.x, mousePos.y
-			else if mouseButton == Bu.MOUSE_BUTTON_NONE and polygon?
+			else if e.buttons == Bu.MOUSE.NONE and polygon?
 				if polygon.containsPoint mousePos
 					polygon.fill 'hover'
 				else
@@ -64,8 +62,8 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 				guideLineEnd.setPoint2 mousePos
 				guideLineStart.setPoint2 mousePos
 
-		@onMouseUp = =>
-			mouseButton = Bu.MOUSE_BUTTON_NONE
+		@onMouseUp = (e) =>
+			e.buttons = Bu.MOUSE.NONE
 			if polygon?
 				guideLineEnd.setPoint2 guideLineEnd.points[0]
 				guideLineEnd.setPoint1 mousePos

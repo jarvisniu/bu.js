@@ -6,7 +6,6 @@ class Bu.DrawPolylineReactor extends Bu.ReactorBase
 	constructor: (@bu) ->
 		super()
 
-		mouseButton = Bu.MOUSE_BUTTON_NONE
 		mousePos = new Bu.Point
 		mouseDownPos = new Bu.Vector
 
@@ -15,9 +14,8 @@ class Bu.DrawPolylineReactor extends Bu.ReactorBase
 
 		@onMouseDown = (e) =>
 			mouseDownPos.set e.offsetX, e.offsetY
-			mouseButton = e.button
 
-			if mouseButton == Bu.MOUSE_BUTTON_LEFT
+			if e.buttons == Bu.MOUSE.LEFT
 				if not polyline?
 					polyline = new Bu.Polyline
 					polyline.style 'selected'
@@ -34,7 +32,7 @@ class Bu.DrawPolylineReactor extends Bu.ReactorBase
 
 				line.setPoint1 line.points[1]
 				polyline.addPoint mousePos.clone()
-			else if mouseButton == Bu.MOUSE_BUTTON_RIGHT
+			else if e.buttons == Bu.MOUSE.RIGHT
 				polyline.style()
 				polyline = null
 				line.visible = off
@@ -45,7 +43,6 @@ class Bu.DrawPolylineReactor extends Bu.ReactorBase
 				line.setPoint2 mousePos
 
 		@onMouseUp = =>
-			mouseButton = Bu.MOUSE_BUTTON_NONE
 			if polyline?
 				line.setPoint2 line.points[0]
 				line.setPoint1 mousePos

@@ -5,7 +5,6 @@ class Bu.MovePointReactor extends Bu.ReactorBase
 	constructor: (@bu) ->
 		super()
 
-		mouseButton = Bu.MOUSE_BUTTON_NONE
 		mousePos = new Bu.Point
 		mousePosDown = new Bu.Vector
 		mousePosDownDelta = new Bu.Vector
@@ -21,12 +20,11 @@ class Bu.MovePointReactor extends Bu.ReactorBase
 						mousePosDown.x - hoveredPoint.x
 						mousePosDown.y - hoveredPoint.y
 				)
-			mouseButton = e.button
 
 		# change x, y
 		@onMouseMove = (e) =>
 			mousePos.set e.offsetX, e.offsetY
-			if mouseButton == Bu.MOUSE_BUTTON_LEFT
+			if e.buttons == Bu.MOUSE.LEFT
 				hoveredPoint.set(
 						mousePos.x - mousePosDownDelta.x
 						mousePos.y - mousePosDownDelta.y
@@ -44,6 +42,3 @@ class Bu.MovePointReactor extends Bu.ReactorBase
 							hoveredPoint.lineWidth = 1
 							hoveredPoint.fill '#f80'
 							break
-
-		@onMouseUp = =>
-			mouseButton = Bu.MOUSE_BUTTON_NONE
