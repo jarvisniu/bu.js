@@ -25,7 +25,7 @@ class Bu.Renderer
 			imageSmoothing: yes
 
 		# Copy options
-		for name in ['container', 'width', 'height', 'fps', 'showKeyPoints', 'showBounds', 'originAtCenter']
+		for name in ['container', 'background', 'width', 'height', 'fps', 'showKeyPoints', 'showBounds', 'originAtCenter']
 			@[name] = options[name]
 
 		# If options.width is not given, then fillParent is true
@@ -39,7 +39,7 @@ class Bu.Renderer
 		@dom = document.createElement 'canvas'
 		@dom.style.cursor = options.cursor or 'default'
 		@dom.style.boxSizing = 'content-box'
-		@dom.style.background = options.background
+		@dom.style.background = @background
 		@dom.oncontextmenu = -> false
 
 		# Set context
