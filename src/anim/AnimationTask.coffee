@@ -14,7 +14,7 @@ class Bu.AnimationTask
 
     init: ->
         @animation.init?.call @target, @
-        @current = Bu.clone @from
+        @current = @from.clone()
 
     restart: ->
         @startTime = Bu.now()
@@ -27,7 +27,6 @@ class Bu.AnimationTask
             @current = interpolateNum @from, @to, @t
         else if @from instanceof Bu.Color
             interpolateColor @from, @to, @t, @current
-            @current = interpolateNum @from, @to, @t
         else if @from instanceof Bu.Vector
             interpolateVector @from, @to, @t, @current
         else if Bu.isPlainObject @from

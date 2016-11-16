@@ -66,6 +66,9 @@ class Bu.Color
             console.error "Bu.Color.parse(\"#{ str }\") error."
         @
 
+    clone: ->
+        (new Bu.Color).copy @
+
     copy: (color) ->
         @r = color.r
         @g = color.g
