@@ -4,12 +4,25 @@ class Bu.Vector
 
 	constructor: (@x = 0, @y = 0) ->
 
+	clone: ->
+		new Bu.Vector @x, @y
+
+	add: (v) ->
+		@x += v.x
+		@y += v.y
+		@
+
 	set: (@x, @y) ->
 		@
 
 	copy: (v) ->
 		@x = v.x
 		@y = v.y
+		@
+
+	multiplyScalar: (scalar) ->
+		@x *= scalar
+		@y *= scalar
 		@
 
 	unProject: (obj) ->

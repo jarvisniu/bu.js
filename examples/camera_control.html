@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Camera Control</title>
+	<script src="../build/bu.js"></script>
+	<link rel="stylesheet" href="css/example.css">
+	<script type="text/javascript">
+		var bu = new Bu.App({
+			renderer: {
+				originAtCenter: true,
+			},
+            data: function() {
+                return {
+					smoothZooming: true,
+                    zoomScaleAnim: Bu.animations['scale'].applyTo(this.$renderer.camera),
+                    zoomTransAnim: Bu.animations['translate'].applyTo(this.$renderer.camera),
+                    desScale: new Bu.Vector(1, 1),
+                    desPosition: new Bu.Vector,
+                };
+            },
+            objects: {
+                circle: new Bu.Circle(200).fill('#496').setLineWidth(10),
+                box: new Bu.Rectangle(-50, -50, 100, 100).fill('white').setLineWidth(10),
+            },
+            hierarchy: {
+                circle: {},
+                box: {},
+            },
+			init: function() {
+				$("#earthquake").on('click', function () {
+					bu.$renderer.camera.animate('shake');
+				});
+				$("#smoothZoom").on('click', function () {
+					bu.smoothZooming = this.checked;
+				});
+			},
+			events: {
+				mousemove: function (e) {
+					if (e.buttons == Bu.MOUSE.LEFT) {
+                        var scale = this.$renderer.camera.scale.x;
+						var dx = -e.movementX * scale;
+						var dy = -e.movementY * scale;
+
+						this.$renderer.camera.translate(dx, dy);
+						this.desPosition.x += dx;
+						this.desPosition.y += dy;
+					}
+				},
+                mousewheel: function (e) {
+					var camera = this.$renderer.camera;
+                    var deltaScale =  e.wheelDelta > 0 ? 0.8 : 1.25;
+                    this.desScale.multiplyScalar(deltaScale);
+
+                    var originalScale = camera.scale.x;
+                    var dx = e.offsetX - e.target.width / 2;
+                    var dy = e.offsetY - e.target.height / 2;
+					var cx = -dx * (deltaScale - 1) * originalScale;
+					var cy = -dy * (deltaScale - 1) * originalScale;
+					this.desPosition.x += cx;
+					this.desPosition.y += cy;
+
+                    if (this.smoothZooming) {
+                        this.zoomScaleAnim.from.copy(camera.scale);
+                        this.zoomScaleAnim.to.copy(this.desScale);
+                        this.zoomScaleAnim.restart();
+
+                        this.zoomTransAnim.from.copy(camera.position);
+                        this.zoomTransAnim.to.copy(this.desPosition);
+                        this.zoomTransAnim.restart();
+                    } else {
+                        camera.translate(cx, cy);
+                        camera.scale.multiplyScalar(deltaScale);
+                    }
+                },
+			},
+		});
+	</script>
+</head>
+<body>
+	<div id="info">Drag to pan, scroll to zoom, with your mouse.</div>
+    <div id="control">
+        <div>Camera effects:</div>
+        <button id="earthquake">Earthquake</button>
+        <hr>
+        <input id="smoothZoom" type="checkbox" checked="checked">
+        <label for="smoothZoom">Smooth Zoom</label>
+    </div>
+</body>
+</html>

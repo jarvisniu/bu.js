@@ -13,6 +13,7 @@ class Bu.Animation
 		@finish = options.finish
 
 	applyTo: (target, args) ->
+		args = [args] unless Bu.isArray args
 		task = new Bu.AnimationTask @, target, args
 		Bu.animationRunner.add task
 		task
@@ -139,7 +140,7 @@ Bu.animations =
 				anim.from = @position.x
 				anim.to = parseFloat anim.arg
 			else
-				console.error 'animation moveTo need an argument'
+				console.error 'Bu.animations.moveTo need an argument'
 		update: (anim) ->
 			@position.x = anim.current
 
@@ -149,7 +150,7 @@ Bu.animations =
 				anim.from = @position.x
 				anim.to = @position.x + parseFloat(anim.args)
 			else
-				console.error 'animation moveTo need an argument'
+				console.error 'Bu.animations.moveBy need an argument'
 		update: (anim) ->
 			@position.x = anim.current
 
@@ -161,3 +162,21 @@ Bu.animations =
 			anim.to = desColor
 		update: (anim) ->
 			@fillStyle = anim.current.toRGBA()
+
+	scale: new Bu.Animation
+		duration: 0.2
+		init: (anim) ->
+			anim.arg = 1 unless anim.arg?
+			anim.from = @scale.clone()
+			anim.to = @scale.clone().multiplyScalar parseFloat anim.arg
+		update: (anim) ->
+			@scale = anim.current
+
+	translate: new Bu.Animation
+		duration: 0.2
+		init: (anim) ->
+			anim.arg = new Bu.Vector unless anim.arg?
+			anim.from = @position.clone()
+			anim.to = @position.clone().add anim.arg
+		update: (anim) ->
+			@position.copy anim.current

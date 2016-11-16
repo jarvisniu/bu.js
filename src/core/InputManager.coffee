@@ -31,7 +31,7 @@ class Bu.InputManager
 			keyupListeners[e.keyCode]?.call app, e
 
 		for type of events
-			if type in ['mousedown', 'mousemove', 'mouseup', 'keydown', 'keyup']
+			if type in ['mousedown', 'mousemove', 'mouseup', 'mousewheel', 'keydown', 'keyup']
 				app.$renderer.dom.addEventListener type, events[type].bind(app)
 			else if type.indexOf('keydown.') == 0
 				key = type.substring 8
