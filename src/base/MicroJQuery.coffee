@@ -31,6 +31,8 @@
 		selections = []
 		if typeof selector == 'string'
 			selections = [].slice.call document.querySelectorAll selector
+		else if selector instanceof HTMLElement
+			selections.push selector
 		jQuery.apply selections
 		selections
 
@@ -70,6 +72,23 @@
 			@each (dom) ->
 				dom.innerHTML = str
 			@
+
+		@width = (w) =>
+			if w?
+				@each (dom) ->
+					dom.style.width = w + 'px'
+				@
+			else
+				parseFloat getComputedStyle(@[0]).width
+
+		@height = (h) =>
+			if h?
+				@each (dom) ->
+					dom.style.height = h + 'px'
+				@
+			else
+				parseFloat getComputedStyle(@[0]).height
+
 
 		@style = (name, value) =>
 			@each (dom) ->
