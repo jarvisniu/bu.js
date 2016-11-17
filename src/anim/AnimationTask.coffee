@@ -14,7 +14,7 @@ class Bu.AnimationTask
 
     init: ->
         @animation.init?.call @target, @
-        @current = @from.clone()
+        @current = Bu.clone @from
 
     restart: ->
         @startTime = Bu.now()

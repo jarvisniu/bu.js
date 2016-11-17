@@ -118,8 +118,10 @@ Bu.isArray = (o) ->
 # Clone an Object or Array
 Bu.clone = (target) ->
 	if typeof(target) != 'object' or target == null or Bu.isFunction target
-		return target
+		target
 	else
+		return target.clone() if target.clone?
+		
 		# FIXME cause stack overflow when its a circular structure
 		if Bu.isArray target
 			clone = []
@@ -131,9 +133,7 @@ Bu.clone = (target) ->
 		for own i of target
 			clone[i] = Bu.clone target[i]
 
-		if clone.constructor.name == 'Function'
-			console.log(clone);
-		return clone
+		clone
 
 # Use localStorage to persist data
 Bu.data = (key, value) ->
