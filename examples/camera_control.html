@@ -10,64 +10,26 @@
 			renderer: {
 				originAtCenter: true,
 			},
-            data: function() {
-                return {
-					smoothZooming: true,
-                    zoomScaleAnim: Bu.animations['scale'].applyTo(this.$renderer.camera),
-                    zoomTransAnim: Bu.animations['translate'].applyTo(this.$renderer.camera),
-                    desScale: new Bu.Vector(1, 1),
-                };
-            },
             objects: {
                 circle: new Bu.Circle(200).fill('#496').setLineWidth(10),
-                box: new Bu.Rectangle(-50, -50, 100, 100).fill('white').setLineWidth(10),
+                square: new Bu.Rectangle(-50, -50, 100, 100).fill('white').setLineWidth(10),
             },
             hierarchy: {
                 circle: {},
-                box: {},
+                square: {},
             },
 			init: function() {
-				$("#earthquake").on('click', function () {
+				var control = new Bu.MouseControl(
+					this.$renderer.camera,
+					this.$renderer.dom
+				);
+
+				$("#earthquake").on('click', function (e) {
 					bu.$renderer.camera.animate('shake');
 				});
-				$("#smoothZoom").on('click', function () {
-					bu.smoothZooming = this.checked;
+				$("#smoothZoom").on('click', function (e) {
+					control.smoothZooming = this.checked;
 				});
-			},
-			events: {
-				mousemove: function (e) {
-					if (e.buttons == Bu.MOUSE.LEFT) {
-                        var scale = this.$renderer.camera.scale.x;
-						var dx = -e.movementX * scale;
-						var dy = -e.movementY * scale;
-
-						this.$renderer.camera.translate(dx, dy);
-					}
-				},
-                mousewheel: function (e) {
-					var camera = this.$renderer.camera;
-                    var deltaScaleStep =  Math.pow(1.25, -e.wheelDelta / 120);
-					this.desScale.multiplyScalar(deltaScaleStep);
-					var deltaScaleAll = this.desScale.x / camera.scale.x;
-
-                    var mx = e.offsetX - $(e.target).width() / 2;
-                    var my = e.offsetY - $(e.target).height() / 2;
-					var dx = -mx * (deltaScaleAll - 1) * camera.scale.x;
-					var dy = -my * (deltaScaleAll - 1) * camera.scale.y;
-
-                    if (this.smoothZooming) {
-                        this.zoomScaleAnim.from.copy(camera.scale);
-                        this.zoomScaleAnim.to.copy(this.desScale);
-                        this.zoomScaleAnim.restart();
-
-                        this.zoomTransAnim.from.copy(camera.position);
-                        this.zoomTransAnim.to.set(camera.position.x + dx, camera.position.y + dy);
-                        this.zoomTransAnim.restart();
-                    } else {
-						camera.translate(dx, dy);
-						camera.scale.copy(this.desScale);
-                    }
-                },
 			},
 		});
 	</script>

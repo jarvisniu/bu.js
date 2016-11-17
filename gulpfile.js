@@ -24,10 +24,10 @@ var paths = {
         'src/math/*.coffee',
         'src/base/*.coffee',
         'src/core/*.coffee',
-        'src/input/*.coffee',
         'src/shapes/*.coffee',
         'src/drawable/*.coffee',
         'src/anim/*.coffee',
+        'src/input/*.coffee',
         'src/extra/*.coffee',
     ],
     ext_scripts: [

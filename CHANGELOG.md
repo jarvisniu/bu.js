@@ -4,6 +4,7 @@ Change Log
 ## WIP
 
 - Added API property `Renderer.background`
+- Added camera controller `Bu.MouseControl`
 
 
 ## 0.4.0 / 2016/11/15

@@ -162,21 +162,3 @@ Bu.animations =
 			anim.to = desColor
 		update: (anim) ->
 			@fillStyle = anim.current.toRGBA()
-
-	scale: new Bu.Animation
-		duration: 0.2
-		init: (anim) ->
-			anim.arg = 1 unless anim.arg?
-			anim.from = @scale.clone()
-			anim.to = @scale.clone().multiplyScalar parseFloat anim.arg
-		update: (anim) ->
-			@scale = anim.current
-
-	translate: new Bu.Animation
-		duration: 0.2
-		init: (anim) ->
-			anim.arg = new Bu.Vector unless anim.arg?
-			anim.from = @position.clone()
-			anim.to = @position.clone().add anim.arg
-		update: (anim) ->
-			@position.copy anim.current
