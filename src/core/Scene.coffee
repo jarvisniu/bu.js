@@ -2,6 +2,6 @@
 
 class Bu.Scene extends Bu.Object2D
 
-	constructor: ->
+	constructor: (@renderer) ->
 		super()
 		@type = 'Scene'

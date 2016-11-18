@@ -54,12 +54,23 @@ class Bu.Object2D
 		@scale = s
 		@
 
+	# Get the root node of the scene tree
+	getScene: ->
+		node = @
+		loop
+			break if node instanceof Bu.Scene
+			node = node.parent
+		node
+
 	# Add object(s) to children
 	addChild: (shape) ->
 		if Bu.isArray shape
-			@children.push s for s in shape
+			for s in shape
+				@children.push s
+				s.parent = @
 		else
 			@children.push shape
+			shape.parent = @
 		@
 
 	# Remove object from children
@@ -92,9 +103,12 @@ class Bu.Object2D
 		@
 
 	# Hit testing with unprojections
-	hitTest: (p) ->
-		p.unProject @
-		@containsPoint p
+	hitTest: (v) ->
+		renderer = @getScene().renderer
+		v.offset(-renderer.width / 2, -renderer.height / 2) if renderer.originAtCenter
+		v.project renderer.camera
+		v.unProject @
+		@containsPoint v
 
 	# Hit testing in the same coordinate
 	containsPoint: (p) ->

@@ -7,7 +7,7 @@ class Bu.Renderer
 		@type = 'Renderer'
 
 		# API
-		@scene = new Bu.Scene
+		@scene = new Bu.Scene @
 		@camera = new Bu.Camera
 		@tickCount = 0
 		@isRunning = yes

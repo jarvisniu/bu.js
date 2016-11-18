@@ -52,7 +52,7 @@ class Bu.App
 		# TODO use an algorithm to avoid circular structure
 		assembleObjects = (children, parent) =>
 			for own name of children
-				parent.children.push @$objects[name]
+				parent.addChild @$objects[name]
 				assembleObjects children[name], @$objects[name]
 		assembleObjects @$options.hierarchy, @$renderer.scene
 
