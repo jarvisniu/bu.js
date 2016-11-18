@@ -7,13 +7,14 @@
 	<link rel="stylesheet" href="css/index.css">
 	<script type="text/javascript">
 		var SOURCE_URL_BASE = 'https://github.com/jarvisniu/jarvisniu.github.io/blob/master/Bu.js/examples/';
-		var hashPath, frame, source;
+		var hashPath, frame, source, links;
 
 		document.addEventListener("DOMContentLoaded", init);
 
 		function init() {
 			frame = document.querySelector("iframe");
 			source = document.querySelector("#source");
+			links = document.querySelectorAll("#side a");
 			window.addEventListener("hashchange", onHashChanged);
 			onHashChanged();
 		}
@@ -23,6 +24,13 @@
 			if (hashPath.length > 0) {
 				frame.src = hashPath;
 				source.setAttribute('href', SOURCE_URL_BASE + hashPath);
+			}
+
+			for (var i = 0; i < links.length; i++) {
+				if (location.hash.length > 0 && links[i].href.indexOf(location.hash) > -1)
+					links[i].style.backgroundColor = '#CCC';
+				else
+					links[i].style.backgroundColor = '';
 			}
 		}
 	</script>

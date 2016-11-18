@@ -14,9 +14,9 @@ body {
 
 #side {
     position: absolute;
-    overflow-y: scroll;
+    overflow-y: auto;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 16px;
     width: 250px;
     height: 100%;
     border-right: solid #bbb 2px;
@@ -29,9 +29,14 @@ body {
 
 #side a {
     display: block;
-    padding: 2px 0;
+    padding: 2px 4px;
     text-decoration: none;
     color: #28b;
+    border-radius: 3px;
+}
+
+#side a:hover {
+    background-color: #EEE;
 }
 
 #side h1 {
