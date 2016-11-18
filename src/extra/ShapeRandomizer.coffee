@@ -4,23 +4,32 @@ class Bu.ShapeRandomizer
 
 	MARGIN = 30
 
+	rangeX: 0
+	rangeY: 0
 	rangeWidth: 800
 	rangeHeight: 450
 
 	constructor: ->
 
 	randomX: ->
-		Bu.rand MARGIN, @rangeWidth - MARGIN * 2
+		Bu.rand @rangeX + MARGIN, @rangeX + @rangeWidth - MARGIN * 2
 
 	randomY: ->
-		Bu.rand MARGIN, @rangeHeight - MARGIN * 2
+		Bu.rand @rangeY + MARGIN, @rangeY + @rangeHeight - MARGIN * 2
 
 	randomRadius: ->
-		Bu.rand 5, Math.min(@rangeWidth, @rangeHeight) / 2
+		Bu.rand 10, Math.min(@rangeX + @rangeWidth, @rangeY + @rangeHeight) / 2
 
-	setRange: (w, h) ->
-		@rangeWidth = w
-		@rangeHeight = h
+	setRange: (a, b, c, d) ->
+		if c?
+			@rangeX = a
+			@rangeY = b
+			@rangeWidth = c
+			@rangeHeight = d
+		else
+			@rangeWidth = a
+			@rangeHeight = b
+		@
 
 	generate: (type) ->
 		switch type
@@ -33,7 +42,6 @@ class Bu.ShapeRandomizer
 			when 'line' then @generateLine()
 			when 'polyline' then @generatePolyline()
 			else console.warn 'not support shape: ' + type
-		@rangeHeight = h
 
 	randomize: (shape) ->
 		if Bu.isArray shape
@@ -50,6 +58,7 @@ class Bu.ShapeRandomizer
 				when 'Line' then @randomizeLine shape
 				when 'Polyline' then @randomizePolyline shape
 				else console.warn 'not support shape: ' + shape.type
+		@
 
 	randomizePosition: (shape) ->
 		shape.position.x = @randomX()

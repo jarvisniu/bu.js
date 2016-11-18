@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Contains test</title>
+	<title>Hit Testing</title>
 	<script src="../build/bu.js"></script>
 	<link rel="stylesheet" href="css/example.css">
 	<script type="text/javascript">
@@ -19,7 +19,12 @@
 				randomizer: new Bu.ShapeRandomizer(),
 			},
 			objects: function () {
-				var r = this.randomizer;
+				var r = this.randomizer.setRange(
+					-this.$renderer.width / 2,
+					-this.$renderer.height / 2,
+					this.$renderer.width,
+					this.$renderer.height
+				);
 				return {
 					circle: r.generateCircle().createBounds(),
 					ellipse: r.generateEllipse().createBounds(),
@@ -40,8 +45,6 @@
 				polygon: {},
 			},
 			init: function () {
-				this.randomizer.setRange(this.$renderer.width, this.$renderer.height);
-
 				$("#btnShowBounds").on('click', function () {
 					bu.$renderer.showBounds = this.checked;
 				});
