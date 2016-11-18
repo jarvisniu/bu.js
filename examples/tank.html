@@ -24,6 +24,7 @@
 						return this.position.y = (1 - anim.t) * 512;
 					}
 				}),
+				selectedMenu: 0,
 			},
 			objects: function () {
 				var textHighScoreValue1 = new Bu.PointText(this.highScore1 + "", 32 * 5.5, 32);
@@ -66,7 +67,29 @@
 					o.selector.image = this.sheet.getFrameImage('tank_p1');
 				});
 
-				o.sceneStart.animate(this.scrollAnim);
+				this.scrollAnimTask = this.scrollAnim.applyTo(o.sceneStart);
+				window.focus();
+			},
+			methods: {
+				switchMenu: function (delta) {
+					this.selectedMenu += delta;
+					if (this.selectedMenu < 0)
+						this.selectedMenu = 2;
+					else if (this.selectedMenu > 2)
+						this.selectedMenu = 0
+					this.$objects.selector.position.y = 32 * (10.25 + this.selectedMenu);
+				},
+			},
+			events: {
+				keydown: function () {
+					this.scrollAnimTask.end();
+				},
+				'keydown.ArrowUp': function () {
+					this.switchMenu(-1);
+				},
+				'keydown.ArrowDown': function () {
+					this.switchMenu(1);
+				},
 			},
 		});
 	</script>

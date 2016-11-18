@@ -20,7 +20,7 @@ class Bu.AnimationRunner
 
 			anim = task.animation
 			t = (now - task.startTime) / (anim.duration * 1000)
-			if t > 1
+			if t >= 1
 				finish = true
 				if anim.repeat
 					t = 0

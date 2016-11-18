@@ -16,10 +16,16 @@ class Bu.AnimationTask
         @animation.init?.call @target, @
         @current = Bu.clone @from
 
+    # Change the animation progress to the start
     restart: ->
         @startTime = Bu.now()
         @finished = no
 
+    # Change the animation progress to the end
+    end: ->
+        @startTime = Bu.now() - @animation.duration * 1000
+
+    # Interpolate `current` according `from`, `to` and `t`
     interpolate: ->
         return unless @from?
 
