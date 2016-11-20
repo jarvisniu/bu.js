@@ -31,8 +31,16 @@ class Bu.App
 		Bu.ready @init, @
 
 	init: () ->
+
+		# scene
+		scene = new Bu.Scene
+		scene.background = @$options.background or Bu.Scene.DEFAULT_BACKGROUND
+
 		# renderer
 		@$renderer = new Bu.Renderer @$options.renderer
+
+		@$renderer.scene = scene
+		scene.renderer = @$renderer
 
 		# data
 		if Bu.isFunction @$options.data

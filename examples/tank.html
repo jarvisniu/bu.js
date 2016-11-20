@@ -7,10 +7,10 @@
 	<script src="../build/bu.js"></script>
 	<script type="text/javascript">
 		var bu = new Bu.App({
+		    background: 'black',
 			renderer: {
 				width: 512,
 				height: 512,
-				background: 'black',
 				imageSmoothing: false,
 			},
 			data: {
@@ -76,7 +76,7 @@
 					if (this.selectedMenu < 0)
 						this.selectedMenu = 2;
 					else if (this.selectedMenu > 2)
-						this.selectedMenu = 0
+						this.selectedMenu = 0;
 					this.$objects.selector.position.y = 32 * (10.25 + this.selectedMenu);
 				},
 			},

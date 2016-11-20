@@ -17,7 +17,6 @@ class Bu.Renderer
 		# Receive options
 		options = Bu.combineOptions arguments,
 			container: 'body'
-			background: '#eee'
 			fps: 60
 			showKeyPoints: no
 			showBounds: no
@@ -25,7 +24,7 @@ class Bu.Renderer
 			imageSmoothing: yes
 
 		# Copy options
-		for name in ['container', 'background', 'width', 'height', 'fps', 'showKeyPoints', 'showBounds', 'originAtCenter']
+		for name in ['container', 'width', 'height', 'fps', 'fps', 'showKeyPoints', 'showBounds', 'originAtCenter']
 			@[name] = options[name]
 
 		# If options.width is not given, then fillParent is true
@@ -39,13 +38,11 @@ class Bu.Renderer
 		@dom = document.createElement 'canvas'
 		@dom.style.cursor = options.cursor or 'default'
 		@dom.style.boxSizing = 'content-box'
-		@dom.style.background = @background
 		@dom.oncontextmenu = -> false
 
 		# Set context
 		@context = @dom.getContext '2d'
 		@context.textBaseline = 'top'
-		@context.imageSmoothingEnabled = options.imageSmoothing
 
 		# Set container dom
 		@container = document.querySelector @container if Bu.isString @container
@@ -92,9 +89,10 @@ class Bu.Renderer
 		tick()
 
 		# Append <canvas> dom into the container
-		appendDom = =>
+		delayed = =>
 			@container.appendChild @dom
-		setTimeout appendDom, 1
+			@imageSmoothing = options.imageSmoothing
+		setTimeout delayed, 1
 
 		# Hook up with running components
 		Bu.animationRunner.hookUp @
@@ -132,7 +130,8 @@ class Bu.Renderer
 
 	# Clear the canvas
 	clearCanvas: ->
-		@context.clearRect 0, 0, @width, @height
+		@context.fillStyle = @scene.background
+		@context.fillRect 0, 0, @width, @height
 		@
 
 	# Draw an array of drawables
@@ -357,6 +356,13 @@ class Bu.Renderer
 		@context.rect bounds.x1, bounds.y1, bounds.x2 - bounds.x1, bounds.y2 - bounds.y1
 		@context.stroke()
 		@
+
+	# property
+
+	@property 'imageSmoothing',
+		get: -> @_imageSmoothing
+		set: (val) ->
+			@_imageSmoothing = @context.imageSmoothingEnabled = val
 
 #----------------------------------------------------------------------
 # Static members
