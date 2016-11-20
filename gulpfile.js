@@ -2,6 +2,10 @@
  * Gulp config file for Bu.js - https://github.com/jarvisniu/Bu.js
  */
 
+// ------------------------------------------------------------
+// Requires
+// ------------------------------------------------------------
+
 var fs = require('fs');
 var path = require('path');
 
@@ -12,14 +16,17 @@ var open = require('open');
 // Gulp plugins: coffee, concat, header, uglify, sourcemaps, liveServer
 var plugins = require('gulp-load-plugins')();
 
-// get version number from `package.json`
+// Get version number from `package.json`
 var BU_VER = require('./package.json').version;
 
-// config
+// ------------------------------------------------------------
+// Configs
+// ------------------------------------------------------------
+
 var port = 3000;
 var header = '// Bu.js v' + BU_VER + ' - https://github.com/jarvisniu/Bu.js\n';
 var paths = {
-    src_scripts: [
+    src: [
         'src/Bu.coffee',
         'src/math/*.coffee',
         'src/base/*.coffee',
@@ -30,7 +37,7 @@ var paths = {
         'src/input/*.coffee',
         'src/extra/*.coffee',
     ],
-    ext_scripts: [
+    ext: [
         'examples/lib/**/*.coffee',
     ],
     clean: [
@@ -42,26 +49,29 @@ var paths = {
     ],
     dist: [
         'logo.png',
-        'build/*.js',
+        'build/bu.min.js',
         'examples/assets/**',
-        'examples/*.html',
         'examples/css/*.css',
         'examples/js/*.js',
         'examples/lib/a-star/*.js*',
         'examples/lib/morph/*.js*',
         'examples/lib/reactor/*.js*',
     ],
-    distTo: 'dist/'
+    dist_html: 'examples/*.html',
+    distTo: 'dist/',
 };
 
-// tasks
+// ------------------------------------------------------------
+// Basal tasks
+// ------------------------------------------------------------
 
-gulp.task('clean_src', function () {
-    return del(paths.clean);
+gulp.task('clean', function () {
+    del(paths.clean);
+    del(paths.distTo + '**');
 });
 
-gulp.task('src_scripts', function () {
-    return gulp.src(paths.src_scripts)
+gulp.task('max', function () {
+    return gulp.src(paths.src)
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.coffee())
         .pipe(plugins.concat('bu.js'))
@@ -71,7 +81,7 @@ gulp.task('src_scripts', function () {
 });
 
 gulp.task('min', function () {
-    return gulp.src(paths.src_scripts)
+    return gulp.src(paths.src)
         .pipe(plugins.concat('bu.min.js'))
         .pipe(plugins.coffee())
         .pipe(plugins.uglify())
@@ -79,8 +89,8 @@ gulp.task('min', function () {
         .pipe(gulp.dest('build/'));
 });
 
-gulp.task('ext_scripts', function () {
-    return gulp.src(paths['ext_scripts'])
+gulp.task('ext', function () {
+    return gulp.src(paths['ext'])
         // TODO add sourcemaps
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.coffee())
@@ -96,41 +106,34 @@ gulp.task('open_examples', ['serve_examples'], function () {
     open('http://localhost:' + port + '/examples/');
 });
 
-gulp.task('clean', ['clean_src', 'clean_dist']);
-
-gulp.task('build', ['clean', 'src_scripts', 'ext_scripts']);
+gulp.task('build', ['clean', 'max', 'min', 'ext']);
 
 gulp.task('watch', function () {
-    gulp.watch(paths.src_scripts, ['src_scripts']);
-    gulp.watch(paths.ext_scripts, ['ext_scripts']);
+    gulp.watch(paths.src, ['max']);
+    gulp.watch(paths.ext, ['ext']);
 });
 
 gulp.task('run', ['build', 'serve_examples', 'open_examples']);
 
-// distribution
+// ------------------------------------------------------------
+// Final tasks
+// ------------------------------------------------------------
 
-gulp.task('clean_dist', function () {
-    return del(paths.distTo + '**');
-});
-
-gulp.task('build_dist', ['clean_dist', 'build'], function () {
+// Distribution the lib and examples
+gulp.task('dist', ['build'], function () {
     for (var i in paths.dist)
         gulp.src(paths.dist[i])
             .pipe(gulp.dest(paths.distTo + path.dirname(paths.dist[i])));
-});
+    gulp.src(paths.dist_html)
+        .pipe(plugins.replace('../build/bu.js', '../build/bu.min.js'))
+        .pipe(gulp.dest(paths.distTo + path.dirname(paths.dist_html)));
 
-gulp.task('serve_dist', ['build_dist'], function () {
     plugins.liveServer.static('./', port).start();
-});
-
-gulp.task('open_dist', ['serve_dist'], function () {
     open('http://localhost:' + port + '/' + paths.distTo + 'examples/');
 });
 
-gulp.task('dist', ['open_dist']);
+// Build two versions (dev and min) of the library
+gulp.task('release', ['min', 'max']);
 
-gulp.task('release', ['min', 'src_scripts']);
-
-// default
-
+// Default task: start to develop
 gulp.task('default', ['watch', 'build', 'run']);
