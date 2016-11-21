@@ -67,19 +67,16 @@
 			},
 			events: {
 				mousemove: function (e) {
-					var o = this.$objects;
+					var shapes = this.$renderer.scene.children;
 
-					for (var i in o) {
-						if (!o.hasOwnProperty(i)) continue;
-						var shape = o[i];
-
+					shapes.each(shape => {
 						this.mousePos.set(e.offsetX, e.offsetY);
 
 						if (shape.hitTest(this.mousePos))
 							shape.style('hover');
 						else
 							shape.style();
-					}
+					});
 				},
 			},
 		});

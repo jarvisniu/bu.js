@@ -139,8 +139,8 @@ class Bu.ShapeRandomizer
 
 	generateRectangle: ->
 		rect = new Bu.Rectangle(
-			Bu.rand(@rangeWidth)
-			Bu.rand(@rangeHeight)
+			Bu.rand(@rangeX + @rangeWidth)
+			Bu.rand(@rangeY + @rangeHeight)
 			Bu.rand(@rangeWidth / 2)
 			Bu.rand(@rangeHeight / 2)
 		)
@@ -151,7 +151,7 @@ class Bu.ShapeRandomizer
 		rect
 
 	randomizeRectangle: (rectangle) ->
-		rectangle.set @randomX(), @randomY(), @randomX(), @randomY()
+		rectangle.set @randomX(), @randomY(), @randomRadius(), @randomRadius()
 		rectangle.trigger 'changed'
 		@
 
