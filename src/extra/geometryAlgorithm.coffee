@@ -45,6 +45,8 @@ Bu.geometryAlgorithm = G =
 				G.getCrossPointOfTwoLines line, @
 			Bu.Line::isCrossWithLine = (line) ->
 				G.isTwoLinesCross line, @
+			Bu.Rectangle::intersectRect = (rect) ->
+				G.isLineIntersectRect @, rect
 
 		if 'circle' in shapes
 			Bu.Circle::_containsPoint = (point) ->
@@ -63,6 +65,8 @@ Bu.geometryAlgorithm = G =
 		if 'rectangle' in shapes
 			Bu.Rectangle::containsPoint = (point) ->
 				G.pointInRectangle point, @
+			Bu.Rectangle::intersectLine = (line) ->
+				G.isLineIntersectRect line, @
 
 		if 'fan' in shapes
 			Bu.Fan::_containsPoint = (point) ->
@@ -170,7 +174,7 @@ Bu.geometryAlgorithm = G =
 		else
 			return new Bu.Point x, y
 
-	# Point and Line
+	# Point with Line
 
 	twoPointsSameSideOfLine: (p1, p2, line) ->
 		pA = line.points[0]
@@ -219,6 +223,7 @@ Bu.geometryAlgorithm = G =
 		x4 = line2.points[1].x
 		y4 = line2.points[1].y
 
+
 		d = (y2 - y1) * (x4 - x3) - (y4 - y3) * (x2 - x1)
 
 		if d == 0
@@ -226,10 +231,24 @@ Bu.geometryAlgorithm = G =
 		else
 			x0 = ((x2 - x1) * (x4 - x3) * (y3 - y1) + (y2 - y1) * (x4 - x3) * x1 - (y4 - y3) * (x2 - x1) * x3) / d
 			y0 = ((y2 - y1) * (y4 - y3) * (x3 - x1) + (x2 - x1) * (y4 - y3) * y1 - (x4 - x3) * (y2 - y1) * y3) / -d
-		return (x0 - x1) * (x0 - x2) < 0 and
-						(x0 - x3) * (x0 - x4) < 0 and
-						(y0 - y1) * (y0 - y2) < 0 and
-						(y0 - y3) * (y0 - y4) < 0
+		return (x0 - x1) * (x0 - x2) <= 0 and
+						(x0 - x3) * (x0 - x4) <= 0 and
+						(y0 - y1) * (y0 - y2) <= 0 and
+						(y0 - y3) * (y0 - y4) <= 0
+
+	# Line with rectangle
+
+	isLineIntersectRect: (line, rect) ->
+		lines = [ new Bu.Line, new Bu.Line, new Bu.Line, new Bu.Line ]
+		lines[0].set rect.points[0], rect.points[1]
+		lines[1].set rect.points[1], rect.points[2]
+		lines[2].set rect.points[2], rect.points[3]
+		lines[3].set rect.points[3], rect.points[0]
+		# console.log line.points[0].x, line.points[0].y, rect.points[0].x, rect.points[0].y
+		G.isTwoLinesCross(line, lines[0]) or
+			G.isTwoLinesCross(line, lines[1]) or
+			G.isTwoLinesCross(line, lines[2]) or
+			G.isTwoLinesCross(line, lines[3])
 
 	# Polyline
 
