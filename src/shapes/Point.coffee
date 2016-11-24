@@ -32,14 +32,23 @@ class Bu.Point extends Bu.Object2D
 		@x = point.x
 		@y = point.y
 		@updateLabel()
+		@
 
 	# set value from x, y
 	set: (x, y) ->
 		@x = x
 		@y = y
 		@updateLabel()
+		@
+
+	# set label text
+	setLabel: (text) ->
+		@label = text
+		@updateLabel()
+		@
 
 	updateLabel: ->
 		if @_labelIndex > -1
 			@children[@_labelIndex].x = @x + Bu.POINT_LABEL_OFFSET
 			@children[@_labelIndex].y = @y
+		@

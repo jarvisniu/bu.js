@@ -2,6 +2,9 @@
 
 class Bu.Object2D
 
+	type: 'Object2D'
+	fillable: no
+
 	constructor: () ->
 		Bu.Styled.apply @
 		Bu.Event.apply @

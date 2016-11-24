@@ -72,9 +72,7 @@ Bu.clamp = (x, min, max) ->
 
 # Generate a random number between two numbers
 Bu.rand = (from, to) ->
-	if not to?
-		to = from
-		from = 0
+	[from, to] = [0, from] unless to?
 	Math.random() * (to - from) + from
 
 # Convert an angle from radian to deg
@@ -121,7 +119,7 @@ Bu.clone = (target) ->
 		target
 	else
 		return target.clone() if target.clone?
-		
+
 		# FIXME cause stack overflow when its a circular structure
 		if Bu.isArray target
 			clone = []
@@ -210,6 +208,10 @@ Array::map or= (fn) ->
 		arr.push fn(@[i])
 		i++
 	return @
+
+#----------------------------------------------------------------------
+# Others
+#----------------------------------------------------------------------
 
 # Output version info to the console, at most one time in a minute.
 currentTime = Date.now()
