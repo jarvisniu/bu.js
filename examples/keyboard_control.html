@@ -7,13 +7,13 @@
 	<link rel="stylesheet" href="css/example.css">
 	<script>
 		var bu = new Bu.App({
-            background: 'lightblue',
+			background: 'lightblue',
 			renderer: {
 				originAtCenter: true,
 			},
 			data: {
 				moveSpeed: 0,
-				moo: new Bu.Audio('assets/audio/cow.ogg'),
+				moo: new Bu.Audio('./assets/audio/cow.ogg'),
 			},
 			objects: {
 				sun: new Bu.Circle(40, 80, -150).fill('orange').stroke('red')
@@ -30,18 +30,16 @@
 				window.focus();
 			},
 			update: function() {
-				if (this.$inputManager.isKeyDown('Left'))
-					this.moveSpeed -= 1;
-				if (this.$inputManager.isKeyDown('Right'))
-					this.moveSpeed += 1;
+				if (this.$inputManager.isKeyDown('Left')) this.moveSpeed -= 1;
+				if (this.$inputManager.isKeyDown('Right')) this.moveSpeed += 1;
 				this.$objects.bunny.position.x += this.moveSpeed;
 				this.moveSpeed *= 0.9;
 			},
 			events: {
-				"keydown.ArrowUp": function (e) {
+				'keydown.Up': function (e) {
 					this.$objects.bunny.animate('jump', 80);
 				},
-				"keydown.ArrowDown": function (e) {
+				'keydown.Down': function (e) {
 					this.$objects.bunny.animate('shake');
 					this.moo.play();
 				},
