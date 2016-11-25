@@ -31,8 +31,8 @@ class Bu.Renderer
 		@fillParent = not Bu.isNumber options.width
 
 		# Convert width and height from dip(device independent pixels) to physical pixels
-		@width *= @pixelRatio
-		@height *= @pixelRatio
+		@pixelWidth = @width * @pixelRatio
+		@pixelHeight = @height * @pixelRatio
 
 		# Set canvas dom
 		@dom = document.createElement 'canvas'
@@ -55,25 +55,27 @@ class Bu.Renderer
 			canvasRatio = @dom.height / @dom.width
 			containerRatio = @container.clientHeight / @container.clientWidth
 			if containerRatio < canvasRatio
-				height = @container.clientHeight
-				width = height / containerRatio
+				@height = @container.clientHeight
+				@width = @height / containerRatio
 			else
-				width = @container.clientWidth
-				height = width * containerRatio
-			@width = @dom.width = width * @pixelRatio
-			@height = @dom.height = height * @pixelRatio
-			@dom.style.width = width + 'px'
-			@dom.style.height = height + 'px'
+				@width = @container.clientWidth
+				@height = @width * containerRatio
+			@pixelWidth = @dom.width = @width * @pixelRatio
+			@pixelHeight = @dom.height = @height * @pixelRatio
+			@dom.style.width = @width + 'px'
+			@dom.style.height = @height + 'px'
 			@render()
 
 		if not @fillParent
-			@dom.style.width = (@width / @pixelRatio) + 'px'
-			@dom.style.height = (@height / @pixelRatio) + 'px'
-			@dom.width = @width
-			@dom.height = @height
+			@dom.style.width = @width + 'px'
+			@dom.style.height = @height + 'px'
+			@dom.width = @pixelWidth
+			@dom.height = @pixelHeight
 		else
-			@width = @container.clientWidth
-			@height = @container.clientHeight
+			@pixelWidth = @container.clientWidth
+			@pixelHeight = @container.clientHeight
+			@width = @pixelWidth / @pixelRatio
+			@height = @pixelHeight / @pixelRatio
 			Bu.global.window.addEventListener 'resize', onResize
 			@dom.addEventListener 'DOMNodeInserted', onResize
 
@@ -113,7 +115,7 @@ class Bu.Renderer
 		@clearCanvas()
 
 		# Move center from left-top corner to screen center
-		@context.translate @width / 2, @height / 2 if @originAtCenter
+		@context.translate @pixelWidth / 2, @pixelHeight / 2 if @originAtCenter
 
 		# Zoom the canvas with devicePixelRatio to support high definition screen
 		@context.scale @pixelRatio, @pixelRatio
@@ -131,7 +133,7 @@ class Bu.Renderer
 	# Clear the canvas
 	clearCanvas: ->
 		@context.fillStyle = @scene.background
-		@context.fillRect 0, 0, @width, @height
+		@context.fillRect 0, 0, @pixelWidth, @pixelHeight
 		@
 
 	# Draw an array of drawables
