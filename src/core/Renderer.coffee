@@ -17,14 +17,13 @@ class Bu.Renderer
 		# Receive options
 		options = Bu.combineOptions arguments,
 			container: 'body'
-			fps: 60
 			showKeyPoints: no
 			showBounds: no
 			originAtCenter: no
 			imageSmoothing: yes
 
 		# Copy options
-		for name in ['container', 'width', 'height', 'fps', 'fps', 'showKeyPoints', 'showBounds', 'originAtCenter']
+		for name in ['container', 'width', 'height', 'showKeyPoints', 'showBounds', 'originAtCenter']
 			@[name] = options[name]
 
 		# If options.width is not given, then fillParent is true
