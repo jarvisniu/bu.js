@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Hello Bu.js</title>
+	<script src="../build/bu.js"></script>
+	<script src="./lib/a-star/AStar.js"></script>
+	<script src="./lib/a-star/Node.js"></script>
+	<script src="./lib/a-star/Engine.js"></script>
+	<script src="./lib/a-star/NetGrid.js"></script>
+	<link rel="stylesheet" href="css/example.css">
+	<script type="text/javascript">
+
+		// net info
+		var WIDTH = 20;
+		var HEIGHT = 20;
+		var START_POS = {
+			x: 1,
+			y: 4
+		};
+		var END_POS = {
+			x: 14,
+			y: 5
+		};
+
+		// rendering config
+		var MARGIN = 0.5;
+		var GRID_SIZE = 20;
+		var GAP_SIZE = 0;
+		var OFFSET = GRID_SIZE + GAP_SIZE;
+
+		var bu = new Bu.App({
+			renderer: {
+				width: 500,
+				height: 500,
+			},
+			data: function () {
+
+				var net = new AStar.NetGrid(WIDTH, HEIGHT);
+				var engine = new AStar.Engine(net);
+				net.engine = engine;
+
+				return {
+					engine: engine,
+					net: net,
+					rectRows: [],
+					wallStyle: new Bu.Styled().stroke('red').setLineWidth(3),
+				};
+			},
+			objects: {
+				border: new Bu.Rectangle(0, 0, 400, 400).translate(50, 50).fill("white"),
+
+				line1: new Bu.Line(0, 210, 110, 210),
+				line2: new Bu.Line(110, 100, 110, 210),
+				line3: new Bu.Line(210, 0, 210, 150),
+				line4: new Bu.Line(210, 150, 310, 150),
+				line5: new Bu.Line(150, 400, 200, 250),
+				line6: new Bu.Line(200, 250, 300, 250),
+
+				start: new Bu.Point(50, 50).setLabel("Start"),
+				end: new Bu.Point(350, 350).setLabel("End"),
+				path: new Bu.Polyline().stroke("orange"),
+
+				astar: new Bu.Object2D().translate(50, 50),
+			},
+			hierarchy: {
+				border: {
+					line1: {},
+					line2: {},
+					line3: {},
+					line4: {},
+					line5: {},
+					line6: {},
+
+					start: {},
+					end: {},
+					path: {},
+				},
+				astar: {},
+			},
+			init: function() {
+				var o = this.$objects;
+
+				for (var i of ['line1', 'line2', 'line3', 'line4', 'line5', 'line6'])
+					o[i].style(this.wallStyle);
+
+				o.path.addPoint(o.start);
+				o.path.addPoint(o.end);
+
+				this.initAstar();
+				this.gridify();
+				o.astar.opacity = 0.5;
+
+				this.net.setStart(
+					this.pixelToIndexX(o.start.x + MARGIN, o.start.y + MARGIN),
+					this.pixelToIndexY(o.start.x + MARGIN, o.start.y + MARGIN)
+				);
+				this.net.setEnd(
+					this.pixelToIndexX(o.end.x + MARGIN, o.end.y + MARGIN),
+					this.pixelToIndexY(o.end.x + MARGIN, o.end.y + MARGIN)
+				);
+			},
+			methods: {
+				initAstar: function() {
+					var i, j;
+					var xCount = this.net.width;
+					var yCount = this.net.height;
+
+					// add grid rectangles
+					for (i = 0; i < xCount; i++) {
+						this.rectRows[i] = [];
+						for (j = 0; j < yCount; j++) {
+							this.rectRows[i][j] = new Bu.Rectangle(
+								MARGIN + OFFSET * i,
+								MARGIN + OFFSET * j,
+								GRID_SIZE,
+								GRID_SIZE
+							).fill('#AAA').stroke('gray');
+							this.$objects.astar.addChild(this.rectRows[i][j]);
+						}
+					}
+
+					this.engine.on("nodeChanged", (e) => {
+						this.refreshNode(e.x, e.y);
+					});
+					this.engine.on("finished", function (e) {
+						console.log('result: ', e);
+						if (!e.success) alert("no solution!");
+					});
+				},
+				refreshNode: function (i, j) {
+					var node = this.net.getNode(i, j);
+
+					var rect = this.rectRows[i][j];
+					rect.strokeStyle = "gray";
+					rect.animate('discolor', AStar.getStateColor(node.state));
+
+					// draw path with prevNode
+					if (node.prevNode) {
+						var x = MARGIN + node.prevNode.position.x * OFFSET + GRID_SIZE / 2;
+						var y = MARGIN + node.prevNode.position.y * OFFSET + GRID_SIZE / 2;
+					}
+				},
+				pixelToIndexX: function (x, y) {
+					return parseInt((x - MARGIN) / OFFSET);
+				},
+				pixelToIndexY: function (x, y) {
+					return parseInt((y - MARGIN) / OFFSET);
+				},
+				gridify: function () {
+					var o = this.$objects;
+
+					for (var k of ['line1', 'line2', 'line3', 'line4', 'line5', 'line6']) {
+						var x1 = o[k].points[0].x + MARGIN;
+						var y1 = o[k].points[0].y + MARGIN;
+						var x2 = o[k].points[1].x + MARGIN;
+						var y2 = o[k].points[1].y + MARGIN;
+
+						if (x1 > x2) [x1, x2] = [x2, x1];
+						if (y1 > y2) [y1, y2] = [y2, y1];
+
+						var ix1 = this.pixelToIndexX(x1, y1);
+						var iy1 = this.pixelToIndexY(x1, y1);
+						var ix2 = this.pixelToIndexX(x2, y2);
+						var iy2 = this.pixelToIndexY(x2, y2);
+
+						for (var i = ix1; i <= ix2; i++) {
+							for (var j = iy1; j <= iy2; j++) {
+								var rect = this.rectRows[i][j];
+								if (!rect) continue;
+								var intersect = rect.intersectLine(o[k]);
+								if (intersect) {
+									var node = this.net.getNode(i, j);
+									node.state = AStar.NODE_STATE_OBSTACLE;
+									this.engine.trigger("nodeChanged", node.position);
+								}
+
+							}
+						}
+					}
+					// console.log(x1, y1, x2, y2);
+				}
+			},
+			events: {
+				mousedown: function (e) {
+					var o = this.$objects;
+					if (e.buttons == Bu.MOUSE.LEFT) {
+						this.engine.init();
+
+						o.start.x = o.path.vertices[0].x = e.offsetX - 50;
+						o.start.y = o.path.vertices[0].y = e.offsetY - 50;
+						o.start.updateLabel();
+
+						var ix = this.pixelToIndexX(e.offsetX - 50, e.offsetY - 50);
+						var iy = this.pixelToIndexY(e.offsetX - 50, e.offsetY - 50);
+						this.net.setStart(ix, iy);
+
+						this.engine.run();
+					} else if (e.buttons == Bu.MOUSE.RIGHT) {
+						this.engine.init();
+
+						o.end.x = o.path.vertices[1].x = e.offsetX - 50;
+						o.end.y = o.path.vertices[1].y = e.offsetY - 50;
+						o.end.updateLabel();
+
+						var ix = this.pixelToIndexX(e.offsetX - 50, e.offsetY - 50);
+						var iy = this.pixelToIndexY(e.offsetX - 50, e.offsetY - 50);
+						if (ix >= this.net.width || iy >= this.net.height || ix < 0 || iy < 0) return;
+
+						if (this.net.getNode(ix, iy).state == AStar.NODE_STATE_DEFAULT)
+							this.net.setEnd(ix, iy);
+
+						this.engine.run();
+					}
+				},
+			},
+		});
+	</script>
+</head>
+<body>
+	<div id="info">Indoor path-finding. Click the mouse button to change the start(left button) and end(right button).</div>
+</body>
+</html>
