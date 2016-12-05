@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="utf-8">
 	<title>Tank 1990</title>
@@ -19,7 +18,7 @@
 				highScore2: 20000,
 				scrollAnim: new Bu.Animation({
 					duration: 3,
-					update: function(anim) {
+					update: function (anim) {
 						return this.position.y = (1 - anim.t) * 512;
 					}
 				}),
@@ -34,9 +33,9 @@
 				},
 				tankMoveSpeed: 2,
 			},
-			objects: function() {
-				let textHighScoreValue1 = new Bu.PointText(this.highScore1 + "", 32 * 5.5, 32);
-				let textHighScoreValue2 = new Bu.PointText(this.highScore2 + "", 32 * 10.5, 32);
+			objects: function () {
+				var textHighScoreValue1 = new Bu.PointText(this.highScore1 + "", 32 * 5.5, 32);
+				var textHighScoreValue2 = new Bu.PointText(this.highScore2 + "", 32 * 10.5, 32);
 
 				return {
 					sceneMenu: new Bu.Scene(),
@@ -84,8 +83,8 @@
 					},
 				},
 			},
-			init: function() {
-				let o = this.$objects;
+			init: function () {
+				var o = this.$objects;
 
 				this.$renderer.scene = o.sceneMenu;
 
@@ -101,8 +100,8 @@
 				o.sceneMenu.background = 'black';
 				o.sceneLevel.background = o.scenePlay.background = 'silver';
 			},
-			update: function() {
-				let o = this.$objects;
+			update: function () {
+				var o = this.$objects;
 
 				if (this.scenes.selected == this.scenes.PLAY) {
 					if (this.$inputManager.isKeyDown("Left")) {
@@ -120,12 +119,13 @@
 					} else if (this.$inputManager.isKeyDown("Down")) {
 						o.tank1P.position.y += this.tankMoveSpeed;
 						o.tank1P.rotation = Bu.d2r(90);
-						if (o.tank1P.position.y > o.field.size.height - 16) o.tank1P.position.y = o.field.size.height - 16;
+						if (o.tank1P.position.y > o.field.size.height - 16)
+							o.tank1P.position.y = o.field.size.height - 16;
 					}
 				}
 			},
 			methods: {
-				switchMenu: function(delta) {
+				switchMenu: function (delta) {
 					this.selectedMenu += delta;
 					if (this.selectedMenu < 0)
 						this.selectedMenu = 2;
@@ -135,27 +135,27 @@
 				},
 			},
 			events: {
-				keydown: function() {
+				keydown: function () {
 					this.scrollAnimTask.end();
 				},
-				'keydown.ArrowUp': function() {
+				'keydown.Up': function () {
 					if (this.scenes.selected == this.scenes.MENU) {
-						this.switchMenu(-1);
+						if (this.scrollAnimTask.finished) this.switchMenu(-1);
 					} else if (this.scenes.selected == this.scenes.LEVEL) {
 						this.level += 1;
 						this.$objects.txtStage.text = 'Stage ' + this.level;
 					}
 				},
-				'keydown.ArrowDown': function() {
+				'keydown.Down': function () {
 					if (this.scenes.selected == this.scenes.MENU) {
-						this.switchMenu(1);
+						if (this.scrollAnimTask.finished) this.switchMenu(1);
 					} else if (this.scenes.selected == this.scenes.LEVEL) {
 						this.level -= 1;
 						this.$objects.txtStage.text = 'Stage ' + this.level;
 					}
 				},
-				'keydown.Enter': function() {
-					let o = this.$objects;
+				'keydown.Enter': function () {
+					var o = this.$objects;
 					if (this.scenes.selected == this.scenes.MENU) {
 						if (this.scrollAnimTask.finished) {
 							this.$renderer.scene = o.sceneLevel;
@@ -175,9 +175,7 @@
 		});
 	</script>
 </head>
-
 <body>
-	<div id="info">This is copy of NES game "Battle City" in 1985.</div>
+<div id="info">This is copy of NES game "Battle City" in 1985.</div>
 </body>
-
 </html>

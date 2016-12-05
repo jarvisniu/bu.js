@@ -10,13 +10,13 @@
 			renderer: {
 				originAtCenter: true,
 			},
-            objects: {
-                circle: new Bu.Circle(200).fill('#496').setLineWidth(10),
-                square: new Bu.Rectangle(-50, -50, 100, 100).fill('white').setLineWidth(10),
-            },
-			init: function() {
+			objects: {
+				circle: new Bu.Circle(200).fill('#496').setLineWidth(10),
+				square: new Bu.Rectangle(-50, -50, 100, 100).fill('white').setLineWidth(10),
+			},
+			init: function () {
 				var r = this.$renderer,
-					control = new Bu.MouseControl( r.camera, r.dom );
+					control = new Bu.MouseControl(r.camera, r.dom);
 
 				$("#earthquake").on('click', function (e) {
 					r.camera.animate('shake');
@@ -29,13 +29,13 @@
 	</script>
 </head>
 <body>
-	<div id="info">Drag to pan, scroll to zoom, with your mouse.</div>
-    <div id="control">
-        <div>Camera effects:</div>
-        <button id="earthquake">Earthquake</button>
-        <hr>
-        <input id="smoothZoom" type="checkbox" checked="checked">
-        <label for="smoothZoom">Smooth Zoom</label>
-    </div>
+<div id="info">Drag to pan, scroll to zoom, with your mouse.</div>
+<div id="control">
+	<div>Camera effects:</div>
+	<button id="earthquake">Earthquake</button>
+	<hr>
+	<input id="smoothZoom" type="checkbox" checked="checked">
+	<label for="smoothZoom">Smooth Zoom</label>
+</div>
 </body>
 </html>

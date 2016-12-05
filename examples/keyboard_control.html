@@ -17,14 +17,14 @@
 			},
 			objects: {
 				sun: new Bu.Circle(40, 80, -150).fill('orange').stroke('red')
-						.setLineWidth(20).dash([4, 8]).dashFlow(),
+					.setLineWidth(20).dash([4, 8]).dashFlow(),
 				bunny: new Bu.Image("./assets/textures/bunny.png").scaleTo(2),
 				ground: new Bu.Rectangle(-1000, 40, 2000, 1000).fill('lightgreen'),
 			},
 			init: function () {
 				window.focus();
 			},
-			update: function() {
+			update: function () {
 				if (this.$inputManager.isKeyDown('Left')) this.moveSpeed -= 1;
 				if (this.$inputManager.isKeyDown('Right')) this.moveSpeed += 1;
 				this.$objects.bunny.position.x += this.moveSpeed;
@@ -43,6 +43,6 @@
 	</script>
 </head>
 <body>
-	<div id="info">Control the bunny with arrow keys.</div>
+<div id="info">Control the bunny with arrow keys.</div>
 </body>
 </html>
