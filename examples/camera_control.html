@@ -14,18 +14,12 @@
                 circle: new Bu.Circle(200).fill('#496').setLineWidth(10),
                 square: new Bu.Rectangle(-50, -50, 100, 100).fill('white').setLineWidth(10),
             },
-            hierarchy: {
-                circle: {},
-                square: {},
-            },
 			init: function() {
-				var control = new Bu.MouseControl(
-					this.$renderer.camera,
-					this.$renderer.dom
-				);
+				var r = this.$renderer,
+					control = new Bu.MouseControl( r.camera, r.dom );
 
 				$("#earthquake").on('click', function (e) {
-					bu.$renderer.camera.animate('shake');
+					r.camera.animate('shake');
 				});
 				$("#smoothZoom").on('click', function (e) {
 					control.smoothZooming = this.checked;

@@ -26,9 +26,6 @@
 
 				document.querySelector("#text").value = this.text;
 				this.updateText(this.text);
-
-				this.$renderer.scene.addChild(this.$objects.pivot);
-				this.$renderer.scene.addChild(this.$objects.pointText);
 			},
 			methods: {
 				updateText: function (text) {

@@ -22,7 +22,7 @@ All supported constructor options:
 class Bu.App
 
 	constructor: (@$options = {}) ->
-		for k in ["renderer", "data", "objects", "hierarchy", "methods", "events"]
+		for k in ["renderer", "data", "objects", "methods", "events"]
 			@$options[k] or= {}
 
 		@$objects = {}
@@ -56,7 +56,13 @@ class Bu.App
 		else
 			@$objects[name] = @$options.objects[name] for name of @$options.objects
 
-		# hierarchy
+		# create default hierarchy
+		unless @$options.hierarchy
+			@$options.hierarchy = {}
+			for name of @$objects
+				@$options.hierarchy[name] = {}
+
+		# assemble hierarchy
 		# TODO use an algorithm to avoid circular structure
 		assembleObjects = (children, parent) =>
 			for own name of children
