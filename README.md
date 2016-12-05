@@ -88,6 +88,25 @@ A JavaScript 2D graphics library based on HTML5 Canvas
     - `extra/` - Utils components
 
 
+## Techniques Used
+
+- Programming Languages
+    - JavaScript
+    - CoffeeScript
+- Tools
+    - Git: version control
+    - Node: server-side JavaScript runtime
+    - npm: package manager
+    - Gulp: build tool
+- Third libraries
+    - jQuery
+- ES6 features
+    - Arrow functions
+    - Object initializer: Shorthand property names
+- Game dev concepts
+    - Sprite sheet
+
+
 ## Credits
 
 - **Three.js** for inspirations and API style
