@@ -56,10 +56,24 @@ class AStar.Engine
 		@result = {}
 
 		@init = =>
+			# for node in listClose
+			# 	node.state = AStar.NODE_STATE_DEFAULT
+			# 	node.prevNode = null
+			# 	@trigger 'nodeChanged', node.position
+			for i in [0.._net.width]
+				for j in [0.._net.height]
+					node = _net.nodes[i]?[j]
+					continue unless node?
+					if node.state > AStar.NODE_STATE_END and node.state < AStar.NODE_STATE_OBSTACLE
+						node.state = AStar.NODE_STATE_DEFAULT
+					node.prevNode = null
+					node.neighbours = null
+					@trigger 'nodeChanged', node.position
 			listOpen = []
 			listClose = []
 
 			stepCount = 0
+			@finished = false
 
 			_net.startNode.g = 0
 			_net.startNode.h = parseInt(_net.calcShortestDistance(_net.startNode, _net.endNode))

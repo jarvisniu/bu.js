@@ -17,6 +17,12 @@ AStar.NetHoneycomb = (w, h) ->
 
 	@setStart = (x, y) ->
 		node = @getNode(x, y)
+		return if node.state != AStar.NODE_STATE_DEFAULT
+		if @startNode?
+			return if @startNode.position.x == x && @startNode.position.y == y
+			@startNode.state = AStar.NODE_STATE_DEFAULT
+			@engine.trigger 'nodeChanged', @startNode.position
+
 		@startNode = node
 
 		node.state = AStar.NODE_STATE_START
@@ -25,6 +31,12 @@ AStar.NetHoneycomb = (w, h) ->
 
 	@setEnd = (x, y) ->
 		node = @getNode(x, y)
+		return if node.state != AStar.NODE_STATE_DEFAULT
+		if @endNode?
+			return if @endNode.position.x == x && @endNode.position.y == y
+			@endNode.state = AStar.NODE_STATE_DEFAULT
+			@engine.trigger 'nodeChanged', @endNode.position
+
 		@endNode = node
 
 		node.state = AStar.NODE_STATE_END

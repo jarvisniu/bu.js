@@ -80,14 +80,23 @@
 				this.net.setEnd(END_POS.x, END_POS.y);
 
 				// bind events
+				$("#btnInit").on("click", () => {
+					this.engine.init();
+					$("#btnInit").attr("disabled", "");
+					$("#btnRun, #btnRunInSteps, #btnNextStep").removeAttr("disabled");
+				});
 				$("#btnRun").on("click", () => {
 					this.engine.run();
+					$("#btnRunInSteps, #btnNextStep").attr("disabled", "");
 				});
-				$("#btnRunSlowly").on("click", () => {
+				$("#btnRunInSteps").on("click", () => {
 					this.engine.run(10);
+					$("#btnRun, #btnRunInSteps, #btnNextStep").attr("disabled", "");
 				});
 				$("#btnNextStep").on("click", () => {
 					this.engine.step();
+					$("#btnRun, #btnRunInSteps").attr("disabled", "");
+					$("#btnInit").removeAttr("disabled");
 				});
 
 				// temporary variables
@@ -178,15 +187,19 @@
 				this.engine.on("finished", function (e) {
 					console.log('result: ', e);
 					if (!e.success) alert("no solution!");
+
+					$("#btnInit").removeAttr("disabled");
+					$("#btnRun, #btnRunInSteps, #btnNextStep").attr("disabled", "");
 				});
+				this.engine.init();
 			},
 			methods: {
 				refreshNode: function (i, j) {
-					var o = this.$objects;
+					var o = this.$objects,
+						node = this.net.getNode(i, j),
+						line = o.lineRows[i][j],
+						rect = this.$objects.rectRows[i][j];
 
-					var node = this.net.getNode(i, j);
-
-					var rect = this.$objects.rectRows[i][j];
 					rect.strokeStyle = "gray";
 					rect.animate('discolor', AStar.getStateColor(node.state));
 
@@ -194,18 +207,26 @@
 					if (node.prevNode) {
 						var x = MARGIN + node.prevNode.position.x * OFFSET + GRID_SIZE / 2;
 						var y = MARGIN + node.prevNode.position.y * OFFSET + GRID_SIZE / 2;
-						o.lineRows[i][j].setPoint2(new Bu.Point(x, y));
+						line.setPoint2(x, y);
+					} else {
+						line.setPoint2(line.points[0]);
 					}
 
 					// set shortest path lineWidth
 					if (node.state == AStar.NODE_STATE_SHORTEST || node.state == AStar.NODE_STATE_END)
-						o.lineRows[i][j].lineWidth = 5;
+						line.lineWidth = 5;
+					else
+						line.lineWidth = 1;
 
 					// set text
 					if (node.state != AStar.NODE_STATE_OBSTACLE && node.state != AStar.NODE_STATE_DEFAULT) {
 						o.labelGRows[i][j].text = Math.round(node.g * 10);
 						o.labelHRows[i][j].text = Math.round(node.h * 10);
 						o.labelFRows[i][j].text = Math.round(node.f() * 10);
+					} else {
+						o.labelGRows[i][j].text = "";
+						o.labelHRows[i][j].text = "";
+						o.labelFRows[i][j].text = "";
 					}
 				},
 				pixelToIndexX: function (x, y) {
@@ -267,8 +288,9 @@
 <body>
 <div>Click the blocks to add/remove obstacles.</div>
 <div id="toolbar">
+	<button id="btnInit" disabled="true">Init</button>
 	<button id="btnRun">Run</button>
-	<button id="btnRunSlowly">Run in steps</button>
+	<button id="btnRunInSteps">Run in steps</button>
 	<button id="btnNextStep">Next step</button>
 </div>
 <div id="container"></div>
