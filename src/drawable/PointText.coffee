@@ -63,3 +63,11 @@ class Bu.PointText extends Bu.Object2D
 			when '0' then 'middle'
 			when '+' then 'top'
 		@
+
+	setFontFamily: (family) ->
+		@fontFamily = family
+		@
+
+	setFontSize: (size) ->
+		@fontSize = size
+		@

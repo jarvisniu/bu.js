@@ -10,9 +10,27 @@
 			renderer: {
 				originAtCenter: true,
 			},
-			objects: {
-				circle: new Bu.Circle(200).fill('#496').setLineWidth(10),
-				square: new Bu.Rectangle(-50, -50, 100, 100).fill('white').setLineWidth(10),
+			objects: function() {
+				var stroke = '#442', fill = '#884';
+				var circle = new Bu.Circle(200).fill(fill).stroke(stroke).setLineWidth(60),
+					square = new Bu.Rectangle(-50, -50, 100, 100).fill('#EEE').stroke(stroke).setLineWidth(10),
+					labelUp = new Bu.PointText('乾', 0, -110),
+					labelDown = new Bu.PointText('隆', 0, 110),
+					labelRight = new Bu.PointText('通', 110, -0),
+					labelLeft = new Bu.PointText('寳', -110, 0);
+
+				labelUp.fontSize = labelDown.fontSize = labelRight.fontSize = labelLeft.fontSize = 100;
+				labelUp.fontFamily = labelDown.fontFamily = labelRight.fontFamily = labelLeft.fontFamily = 'SimHei';
+				labelUp.fillStyle = labelDown.fillStyle = labelRight.fillStyle = labelLeft.fillStyle = stroke;
+
+				return {
+					circle,
+					square,
+					labelUp,
+					labelDown,
+					labelRight,
+					labelLeft,
+				};
 			},
 			init: function () {
 				var r = this.$renderer,
