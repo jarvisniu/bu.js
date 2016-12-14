@@ -76,7 +76,7 @@ gulp.task('max', function () {
         .pipe(plugins.coffee())
         .pipe(plugins.concat('bu.js'))
         .pipe(plugins.header(header))
-        .pipe(plugins.sourcemaps.write())
+        .pipe(plugins.sourcemaps.write('./'))
         .pipe(gulp.dest('build/'));
 });
 
@@ -91,7 +91,6 @@ gulp.task('min', function () {
 
 gulp.task('ext', function () {
     return gulp.src(paths['ext'])
-        // TODO add sourcemaps
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.coffee())
         .pipe(plugins.sourcemaps.write())
