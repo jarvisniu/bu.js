@@ -6,6 +6,7 @@ Change Log
 - Added API property `Renderer.background`
 - Added camera controller `Bu.MouseControl`
 - Added `pixelWidth` and `pixelHeight` to `Renderer`
+- Updated `Color` to support `hsl` and `hsla` color format
 
 ## 0.4.0 / 2016/11/15
 
