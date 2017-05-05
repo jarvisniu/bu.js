@@ -1,0 +1,6 @@
+{
+  "name": "bu.js",
+  "main": "build/bu.js",
+  "keywords": ["2d", "graphics", "canvas"],
+  "ignore" : ["docs", "test", "examples", ".*", "package.json"]
+}
