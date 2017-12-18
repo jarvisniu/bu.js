@@ -45,14 +45,13 @@
 				});
 
 				// Hit-testing still works fine after transformations
-				this.$objects.circle.translate(100, 100).rotate(Bu.d2r(30));
-				this.$objects.triangle.translate(200, 100).rotate(Bu.d2r(40));
+				this.circle.translate(100, 100).rotate(Bu.d2r(30));
+				this.triangle.translate(200, 100).rotate(Bu.d2r(40));
 
 				new Bu.MouseControl(this.$renderer.camera, this.$renderer.dom);
 			},
 			methods: {
 				regenerateShapes: function () {
-					var o = this.$objects;
 					this.randomizer.randomize(this.$renderer.scene.children);
 				},
 			},

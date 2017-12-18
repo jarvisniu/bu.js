@@ -217,5 +217,5 @@ Array::map or= (fn) ->
 currentTime = Date.now()
 lastTime = Bu.data 'version.timestamp'
 unless lastTime? and currentTime - lastTime < 60 * 1000
-	console.info? 'Bu.js v' + Bu.VERSION + ' - [https://github.com/jarvisniu/Bu.js]'
+	console.info? 'Bu.js v' + Bu.version + ' - [https://github.com/jarvisniu/Bu.js]'
 	Bu.data 'version.timestamp', currentTime

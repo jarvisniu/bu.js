@@ -25,7 +25,6 @@ class Bu.App
 		for k in ["renderer", "data", "objects", "methods", "events"]
 			@$options[k] or= {}
 
-		@$objects = {}
 		@$inputManager = new Bu.InputManager
 
 		Bu.ready @init, @
@@ -51,23 +50,24 @@ class Bu.App
 		@[k] = @$options.methods[k] for k of @$options.methods
 
 		# objects
-		if Bu.isFunction @$options.objects
-			@$objects = @$options.objects.apply this
+		objects = if Bu.isFunction @$options.objects
+			@$options.objects.apply this
 		else
-			@$objects[name] = @$options.objects[name] for name of @$options.objects
+			@$options.objects
+		@[name] = objects[name] for name of objects
 
 		# create default scene tree
 		unless @$options.scene
 			@$options.scene = {}
-			for name of @$objects
+			for name of objects
 				@$options.scene[name] = {}
 
 		# assemble scene tree
 		# TODO use an algorithm to avoid circular structure
 		assembleObjects = (children, parent) =>
 			for own name of children
-				parent.addChild @$objects[name]
-				assembleObjects children[name], @$objects[name]
+				parent.addChild objects[name]
+				assembleObjects children[name], objects[name]
 		assembleObjects @$options.scene, @$renderer.scene
 
 		# init

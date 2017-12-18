@@ -80,25 +80,23 @@
 				astar: {},
 			},
 			init: function () {
-				var o = this.$objects;
-
 				for (var i of ['line1', 'line2', 'line3', 'line4', 'line5', 'line6'])
-					o[i].style(this.wallStyle);
+					this[i].style(this.wallStyle);
 
-				o.path.addPoint(o.start);
-				o.path.addPoint(o.end);
+				this.path.addPoint(this.start);
+				this.path.addPoint(this.end);
 
 				this.initAstar();
 				this.gridify();
-				o.astar.opacity = 0.5;
+				this.astar.opacity = 0.5;
 
 				this.net.setStart(
-					this.pixelToIndexX(o.start.x + MARGIN, o.start.y + MARGIN),
-					this.pixelToIndexY(o.start.x + MARGIN, o.start.y + MARGIN)
+					this.pixelToIndexX(this.start.x + MARGIN, this.start.y + MARGIN),
+					this.pixelToIndexY(this.start.x + MARGIN, this.start.y + MARGIN)
 				);
 				this.net.setEnd(
-					this.pixelToIndexX(o.end.x + MARGIN, o.end.y + MARGIN),
-					this.pixelToIndexY(o.end.x + MARGIN, o.end.y + MARGIN)
+					this.pixelToIndexX(this.end.x + MARGIN, this.end.y + MARGIN),
+					this.pixelToIndexY(this.end.x + MARGIN, this.end.y + MARGIN)
 				);
 			},
 			methods: {
@@ -117,14 +115,13 @@
 								GRID_SIZE,
 								GRID_SIZE
 							).fill('#AAA').stroke('gray');
-							this.$objects.astar.addChild(this.rectRows[i][j]);
+							this.astar.addChild(this.rectRows[i][j]);
 						}
 					}
 
-					this.engine.on("nodeChanged", (e) = > {
+					this.engine.on("nodeChanged", (e) => {
 						this.refreshNode(e.x, e.y);
-				})
-					;
+					});
 					this.engine.on("finished", function (e) {
 						console.log('result: ', e);
 						if (!e.success) alert("no solution!");
@@ -150,13 +147,11 @@
 					return Math.floor((y - MARGIN) / OFFSET);
 				},
 				gridify: function () {
-					var o = this.$objects;
-
 					for (var k of ['line1', 'line2', 'line3', 'line4', 'line5', 'line6']) {
-						var x1 = o[k].points[0].x + MARGIN;
-						var y1 = o[k].points[0].y + MARGIN;
-						var x2 = o[k].points[1].x + MARGIN;
-						var y2 = o[k].points[1].y + MARGIN;
+						var x1 = this[k].points[0].x + MARGIN;
+						var y1 = this[k].points[0].y + MARGIN;
+						var x2 = this[k].points[1].x + MARGIN;
+						var y2 = this[k].points[1].y + MARGIN;
 
 						if (x1 > x2) [x1, x2] = [x2, x1];
 						if (y1 > y2) [y1, y2] = [y2, y1];
@@ -170,7 +165,7 @@
 							for (var j = iy1; j <= iy2; j++) {
 								var rect = this.rectRows[i][j];
 								if (!rect) continue;
-								var intersect = rect.intersectLine(o[k]);
+								var intersect = rect.intersectLine(this[k]);
 								if (intersect) {
 									var node = this.net.getNode(i, j);
 									node.state = AStar.NODE_STATE_OBSTACLE;
@@ -184,7 +179,6 @@
 			},
 			events: {
 				mousedown: function (e) {
-					var o = this.$objects;
 					var ix = this.pixelToIndexX(e.offsetX - 50, e.offsetY - 50);
 					var iy = this.pixelToIndexY(e.offsetX - 50, e.offsetY - 50);
 
@@ -192,16 +186,16 @@
 
 					this.engine.init();
 					if (e.buttons == Bu.MOUSE.LEFT) {
-						o.start.x = o.path.vertices[0].x = e.offsetX - 50;
-						o.start.y = o.path.vertices[0].y = e.offsetY - 50;
-						o.start.updateLabel();
+						this.start.x = this.path.vertices[0].x = e.offsetX - 50;
+						this.start.y = this.path.vertices[0].y = e.offsetY - 50;
+						this.start.updateLabel();
 
 						if (this.net.getNode(ix, iy).state == AStar.NODE_STATE_DEFAULT)
 							this.net.setStart(ix, iy);
 					} else if (e.buttons == Bu.MOUSE.RIGHT) {
-						o.end.x = o.path.vertices[1].x = e.offsetX - 50;
-						o.end.y = o.path.vertices[1].y = e.offsetY - 50;
-						o.end.updateLabel();
+						this.end.x = this.path.vertices[1].x = e.offsetX - 50;
+						this.end.y = this.path.vertices[1].y = e.offsetY - 50;
+						this.end.updateLabel();
 
 						if (this.net.getNode(ix, iy).state == AStar.NODE_STATE_DEFAULT)
 							this.net.setEnd(ix, iy);

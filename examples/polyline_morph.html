@@ -45,9 +45,8 @@
 				}
 			},
 			init: function () {
-				var o = this.$objects;
-				o.splineA.visible = o.splineB.visible = o.splineM.visible = false;
-				this.$renderer.scene.addChild([o.polylineA, o.polylineB, o.polylineM, o.splineA, o.splineB, o.splineM]);
+				this.splineA.visible = this.splineB.visible = this.splineM.visible = false;
+				this.$renderer.scene.addChild([this.polylineA, this.polylineB, this.polylineM, this.splineA, this.splineB, this.splineM]);
 				this.refreshLabel();
 				$('#btnPolyline').on('click', function () {
 					bu.toggleSpline(!this.checked);
@@ -68,25 +67,22 @@
 			},
 			methods: {
 				refreshLabel: function () {
-					var o = this.$objects;
-
-					for (var i in o.polylineA.vertices) {
-						if (!o.polylineA.vertices.hasOwnProperty(i)) continue;
-						o.polylineA.vertices[i].label = i;
+					for (var i in this.polylineA.vertices) {
+						if (!this.polylineA.vertices.hasOwnProperty(i)) continue;
+						this.polylineA.vertices[i].label = i;
 					}
-					for (i in o.polylineB.vertices) {
-						if (!o.polylineB.vertices.hasOwnProperty(i)) continue;
-						o.polylineB.vertices[i].label = i;
+					for (i in this.polylineB.vertices) {
+						if (!this.polylineB.vertices.hasOwnProperty(i)) continue;
+						this.polylineB.vertices[i].label = i;
 					}
 				},
 				toggleSpline: function (isOn) {
-					var o = this.$objects;
 					if (isOn) {
-						o.polylineA.visible = o.polylineB.visible = o.polylineM.visible = false;
-						o.splineA.visible = o.splineB.visible = o.splineM.visible = true;
+						this.polylineA.visible = this.polylineB.visible = this.polylineM.visible = false;
+						this.splineA.visible = this.splineB.visible = this.splineM.visible = true;
 					} else {
-						o.polylineA.visible = o.polylineB.visible = o.polylineM.visible = true;
-						o.splineA.visible = o.splineB.visible = o.splineM.visible = false;
+						this.polylineA.visible = this.polylineB.visible = this.polylineM.visible = true;
+						this.splineA.visible = this.splineB.visible = this.splineM.visible = false;
 					}
 				},
 			},
@@ -94,9 +90,9 @@
 				mousedown: function (e) {
 					var newPoint = new Bu.Point(e.offsetX, e.offsetY);
 					if (e.button == 0) {
-						this.$objects.polylineA.addPoint(newPoint);
+						this.polylineA.addPoint(newPoint);
 					} else {
-						this.$objects.polylineB.addPoint(newPoint);
+						this.polylineB.addPoint(newPoint);
 					}
 					this.refreshLabel();
 					this.polylineMorph.update();

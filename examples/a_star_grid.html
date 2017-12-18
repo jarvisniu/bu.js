@@ -71,8 +71,6 @@
 				axisTextY: [],
 			},
 			init: function () {
-				var o = this.$objects;
-
 				Bu.animations.discolor.duration = 0.2;
 
 				// set the map
@@ -106,80 +104,80 @@
 
 				// add grid rectangles
 				for (i = 0; i < xCount; i++) {
-					o.rectRows[i] = [];
+					this.rectRows[i] = [];
 					for (j = 0; j < yCount; j++) {
-						o.rectRows[i][j] = new Bu.Rectangle(
+						this.rectRows[i][j] = new Bu.Rectangle(
 							MARGIN + OFFSET * i,
 							MARGIN + OFFSET * j,
 							GRID_SIZE,
 							GRID_SIZE
 						);
-						this.$renderer.scene.addChild(o.rectRows[i][j]);
+						this.$renderer.scene.addChild(this.rectRows[i][j]);
 					}
 				}
 				// add grid path lines
 				for (i = 0; i < xCount; i++) {
-					o.lineRows[i] = [];
+					this.lineRows[i] = [];
 					for (j = 0; j < yCount; j++) {
-						o.lineRows[i][j] = new Bu.Line(
+						this.lineRows[i][j] = new Bu.Line(
 							MARGIN + OFFSET * i + GRID_SIZE / 2,
 							MARGIN + OFFSET * j + GRID_SIZE / 2,
 							MARGIN + OFFSET * i + GRID_SIZE / 2,
 							MARGIN + OFFSET * j + GRID_SIZE / 2
 						);
-						//o.lineRows[i][j].stroke("rgba(0, 128, 255, 0.5");
-						o.lineRows[i][j].lineWidth = 0.5;
-						this.$renderer.scene.addChild(o.lineRows[i][j]);
+						//this.lineRows[i][j].stroke("rgba(0, 128, 255, 0.5");
+						this.lineRows[i][j].lineWidth = 0.5;
+						this.$renderer.scene.addChild(this.lineRows[i][j]);
 					}
 				}
 				// add grid labels
 				for (i = 0; i < xCount; i++) {
-					o.labelGRows[i] = [];
-					o.labelHRows[i] = [];
-					o.labelFRows[i] = [];
+					this.labelGRows[i] = [];
+					this.labelHRows[i] = [];
+					this.labelFRows[i] = [];
 					for (j = 0; j < yCount; j++) {
-						o.labelGRows[i][j] = new Bu.PointText("",
+						this.labelGRows[i][j] = new Bu.PointText("",
 							MARGIN + OFFSET * i + 2,
 							MARGIN + OFFSET * j + GRID_SIZE - 2, {
 								align: "+-"
 							}
 						);
-						o.labelHRows[i][j] = new Bu.PointText("",
+						this.labelHRows[i][j] = new Bu.PointText("",
 							MARGIN + OFFSET * i + GRID_SIZE - 2,
 							MARGIN + OFFSET * j + GRID_SIZE - 2, {
 								align: "--"
 							}
 						);
-						o.labelFRows[i][j] = new Bu.PointText("",
+						this.labelFRows[i][j] = new Bu.PointText("",
 							MARGIN + OFFSET * i + GRID_SIZE / 2,
 							MARGIN + OFFSET * j + 2, {
 								align: "0+"
 							}
 						);
-						o.labelGRows[i][j].fillStyle = o.labelHRows[i][j].fillStyle = "#666";
-						o.labelGRows[i][j].fontFamily = o.labelHRows[i][j].fontFamily = o.labelFRows[i][j].fontFamily = "SimSun";
-						this.$renderer.scene.addChild(o.labelGRows[i][j]);
-						this.$renderer.scene.addChild(o.labelHRows[i][j]);
-						this.$renderer.scene.addChild(o.labelFRows[i][j]);
+						this.labelGRows[i][j].fillStyle = this.labelHRows[i][j].fillStyle = "#666";
+						this.labelGRows[i][j].fontFamily = this.labelHRows[i][j].fontFamily = this.labelFRows[i][j].fontFamily = "SimSun";
+						this.$renderer.scene.addChild(this.labelGRows[i][j]);
+						this.$renderer.scene.addChild(this.labelHRows[i][j]);
+						this.$renderer.scene.addChild(this.labelFRows[i][j]);
 						this.refreshNode(i, j);
 					}
 				}
 				// add axis labels
 				for (i = 0; i < xCount; i++) {
-					o.axisTextX[i] = new Bu.PointText(
+					this.axisTextX[i] = new Bu.PointText(
 						i + 1,
 						MARGIN + OFFSET * i + GRID_SIZE / 2,
 						MARGIN / 2
 					);
-					this.$renderer.scene.addChild(o.axisTextX[i]);
+					this.$renderer.scene.addChild(this.axisTextX[i]);
 				}
 				for (i = 0; i < yCount; i++) {
-					o.axisTextY[i] = new Bu.PointText(
+					this.axisTextY[i] = new Bu.PointText(
 						i + 1,
 						MARGIN / 2,
 						MARGIN + OFFSET * i + GRID_SIZE / 2
 					);
-					this.$renderer.scene.addChild(o.axisTextY[i]);
+					this.$renderer.scene.addChild(this.axisTextY[i]);
 				}
 				this.engine.on("nodeChanged", (e) => {
 					this.refreshNode(e.x, e.y);
@@ -195,10 +193,9 @@
 			},
 			methods: {
 				refreshNode: function (i, j) {
-					var o = this.$objects,
-						node = this.net.getNode(i, j),
-						line = o.lineRows[i][j],
-						rect = this.$objects.rectRows[i][j];
+					var node = this.net.getNode(i, j);
+					var line = this.lineRows[i][j];
+					var rect = this.rectRows[i][j];
 
 					rect.strokeStyle = "gray";
 					rect.animate('discolor', AStar.getStateColor(node.state));
@@ -220,13 +217,13 @@
 
 					// set text
 					if (node.state != AStar.NODE_STATE_OBSTACLE && node.state != AStar.NODE_STATE_DEFAULT) {
-						o.labelGRows[i][j].text = Math.round(node.g * 10);
-						o.labelHRows[i][j].text = Math.round(node.h * 10);
-						o.labelFRows[i][j].text = Math.round(node.f() * 10);
+						this.labelGRows[i][j].text = Math.round(node.g * 10);
+						this.labelHRows[i][j].text = Math.round(node.h * 10);
+						this.labelFRows[i][j].text = Math.round(node.f() * 10);
 					} else {
-						o.labelGRows[i][j].text = "";
-						o.labelHRows[i][j].text = "";
-						o.labelFRows[i][j].text = "";
+						this.labelGRows[i][j].text = "";
+						this.labelHRows[i][j].text = "";
+						this.labelFRows[i][j].text = "";
 					}
 				},
 				pixelToIndexX: function (x, y) {

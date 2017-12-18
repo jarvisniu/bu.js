@@ -238,7 +238,7 @@
 
   if (!((lastTime != null) && currentTime - lastTime < 60 * 1000)) {
     if (typeof console.info === "function") {
-      console.info('Bu.js v' + Bu.VERSION + ' - [https://github.com/jarvisniu/Bu.js]');
+      console.info('Bu.js v' + Bu.version + ' - [https://github.com/jarvisniu/Bu.js]');
     }
     Bu.data('version.timestamp', currentTime);
   }
@@ -1428,13 +1428,12 @@ All supported constructor options:
         k = ref[i];
         (base = this.$options)[k] || (base[k] = {});
       }
-      this.$objects = {};
       this.$inputManager = new Bu.InputManager;
       Bu.ready(this.init, this);
     }
 
     App.prototype.init = function() {
-      var assembleObjects, k, name, ref, scene;
+      var assembleObjects, k, name, objects, ref, scene;
       scene = new Bu.Scene;
       scene.background = this.$options.background || Bu.Scene.DEFAULT_BACKGROUND;
       this.$renderer = new Bu.Renderer(this.$options.renderer);
@@ -1449,16 +1448,13 @@ All supported constructor options:
       for (k in this.$options.methods) {
         this[k] = this.$options.methods[k];
       }
-      if (Bu.isFunction(this.$options.objects)) {
-        this.$objects = this.$options.objects.apply(this);
-      } else {
-        for (name in this.$options.objects) {
-          this.$objects[name] = this.$options.objects[name];
-        }
+      objects = Bu.isFunction(this.$options.objects) ? this.$options.objects.apply(this) : this.$options.objects;
+      for (name in objects) {
+        this[name] = objects[name];
       }
       if (!this.$options.scene) {
         this.$options.scene = {};
-        for (name in this.$objects) {
+        for (name in objects) {
           this.$options.scene[name] = {};
         }
       }
@@ -1468,8 +1464,8 @@ All supported constructor options:
           results = [];
           for (name in children) {
             if (!hasProp.call(children, name)) continue;
-            parent.addChild(_this.$objects[name]);
-            results.push(assembleObjects(children[name], _this.$objects[name]));
+            parent.addChild(objects[name]);
+            results.push(assembleObjects(children[name], objects[name]));
           }
           return results;
         };

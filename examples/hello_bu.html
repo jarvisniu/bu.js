@@ -5,6 +5,7 @@
 	<title>Hello Bu.js</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="../build/bu.js"></script>
+	<script src="js/ClipMeter.min.js"></script>
 	<link rel="stylesheet" href="css/example.css">
 	<script type="text/javascript">
 		var bu = new Bu.App({
@@ -23,9 +24,12 @@
 					}
 				}
 			},
+			init: function () {
+			  console.log(this)
+			},
 			update: function () {
-				this.$objects.sun.rotation += 0.02;
-				this.$objects.earth.rotation += 0.1;
+				this.sun.rotation += 0.02;
+				this.earth.rotation += 0.1;
 			},
 		});
 	</script>

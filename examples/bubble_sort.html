@@ -47,9 +47,9 @@
 				nextStep: function () {
 					if (this.trySort()) {
 						this.stepCount += 1;
-						this.$objects.labelStep.text = 'Step: ' + this.stepCount;
+						this.labelStep.text = 'Step: ' + this.stepCount;
 					} else {
-						this.$objects.labelStatus.text = 'Finished!';
+						this.labelStatus.text = 'Finished!';
 					}
 				},
 				trySort: function () {

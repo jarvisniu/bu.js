@@ -29,25 +29,22 @@
 			},
 			events: {
 				mouseup: function (e) {
-					var o = this.$objects;
 					// Randomize the lines
-					this.randomizer.randomize([o.line, o.polyline]);
+					this.randomizer.randomize([this.line, this.polyline]);
 				},
 				mousemove: function (e) {
-					var o = this.$objects;
-
 					this.mousePos.x = e.offsetX;
 					this.mousePos.y = e.offsetY;
 
-					if (this.mousePos.isNear(o.line))
-						o.line.style('hover');
+					if (this.mousePos.isNear(this.line))
+						this.line.style('hover');
 					else
-						o.line.style();
+						this.line.style();
 
-					if (this.mousePos.isNear(o.polyline))
-						o.polyline.style('hover');
+					if (this.mousePos.isNear(this.polyline))
+						this.polyline.style('hover');
 					else
-						o.polyline.style();
+						this.polyline.style();
 				},
 			},
 		});

@@ -28,15 +28,15 @@
 			update: function () {
 				if (this.$inputManager.isKeyDown('Left')) this.moveSpeed -= 1;
 				if (this.$inputManager.isKeyDown('Right')) this.moveSpeed += 1;
-				this.$objects.bunny.position.x += this.moveSpeed;
+				this.bunny.position.x += this.moveSpeed;
 				this.moveSpeed *= 0.9;
 			},
 			events: {
 				'keydown.Up': function (e) {
-					this.$objects.bunny.animate('jump', 80);
+					this.bunny.animate('jump', 80);
 				},
 				'keydown.Down': function (e) {
-					this.$objects.bunny.animate('shake');
+					this.bunny.animate('shake');
 					this.moo.play();
 				},
 			},

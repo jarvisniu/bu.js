@@ -73,8 +73,6 @@
 				axisTextY: [],
 			},
 			init: function () {
-				var o = this.$objects;
-
 				Bu.animations.discolor.duration = 0.2;
 
 				// set the map
@@ -108,83 +106,83 @@
 
 				// add grid hexagons
 				for (i = 0; i < xCount; i++) {
-					o.hexagonRows[i] = [];
+					this.hexagonRows[i] = [];
 					for (j = 0; j < yCount; j++) {
 						cx = this.getCentralX(i, j);
 						cy = this.getCentralY(i, j);
-						o.hexagonRows[i][j] = new Bu.Polygon(cx, cy, GRID_SIZE / 2, 6, {
+						this.hexagonRows[i][j] = new Bu.Polygon(cx, cy, GRID_SIZE / 2, 6, {
 							angle: Math.PI / 6
 						});
-						this.$renderer.scene.addChild(o.hexagonRows[i][j]);
+						this.$renderer.scene.addChild(this.hexagonRows[i][j]);
 					}
 				}
 
 
 				// add grid path lines
 				for (i = 0; i < xCount; i++) {
-					o.lineRows[i] = [];
+					this.lineRows[i] = [];
 					for (j = 0; j < yCount; j++) {
 						cx = this.getCentralX(i, j);
 						cy = this.getCentralY(i, j);
-						o.lineRows[i][j] = new Bu.Line(cx, cy, cx, cy);
-						//o.lineRows[i][j].stroke("rgba(0, 128, 255, 0.5");
-						o.lineRows[i][j].lineWidth = 0.5;
-						this.$renderer.scene.addChild(o.lineRows[i][j]);
+						this.lineRows[i][j] = new Bu.Line(cx, cy, cx, cy);
+						//this.lineRows[i][j].stroke("rgba(0, 128, 255, 0.5");
+						this.lineRows[i][j].lineWidth = 0.5;
+						this.$renderer.scene.addChild(this.lineRows[i][j]);
 					}
 				}
 
 
 				// add grid labels
 				for (i = 0; i < xCount; i++) {
-					o.labelGRows[i] = [];
-					o.labelHRows[i] = [];
-					o.labelFRows[i] = [];
+					this.labelGRows[i] = [];
+					this.labelHRows[i] = [];
+					this.labelFRows[i] = [];
 					for (j = 0; j < yCount; j++) {
 						cx = this.getCentralX(i, j);
 						cy = this.getCentralY(i, j);
-						o.labelGRows[i][j] = new Bu.PointText("",
+						this.labelGRows[i][j] = new Bu.PointText("",
 							cx - OFFSET_X / 2 + 3,
 							cy, {
 								align: '++'
 							}
 						);
-						o.labelHRows[i][j] = new Bu.PointText("",
+						this.labelHRows[i][j] = new Bu.PointText("",
 							cx + OFFSET_X / 2 - 3,
 							cy, {
 								align: '-+'
 							}
 						);
-						o.labelFRows[i][j] = new Bu.PointText("",
+						this.labelFRows[i][j] = new Bu.PointText("",
 							cx,
 							cy - GRID_SIZE / 4, {
 								align: '00'
 							}
 						);
-						o.labelGRows[i][j].fillStyle = o.labelHRows[i][j].fillStyle = "#666";
-						o.labelGRows[i][j].fontFamily = o.labelHRows[i][j].fontFamily = o.labelFRows[i][j].fontFamily = "SimSun";
-						this.$renderer.scene.addChild(o.labelGRows[i][j]);
-						this.$renderer.scene.addChild(o.labelHRows[i][j]);
-						this.$renderer.scene.addChild(o.labelFRows[i][j]);
+						this.labelGRows[i][j].fillStyle = this.labelHRows[i][j].fillStyle = "#666";
+						this.labelGRows[i][j].fontFamily = this.labelHRows[i][j].fontFamily = this.labelFRows[i][j].fontFamily = "SimSun";
+						this.$renderer.scene.addChild(this.labelGRows[i][j]);
+						this.$renderer.scene.addChild(this.labelHRows[i][j]);
+						this.$renderer.scene.addChild(this.labelFRows[i][j]);
 						this.refreshNode(i, j);
 					}
 				}
 
 				// add axis labels
 				for (i = 0; i < xCount; i++) {
-					o.axisTextX[i] = new Bu.PointText(
+					this.axisTextX[i] = new Bu.PointText(
 						i + 1,
 						this.getCentralX(i, -1),
 						MARGIN / 2
 					);
-					this.$renderer.scene.addChild(o.axisTextX[i]);
+					this.$renderer.scene.addChild(this.axisTextX[i]);
 				}
 				for (i = 0; i < yCount; i++) {
-					o.axisTextY[i] = new Bu.PointText(
+					this.axisTextY[i] = new Bu.PointText(
 						i + 1,
 						this.getCentralX(-1, i),
 						this.getCentralY(-1, i)
 					);
-					this.$renderer.scene.addChild(o.axisTextY[i]);
+					this.$renderer.scene.addChild(this.axisTextY[i]);
 				}
 				this.engine.on("nodeChanged", (e) => {
 					this.refreshNode(e.x, e.y);
@@ -200,11 +198,10 @@
 			},
 			methods: {
 				refreshNode: function (i, j) {
-					var o = this.$objects,
-						node = this.net.getNode(i, j),
-						line = o.lineRows[i][j];
+					var node = this.net.getNode(i, j);
+					var line = this.lineRows[i][j];
 
-					var hexagon = this.$objects.hexagonRows[i][j];
+					var hexagon = this.hexagonRows[i][j];
 					hexagon.strokeStyle = "gray";
 					hexagon.animate('discolor', AStar.getStateColor(node.state));
 
@@ -225,13 +222,13 @@
 
 					// set text
 					if (node.state != AStar.NODE_STATE_OBSTACLE && node.state != AStar.NODE_STATE_DEFAULT) {
-						o.labelGRows[i][j].text = Math.round(node.g * 10);
-						o.labelHRows[i][j].text = Math.round(node.h * 10);
-						o.labelFRows[i][j].text = Math.round(node.f() * 10);
+						this.labelGRows[i][j].text = Math.round(node.g * 10);
+						this.labelHRows[i][j].text = Math.round(node.h * 10);
+						this.labelFRows[i][j].text = Math.round(node.f() * 10);
 					} else {
-						o.labelGRows[i][j].text = "";
-						o.labelHRows[i][j].text = "";
-						o.labelFRows[i][j].text = "";
+						this.labelGRows[i][j].text = "";
+						this.labelHRows[i][j].text = "";
+						this.labelFRows[i][j].text = "";
 					}
 				},
 				pixelToIndexX: function (x, y) {

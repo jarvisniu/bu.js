@@ -30,17 +30,16 @@
 			},
 			events: {
 				mousemove: function (e) {
-					var o = this.$objects;
 					this.mousePos.x = e.offsetX;
 					this.mousePos.y = e.offsetY;
 
-					var dist = o.line.distanceTo(this.mousePos);
-					o.lineVertical.points[0].copy(this.mousePos);
-					o.line.footPointFrom(this.mousePos, o.lineVertical.points[1]);
-					o.lineVertical.points[0].label = "Distance: " + Math.round(dist);
+					var dist = this.line.distanceTo(this.mousePos);
+					this.lineVertical.points[0].copy(this.mousePos);
+					this.line.footPointFrom(this.mousePos, this.lineVertical.points[1]);
+					this.lineVertical.points[0].label = "Distance: " + Math.round(dist);
 				},
 				mouseup: function (e) {
-					this.randomizer.randomize(this.$objects.line);
+					this.randomizer.randomize(this.line);
 				},
 			},
 		});
