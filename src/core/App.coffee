@@ -12,7 +12,7 @@ All supported constructor options:
     data: { var } # variables of this Bu.js app, will be copied to the app object
     methods: { function }# functions of this Bu.js app, will be copied to the app object
     objects: {} or function that returns {} # all the renderable objects
-	hierarchy: # an tree that represent the object hierarchy of the scene, the keys are in `objects`
+	scene: # an tree that represent the object tree of the scene, the keys are in `objects`
     events: # event listeners, 'mousedown', 'mousemove', 'mouseup' will automatically be bound to <canvas>
     init: function # called when the document is ready
     update: function # called every frame
@@ -56,19 +56,19 @@ class Bu.App
 		else
 			@$objects[name] = @$options.objects[name] for name of @$options.objects
 
-		# create default hierarchy
-		unless @$options.hierarchy
-			@$options.hierarchy = {}
+		# create default scene tree
+		unless @$options.scene
+			@$options.scene = {}
 			for name of @$objects
-				@$options.hierarchy[name] = {}
+				@$options.scene[name] = {}
 
-		# assemble hierarchy
+		# assemble scene tree
 		# TODO use an algorithm to avoid circular structure
 		assembleObjects = (children, parent) =>
 			for own name of children
 				parent.addChild @$objects[name]
 				assembleObjects children[name], @$objects[name]
-		assembleObjects @$options.hierarchy, @$renderer.scene
+		assembleObjects @$options.scene, @$renderer.scene
 
 		# init
 		@$options.init?.call @

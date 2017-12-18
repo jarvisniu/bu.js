@@ -61,7 +61,7 @@
 					base: new Bu.Image(null, 192, 384 - 16, 32, 32),
 				}
 			},
-			hierarchy: {
+			scene: {
 				sceneMenu: {
 					txtHighScoreTitle1: {},
 					txtHighScoreValue1: {},
@@ -90,10 +90,11 @@
 				this.$renderer.scene = o.sceneMenu;
 
 				Bu.DEFAULT_FONT = this.font;
-				this.sheet.once('loaded', () => {
+				this.sheet.once('loaded', () = > {
 					o.tank1P.image = o.selector.image = this.sheet.getFrameImage('tank_p1');
-					o.base.image = this.sheet.getFrameImage('base');
-				});
+				o.base.image = this.sheet.getFrameImage('base');
+			})
+				;
 
 				this.scrollAnimTask = this.scrollAnim.applyTo(o.sceneMenu);
 				window.focus();

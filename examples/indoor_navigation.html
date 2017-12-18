@@ -64,7 +64,7 @@
 
 				astar: new Bu.Object2D().translate(50, 50),
 			},
-			hierarchy: {
+			scene: {
 				border: {
 					line1: {},
 					line2: {},
@@ -121,9 +121,10 @@
 						}
 					}
 
-					this.engine.on("nodeChanged", (e) => {
+					this.engine.on("nodeChanged", (e) = > {
 						this.refreshNode(e.x, e.y);
-					});
+				})
+					;
 					this.engine.on("finished", function (e) {
 						console.log('result: ', e);
 						if (!e.success) alert("no solution!");

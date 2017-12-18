@@ -13,7 +13,7 @@ global.Bu = {global}
 #----------------------------------------------------------------------
 
 # Version info
-Bu.VERSION = '0.4.0'
+Bu.version = '0.4.0'
 
 # Browser vendor prefixes, used in experimental features
 Bu.BROWSER_VENDOR_PREFIXES = ['webkit', 'moz', 'ms']
