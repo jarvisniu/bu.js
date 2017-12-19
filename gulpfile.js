@@ -13,7 +13,7 @@ var gulp = require('gulp');
 var del = require('del');
 var open = require('open');
 
-// Gulp plugins: coffee, concat, header, uglify, sourcemaps, liveServer
+// Gulp plugins: coffeescript, rollup, babel, uglify, header, rename, sourcemaps, liveServer
 var plugins = require('gulp-load-plugins')();
 
 // Get version number from `package.json`
@@ -26,17 +26,7 @@ var BU_VER = require('./package.json').version;
 var port = 3000;
 var header = '// Bu.js v' + BU_VER + ' - https://github.com/jarvisniu/Bu.js\n';
 var paths = {
-    src: [
-        'src/Bu.coffee',
-        'src/math/*.coffee',
-        'src/base/*.coffee',
-        'src/core/*.coffee',
-        'src/shapes/*.coffee',
-        'src/drawable/*.coffee',
-        'src/anim/*.coffee',
-        'src/input/*.coffee',
-        'src/extra/*.coffee',
-    ],
+    src: 'src/**/*.coffee',
     ext: [
         'examples/lib/**/*.coffee',
     ],
@@ -60,6 +50,11 @@ var paths = {
     dist_html: 'examples/*.html',
     distTo: 'dist/',
 };
+var rollupConfig = {
+  input: 'src/index.js',
+  format: 'iife',
+  name: 'Bu',
+};
 
 // ------------------------------------------------------------
 // Basal tasks
@@ -73,26 +68,31 @@ gulp.task('clean', function () {
 gulp.task('max', function () {
     return gulp.src(paths.src)
         .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.coffee())
-        .pipe(plugins.concat('bu.js'))
+        .pipe(plugins.coffeescript({bare: true}))
+        .pipe(plugins.rollup(rollupConfig))
+        .pipe(plugins.babel({presets: ['env']}))
         .pipe(plugins.header(header))
+        .pipe(plugins.rename('bu.js'))
         .pipe(plugins.sourcemaps.write('./'))
         .pipe(gulp.dest('build/'));
 });
 
 gulp.task('min', function () {
     return gulp.src(paths.src)
-        .pipe(plugins.concat('bu.min.js'))
-        .pipe(plugins.coffee())
+        .pipe(plugins.coffeescript({bare: true}))
+        .pipe(plugins.rollup(rollupConfig))
+        .pipe(plugins.babel({presets: ['env']}))
         .pipe(plugins.uglify())
         .pipe(plugins.header(header))
+        .pipe(plugins.rename('bu.min.js'))
         .pipe(gulp.dest('build/'));
 });
 
 gulp.task('ext', function () {
     return gulp.src(paths['ext'])
         .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.coffee())
+        .pipe(plugins.coffeescript())
+        .pipe(plugins.babel({presets: ['env']}))
         .pipe(plugins.sourcemaps.write())
         .pipe(gulp.dest('examples/lib/'));
 });

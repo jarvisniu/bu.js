@@ -4,9 +4,7 @@
 # Namespace
 #----------------------------------------------------------------------
 
-global = window or @
-global.Bu = {global}
-
+Bu = window.Bu = {global: window}
 
 #----------------------------------------------------------------------
 # Constants
@@ -219,3 +217,5 @@ lastTime = Bu.data 'version.timestamp'
 unless lastTime? and currentTime - lastTime < 60 * 1000
 	console.info? 'Bu.js v' + Bu.version + ' - [https://github.com/jarvisniu/Bu.js]'
 	Bu.data 'version.timestamp', currentTime
+
+export default Bu
