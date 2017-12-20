@@ -1,6 +1,8 @@
 # Used to render bitmap to the screen
 
-class Bu.Image extends Bu.Object2D
+import Object2D from '../base/Object2D'
+
+class Bu.Image extends Object2D
 
 	constructor: (@url, x = 0, y = 0, width, height) ->
 		super()

@@ -1,5 +1,8 @@
 # Used to generate random shapes
 
+import Bow from '../shapes/Bow'
+import Circle from '../shapes/Circle'
+
 class Bu.ShapeRandomizer
 
 	MARGIN = 30
@@ -67,7 +70,7 @@ class Bu.ShapeRandomizer
 		@
 
 	generateCircle: ->
-		circle = new Bu.Circle @randomRadius(), @randomX(), @randomY()
+		circle = new Circle @randomRadius(), @randomX(), @randomY()
 		circle.center.label = 'O'
 		circle
 
@@ -92,7 +95,7 @@ class Bu.ShapeRandomizer
 		aFrom = Bu.rand Bu.TWO_PI
 		aTo = aFrom + Bu.rand Bu.HALF_PI, Bu.TWO_PI
 
-		bow = new Bu.Bow @randomX(), @randomY(), @randomRadius(), aFrom, aTo
+		bow = new Bow @randomX(), @randomY(), @randomRadius(), aFrom, aTo
 		bow.string.points[0].label = 'A'
 		bow.string.points[1].label = 'B'
 		bow

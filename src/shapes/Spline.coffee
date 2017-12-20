@@ -1,6 +1,11 @@
 # spline shape
 
-class Bu.Spline extends Bu.Object2D
+import Object2D from '../base/Object2D'
+
+import Point from '../shapes/Point'
+import Polyline from '../shapes/Polyline'
+
+class Spline extends Object2D
 
 	type: 'Spline'
 	fillable: no
@@ -8,7 +13,7 @@ class Bu.Spline extends Bu.Object2D
 	constructor: (vertices) ->
 		super()
 
-		if vertices instanceof Bu.Polyline
+		if vertices instanceof Polyline
 			polyline = vertices
 			@vertices = polyline.vertices
 			polyline.on 'pointChange', (polyline) =>
@@ -34,7 +39,7 @@ class Bu.Spline extends Bu.Object2D
 			@_smoother = val
 			calcControlPoints @ if oldVal != @_smoother
 
-	clone: -> new Bu.Spline @vertices
+	clone: -> new Spline @vertices
 
 	addPoint: (point) ->
 		@vertices.push point
@@ -61,9 +66,11 @@ class Bu.Spline extends Bu.Object2D
 				yA = p[i].y - len1 * spline.smoothFactor * Math.sin(theta)
 				xB = p[i].x + len2 * spline.smoothFactor * Math.cos(theta)
 				yB = p[i].y + len2 * spline.smoothFactor * Math.sin(theta)
-				spline.controlPointsAhead[i] = new Bu.Point xA, yA
-				spline.controlPointsBehind[i] = new Bu.Point xB, yB
+				spline.controlPointsAhead[i] = new Point xA, yA
+				spline.controlPointsBehind[i] = new Point xB, yB
 
 				# add control lines for debugging
 				#spline.children[i * 2 - 2] = new Bu.Line spline.vertices[i], spline.controlPointsAhead[i]
 				#spline.children[i * 2 - 1] =  new Bu.Line spline.vertices[i], spline.controlPointsBehind[i]
+
+export default Spline

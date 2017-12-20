@@ -1,6 +1,12 @@
 # polygon shape
 
-class Bu.Polygon extends Bu.Object2D
+import Object2D from '../base/Object2D'
+
+import Line from '../shapes/Line'
+import Point from '../shapes/Point'
+import Triangle from '../shapes/Triangle'
+
+class Polygon extends Object2D
 
 	type: 'Polygon'
 	fillable: yes
@@ -34,14 +40,14 @@ class Bu.Polygon extends Bu.Object2D
 				y = arguments[1]
 				radius = arguments[2]
 				n = arguments[3]
-			@vertices = Bu.Polygon.generateRegularPoints x, y, radius, n, options
+			@vertices = Polygon.generateRegularPoints x, y, radius, n, options
 
 		@onVerticesChanged()
 		@on 'changed', @onVerticesChanged
 		@on 'changed', => @.bounds?.update()
 		@keyPoints = @vertices
 
-	clone: -> new Bu.Polygon @vertices
+	clone: -> new Polygon @vertices
 
 	onVerticesChanged: ->
 		@lines = []
@@ -49,13 +55,13 @@ class Bu.Polygon extends Bu.Object2D
 		# init lines
 		if @vertices.length > 1
 			for i in [0 ... @vertices.length - 1]
-				@lines.push(new Bu.Line(@vertices[i], @vertices[i + 1]))
-			@lines.push(new Bu.Line(@vertices[@vertices.length - 1], @vertices[0]))
+				@lines.push(new Line(@vertices[i], @vertices[i + 1]))
+			@lines.push(new Line(@vertices[@vertices.length - 1], @vertices[0]))
 
 		# init triangles
 		if @vertices.length > 2
 			for i in [1 ... @vertices.length - 1]
-				@triangles.push(new Bu.Triangle(@vertices[0], @vertices[i], @vertices[i + 1]))
+				@triangles.push(new Triangle(@vertices[0], @vertices[i], @vertices[i + 1]))
 
 	# detect
 
@@ -78,11 +84,11 @@ class Bu.Polygon extends Bu.Object2D
 			if @vertices.length > 1
 				@lines[@lines.length - 1].points[1] = point
 			if @vertices.length > 0
-				@lines.push(new Bu.Line(@vertices[@vertices.length - 1], @vertices[0]))
+				@lines.push(new Line(@vertices[@vertices.length - 1], @vertices[0]))
 
 			# add triangle
 			if @vertices.length > 2
-				@triangles.push(new Bu.Triangle(
+				@triangles.push(new Triangle(
 						@vertices[0]
 						@vertices[@vertices.length - 2]
 						@vertices[@vertices.length - 1]
@@ -100,5 +106,7 @@ class Bu.Polygon extends Bu.Object2D
 			a = i * angleSection + angleDelta
 			x = cx + r * Math.cos(a)
 			y = cy + r * Math.sin(a)
-			points[i] = new Bu.Point x, y
+			points[i] = new Point x, y
 		return points
+
+export default Polygon

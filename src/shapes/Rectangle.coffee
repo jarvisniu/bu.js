@@ -1,6 +1,10 @@
 # rectangle shape
 
-class Bu.Rectangle extends Bu.Object2D
+import Object2D from '../base/Object2D'
+
+import Point from '../shapes/Point'
+
+class Rectangle extends Object2D
 
 	type: 'Rectangle'
 	fillable: yes
@@ -8,13 +12,13 @@ class Bu.Rectangle extends Bu.Object2D
 	constructor: (x, y, width, height, cornerRadius = 0) ->
 		super()
 
-		@center = new Bu.Point x + width / 2, y + height / 2
+		@center = new Point x + width / 2, y + height / 2
 		@size = new Bu.Size width, height
 
-		@pointLT = new Bu.Point x, y
-		@pointRT = new Bu.Point x + width, y
-		@pointRB = new Bu.Point x + width, y + height
-		@pointLB = new Bu.Point x, y + height
+		@pointLT = new Point x, y
+		@pointRT = new Point x + width, y
+		@pointRB = new Point x + width, y + height
+		@pointLB = new Point x, y + height
 
 		@points = [@pointLT, @pointRT, @pointRB, @pointLB]
 
@@ -27,7 +31,7 @@ class Bu.Rectangle extends Bu.Object2D
 			@_cornerRadius = val
 			@keyPoints = if val > 0 then [] else @points
 
-	clone: -> new Bu.Rectangle @pointLT.x, @pointLT.y, @size.width, @size.height
+	clone: -> new Rectangle @pointLT.x, @pointLT.y, @size.width, @size.height
 
 	set: (x, y, width, height) ->
 		@center.set x + width / 2, y + height / 2
@@ -37,3 +41,5 @@ class Bu.Rectangle extends Bu.Object2D
 		@pointRT.set x + width, y
 		@pointRB.set x + width, y + height
 		@pointLB.set x, y + height
+
+export default Rectangle

@@ -1,6 +1,11 @@
 # polyline shape
 
-class Bu.Polyline extends Bu.Object2D
+import Object2D from '../base/Object2D'
+
+import Line from '../shapes/Line'
+import Point from '../shapes/Point'
+
+class Polyline extends Object2D
 
 	type: 'Polyline'
 	fillable: no
@@ -11,7 +16,7 @@ class Bu.Polyline extends Bu.Object2D
 		if arguments.length > 1
 			vertices = []
 			for i in [0 ... arguments.length / 2]
-				vertices.push new Bu.Point arguments[i * 2], arguments[i * 2 + 1]
+				vertices.push new Point arguments[i * 2], arguments[i * 2 + 1]
 			@vertices = vertices
 
 		@lines = []
@@ -27,7 +32,7 @@ class Bu.Polyline extends Bu.Object2D
 		@trigger "changed"
 
 	clone: ->
-		polyline = new Bu.Polyline @vertices
+		polyline = new Polyline @vertices
 		polyline.strokeStyle = @strokeStyle
 		polyline.fillStyle = @fillStyle
 		polyline.dashStyle = @dashStyle
@@ -40,7 +45,7 @@ class Bu.Polyline extends Bu.Object2D
 			if @lines[i]?
 				@lines[i].set @vertices[i], @vertices[i + 1]
 			else
-				@lines[i] = new Bu.Line @vertices[i], @vertices[i + 1]
+				@lines[i] = new Line @vertices[i], @vertices[i + 1]
 		# TODO remove the rest
 		@
 
@@ -64,9 +69,11 @@ class Bu.Polyline extends Bu.Object2D
 			@vertices.push point
 			# add line
 			if @vertices.length > 1
-				@lines.push new Bu.Line @vertices[@vertices.length - 2], @vertices[@vertices.length - 1]
+				@lines.push new Line @vertices[@vertices.length - 2], @vertices[@vertices.length - 1]
 		else
 			@vertices.splice insertIndex, 0, point
 		# TODO add lines
 		@trigger "changed"
 		@
+
+export default Polyline

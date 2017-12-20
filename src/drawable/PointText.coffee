@@ -1,6 +1,8 @@
 # Render text around a point
 
-class Bu.PointText extends Bu.Object2D
+import Object2D from '../base/Object2D'
+
+class Bu.PointText extends Object2D
 
 	###
 	options.align:

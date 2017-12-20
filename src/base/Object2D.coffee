@@ -1,13 +1,16 @@
 # Base class of all shapes and other renderable objects
 
-class Bu.Object2D
+import Styled from './Styled'
+import Event from './Event'
+
+class Object2D
 
 	type: 'Object2D'
 	fillable: no
 
 	constructor: () ->
-		Bu.Styled.apply @
-		Bu.Event.apply @
+		Styled.apply @
+		Event.apply @
 
 		@visible = yes
 		@opacity = 1
@@ -121,3 +124,5 @@ class Bu.Object2D
 			return @_containsPoint p
 		else
 			return no
+
+export default Object2D

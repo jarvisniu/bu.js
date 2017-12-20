@@ -1,9 +1,11 @@
 # Used to render all the drawable objects to the canvas
 
+import Event from '../base/Event'
+
 class Bu.Renderer
 
 	constructor: () ->
-		Bu.Event.apply @
+		Event.apply @
 		@type = 'Renderer'
 
 		# API

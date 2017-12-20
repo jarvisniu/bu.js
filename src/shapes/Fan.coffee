@@ -1,6 +1,11 @@
 # Fan shape
 
-class Bu.Fan extends Bu.Object2D
+import Object2D from '../base/Object2D'
+
+import Line from '../shapes/Line'
+import Point from '../shapes/Point'
+
+class Fan extends Object2D
 
 	type: 'Fan'
 	fillable: yes
@@ -10,8 +15,8 @@ class Bu.Fan extends Bu.Object2D
 
 		[@aFrom, @aTo] = [@aTo, @aFrom] if @aFrom > @aTo
 
-		@center = new Bu.Point @cx, @cy
-		@string = new Bu.Line @center.arcTo(@radius, @aFrom), @center.arcTo(@radius, @aTo)
+		@center = new Point @cx, @cy
+		@string = new Line @center.arcTo(@radius, @aFrom), @center.arcTo(@radius, @aTo)
 
 		@keyPoints = [
 			@string.points[0]
@@ -21,10 +26,12 @@ class Bu.Fan extends Bu.Object2D
 		@on 'changed', @updateKeyPoints
 		@on 'changed', => @.bounds?.update()
 
-	clone: -> new Bu.Fan @cx, @cy, @radius, @aFrom, @aTo
+	clone: -> new Fan @cx, @cy, @radius, @aFrom, @aTo
 
 	updateKeyPoints: ->
 		@center.set @cx, @cy
 		@string.points[0].copy @center.arcTo @radius, @aFrom
 		@string.points[1].copy @center.arcTo @radius, @aTo
 		@
+
+export default Fan

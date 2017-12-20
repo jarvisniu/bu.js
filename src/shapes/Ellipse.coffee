@@ -1,6 +1,8 @@
 # Ellipse/Oval Shape
 
-class Bu.Ellipse extends Bu.Object2D
+import Object2D from '../base/Object2D'
+
+class Ellipse extends Object2D
 
 	type: 'Ellipse'
 	fillable: yes
@@ -22,3 +24,5 @@ class Bu.Ellipse extends Bu.Object2D
 		set: (val) ->
 			@_radiusY = val
 			@trigger 'changed', @
+
+export default Ellipse

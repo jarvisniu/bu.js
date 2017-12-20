@@ -1,6 +1,8 @@
 # point shape
 
-class Bu.Point extends Bu.Object2D
+import Object2D from '../base/Object2D'
+
+class Point extends Object2D
 
 	type: 'Point'
 	fillable: yes
@@ -11,7 +13,7 @@ class Bu.Point extends Bu.Object2D
 		@lineWidth = 0.5
 		@_labelIndex = -1
 
-	clone: -> new Bu.Point @x, @y
+	clone: -> new Point @x, @y
 
 	@property 'label',
 		get: -> if @_labelIndex > -1 then @children[@_labelIndex].text else ''
@@ -24,7 +26,7 @@ class Bu.Point extends Bu.Object2D
 				@children[@_labelIndex].text = val
 
 	arcTo: (radius, arc) ->
-		return new Bu.Point @x + Math.cos(arc) * radius, @y + Math.sin(arc) * radius
+		return new Point @x + Math.cos(arc) * radius, @y + Math.sin(arc) * radius
 
 
 	# copy value from other line
@@ -52,3 +54,5 @@ class Bu.Point extends Bu.Object2D
 			@children[@_labelIndex].x = @x + Bu.POINT_LABEL_OFFSET
 			@children[@_labelIndex].y = @y
 		@
+
+export default Point

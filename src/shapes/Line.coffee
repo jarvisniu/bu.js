@@ -1,6 +1,10 @@
 # line shape
 
-class Bu.Line extends Bu.Object2D
+import Object2D from '../base/Object2D'
+
+import Point from '../shapes/Point'
+
+class Line extends Object2D
 
 	type: 'Line'
 	fillable: no
@@ -9,14 +13,14 @@ class Bu.Line extends Bu.Object2D
 		super()
 
 		if arguments.length < 2
-			@points = [new Bu.Point(), new Bu.Point()]
+			@points = [new Point(), new Point()]
 		else if arguments.length < 4
 			@points = [p1.clone(), p2.clone()]
 		else  # len >= 4
-			@points = [new Bu.Point(p1, p2), new Bu.Point(p3, p4)]
+			@points = [new Point(p1, p2), new Point(p3, p4)]
 
 		@length = 0
-		@midpoint = new Bu.Point()
+		@midpoint = new Point()
 		@keyPoints = @points
 
 		@on "changed", =>
@@ -25,7 +29,7 @@ class Bu.Line extends Bu.Object2D
 
 		@trigger "changed"
 
-	clone: -> new Bu.Line @points[0], @points[1]
+	clone: -> new Line @points[0], @points[1]
 
 	# edit
 
@@ -54,3 +58,5 @@ class Bu.Line extends Bu.Object2D
 			@points[1].copy a1
 		@trigger "changed"
 		@
+
+export default Line

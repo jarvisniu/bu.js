@@ -1,9 +1,11 @@
 # Sprite Sheet
 
+import Event from '../base/Event'
+
 class Bu.SpriteSheet
 
 	constructor: (@url) ->
-		Bu.Event.apply @
+		Event.apply @
 
 		@ready = no  # If this sprite sheet is loaded and parsed.
 		@height = 0  # Height of this sprite

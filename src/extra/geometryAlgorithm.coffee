@@ -1,5 +1,17 @@
 # Geometry Algorithm Collection
 
+import Bow from '../shapes/Bow'
+import Circle from '../shapes/Circle'
+import Ellipse from '../shapes/Ellipse'
+import Fan from '../shapes/Fan'
+import Line from '../shapes/Line'
+import Point from '../shapes/Point'
+import Polygon from '../shapes/Polygon'
+import Polyline from '../shapes/Polyline'
+import Rectangle from '../shapes/Rectangle'
+import Spline from '../shapes/Spline'
+import Triangle from '../shapes/Triangle'
+
 Bu.geometryAlgorithm = G =
 
 	inject: ->
@@ -20,11 +32,11 @@ Bu.geometryAlgorithm = G =
 		shapes = [shapes] if Bu.isString shapes
 
 		if 'point' in shapes
-			Bu.Point::inCircle = (circle) ->
+			Point::inCircle = (circle) ->
 				G.pointInCircle @, circle
-			Bu.Point::distanceTo = (point) ->
+			Point::distanceTo = (point) ->
 				G.distanceFromPointToPoint @, point
-			Bu.Point::isNear = (target, limit = Bu.DEFAULT_NEAR_DIST) ->
+			Point::isNear = (target, limit = Bu.DEFAULT_NEAR_DIST) ->
 				switch target.type
 					when 'Point'
 						G.pointNearPoint @, target, limit
@@ -32,64 +44,64 @@ Bu.geometryAlgorithm = G =
 						G.pointNearLine @, target, limit
 					when 'Polyline'
 						G.pointNearPolyline @, target, limit
-			Bu.Point.interpolate = G.interpolateBetweenTwoPoints
+			Point.interpolate = G.interpolateBetweenTwoPoints
 
 		if 'line' in shapes
-			Bu.Line::distanceTo = (point) ->
+			Line::distanceTo = (point) ->
 				G.distanceFromPointToLine point, @
-			Bu.Line::isTwoPointsSameSide = (p1, p2) ->
+			Line::isTwoPointsSameSide = (p1, p2) ->
 				G.twoPointsSameSideOfLine p1, p2, @
-			Bu.Line::footPointFrom = (point, saveTo) ->
+			Line::footPointFrom = (point, saveTo) ->
 				G.footPointFromPointToLine point, @, saveTo
-			Bu.Line::getCrossPointWith = (line) ->
+			Line::getCrossPointWith = (line) ->
 				G.getCrossPointOfTwoLines line, @
-			Bu.Line::isCrossWithLine = (line) ->
+			Line::isCrossWithLine = (line) ->
 				G.isTwoLinesCross line, @
-			Bu.Rectangle::intersectRect = (rect) ->
+			Rectangle::intersectRect = (rect) ->
 				G.isLineIntersectRect @, rect
 
 		if 'circle' in shapes
-			Bu.Circle::_containsPoint = (point) ->
+			Circle::_containsPoint = (point) ->
 				G.pointInCircle point, @
 
 		if 'ellipse' in shapes
-			Bu.Ellipse::_containsPoint = (point) ->
+			Ellipse::_containsPoint = (point) ->
 				G.pointInEllipse point, @
 
 		if 'triangle' in shapes
-			Bu.Triangle::_containsPoint = (point) ->
+			Triangle::_containsPoint = (point) ->
 				G.pointInTriangle point, @
-			Bu.Triangle::area = ->
+			Triangle::area = ->
 				G.calcTriangleArea @
 
 		if 'rectangle' in shapes
-			Bu.Rectangle::containsPoint = (point) ->
+			Rectangle::containsPoint = (point) ->
 				G.pointInRectangle point, @
-			Bu.Rectangle::intersectLine = (line) ->
+			Rectangle::intersectLine = (line) ->
 				G.isLineIntersectRect line, @
 
 		if 'fan' in shapes
-			Bu.Fan::_containsPoint = (point) ->
+			Fan::_containsPoint = (point) ->
 				G.pointInFan point, @
 
 		if 'bow' in shapes
-			Bu.Bow::_containsPoint = (point) ->
+			Bow::_containsPoint = (point) ->
 				G.pointInBow point, @
 
 		if 'polygon' in shapes
-			Bu.Polygon::_containsPoint = (point) ->
+			Polygon::_containsPoint = (point) ->
 				G.pointInPolygon point, @
 
 		if 'polyline' in shapes
-			Bu.Polyline::length = 0
-			Bu.Polyline::pointNormalizedPos = []
-			Bu.Polyline::calcLength = () ->
+			Polyline::length = 0
+			Polyline::pointNormalizedPos = []
+			Polyline::calcLength = () ->
 				@length = G.calcPolylineLength @
-			Bu.Polyline::calcPointNormalizedPos = ->
+			Polyline::calcPointNormalizedPos = ->
 				G.calcNormalizedVerticesPosOfPolyline @
-			Bu.Polyline::getNormalizedPos = (index) ->
+			Polyline::getNormalizedPos = (index) ->
 				if index? then @pointNormalizedPos[index] else @pointNormalizedPos
-			Bu.Polyline::compress = (strength = 0.8) ->
+			Polyline::compress = (strength = 0.8) ->
 				G.compressPolyline @, strength
 
 	# Point in shapes
@@ -172,7 +184,7 @@ Bu.geometryAlgorithm = G =
 		if p3?
 			p3.set x, y
 		else
-			return new Bu.Point x, y
+			return new Point x, y
 
 	# Point with Line
 
@@ -187,7 +199,7 @@ Bu.geometryAlgorithm = G =
 			y02 = (pA.y - pB.y) * (p2.x - pA.x) / (pA.x - pB.x) + pA.y
 			return (p1.y - y01) * (p2.y - y02) > 0
 
-	footPointFromPointToLine: (point, line, saveTo = new Bu.Point) ->
+	footPointFromPointToLine: (point, line, saveTo = new Point) ->
 		p1 = line.points[0]
 		p2 = line.points[1]
 		A = (p1.y - p2.y) / (p1.x - p2.x)
@@ -211,7 +223,7 @@ Bu.geometryAlgorithm = G =
 		c2 = (a2 * q1.x) + (b2 * q1.y)
 		det = (a1 * b2) - (a2 * b1)
 
-		return new Bu.Point ((b2 * c1) - (b1 * c2)) / det, ((a1 * c2) - (a2 * c1)) / det
+		return new Point ((b2 * c1) - (b1 * c2)) / det, ((a1 * c2) - (a2 * c1)) / det
 
 	isTwoLinesCross: (line1, line2) ->
 		x1 = line1.points[0].x
@@ -239,7 +251,7 @@ Bu.geometryAlgorithm = G =
 	# Line with rectangle
 
 	isLineIntersectRect: (line, rect) ->
-		lines = [ new Bu.Line, new Bu.Line, new Bu.Line, new Bu.Line ]
+		lines = [ new Line, new Line, new Line, new Line ]
 		lines[0].set rect.points[0], rect.points[1]
 		lines[1].set rect.points[1], rect.points[2]
 		lines[2].set rect.points[2], rect.points[3]

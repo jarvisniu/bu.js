@@ -7,10 +7,13 @@ import './math/Size'
 import './math/Vector'
 
 # base
-import './base/Event'
 import './base/MicroJQuery'
-import './base/Object2D'
-import './base/Styled'
+import Event from './base/Event'
+import Object2D from './base/Object2D'
+import Styled from './base/Styled'
+Bu.Event = Event
+Bu.Object2D = Object2D
+Bu.Styled = Styled
 
 # core
 import './core/App'
@@ -20,17 +23,29 @@ import './core/Renderer'
 import './core/Scene'
 
 # shapes
-import './shapes/Bow'
-import './shapes/Circle'
-import './shapes/Ellipse'
-import './shapes/Fan'
-import './shapes/Line'
-import './shapes/Point'
-import './shapes/Polygon'
-import './shapes/Polyline'
-import './shapes/Rectangle'
-import './shapes/Spline'
-import './shapes/Triangle'
+import Bow from './shapes/Bow'
+import Circle from './shapes/Circle'
+import Ellipse from './shapes/Ellipse'
+import Fan from './shapes/Fan'
+import Line from './shapes/Line'
+import Point from './shapes/Point'
+import Polygon from './shapes/Polygon'
+import Polyline from './shapes/Polyline'
+import Rectangle from './shapes/Rectangle'
+import Spline from './shapes/Spline'
+import Triangle from './shapes/Triangle'
+
+Bu.Bow = Bow
+Bu.Circle = Circle
+Bu.Ellipse = Ellipse
+Bu.Fan = Fan
+Bu.Line = Line
+Bu.Point = Point
+Bu.Polygon = Polygon
+Bu.Polyline = Polyline
+Bu.Rectangle = Rectangle
+Bu.Spline = Spline
+Bu.Triangle = Triangle
 
 # drawable
 import './drawable/Image'

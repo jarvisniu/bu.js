@@ -1,6 +1,6 @@
 # Add event listener feature to custom objects
 
-Bu.Event = ->
+Event = ->
 	types = {}
 
 	@on = (type, listener) ->
@@ -30,3 +30,5 @@ Bu.Event = ->
 				listener.call this, eventData
 				if listener.once
 					listeners.splice listeners.indexOf(listener), 1
+
+export default Event

@@ -1,6 +1,10 @@
 # Circle shape
 
-class Bu.Circle extends Bu.Object2D
+import Object2D from '../base/Object2D'
+
+import Point from '../shapes/Point'
+
+class Circle extends Object2D
 
 	type: 'Circle'
 	fillable: yes
@@ -8,13 +12,13 @@ class Bu.Circle extends Bu.Object2D
 	constructor: (@_radius = 1, cx = 0, cy = 0) ->
 		super()
 
-		@_center = new Bu.Point(cx, cy)
+		@_center = new Point(cx, cy)
 		@bounds = null # for accelerate contain test
 
 		@keyPoints = [@_center]
 		@on 'centerChanged', @updateKeyPoints
 
-	clone: () -> new Bu.Circle @radius, @cx, @cy
+	clone: () -> new Circle @radius, @cx, @cy
 
 	updateKeyPoints: ->
 		@keyPoints[0].set @cx, @cy
@@ -48,3 +52,5 @@ class Bu.Circle extends Bu.Object2D
 			@_radius = val
 			@trigger 'radiusChanged', @
 			@
+
+export default Circle

@@ -1,6 +1,8 @@
 # Camera: change the view range at the scene
 
-class Bu.Camera extends Bu.Object2D
+import Object2D from '../base/Object2D'
+
+class Bu.Camera extends Object2D
 
 	constructor: () ->
 		super()

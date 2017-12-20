@@ -1,9 +1,9 @@
 # Add color to the shapes
 # This object is dedicated to mixed-in the Object2D.
 
-Bu.Styled = () ->
-	@strokeStyle = Bu.Styled.DEFAULT_STROKE_STYLE
-	@fillStyle = Bu.Styled.DEFAULT_FILL_STYLE
+Styled = () ->
+	@strokeStyle = Styled.DEFAULT_STROKE_STYLE
+	@fillStyle = Styled.DEFAULT_FILL_STYLE
 	@dashStyle = false
 	@dashFlowSpeed = 0
 	@lineWidth = 1
@@ -16,7 +16,7 @@ Bu.Styled = () ->
 			style = Bu.styles[style]
 			if not style?
 				style = Bu.styles.default
-				console.warn "Bu.Styled: Bu.styles.#{ style } doesn't exists, fell back to default."
+				console.warn "Styled: Bu.styles.#{ style } doesn't exists, fell back to default."
 		else if not style?
 			style = Bu.styles['default']
 
@@ -29,7 +29,7 @@ Bu.Styled = () ->
 		v = true unless v?
 		v = Bu.styles[v].strokeStyle if Bu.styles? and v of Bu.styles
 		switch v
-			when true then @strokeStyle = Bu.Styled.DEFAULT_STROKE_STYLE
+			when true then @strokeStyle = Styled.DEFAULT_STROKE_STYLE
 			when false then @strokeStyle = null
 			else
 				@strokeStyle = v
@@ -41,7 +41,7 @@ Bu.Styled = () ->
 		v = Bu.styles[v].fillStyle if Bu.styles? and v of Bu.styles
 		switch v
 			when false then @fillStyle = null
-			when true then @fillStyle = Bu.Styled.DEFAULT_FILL_STYLE
+			when true then @fillStyle = Styled.DEFAULT_FILL_STYLE
 			else
 				@fillStyle = v
 		@
@@ -53,7 +53,7 @@ Bu.Styled = () ->
 		v = [v, v] if Bu.isNumber v
 		switch v
 			when false then @dashStyle = null
-			when true then @dashStyle = Bu.Styled.DEFAULT_DASH_STYLE
+			when true then @dashStyle = Styled.DEFAULT_DASH_STYLE
 			else
 				@dashStyle = v
 		@
@@ -72,14 +72,17 @@ Bu.Styled = () ->
 
 	@
 
-Bu.Styled.DEFAULT_STROKE_STYLE = '#048'
-Bu.Styled.DEFAULT_FILL_STYLE = 'rgba(64, 128, 192, 0.5)'
-Bu.Styled.DEFAULT_DASH_STYLE = [8, 4]
+Styled.DEFAULT_STROKE_STYLE = '#048'
+Styled.DEFAULT_FILL_STYLE = 'rgba(64, 128, 192, 0.5)'
+Styled.DEFAULT_DASH_STYLE = [8, 4]
 
+# TODO move out of here
 Bu.styles =
-	default: new Bu.Styled().stroke().fill()
-	hover: new Bu.Styled().stroke('hsla(0, 100%, 40%, 0.75)').fill('hsla(0, 100%, 75%, 0.5)')
-	text: new Bu.Styled().stroke(false).fill('black')
-	line: new Bu.Styled().fill(false)
-	selected: new Bu.Styled().setLineWidth(3)
-	dash: new Bu.Styled().dash()
+	default: new Styled().stroke().fill()
+	hover: new Styled().stroke('hsla(0, 100%, 40%, 0.75)').fill('hsla(0, 100%, 75%, 0.5)')
+	text: new Styled().stroke(false).fill('black')
+	line: new Styled().fill(false)
+	selected: new Styled().setLineWidth(3)
+	dash: new Styled().dash()
+
+export default Styled

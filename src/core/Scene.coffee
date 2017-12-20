@@ -1,6 +1,8 @@
 # Scene is the root of the object tree
 
-class Bu.Scene extends Bu.Object2D
+import Object2D from '../base/Object2D'
+
+class Bu.Scene extends Object2D
 
 	constructor: () ->
 		super()
