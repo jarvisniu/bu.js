@@ -48,10 +48,10 @@
 				this.splineA.visible = this.splineB.visible = this.splineM.visible = false;
 				this.$renderer.scene.addChild([this.polylineA, this.polylineB, this.polylineM, this.splineA, this.splineB, this.splineM]);
 				this.refreshLabel();
-				$('#btnPolyline').on('click', function () {
+				document.querySelector('#btnPolyline').addEventListener('click', function () {
 					bu.toggleSpline(!this.checked);
 				});
-				$('#btnSpline').on('click', function () {
+				document.querySelector('#btnSpline').addEventListener('click', function () {
 					bu.toggleSpline(this.checked);
 				});
 			},

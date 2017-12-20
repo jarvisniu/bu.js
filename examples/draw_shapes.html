@@ -39,16 +39,19 @@
 			init: function () {
 				this.reactors.point.enable();
 
-				$('#control input').on('click', function () {
-					for (var k in bu.reactors) {
-						if (k == this.id)
-							bu.reactors[k].enable();
-						else
-							bu.reactors[k].disable();
-					}
+				var radios = document.querySelectorAll('#control input');
+				radios.forEach(function (radio) {
+					radio.addEventListener('click', function () {
+						for (var k in bu.reactors) {
+							if (k == this.id)
+								bu.reactors[k].enable();
+							else
+								bu.reactors[k].disable();
+						}
+					});
 				});
 
-				$('#btnShowKeyPoints').on('click', function () {
+				document.querySelector('#btnShowKeyPoints').addEventListener('click', function () {
 					bu.$renderer.showKeyPoints = this.checked;
 				});
 			},

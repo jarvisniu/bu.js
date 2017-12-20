@@ -16,7 +16,7 @@
 		var animSpin, animHelical;
 		var imageUrl = "./assets/textures/bunny.png";
 
-		$.ready(init);
+		document.addEventListener('DOMContentLoaded', init);
 
 		function init() {
 			bu = new Bu.Renderer({ originAtCenter: true });
@@ -51,14 +51,17 @@
 			});
 
 
-			$('#prefab button').attr('onclick', 'prefabAnim(this.innerText);');
-			$('#moveBy').attr('onclick', 'bunny.animate("moveBy", $("#inputMove").val());');
-			$('#moveTo').attr('onclick', 'bunny.animate("moveTo", $("#inputMove").val());');
-			$('#blink').attr('onclick', 'circle.animate("blink");');
-			$('#discolor').attr('onclick', 'circle.animate("discolor", $("#inputDiscolor").val());');
-			$('#spinIn').attr('onclick', 'bunny.animate("spinIn", 2);');
-			$('#helical').on('click', applyHelical);
-			$('#multiple').on('click', applyMultiple);
+			var prefabButtons = document.querySelectorAll('#prefab button');
+			prefabButtons.forEach(function (button) {
+				button.setAttribute('onclick', 'prefabAnim(this.innerText);');
+			});
+			document.querySelector('#moveBy').setAttribute('onclick', 'bunny.animate("moveBy", document.querySelector("#inputMove").value);');
+			document.querySelector('#moveTo').setAttribute('onclick', 'bunny.animate("moveTo", document.querySelector("#inputMove").value);');
+			document.querySelector('#blink').setAttribute('onclick', 'circle.animate("blink");');
+			document.querySelector('#discolor').setAttribute('onclick', 'circle.animate("discolor", document.querySelector("#inputDiscolor").value);');
+			document.querySelector('#spinIn').setAttribute('onclick', 'bunny.animate("spinIn", 2);');
+			document.querySelector('#helical').addEventListener('click', applyHelical);
+			document.querySelector('#multiple').addEventListener('click', applyMultiple);
 		}
 
 		function prefabAnim(type) {
@@ -70,7 +73,7 @@
 		}
 
 		function applyMultiple() {
-			bunny.animate(['moveBy', 'spin'], $("#inputMove").val());
+			bunny.animate(['moveBy', 'spin'], document.querySelector("#inputMove").value);
 		}
 	</script>
 </head>

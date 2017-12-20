@@ -65,10 +65,10 @@
 				}
 			},
 			init: function () {
-				$('#btnKeyPoints').on('click', function () {
+				document.querySelector('#btnKeyPoints').addEventListener('click', function () {
 					bu.$renderer.showKeyPoints = this.checked;
 				});
-				$('#btnDashStroke').on('click', function () {
+				document.querySelector('#btnDashStroke').addEventListener('click', function () {
 					bu.setDashStroke(this.checked);
 				});
 			},

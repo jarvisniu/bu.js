@@ -19,7 +19,7 @@ class Animation
 	applyTo: (target, args) ->
 		args = [args] unless Bu.isArray args
 		task = new AnimationTask @, target, args
-		Bu.animationRunner.add task
+		Bu.animationRunner.add task # TODO use module
 		task
 
 	isLegal: ->
@@ -34,6 +34,7 @@ class Animation
 
 # Preset Animations
 # Some of the animations are consistent with jQuery UI
+# TODO remove out of here
 Bu.animations =
 
 	#----------------------------------------------------------------------

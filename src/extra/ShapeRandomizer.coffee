@@ -2,6 +2,14 @@
 
 import Bow from '../shapes/Bow'
 import Circle from '../shapes/Circle'
+import Ellipse from '../shapes/Ellipse'
+import Fan from '../shapes/Fan'
+import Line from '../shapes/Line'
+import Point from '../shapes/Point'
+import Polyline from '../shapes/Polyline'
+import Polygon from '../shapes/Polygon'
+import Rectangle from '../shapes/Rectangle'
+import Triangle from '../shapes/Triangle'
 
 class ShapeRandomizer
 
@@ -81,7 +89,7 @@ class ShapeRandomizer
 		@
 
 	generateEllipse: ->
-		ellipse = new Bu.Ellipse @randomRadius(), @randomRadius()
+		ellipse = new Ellipse @randomRadius(), @randomRadius()
 		@randomizePosition ellipse
 		ellipse
 
@@ -116,7 +124,7 @@ class ShapeRandomizer
 		aFrom = Bu.rand Bu.TWO_PI
 		aTo = aFrom + Bu.rand Bu.HALF_PI, Bu.TWO_PI
 
-		fan = new Bu.Fan @randomX(), @randomY(), @randomRadius(), aFrom, aTo
+		fan = new Fan @randomX(), @randomY(), @randomRadius(), aFrom, aTo
 		fan.center.label = 'O'
 		fan.string.points[0].label = 'A'
 		fan.string.points[1].label = 'B'
@@ -127,9 +135,9 @@ class ShapeRandomizer
 	generateTriangle: ->
 		points = []
 		for i in [0..2]
-			points[i] = new Bu.Point @randomX(), @randomY()
+			points[i] = new Point @randomX(), @randomY()
 
-		triangle = new Bu.Triangle points[0], points[1], points[2]
+		triangle = new Triangle points[0], points[1], points[2]
 		triangle.points[0].label = 'A'
 		triangle.points[1].label = 'B'
 		triangle.points[2].label = 'C'
@@ -141,7 +149,7 @@ class ShapeRandomizer
 		@
 
 	generateRectangle: ->
-		rect = new Bu.Rectangle(
+		rect = new Rectangle(
 			Bu.rand(@rangeX + @rangeWidth)
 			Bu.rand(@rangeY + @rangeHeight)
 			Bu.rand(@rangeWidth / 2)
@@ -162,11 +170,11 @@ class ShapeRandomizer
 		points = []
 
 		for i in [0..3]
-			point = new Bu.Point @randomX(), @randomY()
+			point = new Point @randomX(), @randomY()
 			point.label = 'P' + i
 			points.push point
 
-		new Bu.Polygon points
+		new Polygon points
 
 	randomizePolygon: (polygon) ->
 		vertex.set @randomX(), @randomY() for vertex in polygon.vertices
@@ -174,7 +182,7 @@ class ShapeRandomizer
 		@
 
 	generateLine: ->
-		line = new Bu.Line @randomX(), @randomY(), @randomX(), @randomY()
+		line = new Line @randomX(), @randomY(), @randomX(), @randomY()
 		line.points[0].label = 'A'
 		line.points[1].label = 'B'
 		line
@@ -185,9 +193,9 @@ class ShapeRandomizer
 		@
 
 	generatePolyline: ->
-		polyline = new Bu.Polyline
+		polyline = new Polyline
 		for i in [0..3]
-			point = new Bu.Point @randomX(), @randomY()
+			point = new Point @randomX(), @randomY()
 			point.label = 'P' + i
 			polyline.addPoint point
 		polyline

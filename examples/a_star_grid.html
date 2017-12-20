@@ -78,23 +78,29 @@
 				this.net.setEnd(END_POS.x, END_POS.y);
 
 				// bind events
-				$("#btnInit").on("click", () => {
+				document.querySelector("#btnInit").addEventListener("click", () => {
 					this.engine.init();
-					$("#btnInit").attr("disabled", "");
-					$("#btnRun, #btnRunInSteps, #btnNextStep").removeAttr("disabled");
+					document.querySelector("#btnInit").setAttribute("disabled", "");
+					document.querySelector("#btnRun").removeAttribute("disabled");
+					document.querySelector("#btnRunInSteps").removeAttribute("disabled");
+					document.querySelector("#btnNextStep").removeAttribute("disabled");
 				});
-				$("#btnRun").on("click", () => {
+				document.querySelector("#btnRun").addEventListener("click", () => {
 					this.engine.run();
-					$("#btnRunInSteps, #btnNextStep").attr("disabled", "");
+					document.querySelector("#btnRunInSteps").setAttribute("disabled", "");
+					document.querySelector("#btnNextStep").setAttribute("disabled", "");
 				});
-				$("#btnRunInSteps").on("click", () => {
+				document.querySelector("#btnRunInSteps").addEventListener("click", () => {
 					this.engine.run(10);
-					$("#btnRun, #btnRunInSteps, #btnNextStep").attr("disabled", "");
+					document.querySelector("#btnRun").setAttribute("disabled", "");
+					document.querySelector("#btnRunInSteps").setAttribute("disabled", "");
+					document.querySelector("#btnNextStep").setAttribute("disabled", "");
 				});
-				$("#btnNextStep").on("click", () => {
+				document.querySelector("#btnNextStep").addEventListener("click", () => {
 					this.engine.step();
-					$("#btnRun, #btnRunInSteps").attr("disabled", "");
-					$("#btnInit").removeAttr("disabled");
+					document.querySelector("#btnRun").setAttribute("disabled", "");
+					document.querySelector("#btnRunInSteps").setAttribute("disabled", "");
+					document.querySelector("#btnInit").removeAttribute("disabled");
 				});
 
 				// temporary variables
@@ -186,8 +192,10 @@
 					console.log('result: ', e);
 					if (!e.success) alert("no solution!");
 
-					$("#btnInit").removeAttr("disabled");
-					$("#btnRun, #btnRunInSteps, #btnNextStep").attr("disabled", "");
+					document.querySelector("#btnInit").removeAttribute("disabled");
+					document.querySelector("#btnRun").setAttribute("disabled", "");
+					document.querySelector("#btnRunInSteps").setAttribute("disabled", "");
+					document.querySelector("#btnNextStep").setAttribute("disabled", "");
 				});
 				this.engine.init();
 			},

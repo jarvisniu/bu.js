@@ -956,284 +956,6 @@ var Bu = function () {
 
   var Size$1 = Size;
 
-  //----------------------------------------------------------------------
-  // MicroJQuery - A micro version of jQuery
-
-  // Supported features:
-  //   $. - static methods
-  //     .ready(cb) - call the callback function after the page is loaded
-  //     .ajax([url,] options) - perform an ajax request
-  //   $(selector) - select element(s)
-  //     .on(type, callback) - add an event listener
-  //     .off(type, callback) - remove an event listener
-  //     .append(tagName) - append a tag
-  //     .text(text) - set the inner text
-  //     .html(htmlText) - set the inner HTML
-  //     .style(name, value) - set style (a css attribute)
-  //     #.css(object) - set styles (multiple css attribute)
-  //     .hasClass(className) - detect whether a class exists
-  //     .addClass(className) - add a class
-  //     .removeClass(className) - remove a class
-  //     .toggleClass(className) - toggle a class
-  //     .attr(name, value) - set an attribute
-  //     .hasAttr(name) - detect whether an attribute exists
-  //     .removeAttr(name) - remove an attribute
-  //   Notes:
-  //        # is planned but not implemented
-  //----------------------------------------------------------------------
-  (function (global) {
-    var jQuery;
-    // selector
-    global.$ = function (selector) {
-      var selections;
-      selections = [];
-      if (typeof selector === 'string') {
-        selections = [].slice.call(document.querySelectorAll(selector));
-      } else if (selector instanceof HTMLElement) {
-        selections.push(selector);
-      }
-      jQuery.apply(selections);
-      return selections;
-    };
-    jQuery = function jQuery() {
-      var _this3 = this;
-
-      var SVG_TAGS;
-      // event
-      this.on = function (type, callback) {
-        _this3.each(function (dom) {
-          return dom.addEventListener(type, callback);
-        });
-        return _this3;
-      };
-      this.off = function (type, callback) {
-        _this3.each(function (dom) {
-          return dom.removeEventListener(type, callback);
-        });
-        return _this3;
-      };
-      // DOM Manipulation
-      SVG_TAGS = 'svg line rect circle ellipse polyline polygon path text';
-      this.append = function (tag) {
-        _this3.each(function (dom, i) {
-          var newDom, tagIndex;
-          tagIndex = SVG_TAGS.indexOf(tag.toLowerCase());
-          if (tagIndex > -1) {
-            newDom = document.createElementNS('http://www.w3.org/2000/svg', tag);
-          } else {
-            newDom = document.createElement(tag);
-          }
-          return _this3[i] = dom.appendChild(newDom);
-        });
-        return _this3;
-      };
-      this.text = function (str) {
-        _this3.each(function (dom) {
-          return dom.textContent = str;
-        });
-        return _this3;
-      };
-      this.html = function (str) {
-        _this3.each(function (dom) {
-          return dom.innerHTML = str;
-        });
-        return _this3;
-      };
-      this.width = function (w) {
-        if (w != null) {
-          _this3.each(function (dom) {
-            return dom.style.width = w + 'px';
-          });
-          return _this3;
-        } else {
-          return parseFloat(getComputedStyle(_this3[0]).width);
-        }
-      };
-      this.height = function (h) {
-        if (h != null) {
-          _this3.each(function (dom) {
-            return dom.style.height = h + 'px';
-          });
-          return _this3;
-        } else {
-          return parseFloat(getComputedStyle(_this3[0]).height);
-        }
-      };
-      this.style = function (name, value) {
-        _this3.each(function (dom) {
-          var i, styleText, styles;
-          styleText = dom.getAttribute('style');
-          styles = {};
-          if (styleText) {
-            styleText.split(';').each(function (n) {
-              var nv;
-              nv = n.split(':');
-              return styles[nv[0]] = nv[1];
-            });
-          }
-          styles[name] = value;
-          // concat
-          styleText = '';
-          for (i in styles) {
-            styleText += i + ': ' + styles[i] + '; ';
-          }
-          return dom.setAttribute('style', styleText);
-        });
-        return _this3;
-      };
-      this.hasClass = function (name) {
-        var classText, classes, i;
-        if (_this3.length === 0) {
-          return false;
-        }
-        // if multiple, every DOM should have the class
-        i = 0;
-        while (i < _this3.length) {
-          classText = _this3[i].getAttribute('class' || '');
-          // not use ' ' to avoid multiple spaces like 'a   b'
-          classes = classText.split(RegExp(' +'));
-          if (!classes.contains(name)) {
-            return false;
-          }
-          i++;
-        }
-        return _this3;
-      };
-      this.addClass = function (name) {
-        _this3.each(function (dom) {
-          var classText, classes;
-          classText = dom.getAttribute('class' || '');
-          classes = classText.split(RegExp(' +'));
-          if (!classes.contains(name)) {
-            classes.push(name);
-            return dom.setAttribute('class', classes.join(' '));
-          }
-        });
-        return _this3;
-      };
-      this.removeClass = function (name) {
-        _this3.each(function (dom) {
-          var classText, classes;
-          classText = dom.getAttribute('class') || '';
-          classes = classText.split(RegExp(' +'));
-          if (classes.contains(name)) {
-            classes.remove(name);
-            if (classes.length > 0) {
-              return dom.setAttribute('class', classes.join(' '));
-            } else {
-              return dom.removeAttribute('class');
-            }
-          }
-        });
-        return _this3;
-      };
-      this.toggleClass = function (name) {
-        _this3.each(function (dom) {
-          var classText, classes;
-          classText = dom.getAttribute('class' || '');
-          classes = classText.split(RegExp(' +'));
-          if (classes.contains(name)) {
-            classes.remove(name);
-          } else {
-            classes.push(name);
-          }
-          if (classes.length > 0) {
-            return dom.setAttribute('class', classes.join(' '));
-          } else {
-            return dom.removeAttribute('class');
-          }
-        });
-        return _this3;
-      };
-      this.attr = function (name, value) {
-        if (value != null) {
-          _this3.each(function (dom) {
-            return dom.setAttribute(name, value);
-          });
-          return _this3;
-        } else {
-          return _this3[0].getAttribute(name);
-        }
-      };
-      this.hasAttr = function (name) {
-        var i;
-        if (_this3.length === 0) {
-          return false;
-        }
-        i = 0;
-        while (i < _this3.length) {
-          if (!_this3[i].hasAttribute(name)) {
-            return false;
-          }
-          i++;
-        }
-        return _this3;
-      };
-      this.removeAttr = function (name) {
-        _this3.each(function (dom) {
-          return dom.removeAttribute(name);
-        });
-        return _this3;
-      };
-      return this.val = function () {
-        var ref;
-        return (ref = _this3[0]) != null ? ref.value : void 0;
-      };
-    };
-    // $.ready()
-    global.$.ready = function (onLoad) {
-      return document.addEventListener('DOMContentLoaded', onLoad);
-    };
-    //----------------------------------------------------------------------
-    // $.ajax()
-    //	options:
-    //		url: string
-    //		====
-    //		async = true: bool
-    //	data: object - query parameters TODO: implement this
-    //		method = GET: POST, PUT, DELETE, HEAD
-    //		username: string
-    //		password: string
-    //		success: function
-    //		error: function
-    //		complete: function
-    //----------------------------------------------------------------------
-    return global.$.ajax = function (url, ops) {
-      var xhr;
-      if (!ops) {
-        if ((typeof url === 'undefined' ? 'undefined' : _typeof(url)) === 'object') {
-          ops = url;
-          url = ops.url;
-        } else {
-          ops = {};
-        }
-      }
-      ops.method || (ops.method = 'GET');
-      if (ops.async == null) {
-        ops.async = true;
-      }
-      xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            if (ops.success != null) {
-              return ops.success(xhr.responseText, xhr.status, xhr);
-            }
-          } else {
-            if (ops.error != null) {
-              ops.error(xhr, xhr.status);
-            }
-            if (ops.complete != null) {
-              return ops.complete(xhr, xhr.status);
-            }
-          }
-        }
-      };
-      xhr.open(ops.method, url, ops.async, ops.username, ops.password);
-      return xhr.send(null);
-    };
-  })(Bu.global);
-
   // Add event listener feature to custom objects
   var Event;
 
@@ -1638,10 +1360,10 @@ var Bu = function () {
     function Camera() {
       _classCallCheck(this, Camera);
 
-      var _this4 = _possibleConstructorReturn(this, (Camera.__proto__ || Object.getPrototypeOf(Camera)).call(this));
+      var _this3 = _possibleConstructorReturn(this, (Camera.__proto__ || Object.getPrototypeOf(Camera)).call(this));
 
-      _this4.type = 'Camera';
-      return _this4;
+      _this3.type = 'Camera';
+      return _this3;
     }
 
     return Camera;
@@ -1658,12 +1380,12 @@ var Bu = function () {
     function Scene() {
       _classCallCheck(this, Scene);
 
-      var _this5 = _possibleConstructorReturn(this, (Scene.__proto__ || Object.getPrototypeOf(Scene)).call(this));
+      var _this4 = _possibleConstructorReturn(this, (Scene.__proto__ || Object.getPrototypeOf(Scene)).call(this));
 
-      _this5.type = 'Scene';
-      _this5.background = Scene.DEFAULT_BACKGROUND;
-      _this5.renderer = null;
-      return _this5;
+      _this4.type = 'Scene';
+      _this4.background = Scene.DEFAULT_BACKGROUND;
+      _this4.renderer = null;
+      return _this4;
     }
 
     return Scene;
@@ -1679,11 +1401,11 @@ var Bu = function () {
   Renderer = function () {
     var Renderer = function () {
       function Renderer() {
-        var _this6 = this;
+        var _this5 = this;
 
         _classCallCheck(this, Renderer);
 
-        var delayed, j, len1, name, onResize, options, ref, _tick;
+        var delayed, domBody, domHtml, j, len1, name, onResize, options, ref, _tick;
         // Draw an array of drawables
         this.drawShapes = this.drawShapes.bind(this);
         // Draw an drawable to the canvas
@@ -1733,26 +1455,29 @@ var Bu = function () {
           this.container = document.querySelector(this.container);
         }
         if (this.fillParent && this.container === document.body) {
-          $('body').style('margin', 0).style('overflow', 'hidden');
-          $('html, body').style('width', '100%').style('height', '100%');
+          domHtml = document.querySelector('html');
+          domBody = document.querySelector('body');
+          domBody.style.margin = '0';
+          domBody.style.overflow = 'hidden';
+          domHtml.style.width = domHtml.style.height = domBody.style.width = domBody.style.height = '100%';
         }
         // Set sizes for renderer property, dom attribute and dom style
         onResize = function onResize() {
           var canvasRatio, containerRatio;
-          canvasRatio = _this6.dom.height / _this6.dom.width;
-          containerRatio = _this6.container.clientHeight / _this6.container.clientWidth;
+          canvasRatio = _this5.dom.height / _this5.dom.width;
+          containerRatio = _this5.container.clientHeight / _this5.container.clientWidth;
           if (containerRatio < canvasRatio) {
-            _this6.height = _this6.container.clientHeight;
-            _this6.width = _this6.height / containerRatio;
+            _this5.height = _this5.container.clientHeight;
+            _this5.width = _this5.height / containerRatio;
           } else {
-            _this6.width = _this6.container.clientWidth;
-            _this6.height = _this6.width * containerRatio;
+            _this5.width = _this5.container.clientWidth;
+            _this5.height = _this5.width * containerRatio;
           }
-          _this6.pixelWidth = _this6.dom.width = _this6.width * _this6.pixelRatio;
-          _this6.pixelHeight = _this6.dom.height = _this6.height * _this6.pixelRatio;
-          _this6.dom.style.width = _this6.width + 'px';
-          _this6.dom.style.height = _this6.height + 'px';
-          return _this6.render();
+          _this5.pixelWidth = _this5.dom.width = _this5.width * _this5.pixelRatio;
+          _this5.pixelHeight = _this5.dom.height = _this5.height * _this5.pixelRatio;
+          _this5.dom.style.width = _this5.width + 'px';
+          _this5.dom.style.height = _this5.height + 'px';
+          return _this5.render();
         };
         if (!this.fillParent) {
           this.dom.style.width = this.width + 'px';
@@ -1769,15 +1494,15 @@ var Bu = function () {
         }
         // Run the loop
         _tick = function tick() {
-          if (_this6.isRunning) {
-            if (_this6.clipMeter != null) {
-              _this6.clipMeter.start();
+          if (_this5.isRunning) {
+            if (_this5.clipMeter != null) {
+              _this5.clipMeter.start();
             }
-            _this6.render();
-            _this6.trigger('update', _this6);
-            _this6.tickCount += 1;
-            if (_this6.clipMeter != null) {
-              _this6.clipMeter.tick();
+            _this5.render();
+            _this5.trigger('update', _this5);
+            _this5.tickCount += 1;
+            if (_this5.clipMeter != null) {
+              _this5.clipMeter.tick();
             }
           }
           return requestAnimationFrame(_tick);
@@ -1785,8 +1510,8 @@ var Bu = function () {
         _tick();
         // Append <canvas> dom into the container
         delayed = function delayed() {
-          _this6.container.appendChild(_this6.dom);
-          return _this6.imageSmoothing = options.imageSmoothing;
+          _this5.container.appendChild(_this5.dom);
+          return _this5.imageSmoothing = options.imageSmoothing;
         };
         setTimeout(delayed, 1);
         // Hook up with running components
@@ -2203,16 +1928,16 @@ var Bu = function () {
   InputManager = function () {
     var InputManager = function () {
       function InputManager() {
-        var _this7 = this;
+        var _this6 = this;
 
         _classCallCheck(this, InputManager);
 
         this.keyStates = [];
         window.addEventListener('keydown', function (e) {
-          return _this7.keyStates[e.keyCode] = true;
+          return _this6.keyStates[e.keyCode] = true;
         });
         window.addEventListener('keyup', function (e) {
-          return _this7.keyStates[e.keyCode] = false;
+          return _this6.keyStates[e.keyCode] = false;
         });
       }
 
@@ -2406,7 +2131,7 @@ var Bu = function () {
     _createClass(App, [{
       key: 'init',
       value: function init() {
-        var _this8 = this,
+        var _this7 = this,
             _arguments2 = arguments;
 
         var _assembleObjects, k, name, objects, ref, scene;
@@ -2462,7 +2187,7 @@ var Bu = function () {
         // update
         if (this.$options.update != null) {
           return this.$renderer.on('update', function () {
-            return _this8.$options.update.apply(_this8, _arguments2);
+            return _this7.$options.update.apply(_this7, _arguments2);
           });
         }
       }
@@ -2491,11 +2216,11 @@ var Bu = function () {
     _createClass(Audio, [{
       key: 'load',
       value: function load(url) {
-        var _this9 = this;
+        var _this8 = this;
 
         this.url = url;
         this.audio.addEventListener('canplay', function () {
-          return _this9.ready = true;
+          return _this8.ready = true;
         });
         return this.audio.src = url;
       }
@@ -2541,28 +2266,28 @@ var Bu = function () {
 
         var options;
 
-        var _this10 = _possibleConstructorReturn(this, (PointText.__proto__ || Object.getPrototypeOf(PointText)).call(this));
+        var _this9 = _possibleConstructorReturn(this, (PointText.__proto__ || Object.getPrototypeOf(PointText)).call(this));
 
-        _this10.text = text;
-        _this10.x = x;
-        _this10.y = y;
-        _this10.type = 'PointText';
-        _this10.strokeStyle = null; // no stroke by default
-        _this10.fillStyle = 'black';
+        _this9.text = text;
+        _this9.x = x;
+        _this9.y = y;
+        _this9.type = 'PointText';
+        _this9.strokeStyle = null; // no stroke by default
+        _this9.fillStyle = 'black';
         options = Bu.combineOptions(arguments, {
           align: '00'
         });
-        _this10.align = options.align;
+        _this9.align = options.align;
         if (options.font != null) {
-          _this10.font = options.font;
+          _this9.font = options.font;
         } else if (options.fontFamily != null || options.fontSize != null) {
-          _this10._fontFamily = options.fontFamily || Bu.DEFAULT_FONT_FAMILY;
-          _this10._fontSize = options.fontSize || Bu.DEFAULT_FONT_SIZE;
-          _this10.font = _this10._fontSize + 'px ' + _this10._fontFamily;
+          _this9._fontFamily = options.fontFamily || Bu.DEFAULT_FONT_FAMILY;
+          _this9._fontSize = options.fontSize || Bu.DEFAULT_FONT_SIZE;
+          _this9.font = _this9._fontSize + 'px ' + _this9._fontFamily;
         } else {
-          _this10.font = null;
+          _this9.font = null;
         }
-        return _this10;
+        return _this9;
       }
 
       _createClass(PointText, [{
@@ -2661,13 +2386,13 @@ var Bu = function () {
 
         _classCallCheck(this, Point);
 
-        var _this11 = _possibleConstructorReturn(this, (Point.__proto__ || Object.getPrototypeOf(Point)).call(this));
+        var _this10 = _possibleConstructorReturn(this, (Point.__proto__ || Object.getPrototypeOf(Point)).call(this));
 
-        _this11.x = x1;
-        _this11.y = y1;
-        _this11.lineWidth = 0.5;
-        _this11._labelIndex = -1;
-        return _this11;
+        _this10.x = x1;
+        _this10.y = y1;
+        _this10.lineWidth = 0.5;
+        _this10._labelIndex = -1;
+        return _this10;
       }
 
       _createClass(Point, [{
@@ -2767,25 +2492,25 @@ var Bu = function () {
       function Line(p1, p2, p3, p4) {
         _classCallCheck(this, Line);
 
-        var _this12 = _possibleConstructorReturn(this, (Line.__proto__ || Object.getPrototypeOf(Line)).call(this));
+        var _this11 = _possibleConstructorReturn(this, (Line.__proto__ || Object.getPrototypeOf(Line)).call(this));
 
         if (arguments.length < 2) {
-          _this12.points = [new Point$1(), new Point$1()];
+          _this11.points = [new Point$1(), new Point$1()];
         } else if (arguments.length < 4) {
-          _this12.points = [p1.clone(), p2.clone() // len >= 4
+          _this11.points = [p1.clone(), p2.clone() // len >= 4
           ];
         } else {
-          _this12.points = [new Point$1(p1, p2), new Point$1(p3, p4)];
+          _this11.points = [new Point$1(p1, p2), new Point$1(p3, p4)];
         }
-        _this12.length = 0;
-        _this12.midpoint = new Point$1();
-        _this12.keyPoints = _this12.points;
-        _this12.on("changed", function () {
-          _this12.length = _this12.points[0].distanceTo(_this12.points[1]);
-          return _this12.midpoint.set((_this12.points[0].x + _this12.points[1].x) / 2, (_this12.points[0].y + _this12.points[1].y) / 2);
+        _this11.length = 0;
+        _this11.midpoint = new Point$1();
+        _this11.keyPoints = _this11.points;
+        _this11.on("changed", function () {
+          _this11.length = _this11.points[0].distanceTo(_this11.points[1]);
+          return _this11.midpoint.set((_this11.points[0].x + _this11.points[1].x) / 2, (_this11.points[0].y + _this11.points[1].y) / 2);
         });
-        _this12.trigger("changed");
-        return _this12;
+        _this11.trigger("changed");
+        return _this11;
       }
 
       _createClass(Line, [{
@@ -2855,28 +2580,28 @@ var Bu = function () {
       function Bow(cx, cy, radius, aFrom, aTo) {
         _classCallCheck(this, Bow);
 
-        var _this13 = _possibleConstructorReturn(this, (Bow.__proto__ || Object.getPrototypeOf(Bow)).call(this));
+        var _this12 = _possibleConstructorReturn(this, (Bow.__proto__ || Object.getPrototypeOf(Bow)).call(this));
 
-        _this13.cx = cx;
-        _this13.cy = cy;
-        _this13.radius = radius;
-        _this13.aFrom = aFrom;
-        _this13.aTo = aTo;
-        if (_this13.aFrom > _this13.aTo) {
-          var _ref2 = [_this13.aTo, _this13.aFrom];
-          _this13.aFrom = _ref2[0];
-          _this13.aTo = _ref2[1];
+        _this12.cx = cx;
+        _this12.cy = cy;
+        _this12.radius = radius;
+        _this12.aFrom = aFrom;
+        _this12.aTo = aTo;
+        if (_this12.aFrom > _this12.aTo) {
+          var _ref2 = [_this12.aTo, _this12.aFrom];
+          _this12.aFrom = _ref2[0];
+          _this12.aTo = _ref2[1];
         }
-        _this13.center = new Point$1(_this13.cx, _this13.cy);
-        _this13.string = new Line$1(_this13.center.arcTo(_this13.radius, _this13.aFrom), _this13.center.arcTo(_this13.radius, _this13.aTo));
-        _this13.keyPoints = _this13.string.points;
-        _this13.updateKeyPoints();
-        _this13.on('changed', _this13.updateKeyPoints);
-        _this13.on('changed', function () {
+        _this12.center = new Point$1(_this12.cx, _this12.cy);
+        _this12.string = new Line$1(_this12.center.arcTo(_this12.radius, _this12.aFrom), _this12.center.arcTo(_this12.radius, _this12.aTo));
+        _this12.keyPoints = _this12.string.points;
+        _this12.updateKeyPoints();
+        _this12.on('changed', _this12.updateKeyPoints);
+        _this12.on('changed', function () {
           var ref;
-          return (ref = _this13.bounds) != null ? ref.update() : void 0;
+          return (ref = _this12.bounds) != null ? ref.update() : void 0;
         });
-        return _this13;
+        return _this12;
       }
 
       _createClass(Bow, [{
@@ -2922,14 +2647,14 @@ var Bu = function () {
 
         _classCallCheck(this, Circle);
 
-        var _this14 = _possibleConstructorReturn(this, (Circle.__proto__ || Object.getPrototypeOf(Circle)).call(this));
+        var _this13 = _possibleConstructorReturn(this, (Circle.__proto__ || Object.getPrototypeOf(Circle)).call(this));
 
-        _this14._radius = _radius;
-        _this14._center = new Point$1(cx, cy);
-        _this14.bounds = null; // for accelerate contain test
-        _this14.keyPoints = [_this14._center];
-        _this14.on('centerChanged', _this14.updateKeyPoints);
-        return _this14;
+        _this13._radius = _radius;
+        _this13._center = new Point$1(cx, cy);
+        _this13.bounds = null; // for accelerate contain test
+        _this13.keyPoints = [_this13._center];
+        _this13.on('centerChanged', _this13.updateKeyPoints);
+        return _this13;
       }
 
       _createClass(Circle, [{
@@ -3015,11 +2740,11 @@ var Bu = function () {
 
         _classCallCheck(this, Ellipse);
 
-        var _this15 = _possibleConstructorReturn(this, (Ellipse.__proto__ || Object.getPrototypeOf(Ellipse)).call(this));
+        var _this14 = _possibleConstructorReturn(this, (Ellipse.__proto__ || Object.getPrototypeOf(Ellipse)).call(this));
 
-        _this15._radiusX = _radiusX;
-        _this15._radiusY = _radiusY;
-        return _this15;
+        _this14._radiusX = _radiusX;
+        _this14._radiusY = _radiusY;
+        return _this14;
       }
 
       return Ellipse;
@@ -3065,27 +2790,27 @@ var Bu = function () {
       function Fan(cx, cy, radius, aFrom, aTo) {
         _classCallCheck(this, Fan);
 
-        var _this16 = _possibleConstructorReturn(this, (Fan.__proto__ || Object.getPrototypeOf(Fan)).call(this));
+        var _this15 = _possibleConstructorReturn(this, (Fan.__proto__ || Object.getPrototypeOf(Fan)).call(this));
 
-        _this16.cx = cx;
-        _this16.cy = cy;
-        _this16.radius = radius;
-        _this16.aFrom = aFrom;
-        _this16.aTo = aTo;
-        if (_this16.aFrom > _this16.aTo) {
-          var _ref3 = [_this16.aTo, _this16.aFrom];
-          _this16.aFrom = _ref3[0];
-          _this16.aTo = _ref3[1];
+        _this15.cx = cx;
+        _this15.cy = cy;
+        _this15.radius = radius;
+        _this15.aFrom = aFrom;
+        _this15.aTo = aTo;
+        if (_this15.aFrom > _this15.aTo) {
+          var _ref3 = [_this15.aTo, _this15.aFrom];
+          _this15.aFrom = _ref3[0];
+          _this15.aTo = _ref3[1];
         }
-        _this16.center = new Point$1(_this16.cx, _this16.cy);
-        _this16.string = new Line$1(_this16.center.arcTo(_this16.radius, _this16.aFrom), _this16.center.arcTo(_this16.radius, _this16.aTo));
-        _this16.keyPoints = [_this16.string.points[0], _this16.string.points[1], _this16.center];
-        _this16.on('changed', _this16.updateKeyPoints);
-        _this16.on('changed', function () {
+        _this15.center = new Point$1(_this15.cx, _this15.cy);
+        _this15.string = new Line$1(_this15.center.arcTo(_this15.radius, _this15.aFrom), _this15.center.arcTo(_this15.radius, _this15.aTo));
+        _this15.keyPoints = [_this15.string.points[0], _this15.string.points[1], _this15.center];
+        _this15.on('changed', _this15.updateKeyPoints);
+        _this15.on('changed', function () {
           var ref;
-          return (ref = _this16.bounds) != null ? ref.update() : void 0;
+          return (ref = _this15.bounds) != null ? ref.update() : void 0;
         });
-        return _this16;
+        return _this15;
       }
 
       _createClass(Fan, [{
@@ -3127,7 +2852,7 @@ var Bu = function () {
 
         var x1, x2, x3, y1, y2, y3;
 
-        var _this17 = _possibleConstructorReturn(this, (Triangle.__proto__ || Object.getPrototypeOf(Triangle)).call(this));
+        var _this16 = _possibleConstructorReturn(this, (Triangle.__proto__ || Object.getPrototypeOf(Triangle)).call(this));
 
         if (arguments.length === 6) {
           var _arguments3 = Array.prototype.slice.call(arguments);
@@ -3143,16 +2868,16 @@ var Bu = function () {
           p2 = new Point$1(x2, y2);
           p3 = new Point$1(x3, y3);
         }
-        _this17.lines = [new Line$1(p1, p2), new Line$1(p2, p3), new Line$1(p3, p1)];
+        _this16.lines = [new Line$1(p1, p2), new Line$1(p2, p3), new Line$1(p3, p1)];
         //@center = new Point Bu.average(p1.x, p2.x, p3.x), Bu.average(p1.y, p2.y, p3.y)
-        _this17.points = [p1, p2, p3];
-        _this17.keyPoints = _this17.points;
-        _this17.on('changed', _this17.update);
-        _this17.on('changed', function () {
+        _this16.points = [p1, p2, p3];
+        _this16.keyPoints = _this16.points;
+        _this16.on('changed', _this16.update);
+        _this16.on('changed', function () {
           var ref;
-          return (ref = _this17.bounds) != null ? ref.update() : void 0;
+          return (ref = _this16.bounds) != null ? ref.update() : void 0;
         });
-        return _this17;
+        return _this16;
       }
 
       _createClass(Triangle, [{
@@ -3202,17 +2927,17 @@ var Bu = function () {
 
         var n, options, radius, x, y;
 
-        var _this18 = _possibleConstructorReturn(this, (Polygon.__proto__ || Object.getPrototypeOf(Polygon)).call(this));
+        var _this17 = _possibleConstructorReturn(this, (Polygon.__proto__ || Object.getPrototypeOf(Polygon)).call(this));
 
-        _this18.vertices = [];
-        _this18.lines = [];
-        _this18.triangles = [];
+        _this17.vertices = [];
+        _this17.lines = [];
+        _this17.triangles = [];
         options = Bu.combineOptions(arguments, {
           angle: 0
         });
         if (Bu.isArray(points)) {
           if (points != null) {
-            _this18.vertices = points;
+            _this17.vertices = points;
           }
         } else {
           if (arguments.length < 4) {
@@ -3226,16 +2951,16 @@ var Bu = function () {
             radius = arguments[2];
             n = arguments[3];
           }
-          _this18.vertices = Polygon.generateRegularPoints(x, y, radius, n, options);
+          _this17.vertices = Polygon.generateRegularPoints(x, y, radius, n, options);
         }
-        _this18.onVerticesChanged();
-        _this18.on('changed', _this18.onVerticesChanged);
-        _this18.on('changed', function () {
+        _this17.onVerticesChanged();
+        _this17.on('changed', _this17.onVerticesChanged);
+        _this17.on('changed', function () {
           var ref;
-          return (ref = _this18.bounds) != null ? ref.update() : void 0;
+          return (ref = _this17.bounds) != null ? ref.update() : void 0;
         });
-        _this18.keyPoints = _this18.vertices;
-        return _this18;
+        _this17.keyPoints = _this17.vertices;
+        return _this17;
       }
 
       _createClass(Polygon, [{
@@ -3353,30 +3078,30 @@ var Bu = function () {
 
         var i, j, ref, vertices;
 
-        var _this19 = _possibleConstructorReturn(this, (Polyline.__proto__ || Object.getPrototypeOf(Polyline)).call(this));
+        var _this18 = _possibleConstructorReturn(this, (Polyline.__proto__ || Object.getPrototypeOf(Polyline)).call(this));
 
-        _this19.vertices = vertices1;
+        _this18.vertices = vertices1;
         if (arguments.length > 1) {
           vertices = [];
           for (i = j = 0, ref = arguments.length / 2; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
             vertices.push(new Point$1(arguments[i * 2], arguments[i * 2 + 1]));
           }
-          _this19.vertices = vertices;
+          _this18.vertices = vertices;
         }
-        _this19.lines = [];
-        _this19.keyPoints = _this19.vertices;
-        _this19.fill(false);
-        _this19.on("changed", function () {
-          if (_this19.vertices.length > 1) {
-            _this19.updateLines();
-            if (typeof _this19.calcLength === "function") {
-              _this19.calcLength();
+        _this18.lines = [];
+        _this18.keyPoints = _this18.vertices;
+        _this18.fill(false);
+        _this18.on("changed", function () {
+          if (_this18.vertices.length > 1) {
+            _this18.updateLines();
+            if (typeof _this18.calcLength === "function") {
+              _this18.calcLength();
             }
-            return typeof _this19.calcPointNormalizedPos === "function" ? _this19.calcPointNormalizedPos() : void 0;
+            return typeof _this18.calcPointNormalizedPos === "function" ? _this18.calcPointNormalizedPos() : void 0;
           }
         });
-        _this19.trigger("changed");
-        return _this19;
+        _this18.trigger("changed");
+        return _this18;
       }
 
       _createClass(Polyline, [{
@@ -3448,21 +3173,21 @@ var Bu = function () {
 
         _classCallCheck(this, Rectangle);
 
-        var _this20 = _possibleConstructorReturn(this, (Rectangle.__proto__ || Object.getPrototypeOf(Rectangle)).call(this));
+        var _this19 = _possibleConstructorReturn(this, (Rectangle.__proto__ || Object.getPrototypeOf(Rectangle)).call(this));
 
-        _this20.center = new Point$1(x + width / 2, y + height / 2);
-        _this20.size = new Size$1(width, height);
-        _this20.pointLT = new Point$1(x, y);
-        _this20.pointRT = new Point$1(x + width, y);
-        _this20.pointRB = new Point$1(x + width, y + height);
-        _this20.pointLB = new Point$1(x, y + height);
-        _this20.points = [_this20.pointLT, _this20.pointRT, _this20.pointRB, _this20.pointLB];
-        _this20.cornerRadius = cornerRadius;
-        _this20.on('changed', function () {
+        _this19.center = new Point$1(x + width / 2, y + height / 2);
+        _this19.size = new Size$1(width, height);
+        _this19.pointLT = new Point$1(x, y);
+        _this19.pointRT = new Point$1(x + width, y);
+        _this19.pointRB = new Point$1(x + width, y + height);
+        _this19.pointLB = new Point$1(x, y + height);
+        _this19.points = [_this19.pointLT, _this19.pointRT, _this19.pointRB, _this19.pointLB];
+        _this19.cornerRadius = cornerRadius;
+        _this19.on('changed', function () {
           var ref;
-          return (ref = _this20.bounds) != null ? ref.update() : void 0;
+          return (ref = _this19.bounds) != null ? ref.update() : void 0;
         });
-        return _this20;
+        return _this19;
       }
 
       _createClass(Rectangle, [{
@@ -3518,26 +3243,26 @@ var Bu = function () {
 
         var polyline;
 
-        var _this21 = _possibleConstructorReturn(this, (Spline.__proto__ || Object.getPrototypeOf(Spline)).call(this));
+        var _this20 = _possibleConstructorReturn(this, (Spline.__proto__ || Object.getPrototypeOf(Spline)).call(this));
 
         if (vertices instanceof Polyline$1) {
           polyline = vertices;
-          _this21.vertices = polyline.vertices;
+          _this20.vertices = polyline.vertices;
           polyline.on('pointChange', function (polyline) {
-            _this21.vertices = polyline.vertices;
-            return calcControlPoints(_this21);
+            _this20.vertices = polyline.vertices;
+            return calcControlPoints(_this20);
           });
         } else {
-          _this21.vertices = Bu.clone(vertices);
+          _this20.vertices = Bu.clone(vertices);
         }
-        _this21.keyPoints = _this21.vertices;
-        _this21.controlPointsAhead = [];
-        _this21.controlPointsBehind = [];
-        _this21.fill(false);
-        _this21.smoothFactor = Bu.DEFAULT_SPLINE_SMOOTH;
-        _this21._smoother = false;
-        calcControlPoints(_this21);
-        return _this21;
+        _this20.keyPoints = _this20.vertices;
+        _this20.controlPointsAhead = [];
+        _this20.controlPointsBehind = [];
+        _this20.fill(false);
+        _this20.smoothFactor = Bu.DEFAULT_SPLINE_SMOOTH;
+        _this20._smoother = false;
+        calcControlPoints(_this20);
+        return _this20;
       }
 
       _createClass(Spline, [{
@@ -3630,31 +3355,31 @@ var Bu = function () {
 
         _classCallCheck(this, Image);
 
-        var _this22 = _possibleConstructorReturn(this, (Image.__proto__ || Object.getPrototypeOf(Image)).call(this));
+        var _this21 = _possibleConstructorReturn(this, (Image.__proto__ || Object.getPrototypeOf(Image)).call(this));
 
-        _this22.url = url;
-        _this22.type = 'Image';
-        _this22.autoSize = true;
-        _this22.size = new Size$1();
-        _this22.position = new Vector$1(x, y);
-        _this22.center = new Vector$1(x + width / 2, y + height / 2);
+        _this21.url = url;
+        _this21.type = 'Image';
+        _this21.autoSize = true;
+        _this21.size = new Size$1();
+        _this21.position = new Vector$1(x, y);
+        _this21.center = new Vector$1(x + width / 2, y + height / 2);
         if (width != null) {
-          _this22.size.set(width, height);
-          _this22.autoSize = false;
+          _this21.size.set(width, height);
+          _this21.autoSize = false;
         }
-        _this22.pivot = new Vector$1(0.5, 0.5);
-        _this22._image = new Bu.global.Image();
-        _this22.ready = false;
-        _this22._image.onload = function (e) {
-          if (_this22.autoSize) {
-            _this22.size.set(_this22._image.width, _this22._image.height);
+        _this21.pivot = new Vector$1(0.5, 0.5);
+        _this21._image = new Bu.global.Image();
+        _this21.ready = false;
+        _this21._image.onload = function (e) {
+          if (_this21.autoSize) {
+            _this21.size.set(_this21._image.width, _this21._image.height);
           }
-          return _this22.ready = true;
+          return _this21.ready = true;
         };
-        if (_this22.url != null) {
-          _this22._image.src = _this22.url;
+        if (_this21.url != null) {
+          _this21._image.src = _this21.url;
         }
-        return _this22;
+        return _this21;
       }
 
       return Image;
@@ -3808,7 +3533,7 @@ var Bu = function () {
           args = [args];
         }
         task = new AnimationTask$1(this, target, args);
-        Bu.animationRunner.add(task);
+        Bu.animationRunner.add(task); // TODO use module
         return task;
       }
     }, {
@@ -3840,6 +3565,7 @@ var Bu = function () {
 
   // Preset Animations
   // Some of the animations are consistent with jQuery UI
+  // TODO remove out of here
   Bu.animations = {
     //----------------------------------------------------------------------
     // Simple
@@ -4077,10 +3803,10 @@ var Bu = function () {
       }, {
         key: 'hookUp',
         value: function hookUp(renderer) {
-          var _this23 = this;
+          var _this22 = this;
 
           return renderer.on('update', function () {
-            return _this23.update();
+            return _this22.update();
           });
         }
       }]);
@@ -4191,10 +3917,10 @@ var Bu = function () {
     }, {
       key: 'hookUp',
       value: function hookUp(renderer) {
-        var _this24 = this;
+        var _this23 = this;
 
         return renderer.on('update', function () {
-          return _this24.update();
+          return _this23.update();
         });
       }
     }]);
@@ -4209,18 +3935,68 @@ var Bu = function () {
 
   // Sprite Sheet
   var SpriteSheet;
+  var ajax;
   var hasProp$5 = {}.hasOwnProperty;
+
+  //----------------------------------------------------------------------
+  // jQuery style ajax()
+  //	options:
+  //		url: string
+  //		====
+  //		async = true: bool
+  //	data: object - query parameters TODO: implement this
+  //		method = GET: POST, PUT, DELETE, HEAD
+  //		username: string
+  //		password: string
+  //		success: function
+  //		error: function
+  //		complete: function
+  //----------------------------------------------------------------------
+  ajax = function ajax(url, ops) {
+    var xhr;
+    if (!ops) {
+      if ((typeof url === 'undefined' ? 'undefined' : _typeof(url)) === 'object') {
+        ops = url;
+        url = ops.url;
+      } else {
+        ops = {};
+      }
+    }
+    ops.method || (ops.method = 'GET');
+    if (ops.async == null) {
+      ops.async = true;
+    }
+    xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          if (ops.success != null) {
+            return ops.success(xhr.responseText, xhr.status, xhr);
+          }
+        } else {
+          if (ops.error != null) {
+            ops.error(xhr, xhr.status);
+          }
+          if (ops.complete != null) {
+            return ops.complete(xhr, xhr.status);
+          }
+        }
+      }
+    };
+    xhr.open(ops.method, url, ops.async, ops.username, ops.password);
+    return xhr.send(null);
+  };
 
   SpriteSheet = function () {
     var canvas, clipImage, context;
 
     var SpriteSheet = function () {
-      function SpriteSheet(url) {
-        var _this25 = this;
+      function SpriteSheet(url1) {
+        var _this24 = this;
 
         _classCallCheck(this, SpriteSheet);
 
-        this.url = url;
+        this.url = url1;
         Event$1.apply(this);
         this.ready = false; // If this sprite sheet is loaded and parsed.
         this.height = 0; // Height of this sprite
@@ -4229,28 +4005,28 @@ var Bu = function () {
         this.frameImages = []; // Parsed frame images
 
         // load and trigger parseData()
-        $.ajax(this.url, {
+        ajax(this.url, {
           success: function success(text) {
             var baseUrl, countLoaded, i, ref, results;
-            _this25.data = JSON.parse(text);
-            if (_this25.data.images == null) {
-              _this25.data.images = [_this25.url.substring(_this25.url.lastIndexOf('/'), _this25.url.length - 5) + '.png'];
+            _this24.data = JSON.parse(text);
+            if (_this24.data.images == null) {
+              _this24.data.images = [_this24.url.substring(_this24.url.lastIndexOf('/'), _this24.url.length - 5) + '.png'];
             }
-            baseUrl = _this25.url.substring(0, _this25.url.lastIndexOf('/') + 1);
-            ref = _this25.data.images;
+            baseUrl = _this24.url.substring(0, _this24.url.lastIndexOf('/') + 1);
+            ref = _this24.data.images;
             results = [];
             for (i in ref) {
               if (!hasProp$5.call(ref, i)) continue;
-              _this25.data.images[i] = baseUrl + _this25.data.images[i];
+              _this24.data.images[i] = baseUrl + _this24.data.images[i];
               countLoaded = 0;
-              _this25.images[i] = new Image();
-              _this25.images[i].onload = function () {
+              _this24.images[i] = new Image();
+              _this24.images[i].onload = function () {
                 countLoaded += 1;
-                if (countLoaded === _this25.data.images.length) {
-                  return _this25.parseData();
+                if (countLoaded === _this24.data.images.length) {
+                  return _this24.parseData();
                 }
               };
-              results.push(_this25.images[i].src = _this25.data.images[i]);
+              results.push(_this24.images[i].src = _this24.data.images[i]);
             }
             return results;
           }
@@ -4374,12 +4150,13 @@ var Bu = function () {
       }, {
         key: 'onMouseWheel',
         value: function onMouseWheel(e) {
-          var deltaScaleAll, deltaScaleStep, dx, dy, mx, my;
+          var deltaScaleAll, deltaScaleStep, dx, dy, mx, my, targetStyle;
           deltaScaleStep = Math.pow(1.25, -e.wheelDelta / 120);
           this.desScale.multiplyScalar(deltaScaleStep);
           deltaScaleAll = this.desScale.x / this.camera.scale.x;
-          mx = e.offsetX - $(e.target).width() / 2;
-          my = e.offsetY - $(e.target).height() / 2;
+          targetStyle = getComputedStyle(e.target);
+          mx = e.offsetX - parseFloat(targetStyle.width) / 2;
+          my = e.offsetY - parseFloat(targetStyle.height) / 2;
           dx = -mx * (deltaScaleAll - 1) * this.camera.scale.x;
           dy = -my * (deltaScaleAll - 1) * this.camera.scale.y;
           if (this.smoothZooming) {
@@ -4934,7 +4711,7 @@ var Bu = function () {
         key: 'generateEllipse',
         value: function generateEllipse() {
           var ellipse;
-          ellipse = new Bu.Ellipse(this.randomRadius(), this.randomRadius());
+          ellipse = new Ellipse$1(this.randomRadius(), this.randomRadius());
           this.randomizePosition(ellipse);
           return ellipse;
         }
@@ -4977,7 +4754,7 @@ var Bu = function () {
           var aFrom, aTo, fan;
           aFrom = Bu.rand(Bu.TWO_PI);
           aTo = aFrom + Bu.rand(Bu.HALF_PI, Bu.TWO_PI);
-          fan = new Bu.Fan(this.randomX(), this.randomY(), this.randomRadius(), aFrom, aTo);
+          fan = new Fan$1(this.randomX(), this.randomY(), this.randomRadius(), aFrom, aTo);
           fan.center.label = 'O';
           fan.string.points[0].label = 'A';
           fan.string.points[1].label = 'B';
@@ -4989,9 +4766,9 @@ var Bu = function () {
           var i, j, points, triangle;
           points = [];
           for (i = j = 0; j <= 2; i = ++j) {
-            points[i] = new Bu.Point(this.randomX(), this.randomY());
+            points[i] = new Point$1(this.randomX(), this.randomY());
           }
-          triangle = new Bu.Triangle(points[0], points[1], points[2]);
+          triangle = new Triangle$1(points[0], points[1], points[2]);
           triangle.points[0].label = 'A';
           triangle.points[1].label = 'B';
           triangle.points[2].label = 'C';
@@ -5011,7 +4788,7 @@ var Bu = function () {
         key: 'generateRectangle',
         value: function generateRectangle() {
           var rect;
-          rect = new Bu.Rectangle(Bu.rand(this.rangeX + this.rangeWidth), Bu.rand(this.rangeY + this.rangeHeight), Bu.rand(this.rangeWidth / 2), Bu.rand(this.rangeHeight / 2));
+          rect = new Rectangle$1(Bu.rand(this.rangeX + this.rangeWidth), Bu.rand(this.rangeY + this.rangeHeight), Bu.rand(this.rangeWidth / 2), Bu.rand(this.rangeHeight / 2));
           rect.pointLT.label = 'A';
           rect.pointRT.label = 'B';
           rect.pointRB.label = 'C';
@@ -5031,11 +4808,11 @@ var Bu = function () {
           var i, j, point, points;
           points = [];
           for (i = j = 0; j <= 3; i = ++j) {
-            point = new Bu.Point(this.randomX(), this.randomY());
+            point = new Point$1(this.randomX(), this.randomY());
             point.label = 'P' + i;
             points.push(point);
           }
-          return new Bu.Polygon(points);
+          return new Polygon$1(points);
         }
       }, {
         key: 'randomizePolygon',
@@ -5053,7 +4830,7 @@ var Bu = function () {
         key: 'generateLine',
         value: function generateLine() {
           var line;
-          line = new Bu.Line(this.randomX(), this.randomY(), this.randomX(), this.randomY());
+          line = new Line$1(this.randomX(), this.randomY(), this.randomX(), this.randomY());
           line.points[0].label = 'A';
           line.points[1].label = 'B';
           return line;
@@ -5074,9 +4851,9 @@ var Bu = function () {
         key: 'generatePolyline',
         value: function generatePolyline() {
           var i, j, point, polyline;
-          polyline = new Bu.Polyline();
+          polyline = new Polyline$1();
           for (i = j = 0; j <= 3; i = ++j) {
-            point = new Bu.Point(this.randomX(), this.randomY());
+            point = new Point$1(this.randomX(), this.randomY());
             point.label = 'P' + i;
             polyline.addPoint(point);
           }

@@ -36,11 +36,11 @@
 				};
 			},
 			init: function () {
-				$("#btnShowBounds").on('click', function () {
+				document.querySelector("#btnShowBounds").addEventListener('click', function () {
 					bu.$renderer.showBounds = this.checked;
 				});
 
-				$("#randomize").on('click', function () {
+				document.querySelector("#randomize").addEventListener('click', function () {
 					bu.regenerateShapes();
 				});
 

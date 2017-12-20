@@ -37,10 +37,10 @@
 				var r = this.$renderer,
 					control = new Bu.MouseControl(r.camera, r.dom);
 
-				$("#earthquake").on('click', function (e) {
+				document.querySelector("#earthquake").addEventListener('click', function (e) {
 					r.camera.animate('shake');
 				});
-				$("#smoothZoom").on('click', function (e) {
+				document.querySelector("#smoothZoom").addEventListener('click', function (e) {
 					control.smoothZooming = this.checked;
 				});
 			},
