@@ -2,6 +2,42 @@
 
 import Event from '../base/Event'
 
+#----------------------------------------------------------------------
+# jQuery style ajax()
+#	options:
+#		url: string
+#		====
+#		async = true: bool
+#	data: object - query parameters TODO: implement this
+#		method = GET: POST, PUT, DELETE, HEAD
+#		username: string
+#		password: string
+#		success: function
+#		error: function
+#		complete: function
+#----------------------------------------------------------------------
+ajax = (url, ops) ->
+	if !ops
+		if typeof url == 'object'
+			ops = url
+			url = ops.url
+		else
+			ops = {}
+	ops.method or= 'GET'
+	ops.async = true unless ops.async?
+
+	xhr = new XMLHttpRequest
+	xhr.onreadystatechange = ->
+		if xhr.readyState == 4
+			if xhr.status == 200
+				ops.success xhr.responseText, xhr.status, xhr if ops.success?
+			else
+				ops.error xhr, xhr.status if ops.error?
+				ops.complete xhr, xhr.status if ops.complete?
+
+	xhr.open ops.method, url, ops.async, ops.username, ops.password
+	xhr.send null
+
 class SpriteSheet
 
 	constructor: (@url) ->
@@ -15,7 +51,7 @@ class SpriteSheet
 		@frameImages = []  # Parsed frame images
 
 		# load and trigger parseData()
-		$.ajax @url, success: (text) =>
+		ajax @url, success: (text) =>
 			@data = JSON.parse text
 
 			if not @data.images?

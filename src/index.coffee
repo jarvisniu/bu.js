@@ -12,7 +12,6 @@ Bu.Size = Size
 Bu.Vector = Vector
 
 # base
-import './base/MicroJQuery'
 import Event from './base/Event'
 import Object2D from './base/Object2D'
 import Styled from './base/Styled'
@@ -66,7 +65,7 @@ import PointText from './drawable/PointText'
 Bu.Image = Image
 Bu.PointText = PointText
 
-# anim
+# animation
 import Animation from './anim/Animation'
 import AnimationRunner from './anim/AnimationRunner'
 import AnimationTask from './anim/AnimationTask'

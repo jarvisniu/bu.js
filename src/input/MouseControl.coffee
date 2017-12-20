@@ -48,8 +48,9 @@ class MouseControl
 		@desScale.multiplyScalar deltaScaleStep
 		deltaScaleAll = @desScale.x / @camera.scale.x
 
-		mx = e.offsetX - $(e.target).width() / 2
-		my = e.offsetY - $(e.target).height() / 2
+		targetStyle = getComputedStyle(e.target)
+		mx = e.offsetX - parseFloat(targetStyle.width) / 2
+		my = e.offsetY - parseFloat(targetStyle.height) / 2
 		dx = -mx * (deltaScaleAll - 1) * @camera.scale.x
 		dy = -my * (deltaScaleAll - 1) * @camera.scale.y
 

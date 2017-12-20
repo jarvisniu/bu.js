@@ -50,8 +50,12 @@ class Renderer
 		# Set container dom
 		@container = document.querySelector @container if Bu.isString @container
 		if @fillParent and @container == document.body
-			$('body').style('margin', 0).style('overflow', 'hidden')
-			$('html, body').style('width', '100%').style('height', '100%')
+			domHtml = document.querySelector('html')
+			domBody = document.querySelector('body')
+			domBody.style.margin = '0'
+			domBody.style.overflow = 'hidden'
+			domHtml.style.width = domHtml.style.height =
+				domBody.style.width = domBody.style.height = '100%'
 
 		# Set sizes for renderer property, dom attribute and dom style
 		onResize = =>
@@ -104,13 +108,13 @@ class Renderer
 		Bu.dashFlowManager.hookUp @
 
 
-	# Pause/continue/toggle the rendering loop
+# Pause/continue/toggle the rendering loop
 	pause: -> @isRunning = false
 	continue: -> @isRunning = true
 	toggle: -> @isRunning = not @isRunning
 
 
-	# Perform the full render process
+# Perform the full render process
 	render: ->
 		@context.save()
 
@@ -133,13 +137,13 @@ class Renderer
 		@context.restore()
 		@
 
-	# Clear the canvas
+# Clear the canvas
 	clearCanvas: ->
 		@context.fillStyle = @scene.background
 		@context.fillRect 0, 0, @pixelWidth, @pixelHeight
 		@
 
-	# Draw an array of drawables
+# Draw an array of drawables
 	drawShapes: (shapes) =>
 		if shapes?
 			for shape in shapes
@@ -148,7 +152,7 @@ class Renderer
 				@context.restore()
 		@
 
-	# Draw an drawable to the canvas
+# Draw an drawable to the canvas
 	drawShape: (shape) =>
 		return @ unless shape.visible
 
@@ -300,12 +304,12 @@ class Renderer
 				@context.moveTo shape.vertices[0].x, shape.vertices[0].y
 				for i in [1..len - 1]
 					@context.bezierCurveTo(
-							shape.controlPointsBehind[i - 1].x
-							shape.controlPointsBehind[i - 1].y
-							shape.controlPointsAhead[i].x
-							shape.controlPointsAhead[i].y
-							shape.vertices[i].x
-							shape.vertices[i].y
+						shape.controlPointsBehind[i - 1].x
+						shape.controlPointsBehind[i - 1].y
+						shape.controlPointsAhead[i].x
+						shape.controlPointsAhead[i].y
+						shape.vertices[i].x
+						shape.vertices[i].y
 					)
 		@
 
