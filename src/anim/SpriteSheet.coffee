@@ -2,7 +2,7 @@
 
 import Event from '../base/Event'
 
-class Bu.SpriteSheet
+class SpriteSheet
 
 	constructor: (@url) ->
 		Event.apply @
@@ -78,3 +78,5 @@ class Bu.SpriteSheet
 		newImage = new Image()
 		newImage.src = canvas.toDataURL()
 		return newImage
+
+export default SpriteSheet

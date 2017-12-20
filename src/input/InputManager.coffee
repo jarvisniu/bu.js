@@ -1,6 +1,6 @@
 # Manage the user input, like mouse, keyboard, touchscreen etc
 
-class Bu.InputManager
+class InputManager
 
 	constructor: () ->
 		@keyStates = []
@@ -141,3 +141,5 @@ class Bu.InputManager
 		Right:       'ArrowRight'  # 39
 		Down:        'ArrowDown'   # 40
 		Del:         'Delete'      # 46
+
+export default InputManager

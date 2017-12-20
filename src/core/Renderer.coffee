@@ -1,16 +1,18 @@
 # Used to render all the drawable objects to the canvas
 
 import Event from '../base/Event'
+import Camera from '../core/Camera'
+import Scene from '../core/Scene'
 
-class Bu.Renderer
+class Renderer
 
 	constructor: () ->
 		Event.apply @
 		@type = 'Renderer'
 
 		# API
-		@scene = new Bu.Scene @
-		@camera = new Bu.Camera
+		@scene = new Scene @
+		@camera = new Camera
 		@tickCount = 0
 		@isRunning = yes
 		@pixelRatio = Bu.global.devicePixelRatio or 1
@@ -354,8 +356,8 @@ class Bu.Renderer
 
 	drawBounds: (bounds) ->
 		@context.beginPath()
-		@context.strokeStyle = Bu.Renderer.BOUNDS_STROKE_STYLE
-		@context.setLineDash? Bu.Renderer.BOUNDS_DASH_STYLE
+		@context.strokeStyle = Renderer.BOUNDS_STROKE_STYLE
+		@context.setLineDash? Renderer.BOUNDS_DASH_STYLE
 		@context.rect bounds.x1, bounds.y1, bounds.x2 - bounds.x1, bounds.y2 - bounds.y1
 		@context.stroke()
 		@
@@ -372,7 +374,9 @@ class Bu.Renderer
 #----------------------------------------------------------------------
 
 # Stroke style of bounds
-Bu.Renderer.BOUNDS_STROKE_STYLE = 'red'
+Renderer.BOUNDS_STROKE_STYLE = 'red'
 
 # Dash style of bounds
-Bu.Renderer.BOUNDS_DASH_STYLE = [6, 6]
+Renderer.BOUNDS_DASH_STYLE = [6, 6]
+
+export default Renderer

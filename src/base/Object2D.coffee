@@ -1,5 +1,9 @@
 # Base class of all shapes and other renderable objects
 
+import Bounds from '../math/Bounds'
+import Vector from '../math/Vector'
+#import Scene from '../core/Scene'
+
 import Styled from './Styled'
 import Event from './Event'
 
@@ -15,10 +19,10 @@ class Object2D
 		@visible = yes
 		@opacity = 1
 
-		@position = new Bu.Vector
+		@position = new Vector
 		@rotation = 0
-		@_scale = new Bu.Vector 1, 1
-		@skew = new Bu.Vector
+		@_scale = new Vector 1, 1
+		@skew = new Vector
 
 		#@toWorldMatrix = new Bu.Matrix()
 		#@updateMatrix ->
@@ -64,7 +68,7 @@ class Object2D
 	getScene: ->
 		node = @
 		loop
-			break if node instanceof Bu.Scene
+			break if node instanceof Bu.Scene # TODO circular reference
 			node = node.parent
 		node
 
@@ -88,7 +92,7 @@ class Object2D
 	# Apply an animation on this object
 	# The type of `anim` may be:
 	#     1. Preset animations: the animation name(string type), ie. key in `Bu.animations`
-	#     2. Custom animations: the animation object of `Bu.Animation` type
+	#     2. Custom animations: the animation object of `Animation` type
 	#     3. Multiple animations: An array whose children are above two types
 	animate: (anim, args) ->
 		args = [args] unless Bu.isArray args
@@ -105,7 +109,7 @@ class Object2D
 
 	# Create Bounds for this object
 	createBounds: ->
-		@bounds = new Bu.Bounds @
+		@bounds = new Bounds @
 		@
 
 	# Hit testing with unprojections

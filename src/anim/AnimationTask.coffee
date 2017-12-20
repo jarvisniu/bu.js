@@ -1,6 +1,9 @@
 # AnimationTask is an instance of Animation, run by AnimationRunner
 
-class Bu.AnimationTask
+import Color from '../math/Color'
+import Vector from '../math/Vector'
+
+class AnimationTask
 
     constructor: (@animation, @target, @args = []) ->
         @startTime = 0
@@ -31,9 +34,9 @@ class Bu.AnimationTask
 
         if Bu.isNumber @from
             @current = interpolateNum @from, @to, @t
-        else if @from instanceof Bu.Color
+        else if @from instanceof Color
             interpolateColor @from, @to, @t, @current
-        else if @from instanceof Bu.Vector
+        else if @from instanceof Vector
             interpolateVector @from, @to, @t, @current
         else if Bu.isPlainObject @from
             for own key of @from
@@ -42,7 +45,7 @@ class Bu.AnimationTask
                 else
                     interpolateObject @from[key], @to[key], @t, @current[key]
         else
-            console.error "Bu.Animation not support interpolate type: ", @from
+            console.error "Animation not support interpolate type: ", @from
 
     interpolateNum = (a, b, t) -> b * t - a * (t - 1)
 
@@ -52,3 +55,5 @@ class Bu.AnimationTask
     interpolateVector = (a, b, t, c) ->
         c.x = interpolateNum a.x, b.x, t
         c.y = interpolateNum a.y, b.y, t
+
+export default AnimationTask

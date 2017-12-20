@@ -19,24 +19,29 @@ All supported constructor options:
 }
 ##=================================================================###
 
-class Bu.App
+import Renderer from '../core/Renderer'
+import Scene from '../core/Scene'
+
+import InputManager from '../input/InputManager'
+
+class App
 
 	constructor: (@$options = {}) ->
 		for k in ["renderer", "data", "objects", "methods", "events"]
 			@$options[k] or= {}
 
-		@$inputManager = new Bu.InputManager
+		@$inputManager = new InputManager
 
 		Bu.ready @init, @
 
 	init: () ->
 
 		# scene
-		scene = new Bu.Scene
-		scene.background = @$options.background or Bu.Scene.DEFAULT_BACKGROUND
+		scene = new Scene
+		scene.background = @$options.background or Scene.DEFAULT_BACKGROUND
 
 		# renderer
-		@$renderer = new Bu.Renderer @$options.renderer
+		@$renderer = new Renderer @$options.renderer
 
 		@$renderer.scene = scene
 		scene.renderer = @$renderer
@@ -79,3 +84,5 @@ class Bu.App
 		# update
 		if @$options.update?
 			@$renderer.on 'update', => @$options.update.apply this, arguments
+
+export default App

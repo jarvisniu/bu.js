@@ -1,9 +1,13 @@
 # Pan and zoom the camera by the mouse
 # Drag left mouse button to pan, wheel up/down to zoom in/out
 
-class Bu.MouseControl
+import Vector from '../math/Vector'
 
-	scaleAnimation = new Bu.Animation
+import Animation from '../anim/Animation'
+
+class MouseControl
+
+	scaleAnimation = new Animation
 		duration: 0.2
 		init: (anim) ->
 			anim.arg = 1 unless anim.arg?
@@ -12,10 +16,10 @@ class Bu.MouseControl
 		update: (anim) ->
 			@scale = anim.current
 
-	translateAnimation = new Bu.Animation
+	translateAnimation = new Animation
 		duration: 0.2
 		init: (anim) ->
-			anim.arg = new Bu.Vector unless anim.arg?
+			anim.arg = new Vector unless anim.arg?
 			anim.from = @position.clone()
 			anim.to = @position.clone().add anim.arg
 		update: (anim) ->
@@ -26,7 +30,7 @@ class Bu.MouseControl
 		@zoomTransAnim = translateAnimation.applyTo @camera
 
 		@smoothZooming = yes
-		@desScale = new Bu.Vector 1, 1
+		@desScale = new Vector 1, 1
 
 		dom.addEventListener 'mousemove', @onMouseMove
 		dom.addEventListener 'mousewheel', @onMouseWheel
@@ -60,3 +64,5 @@ class Bu.MouseControl
 		else
 			@camera.translate dx, dy
 			@camera.scale.copy this.desScale
+
+export default MouseControl

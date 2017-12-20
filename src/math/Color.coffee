@@ -1,7 +1,7 @@
 # Parse and serialize color
 # TODO Support hsl(0, 100%, 50%) format.
 
-class Bu.Color
+class Color
 
 	constructor: () ->
 		@r = @g = @b = 255
@@ -12,7 +12,7 @@ class Bu.Color
 			if Bu.isString arg
 				@parse arg
 				@a = clampAlpha @a
-			else if arg instanceof Bu.Color
+			else if arg instanceof Color
 				@copy arg
 		else # if arguments.length == 3 or 4
 			@r = arguments[0]
@@ -75,11 +75,11 @@ class Bu.Color
 			@a = CSS3_COLORS[str][3]
 			@a = 1 unless @a?
 		else
-			console.error "Bu.Color.parse(\"#{ str }\") error."
+			console.error "Color.parse(\"#{ str }\") error."
 		@
 
 	clone: ->
-		(new Bu.Color).copy @
+		(new Color).copy @
 
 	copy: (color) ->
 		@r = color.r
@@ -325,3 +325,5 @@ class Bu.Color
 		whitesmoke: [245, 245, 245]
 		yellow: [255, 255, 0]
 		yellowgreen: [154, 205, 50]
+
+export default Color

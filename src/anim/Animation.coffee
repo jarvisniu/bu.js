@@ -1,6 +1,10 @@
 # animation class and preset animations
 
-class Bu.Animation
+import Color from '../math/Color'
+
+import AnimationTask from './AnimationTask'
+
+class Animation
 
 	constructor: (options) ->
 		@from = options.from
@@ -14,7 +18,7 @@ class Bu.Animation
 
 	applyTo: (target, args) ->
 		args = [args] unless Bu.isArray args
-		task = new Bu.AnimationTask @, target, args
+		task = new AnimationTask @, target, args
 		Bu.animationRunner.add task
 		task
 
@@ -36,19 +40,19 @@ Bu.animations =
 	# Simple
 	#----------------------------------------------------------------------
 
-	fadeIn: new Bu.Animation
+	fadeIn: new Animation
 		update: (anim) ->
 			@opacity = anim.t
 
-	fadeOut: new Bu.Animation
+	fadeOut: new Animation
 		update: (anim) ->
 			@opacity = 1 - anim.t
 
-	spin: new Bu.Animation
+	spin: new Animation
 		update: (anim) ->
 			@rotation = anim.t * Math.PI * 2
 
-	spinIn: new Bu.Animation
+	spinIn: new Animation
 		init: (anim) ->
 			anim.data.desScale = anim.arg or 1
 		update: (anim) ->
@@ -56,13 +60,13 @@ Bu.animations =
 			@rotation = anim.t * Math.PI * 4
 			@scale = anim.t * anim.data.desScale
 
-	spinOut: new Bu.Animation
+	spinOut: new Animation
 		update: (anim) ->
 			@opacity = 1 - anim.t
 			@rotation = anim.t * Math.PI * 4
 			@scale = 1 - anim.t
 
-	blink: new Bu.Animation
+	blink: new Animation
 		duration: 0.2
 		from: 0
 		to: 512
@@ -70,14 +74,14 @@ Bu.animations =
 			d = Math.floor Math.abs(anim.current - 256)
 			@fillStyle = "rgb(#{ d }, #{ d }, #{ d })"
 
-	shake: new Bu.Animation
+	shake: new Animation
 		init: (anim) ->
 			anim.data.ox = @position.x
 			anim.data.range = anim.arg or 20
 		update: (anim) ->
 			@position.x = Math.sin(anim.t * Math.PI * 8) * anim.data.range + anim.data.ox
 
-	jump: new Bu.Animation
+	jump: new Animation
 		init: (anim) ->
 			anim.data.oy = @position.y
 			anim.data.height = anim.arg or 100
@@ -88,7 +92,7 @@ Bu.animations =
 	# Toggled: detect and save original status
 	#----------------------------------------------------------------------
 
-	puff: new Bu.Animation
+	puff: new Animation
 		duration: 0.15
 		init: (anim) ->
 			anim.from =
@@ -105,7 +109,7 @@ Bu.animations =
 			@opacity = anim.current.opacity
 			@scale = anim.current.scale
 
-	clip: new Bu.Animation
+	clip: new Animation
 		init: (anim) ->
 			if @scale.y != 0
 				anim.from = @scale.y
@@ -116,14 +120,14 @@ Bu.animations =
 		update: (anim) ->
 			@scale.y = anim.current
 
-	flipX: new Bu.Animation
+	flipX: new Animation
 		init: (anim) ->
 			anim.from = @scale.x
 			anim.to = -anim.from
 		update: (anim) ->
 			@scale.x = anim.current
 
-	flipY: new Bu.Animation
+	flipY: new Animation
 		init: (anim) ->
 			anim.from = @scale.y
 			anim.to = -anim.from
@@ -134,7 +138,7 @@ Bu.animations =
 	# With Arguments
 	#----------------------------------------------------------------------
 
-	moveTo: new Bu.Animation
+	moveTo: new Animation
 		init: (anim) ->
 			if anim.arg?
 				anim.from = @position.x
@@ -144,7 +148,7 @@ Bu.animations =
 		update: (anim) ->
 			@position.x = anim.current
 
-	moveBy: new Bu.Animation
+	moveBy: new Animation
 		init: (anim) ->
 			if anim.args?
 				anim.from = @position.x
@@ -154,11 +158,13 @@ Bu.animations =
 		update: (anim) ->
 			@position.x = anim.current
 
-	discolor: new Bu.Animation
+	discolor: new Animation
 		init: (anim) ->
 			desColor = anim.arg
-			desColor = new Bu.Color desColor if Bu.isString desColor
-			anim.from = new Bu.Color @fillStyle
+			desColor = new Color desColor if Bu.isString desColor
+			anim.from = new Color @fillStyle
 			anim.to = desColor
 		update: (anim) ->
 			@fillStyle = anim.current.toRGBA()
+
+export default Animation

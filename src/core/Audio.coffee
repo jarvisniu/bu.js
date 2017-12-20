@@ -1,6 +1,6 @@
 # Audio
 
-class Bu.Audio
+class Audio
 
 	constructor: (url) ->
 		@audio = document.createElement 'audio'
@@ -20,3 +20,5 @@ class Bu.Audio
 			@audio.play()
 		else
 			console.warn "The audio file #{ @url } hasn't been ready."
+
+export default Audio

@@ -1,6 +1,6 @@
 # Manage an Object2D list and update its dashOffset
 
-class Bu.DashFlowManager
+class DashFlowManager
 
 	constructor: ->
 		@flowingObjects = []
@@ -22,4 +22,6 @@ class Bu.DashFlowManager
 		renderer.on 'update', => @update()
 
 # Global unique instance
-Bu.dashFlowManager = new Bu.DashFlowManager
+Bu.dashFlowManager = new DashFlowManager
+
+export default DashFlowManager

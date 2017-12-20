@@ -1,6 +1,6 @@
 # Run the animation tasks
 
-class Bu.AnimationRunner
+class AnimationRunner
 
 	constructor: () ->
 		@runningAnimations = []
@@ -11,7 +11,7 @@ class Bu.AnimationRunner
 			task.startTime = Bu.now()
 			@runningAnimations.push task
 		else
-			console.error 'Bu.AnimationRunner: animation setting is illegal: ', task.animation
+			console.error 'AnimationRunner: animation setting is illegal: ', task.animation
 
 	update: ->
 		now = Bu.now()
@@ -78,4 +78,6 @@ class Bu.AnimationRunner
 		# TODO add quart, quint, expo, circ, back, elastic, bounce
 
 # Define the global unique instance of this class
-Bu.animationRunner = new Bu.AnimationRunner
+Bu.animationRunner = new AnimationRunner
+
+export default AnimationRunner

@@ -1,26 +1,38 @@
 import Bu from './Bu'
 
 # math
-import './math/Bounds'
-import './math/Color'
-import './math/Size'
-import './math/Vector'
+import Bounds from './math/Bounds'
+import Color from './math/Color'
+import Size from './math/Size'
+import Vector from './math/Vector'
+
+Bu.Bounds = Bounds
+Bu.Color = Color
+Bu.Size = Size
+Bu.Vector = Vector
 
 # base
 import './base/MicroJQuery'
 import Event from './base/Event'
 import Object2D from './base/Object2D'
 import Styled from './base/Styled'
+
 Bu.Event = Event
 Bu.Object2D = Object2D
 Bu.Styled = Styled
 
 # core
-import './core/App'
-import './core/Audio'
-import './core/Camera'
-import './core/Renderer'
-import './core/Scene'
+import App from './core/App'
+import Audio from './core/Audio'
+import Camera from './core/Camera'
+import Renderer from './core/Renderer'
+import Scene from './core/Scene'
+
+Bu.App = App
+Bu.Audio = Audio
+Bu.Camera = Camera
+Bu.Renderer = Renderer
+Bu.Scene = Scene
 
 # shapes
 import Bow from './shapes/Bow'
@@ -48,22 +60,37 @@ Bu.Spline = Spline
 Bu.Triangle = Triangle
 
 # drawable
-import './drawable/Image'
-import './drawable/PointText'
+import Image from './drawable/Image'
+import PointText from './drawable/PointText'
+
+Bu.Image = Image
+Bu.PointText = PointText
 
 # anim
-import './anim/Animation'
-import './anim/AnimationRunner'
-import './anim/AnimationTask'
-import './anim/DashFlowManager'
-import './anim/SpriteSheet'
+import Animation from './anim/Animation'
+import AnimationRunner from './anim/AnimationRunner'
+import AnimationTask from './anim/AnimationTask'
+import DashFlowManager from './anim/DashFlowManager'
+import SpriteSheet from './anim/SpriteSheet'
+
+Bu.Animation = Animation
+Bu.AnimationRunner = AnimationRunner
+Bu.AnimationTask = AnimationTask
+Bu.DashFlowManager = DashFlowManager
+Bu.SpriteSheet = SpriteSheet
 
 # input
-import './input/InputManager'
-import './input/MouseControl'
+import InputManager from './input/InputManager'
+import MouseControl from './input/MouseControl'
+
+Bu.InputManager = InputManager
+Bu.MouseControl = MouseControl
 
 # extra
-import './extra/geometryAlgorithm'
-import './extra/ShapeRandomizer'
+import geometryAlgorithm from './extra/geometryAlgorithm'
+import ShapeRandomizer from './extra/ShapeRandomizer'
+
+Bu.geometryAlgorithm = geometryAlgorithm
+Bu.ShapeRandomizer = ShapeRandomizer
 
 export default Bu

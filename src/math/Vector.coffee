@@ -1,11 +1,11 @@
 # 2d vector
 
-class Bu.Vector
+class Vector
 
 	constructor: (@x = 0, @y = 0) ->
 
 	clone: ->
-		new Bu.Vector @x, @y
+		new Vector @x, @y
 
 	add: (v) ->
 		@x += v.x
@@ -57,3 +57,5 @@ class Bu.Vector
 		@x /= obj.scale.x
 		@y /= obj.scale.y
 		@
+
+export default Vector

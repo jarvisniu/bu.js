@@ -12,7 +12,7 @@ import Rectangle from '../shapes/Rectangle'
 import Spline from '../shapes/Spline'
 import Triangle from '../shapes/Triangle'
 
-Bu.geometryAlgorithm = G =
+geometryAlgorithm = G =
 
 	inject: ->
 		@injectInto [
@@ -302,3 +302,5 @@ Bu.geometryAlgorithm = G =
 		return Math.abs(((b.x - a.x) * (c.y - a.y)) - ((c.x - a.x) * (b.y - a.y))) / 2
 
 G.inject()
+
+export default geometryAlgorithm

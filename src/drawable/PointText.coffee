@@ -2,7 +2,7 @@
 
 import Object2D from '../base/Object2D'
 
-class Bu.PointText extends Object2D
+class PointText extends Object2D
 
 	###
 	options.align:
@@ -73,3 +73,5 @@ class Bu.PointText extends Object2D
 	setFontSize: (size) ->
 		@fontSize = size
 		@
+
+export default PointText

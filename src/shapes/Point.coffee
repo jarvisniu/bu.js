@@ -2,6 +2,8 @@
 
 import Object2D from '../base/Object2D'
 
+import PointText from '../drawable/PointText'
+
 class Point extends Object2D
 
 	type: 'Point'
@@ -19,7 +21,7 @@ class Point extends Object2D
 		get: -> if @_labelIndex > -1 then @children[@_labelIndex].text else ''
 		set: (val) ->
 			if @_labelIndex == -1
-				pointText = new Bu.PointText val, @x + Bu.POINT_LABEL_OFFSET, @y, {align: '+0'}
+				pointText = new PointText val, @x + Bu.POINT_LABEL_OFFSET, @y, {align: '+0'}
 				@children.push pointText
 				@_labelIndex = @children.length - 1
 			else

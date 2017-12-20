@@ -1,5 +1,6 @@
 # rectangle shape
 
+import Size from '../math/Size'
 import Object2D from '../base/Object2D'
 
 import Point from '../shapes/Point'
@@ -13,7 +14,7 @@ class Rectangle extends Object2D
 		super()
 
 		@center = new Point x + width / 2, y + height / 2
-		@size = new Bu.Size width, height
+		@size = new Size width, height
 
 		@pointLT = new Point x, y
 		@pointRT = new Point x + width, y

@@ -1,6 +1,8 @@
 ## axis aligned bounding box
 
-class Bu.Bounds
+import Vector from '../math/Vector'
+
+class Bounds
 
 	constructor: (@target) ->
 
@@ -8,8 +10,8 @@ class Bu.Bounds
 		@x1 = @y1 = @x2 = @y2 = 0
 		@isEmpty = yes
 
-		@point1 = new Bu.Vector
-		@point2 = new Bu.Vector
+		@point1 = new Vector
+		@point2 = new Vector
 
 		@update()
 		@bindEvent()
@@ -76,3 +78,5 @@ class Bu.Bounds
 			@y1 = cp.y - r if cp.y - r < @y1
 			@y2 = cp.y + r if cp.y + r > @y2
 		@
+
+export default Bounds

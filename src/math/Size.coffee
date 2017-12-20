@@ -1,7 +1,9 @@
 # the size of rectangle, Bounds etc.
 
-class Bu.Size
+class Size
 	constructor: (@width, @height) ->
 		@type = 'Size'
 
 	set: (@width, @height) ->
+
+export default Size

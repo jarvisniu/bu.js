@@ -3,7 +3,7 @@
 import Bow from '../shapes/Bow'
 import Circle from '../shapes/Circle'
 
-class Bu.ShapeRandomizer
+class ShapeRandomizer
 
 	MARGIN = 30
 
@@ -196,3 +196,5 @@ class Bu.ShapeRandomizer
 		vertex.set @randomX(), @randomY() for vertex in polyline.vertices
 		polyline.trigger 'changed'
 		@
+
+export default ShapeRandomizer
