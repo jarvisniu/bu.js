@@ -1,8 +1,8 @@
 # Used to render all the drawable objects to the canvas
 
-import Event from '../base/Event'
-import Camera from '../core/Camera'
-import Scene from '../core/Scene'
+import Event from '../base/Event.coffee'
+import Camera from '../core/Camera.coffee'
+import Scene from '../core/Scene.coffee'
 
 class Renderer
 

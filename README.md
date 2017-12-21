@@ -1,15 +1,15 @@
-Bu.js
+bu.js
 =====
 
 A JavaScript 2D graphics library based on HTML5 Canvas
 
-[![](logo.png)](http://jarvisniu.com/Bu.js/examples/)
+[![](logo.png)](http://jarvisniu.com/bu.js/examples/)
 
-[Demos](http://jarvisniu.com/Bu.js/examples/) -
-[Guides](https://github.com/jarvisniu/Bu.js/wiki/Guides) -
-[API](https://github.com/jarvisniu/Bu.js/wiki/API) -
+[Demos](http://jarvisniu.com/bu.js/examples/) -
+[Guides](https://github.com/jarvisniu/bu.js/wiki/Guides) -
+[API](https://github.com/jarvisniu/bu.js/wiki/API) -
 [ChangeLog](CHANGELOG.md) -
-[Download](https://cdn.rawgit.com/jarvisniu/Bu.js/v0.4.0/build/bu.min.js)
+[Download](https://cdn.rawgit.com/jarvisniu/bu.js/v0.4.0/build/bu.min.js)
 
 
 ## Hello World
@@ -18,7 +18,7 @@ A JavaScript 2D graphics library based on HTML5 Canvas
 <!DOCTYPE html>
 <html>
 <body>
-    <script src="https://cdn.rawgit.com/jarvisniu/Bu.js/v0.4.0/build/bu.min.js"></script>
+    <script src="https://cdn.rawgit.com/jarvisniu/bu.js/v0.4.0/build/bu.min.js"></script>
     <script type="text/javascript">
         var bu = new Bu.App({
             renderer: {
@@ -65,11 +65,10 @@ A JavaScript 2D graphics library based on HTML5 Canvas
 ## How to Build
 
 1. Download or clone this project;
-1. Install [Node](https://nodejs.org/);
-2. Install [Gulp](http://gulpjs.com/): `npm install -g gulp`;
-3. Install the dependencies: `npm install`;
-4. Build and run the examples: `gulp`.
-
+2. Install [Node](https://nodejs.org/) if has't;
+3. Install the dependencies: `npm install` or `yarn`;
+4. Build the library: `npm run build`;
+5. Open the examples at `examples/index.html`.
 
 ## Code Layout
 
@@ -86,32 +85,6 @@ A JavaScript 2D graphics library based on HTML5 Canvas
     - `drawable/` - Other thing like Image, Text etc. that can be displayed on the screen
     - `anim/` - Animation system
     - `extra/` - Utils components
-
-
-## Techniques Used
-
-- Programming Languages
-    - JavaScript
-    - CoffeeScript
-- Tools
-    - Git: version control
-    - Node: server-side JavaScript runtime
-    - npm: package manager
-    - Gulp: build tool
-- Third libraries
-    - jQuery
-- ES6 features
-    - Arrow functions
-    - Object initializer: Shorthand property names
-- Game dev concepts
-    - Sprite sheet
-
-
-## Credits
-
-- **Three.js** for inspirations and API style
-- **CoffeeScript** for providing an elegant way to write JavaScript
-- **Gulp** for handy building
 
 
 ## License

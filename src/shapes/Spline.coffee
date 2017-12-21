@@ -1,9 +1,9 @@
 # spline shape
 
-import Object2D from '../base/Object2D'
+import Object2D from '../base/Object2D.coffee'
 
-import Point from '../shapes/Point'
-import Polyline from '../shapes/Polyline'
+import Point from '../shapes/Point.coffee'
+import Polyline from '../shapes/Polyline.coffee'
 
 class Spline extends Object2D
 

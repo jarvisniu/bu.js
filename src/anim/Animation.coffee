@@ -1,8 +1,8 @@
 # animation class and preset animations
 
-import Color from '../math/Color'
+import Color from '../math/Color.coffee'
 
-import AnimationTask from './AnimationTask'
+import AnimationTask from './AnimationTask.coffee'
 
 class Animation
 

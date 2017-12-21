@@ -1,6 +1,6 @@
 # Render text around a point
 
-import Object2D from '../base/Object2D'
+import Object2D from '../base/Object2D.coffee'
 
 class PointText extends Object2D
 

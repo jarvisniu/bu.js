@@ -1,9 +1,9 @@
 # Used to render bitmap to the screen
 
-import Size from '../math/Size'
-import Vector from '../math/Vector'
+import Size from '../math/Size.coffee'
+import Vector from '../math/Vector.coffee'
 
-import Object2D from '../base/Object2D'
+import Object2D from '../base/Object2D.coffee'
 
 class Image extends Object2D
 

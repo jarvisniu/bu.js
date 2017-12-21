@@ -3,6 +3,9 @@
   "version": "0.4.0",
   "description": "A JavaScript 2D graphics library based on HTML5 Canvas",
   "main": "build/bu.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
   "directories": {
     "example": "examples"
   },
@@ -27,20 +30,11 @@
   "homepage": "https://github.com/jarvisniu/Bu.js#readme",
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "del": "^2.2.0",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.0",
-    "gulp-coffeescript": "0.0.15",
-    "gulp-header": "^1.7.1",
-    "gulp-live-server": "0.0.29",
-    "gulp-load-plugins": "^1.2.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.5.4",
-    "gulp-rollup": "^2.15.0",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-stylus": "^2.3.0",
-    "gulp-uglify": "^1.5.3",
-    "open": "0.0.5"
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "coffeescript": "^2.1.0",
+    "rollup": "^0.52.3",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-coffee-script": "^2.0.0",
+    "rollup-plugin-uglify": "^2.0.1"
   }
 }

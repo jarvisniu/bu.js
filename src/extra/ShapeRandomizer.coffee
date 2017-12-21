@@ -1,15 +1,15 @@
 # Used to generate random shapes
 
-import Bow from '../shapes/Bow'
-import Circle from '../shapes/Circle'
-import Ellipse from '../shapes/Ellipse'
-import Fan from '../shapes/Fan'
-import Line from '../shapes/Line'
-import Point from '../shapes/Point'
-import Polyline from '../shapes/Polyline'
-import Polygon from '../shapes/Polygon'
-import Rectangle from '../shapes/Rectangle'
-import Triangle from '../shapes/Triangle'
+import Bow from '../shapes/Bow.coffee'
+import Circle from '../shapes/Circle.coffee'
+import Ellipse from '../shapes/Ellipse.coffee'
+import Fan from '../shapes/Fan.coffee'
+import Line from '../shapes/Line.coffee'
+import Point from '../shapes/Point.coffee'
+import Polyline from '../shapes/Polyline.coffee'
+import Polygon from '../shapes/Polygon.coffee'
+import Rectangle from '../shapes/Rectangle.coffee'
+import Triangle from '../shapes/Triangle.coffee'
 
 class ShapeRandomizer
 

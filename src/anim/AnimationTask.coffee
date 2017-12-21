@@ -1,7 +1,7 @@
 # AnimationTask is an instance of Animation, run by AnimationRunner
 
-import Color from '../math/Color'
-import Vector from '../math/Vector'
+import Color from '../math/Color.coffee'
+import Vector from '../math/Vector.coffee'
 
 class AnimationTask
 

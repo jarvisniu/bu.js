@@ -1,9 +1,9 @@
 # rectangle shape
 
-import Size from '../math/Size'
-import Object2D from '../base/Object2D'
+import Size from '../math/Size.coffee'
+import Object2D from '../base/Object2D.coffee'
 
-import Point from '../shapes/Point'
+import Point from '../shapes/Point.coffee'
 
 class Rectangle extends Object2D
 

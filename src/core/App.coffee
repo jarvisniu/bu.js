@@ -19,10 +19,10 @@ All supported constructor options:
 }
 ##=================================================================###
 
-import Renderer from '../core/Renderer'
-import Scene from '../core/Scene'
+import Renderer from '../core/Renderer.coffee'
+import Scene from '../core/Scene.coffee'
 
-import InputManager from '../input/InputManager'
+import InputManager from '../input/InputManager.coffee'
 
 class App
 

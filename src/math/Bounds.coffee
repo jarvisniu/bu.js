@@ -1,6 +1,6 @@
 ## axis aligned bounding box
 
-import Vector from '../math/Vector'
+import Vector from '../math/Vector.coffee'
 
 class Bounds
 

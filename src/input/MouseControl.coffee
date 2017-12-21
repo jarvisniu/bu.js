@@ -1,9 +1,9 @@
 # Pan and zoom the camera by the mouse
 # Drag left mouse button to pan, wheel up/down to zoom in/out
 
-import Vector from '../math/Vector'
+import Vector from '../math/Vector.coffee'
 
-import Animation from '../anim/Animation'
+import Animation from '../anim/Animation.coffee'
 
 class MouseControl
 

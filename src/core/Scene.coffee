@@ -1,6 +1,6 @@
 # Scene is the root of the object tree
 
-import Object2D from '../base/Object2D'
+import Object2D from '../base/Object2D.coffee'
 
 class Scene extends Object2D
 

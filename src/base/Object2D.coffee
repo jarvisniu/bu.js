@@ -1,11 +1,11 @@
 # Base class of all shapes and other renderable objects
 
-import Bounds from '../math/Bounds'
-import Vector from '../math/Vector'
-#import Scene from '../core/Scene'
+import Bounds from '../math/Bounds.coffee'
+import Vector from '../math/Vector.coffee'
+#import Scene from '../core/Scene.coffee'
 
-import Styled from './Styled'
-import Event from './Event'
+import Styled from './Styled.coffee'
+import Event from './Event.coffee'
 
 class Object2D
 

@@ -1,10 +1,10 @@
 # polygon shape
 
-import Object2D from '../base/Object2D'
+import Object2D from '../base/Object2D.coffee'
 
-import Line from '../shapes/Line'
-import Point from '../shapes/Point'
-import Triangle from '../shapes/Triangle'
+import Line from '../shapes/Line.coffee'
+import Point from '../shapes/Point.coffee'
+import Triangle from '../shapes/Triangle.coffee'
 
 class Polygon extends Object2D
 

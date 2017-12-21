@@ -1,16 +1,16 @@
 # Geometry Algorithm Collection
 
-import Bow from '../shapes/Bow'
-import Circle from '../shapes/Circle'
-import Ellipse from '../shapes/Ellipse'
-import Fan from '../shapes/Fan'
-import Line from '../shapes/Line'
-import Point from '../shapes/Point'
-import Polygon from '../shapes/Polygon'
-import Polyline from '../shapes/Polyline'
-import Rectangle from '../shapes/Rectangle'
-import Spline from '../shapes/Spline'
-import Triangle from '../shapes/Triangle'
+import Bow from '../shapes/Bow.coffee'
+import Circle from '../shapes/Circle.coffee'
+import Ellipse from '../shapes/Ellipse.coffee'
+import Fan from '../shapes/Fan.coffee'
+import Line from '../shapes/Line.coffee'
+import Point from '../shapes/Point.coffee'
+import Polygon from '../shapes/Polygon.coffee'
+import Polyline from '../shapes/Polyline.coffee'
+import Rectangle from '../shapes/Rectangle.coffee'
+import Spline from '../shapes/Spline.coffee'
+import Triangle from '../shapes/Triangle.coffee'
 
 geometryAlgorithm = G =
 

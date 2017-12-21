@@ -1,8 +1,8 @@
 # Circle shape
 
-import Object2D from '../base/Object2D'
+import Object2D from '../base/Object2D.coffee'
 
-import Point from '../shapes/Point'
+import Point from '../shapes/Point.coffee'
 
 class Circle extends Object2D
 

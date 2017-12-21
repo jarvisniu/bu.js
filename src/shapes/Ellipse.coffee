@@ -1,6 +1,6 @@
 # Ellipse/Oval Shape
 
-import Object2D from '../base/Object2D'
+import Object2D from '../base/Object2D.coffee'
 
 class Ellipse extends Object2D
 

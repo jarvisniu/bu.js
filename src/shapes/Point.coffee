@@ -1,8 +1,8 @@
 # point shape
 
-import Object2D from '../base/Object2D'
+import Object2D from '../base/Object2D.coffee'
 
-import PointText from '../drawable/PointText'
+import PointText from '../drawable/PointText.coffee'
 
 class Point extends Object2D
 

@@ -1,9 +1,9 @@
 # polyline shape
 
-import Object2D from '../base/Object2D'
+import Object2D from '../base/Object2D.coffee'
 
-import Line from '../shapes/Line'
-import Point from '../shapes/Point'
+import Line from '../shapes/Line.coffee'
+import Point from '../shapes/Point.coffee'
 
 class Polyline extends Object2D
 
