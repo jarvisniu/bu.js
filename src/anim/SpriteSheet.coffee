@@ -1,6 +1,6 @@
 # Sprite Sheet
 
-import Event from '../base/Event.coffee'
+import Event from '../base/Event.js'
 
 #----------------------------------------------------------------------
 # jQuery style ajax()

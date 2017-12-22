@@ -1,6 +1,6 @@
 # Camera: change the view range at the scene
 
-import Object2D from '../base/Object2D.coffee'
+import Object2D from '../base/Object2D.js'
 
 class Camera extends Object2D
 

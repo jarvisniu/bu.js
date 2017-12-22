@@ -1,7 +1,7 @@
 # rectangle shape
 
 import Size from '../math/Size.coffee'
-import Object2D from '../base/Object2D.coffee'
+import Object2D from '../base/Object2D.js'
 
 import Point from '../shapes/Point.coffee'
 

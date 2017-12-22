@@ -1,6 +1,6 @@
 # Used to render all the drawable objects to the canvas
 
-import Event from '../base/Event.coffee'
+import Event from '../base/Event.js'
 import Camera from '../core/Camera.coffee'
 import Scene from '../core/Scene.coffee'
 

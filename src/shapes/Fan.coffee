@@ -1,6 +1,6 @@
 # Fan shape
 
-import Object2D from '../base/Object2D.coffee'
+import Object2D from '../base/Object2D.js'
 
 import Line from '../shapes/Line.coffee'
 import Point from '../shapes/Point.coffee'

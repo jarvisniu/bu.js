@@ -12,9 +12,9 @@ Bu.Size = Size
 Bu.Vector = Vector
 
 # base
-import Event from './base/Event.coffee'
-import Object2D from './base/Object2D.coffee'
-import Styled from './base/Styled.coffee'
+import Event from './base/Event.js'
+import Object2D from './base/Object2D.js'
+import Styled from './base/Styled.js'
 
 Bu.Event = Event
 Bu.Object2D = Object2D

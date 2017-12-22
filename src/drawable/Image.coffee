@@ -3,7 +3,7 @@
 import Size from '../math/Size.coffee'
 import Vector from '../math/Vector.coffee'
 
-import Object2D from '../base/Object2D.coffee'
+import Object2D from '../base/Object2D.js'
 
 class Image extends Object2D
 
