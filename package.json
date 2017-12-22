@@ -4,14 +4,16 @@
   "description": "A JavaScript 2D graphics library based on HTML5 Canvas",
   "main": "build/bu.js",
   "scripts": {
-    "build": "rollup -c"
+    "dev": "rollup -cw",
+    "build": "rollup -c",
+    "min": "uglifyjs build/bu.js -mco build/bu.min.js"
   },
   "directories": {
     "example": "examples"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jarvisniu/Bu.js.git"
+    "url": "git+https://github.com/jarvisniu/bu.js.git"
   },
   "keywords": [
     "JavaScript",
@@ -25,9 +27,9 @@
   "author": "Jarvis Niu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jarvisniu/Bu.js/issues"
+    "url": "https://github.com/jarvisniu/bu.js/issues"
   },
-  "homepage": "https://github.com/jarvisniu/Bu.js#readme",
+  "homepage": "https://github.com/jarvisniu/bu.js#readme",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-es2015-rollup": "^3.0.0",
@@ -35,6 +37,6 @@
     "rollup": "^0.52.3",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-coffee-script": "^2.0.0",
-    "rollup-plugin-uglify": "^2.0.1"
+    "uglify-js": "^3.2.2"
   }
 }
