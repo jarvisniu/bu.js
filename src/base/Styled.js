@@ -12,7 +12,7 @@ let Styled = function () {
 
 	// Set/copy style from other style
 	this.style = function (style) {
-		if (Bu.isString(style)) {
+		if (typeof style === 'string') {
 			style = Bu.styles[style]
 			if (!style) {
 				style = Bu.styles.default
@@ -67,7 +67,7 @@ let Styled = function () {
 	this.dash = function (v) {
 		if (v == null) v = true
 		else if (Bu.styles && v in Bu.styles) v = Bu.styles[v].dashStyle
-		else if (Bu.isNumber(v)) v = [v, v]
+		else if (typeof v === 'number') v = [v, v]
 
 		switch (v) {
 			case false:

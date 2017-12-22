@@ -95,7 +95,7 @@ class Object2D {
 	//     3. Multiple animations: An array whose children are above two types
 	animate(anim, args) {
 		if (!Bu.isArray(args)) args = [args]
-		if (Bu.isString(anim)) {
+		if (typeof anim === 'string') {
 			if (anim in Bu.animations) {
 				Bu.animations[anim].applyTo(this, args)
 			} else {
@@ -150,7 +150,7 @@ Object2D.property('scale', {
 		return this._scale
 	},
 	set: function (val) {
-		if (Bu.isNumber(val)) {
+		if (typeof val === 'number') {
 			return this._scale.x = this._scale.y = val
 		} else {
 			return this._scale = val

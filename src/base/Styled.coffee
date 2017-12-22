@@ -12,7 +12,7 @@ Styled = () ->
 
 	# Set/copy style from other style
 	@style = (style) ->
-		if Bu.isString style
+		if typeof style == 'string'
 			style = Bu.styles[style]
 			if not style?
 				style = Bu.styles.default
@@ -50,7 +50,7 @@ Styled = () ->
 	@dash = (v) ->
 		v = true unless v?
 		v = Bu.styles[v].dashStyle if Bu.styles? and v of Bu.styles
-		v = [v, v] if Bu.isNumber v
+		v = [v, v] if typeof v == 'number'
 		switch v
 			when false then @dashStyle = null
 			when true then @dashStyle = Styled.DEFAULT_DASH_STYLE

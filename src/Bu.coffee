@@ -91,21 +91,9 @@ Bu.combineOptions = (args, defaultOptions) ->
 			defaultOptions[i] = givenOptions[i]
 	return defaultOptions
 
-# Check if an variable is a number
-Bu.isNumber = (o) ->
-	typeof o == 'number'
-
-# Check if an variable is a string
-Bu.isString = (o) ->
-	typeof o == 'string'
-
 # Check if an object is an plain object, not instance of class/function
 Bu.isPlainObject = (o) ->
 	o instanceof Object and o.constructor.name == 'Object'
-
-# Check if an object is a function
-Bu.isFunction = (o) ->
-	o instanceof Object and o.constructor.name == 'Function'
 
 # Check if an object is a Array
 Bu.isArray = (o) ->
@@ -113,7 +101,7 @@ Bu.isArray = (o) ->
 
 # Clone an Object or Array
 Bu.clone = (target) ->
-	if typeof(target) != 'object' or target == null or Bu.isFunction target
+	if typeof(target) != 'object' or target == null or typeof target == 'function'
 		target
 	else
 		return target.clone() if target.clone?
@@ -138,13 +126,6 @@ Bu.data = (key, value) ->
 	else
 		value = localStorage['Bu.' + key]
 		if value? then JSON.parse value else null
-
-# Execute a callback function when the document is ready
-Bu.ready = (cb, context, args) ->
-	if document.readyState == 'complete'
-		cb.apply context, args
-	else
-		document.addEventListener 'DOMContentLoaded', -> cb.apply context, args
 
 #----------------------------------------------------------------------
 # Polyfills

@@ -31,7 +31,7 @@ class Renderer
 			@[name] = options[name]
 
 		# If options.width is not given, then fillParent is true
-		@fillParent = not Bu.isNumber options.width
+		@fillParent = typeof options.width != 'number'
 
 		# Convert width and height from dip(device independent pixels) to physical pixels
 		@pixelWidth = @width * @pixelRatio
@@ -48,7 +48,7 @@ class Renderer
 		@context.textBaseline = 'top'
 
 		# Set container dom
-		@container = document.querySelector @container if Bu.isString @container
+		@container = document.querySelector @container if typeof @container == 'string'
 		if @fillParent and @container == document.body
 			domHtml = document.querySelector('html')
 			domBody = document.querySelector('body')
@@ -317,7 +317,7 @@ class Renderer
 	drawPointText: (shape) ->
 		font = shape.font or Bu.DEFAULT_FONT
 
-		if Bu.isString font
+		if typeof font == 'string'
 			@context.textAlign = shape.textAlign
 			@context.textBaseline = shape.textBaseline
 			@context.font = font

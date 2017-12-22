@@ -19,6 +19,8 @@ All supported constructor options:
 }
 ##=================================================================###
 
+import utils from '../utils.js'
+
 import Renderer from '../core/Renderer.coffee'
 import Scene from '../core/Scene.coffee'
 
@@ -32,7 +34,7 @@ class App
 
 		@$inputManager = new InputManager
 
-		Bu.ready @init, @
+		utils.ready @init, @
 
 	init: () ->
 
@@ -47,7 +49,7 @@ class App
 		scene.renderer = @$renderer
 
 		# data
-		if Bu.isFunction @$options.data
+		if typeof @$options.data == 'function'
 			@$options.data = @$options.data.apply this
 		@[k] = @$options.data[k] for k of @$options.data
 
@@ -55,7 +57,7 @@ class App
 		@[k] = @$options.methods[k] for k of @$options.methods
 
 		# objects
-		objects = if Bu.isFunction @$options.objects
+		objects = if typeof @$options.objects == 'function'
 			@$options.objects.apply this
 		else
 			@$options.objects

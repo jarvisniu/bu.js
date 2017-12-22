@@ -32,7 +32,7 @@ class AnimationTask
     interpolate: ->
         return unless @from?
 
-        if Bu.isNumber @from
+        if typeof @from == 'number'
             @current = interpolateNum @from, @to, @t
         else if @from instanceof Color
             interpolateColor @from, @to, @t, @current
@@ -40,7 +40,7 @@ class AnimationTask
             interpolateVector @from, @to, @t, @current
         else if Bu.isPlainObject @from
             for own key of @from
-                if Bu.isNumber @from[key]
+                if typeof @from[key] == 'number'
                     @current[key] = interpolateNum @from[key], @to[key], @t
                 else
                     interpolateObject @from[key], @to[key], @t, @current[key]
