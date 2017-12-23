@@ -24,7 +24,7 @@ class Triangle extends Object2D
 			new Line(p2, p3)
 			new Line(p3, p1)
 		]
-		#@center = new Point Bu.average(p1.x, p2.x, p3.x), Bu.average(p1.y, p2.y, p3.y)
+		#@center = new Point average(p1.x, p2.x, p3.x), average(p1.y, p2.y, p3.y)
 		@points = [p1, p2, p3]
 		@keyPoints = @points
 		@on 'changed', @update

@@ -1,5 +1,7 @@
 # Run the animation tasks
 
+import utils from '../utils.js'
+
 class AnimationRunner
 
 	constructor: () ->
@@ -8,13 +10,13 @@ class AnimationRunner
 	add: (task) ->
 		task.init()
 		if task.animation.isLegal()
-			task.startTime = Bu.now()
+			task.startTime = utils.now()
 			@runningAnimations.push task
 		else
 			console.error 'AnimationRunner: animation setting is illegal: ', task.animation
 
 	update: ->
-		now = Bu.now()
+		now = utils.now()
 		for task in @runningAnimations
 			continue if task.finished
 
@@ -24,7 +26,7 @@ class AnimationRunner
 				finish = true
 				if anim.repeat
 					t = 0
-					task.startTime = Bu.now()
+					task.startTime = utils.now()
 				else
 					# TODO remove the finished tasks out
 					t = 1

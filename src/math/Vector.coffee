@@ -1,5 +1,7 @@
 # 2d vector
 
+import utils from '../utils.js'
+
 class Vector
 
 	constructor: (@x = 0, @y = 0) ->
@@ -35,7 +37,7 @@ class Vector
 		@x *= obj.scale.x
 		@y *= obj.scale.y
 		# rotation
-		len = Bu.bevel(@x, @y)
+		len = utils.bevel(@x, @y)
 		a = Math.atan2(@y, @x) + obj.rotation
 		@x = len * Math.cos(a)
 		@y = len * Math.sin(a)
@@ -49,7 +51,7 @@ class Vector
 		@x -= obj.position.x
 		@y -= obj.position.y
 		# rotation
-		len = Bu.bevel(@x, @y)
+		len = utils.bevel(@x, @y)
 		a = Math.atan2(@y, @x) - obj.rotation
 		@x = len * Math.cos(a)
 		@y = len * Math.sin(a)

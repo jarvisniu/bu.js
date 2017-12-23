@@ -59,7 +59,7 @@
 				mousemove: function (e) {
 					var shapes = this.$renderer.scene.children;
 
-					shapes.each(shape => {
+					shapes.forEach(shape => {
 						this.mousePos.set(e.offsetX, e.offsetY);
 
 						if (shape.hitTest(this.mousePos))

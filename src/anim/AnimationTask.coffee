@@ -1,5 +1,7 @@
 # AnimationTask is an instance of Animation, run by AnimationRunner
 
+import utils from '../utils.js'
+
 import Color from '../math/Color.coffee'
 import Vector from '../math/Vector.coffee'
 
@@ -8,25 +10,25 @@ class AnimationTask
     constructor: (@animation, @target, @args = []) ->
         @startTime = 0
         @finished = no
-        @from = Bu.clone @animation.from
-        @current = Bu.clone @animation.from
-        @to = Bu.clone @animation.to
+        @from = utils.clone @animation.from
+        @current = utils.clone @animation.from
+        @to = utils.clone @animation.to
         @data = {}
         @t = 0
         @arg = @args[0]
 
     init: ->
         @animation.init?.call @target, @
-        @current = Bu.clone @from
+        @current = utils.clone @from
 
     # Change the animation progress to the start
     restart: ->
-        @startTime = Bu.now()
+        @startTime = utils.now()
         @finished = no
 
     # Change the animation progress to the end
     end: ->
-        @startTime = Bu.now() - @animation.duration * 1000
+        @startTime = utils.now() - @animation.duration * 1000
 
     # Interpolate `current` according `from`, `to` and `t`
     interpolate: ->
@@ -38,7 +40,7 @@ class AnimationTask
             interpolateColor @from, @to, @t, @current
         else if @from instanceof Vector
             interpolateVector @from, @to, @t, @current
-        else if Bu.isPlainObject @from
+        else if utils.isPlainObject @from
             for own key of @from
                 if typeof @from[key] == 'number'
                     @current[key] = interpolateNum @from[key], @to[key], @t

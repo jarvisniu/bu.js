@@ -1,5 +1,7 @@
 # Used to render all the drawable objects to the canvas
 
+import utils from '../utils.js'
+
 import Event from '../base/Event.js'
 import Camera from '../core/Camera.coffee'
 import Scene from '../core/Scene.coffee'
@@ -15,11 +17,11 @@ class Renderer
 		@camera = new Camera
 		@tickCount = 0
 		@isRunning = yes
-		@pixelRatio = Bu.global.devicePixelRatio or 1
+		@pixelRatio = window.devicePixelRatio or 1
 		@clipMeter = new ClipMeter() if ClipMeter?
 
 		# Receive options
-		options = Bu.combineOptions arguments,
+		options = utils.combineOptions arguments,
 			container: 'body'
 			showKeyPoints: no
 			showBounds: no
@@ -83,7 +85,7 @@ class Renderer
 			@pixelHeight = @container.clientHeight
 			@width = @pixelWidth / @pixelRatio
 			@height = @pixelHeight / @pixelRatio
-			Bu.global.window.addEventListener 'resize', onResize
+			window.addEventListener 'resize', onResize
 			@dom.addEventListener 'DOMNodeInserted', onResize
 
 		# Run the loop
@@ -315,7 +317,7 @@ class Renderer
 
 
 	drawPointText: (shape) ->
-		font = shape.font or Bu.DEFAULT_FONT
+		font = shape.font or '11px Verdana'
 
 		if typeof font == 'string'
 			@context.textAlign = shape.textAlign

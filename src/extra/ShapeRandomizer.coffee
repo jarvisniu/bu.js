@@ -1,5 +1,7 @@
 # Used to generate random shapes
 
+import utils from '../utils.js'
+
 import Bow from '../shapes/Bow.coffee'
 import Circle from '../shapes/Circle.coffee'
 import Ellipse from '../shapes/Ellipse.coffee'
@@ -23,13 +25,13 @@ class ShapeRandomizer
 	constructor: ->
 
 	randomX: ->
-		Bu.rand @rangeX + MARGIN, @rangeX + @rangeWidth - MARGIN * 2
+		utils.rand @rangeX + MARGIN, @rangeX + @rangeWidth - MARGIN * 2
 
 	randomY: ->
-		Bu.rand @rangeY + MARGIN, @rangeY + @rangeHeight - MARGIN * 2
+		utils.rand @rangeY + MARGIN, @rangeY + @rangeHeight - MARGIN * 2
 
 	randomRadius: ->
-		Bu.rand 10, Math.min(@rangeX + @rangeWidth, @rangeY + @rangeHeight) / 2
+		utils.rand 10, Math.min(@rangeX + @rangeWidth, @rangeY + @rangeHeight) / 2
 
 	setRange: (a, b, c, d) ->
 		if c?
@@ -55,7 +57,7 @@ class ShapeRandomizer
 			else console.warn 'not support shape: ' + type
 
 	randomize: (shape) ->
-		if Bu.isArray shape
+		if utils.isArray shape
 			@randomize s for s in shape
 		else
 			switch shape.type
@@ -100,8 +102,8 @@ class ShapeRandomizer
 		@
 
 	generateBow: ->
-		aFrom = Bu.rand Bu.TWO_PI
-		aTo = aFrom + Bu.rand Bu.HALF_PI, Bu.TWO_PI
+		aFrom = utils.rand Bu.TWO_PI
+		aTo = aFrom + utils.rand Bu.HALF_PI, Bu.TWO_PI
 
 		bow = new Bow @randomX(), @randomY(), @randomRadius(), aFrom, aTo
 		bow.string.points[0].label = 'A'
@@ -109,8 +111,8 @@ class ShapeRandomizer
 		bow
 
 	randomizeBow: (bow) ->
-		aFrom = Bu.rand Bu.TWO_PI
-		aTo = aFrom + Bu.rand Bu.HALF_PI, Bu.TWO_PI
+		aFrom = utils.rand Bu.TWO_PI
+		aTo = aFrom + utils.rand Bu.HALF_PI, Bu.TWO_PI
 
 		bow.cx = @randomX()
 		bow.cy = @randomY()
@@ -121,8 +123,8 @@ class ShapeRandomizer
 		@
 
 	generateFan: ->
-		aFrom = Bu.rand Bu.TWO_PI
-		aTo = aFrom + Bu.rand Bu.HALF_PI, Bu.TWO_PI
+		aFrom = utils.rand Bu.TWO_PI
+		aTo = aFrom + utils.rand Bu.HALF_PI, Bu.TWO_PI
 
 		fan = new Fan @randomX(), @randomY(), @randomRadius(), aFrom, aTo
 		fan.center.label = 'O'
@@ -150,10 +152,10 @@ class ShapeRandomizer
 
 	generateRectangle: ->
 		rect = new Rectangle(
-			Bu.rand(@rangeX + @rangeWidth)
-			Bu.rand(@rangeY + @rangeHeight)
-			Bu.rand(@rangeWidth / 2)
-			Bu.rand(@rangeHeight / 2)
+			utils.rand(@rangeX + @rangeWidth)
+			utils.rand(@rangeY + @rangeHeight)
+			utils.rand(@rangeWidth / 2)
+			utils.rand(@rangeHeight / 2)
 		)
 		rect.pointLT.label = 'A'
 		rect.pointRT.label = 'B'

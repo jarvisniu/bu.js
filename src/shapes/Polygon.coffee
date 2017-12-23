@@ -1,5 +1,7 @@
 # polygon shape
 
+import utils from '../utils.js'
+
 import Object2D from '../base/Object2D.js'
 
 import Line from '../shapes/Line.coffee'
@@ -24,10 +26,10 @@ class Polygon extends Object2D
 		@lines = []
 		@triangles = []
 
-		options = Bu.combineOptions arguments,
+		options = utils.combineOptions arguments,
 			angle: 0
 
-		if Bu.isArray points
+		if utils.isArray points
 			@vertices = points if points?
 		else
 			if arguments.length < 4

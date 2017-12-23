@@ -1,5 +1,7 @@
 # Geometry Algorithm Collection
 
+import utils from '../utils.js'
+
 import Bow from '../shapes/Bow.coffee'
 import Circle from '../shapes/Circle.coffee'
 import Ellipse from '../shapes/Ellipse.coffee'
@@ -126,10 +128,10 @@ geometryAlgorithm = G =
 	pointInCircle: (point, circle) ->
 		dx = point.x - circle.cx
 		dy = point.y - circle.cy
-		return Bu.bevel(dx, dy) < circle.radius
+		return utils.bevel(dx, dy) < circle.radius
 
 	pointInEllipse: (point, ellipse) ->
-		return Bu.bevel(point.x / ellipse.radiusX, point.y / ellipse.radiusY) < 1
+		return utils.bevel(point.x / ellipse.radiusX, point.y / ellipse.radiusY) < 1
 
 	pointInRectangle: (point, rectangle) ->
 		point.x > rectangle.pointLT.x and
@@ -147,10 +149,10 @@ geometryAlgorithm = G =
 		dy = point.y - fan.cy
 		a = Math.atan2(point.y - fan.cy, point.x - fan.cx)
 		a += Bu.TWO_PI while a < fan.aFrom
-		return Bu.bevel(dx, dy) < fan.radius && a > fan.aFrom && a < fan.aTo
+		return utils.bevel(dx, dy) < fan.radius && a > fan.aFrom && a < fan.aTo
 
 	pointInBow: (point, bow) ->
-		if Bu.bevel(bow.cx - point.x, bow.cy - point.y) < bow.radius
+		if utils.bevel(bow.cx - point.x, bow.cy - point.y) < bow.radius
 			sameSide = bow.string.isTwoPointsSameSide(bow.center, point)
 			smallThanHalfCircle = bow.aTo - bow.aFrom < Math.PI
 			return sameSide ^ smallThanHalfCircle
@@ -166,7 +168,7 @@ geometryAlgorithm = G =
 	# Distance
 
 	distanceFromPointToPoint: (point1, point2) ->
-		Bu.bevel point1.x - point2.x, point1.y - point2.y
+		utils.bevel point1.x - point2.x, point1.y - point2.y
 
 	distanceFromPointToLine: (point, line) ->
 		p1 = line.points[0]

@@ -1,5 +1,7 @@
 # animation class and preset animations
 
+import utils from '../utils.js'
+
 import Color from '../math/Color.coffee'
 
 import AnimationTask from './AnimationTask.coffee'
@@ -17,7 +19,7 @@ class Animation
 		@finish = options.finish
 
 	applyTo: (target, args) ->
-		args = [args] unless Bu.isArray args
+		args = [args] unless utils.isArray args
 		task = new AnimationTask @, target, args
 		Bu.animationRunner.add task # TODO use module
 		task
@@ -25,7 +27,7 @@ class Animation
 	isLegal: ->
 		return true unless @from? and @to?
 
-		if Bu.isPlainObject @from
+		if utils.isPlainObject @from
 			for own key of @from
 				return false unless @to[key]?
 		else

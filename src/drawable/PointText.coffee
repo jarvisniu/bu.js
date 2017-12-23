@@ -1,6 +1,12 @@
 # Render text around a point
 
+import utils from '../utils.js'
+
 import Object2D from '../base/Object2D.js'
+
+# TODO add global settings
+DEFAULT_FONT_FAMILY = 'Verdana'
+DEFAULT_FONT_SIZE = 11
 
 class PointText extends Object2D
 
@@ -21,14 +27,14 @@ class PointText extends Object2D
 		@strokeStyle = null # no stroke by default
 		@fillStyle = 'black'
 
-		options = Bu.combineOptions arguments,
+		options = utils.combineOptions arguments,
 			align: '00'
 		@align = options.align
 		if options.font?
 			@font = options.font
 		else if options.fontFamily? or options.fontSize?
-			@_fontFamily = options.fontFamily or Bu.DEFAULT_FONT_FAMILY
-			@_fontSize = options.fontSize or Bu.DEFAULT_FONT_SIZE
+			@_fontFamily = options.fontFamily or DEFAULT_FONT_FAMILY
+			@_fontSize = options.fontSize or DEFAULT_FONT_SIZE
 			@font = "#{ @_fontSize }px #{ @_fontFamily }"
 		else
 			@font = null

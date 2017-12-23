@@ -1,6 +1,8 @@
 # Parse and serialize color
 # TODO Support hsl(0, 100%, 50%) format.
 
+import utils from '../utils.js'
+
 class Color
 
 	constructor: () ->
@@ -111,7 +113,7 @@ class Color
 
 	# Private functions
 
-	clampAlpha = (a) -> Bu.clamp a, 0, 1
+	clampAlpha = (a) -> utils.clamp a, 0, 1
 
 	hsl2rgb = (h, s, l) ->
 		h %= 360

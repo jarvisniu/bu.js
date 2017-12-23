@@ -1,5 +1,7 @@
 # Base class of all shapes and other renderable objects
 
+import utils from '../utils.js'
+
 import Bounds from '../math/Bounds.coffee'
 import Vector from '../math/Vector.coffee'
 #import Scene from '../core/Scene.coffee'
@@ -74,7 +76,7 @@ class Object2D
 
 	# Add object(s) to children
 	addChild: (shape) ->
-		if Bu.isArray shape
+		if utils.isArray shape
 			for s in shape
 				@children.push s
 				s.parent = @
@@ -95,13 +97,13 @@ class Object2D
 	#     2. Custom animations: the animation object of `Animation` type
 	#     3. Multiple animations: An array whose children are above two types
 	animate: (anim, args) ->
-		args = [args] unless Bu.isArray args
+		args = [args] unless utils.isArray args
 		if typeof anim == 'string'
 			if anim of Bu.animations
 				Bu.animations[anim].applyTo @, args
 			else
 				console.warn "Bu.animations[\"#{ anim }\"] doesn't exists."
-		else if Bu.isArray anim
+		else if utils.isArray anim
 			@animate anim[i], args for own i of anim
 		else
 			anim.applyTo @, args

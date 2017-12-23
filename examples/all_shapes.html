@@ -59,7 +59,7 @@
 			},
 			methods: {
 				setDashStroke: function (on) {
-					this.$renderer.scene.children.each(function (shape) {
+					this.$renderer.scene.children.forEach(function (shape) {
 						shape.dash(on ? true : false);
 					});
 				}

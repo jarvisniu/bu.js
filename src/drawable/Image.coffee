@@ -21,7 +21,7 @@ class Image extends Object2D
 
 		@pivot = new Vector 0.5, 0.5
 
-		@_image = new Bu.global.Image
+		@_image = new window.Image
 		@ready = false
 
 		@_image.onload = (e) =>
