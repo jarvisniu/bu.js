@@ -1,6 +1,6 @@
 # spline shape
 
-import utils from '../utils.js'
+import utils from '../base/utils.js'
 import Object2D from '../base/Object2D.js'
 
 import Point from '../shapes/Point.coffee'
@@ -28,7 +28,7 @@ class Spline extends Object2D
 		@controlPointsBehind = []
 
 		@fill off
-		@smoothFactor = Bu.DEFAULT_SPLINE_SMOOTH
+		@smoothFactor = utils.DEFAULT_SPLINE_SMOOTH
 		@_smoother = no
 
 		calcControlPoints @
@@ -62,7 +62,7 @@ class Spline extends Object2D
 				len1 = utils.bevel p[i].y - p[i - 1].y, p[i].x - p[i - 1].x
 				len2 = utils.bevel p[i].y - p[i + 1].y, p[i].x - p[i + 1].x
 				theta = theta1 + (theta2 - theta1) * if spline._smoother then len1 / (len1 + len2) else 0.5
-				theta += Math.PI if Math.abs(theta - theta1) > Bu.HALF_PI
+				theta += Math.PI if Math.abs(theta - theta1) > utils.HALF_PI
 				xA = p[i].x - len1 * spline.smoothFactor * Math.cos(theta)
 				yA = p[i].y - len1 * spline.smoothFactor * Math.sin(theta)
 				xB = p[i].x + len2 * spline.smoothFactor * Math.cos(theta)

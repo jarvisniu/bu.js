@@ -1,4 +1,46 @@
-// Utils Functions
+// Constants and Utils Functions
+
+window.Bu = {}  // TODO remove it
+
+// Math
+const HALF_PI = Math.PI / 2
+const TWO_PI = Math.PI * 2
+
+// Point is rendered as a small circle on screen. This is the radius of the circle.
+const POINT_RENDER_SIZE = 2.25
+
+// Point can have a label attached near it. This is the gap distance between them.
+const POINT_LABEL_OFFSET = 5
+
+// Default smooth factor of spline, range in [0, 1] and 1 is the smoothest
+const DEFAULT_SPLINE_SMOOTH = 0.25
+
+// How close a point to a line is regarded that the point is **ON** the line.
+const DEFAULT_NEAR_DIST = 5
+
+// Enumeration of mouse buttons, used to compare with `e.buttons` of mouse events
+const MOUSE = {
+	NONE: 0,
+	LEFT: 1,
+	RIGHT: 2,
+	MIDDLE: 4,
+}
+
+// Shortcut to define a property for a class. This is used to solve the problem
+// that CoffeeScript didn't support getters and setters.
+// TODO rewrite in js
+// class Person
+//   @constructor: (age) ->
+//     @_age = age
+
+//   @property 'age',
+//     get: -> @_age
+//     set: (val) ->
+//       @_age = val
+
+Function.prototype.property = function (prop, desc) {
+	return Object.defineProperty(this.prototype, prop, desc)
+}
 
 // Execute a callback function when the document is ready
 function ready(cb, context, args) {
@@ -109,6 +151,37 @@ function clone(target) {
 	}
 }
 
+// Make a copy of this function which has a limited shortest executing interval.
+function throttle(fn, limit = 0.5) {
+	let currTime = 0
+	let lastTime = 0
+
+	return function () {
+		currTime = Date.now()
+		if (currTime - lastTime > limit * 1000) {
+			fn.apply(null, arguments)
+			lastTime = currTime
+		}
+	}
+}
+
+// Make a copy of this function whose execution will be continuously put off
+// after every calling of this function.
+function debounce(fn, delay = 0.5) {
+	let args = null
+	let timeout = null
+
+	let later = () => {
+		fn.apply(null, args)
+	}
+
+	return function () {
+		args = arguments
+		clearTimeout(timeout)
+		timeout = setTimeout(later, delay * 1000)
+	}
+}
+
 // Use localStorage to persist data
 // TODO rename to store
 function data(key, value) {
@@ -125,6 +198,14 @@ function data(key, value) {
 }
 
 export default {
+	HALF_PI,
+	TWO_PI,
+	POINT_RENDER_SIZE,
+	POINT_LABEL_OFFSET,
+	DEFAULT_SPLINE_SMOOTH,
+	DEFAULT_NEAR_DIST,
+	MOUSE,
+
 	ready,
 	average,
 	bevel,
@@ -137,5 +218,7 @@ export default {
 	isPlainObject,
 	isArray,
 	clone,
+	throttle,
+	debounce,
 	data,
 }

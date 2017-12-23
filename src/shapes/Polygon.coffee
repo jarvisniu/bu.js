@@ -1,7 +1,6 @@
 # polygon shape
 
-import utils from '../utils.js'
-
+import utils from '../base/utils.js'
 import Object2D from '../base/Object2D.js'
 
 import Line from '../shapes/Line.coffee'
@@ -103,7 +102,7 @@ class Polygon extends Object2D
 		angleDelta = options.angle
 		r = radius
 		points = []
-		angleSection = Bu.TWO_PI / n
+		angleSection = utils.TWO_PI / n
 		for i in [0 ... n]
 			a = i * angleSection + angleDelta
 			x = cx + r * Math.cos(a)

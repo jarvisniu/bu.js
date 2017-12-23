@@ -19,7 +19,7 @@ All supported constructor options:
 }
 ##=================================================================###
 
-import utils from '../utils.js'
+import utils from '../base/utils.js'
 
 import Renderer from '../core/Renderer.coffee'
 import Scene from '../core/Scene.coffee'

@@ -1,6 +1,6 @@
 # Geometry Algorithm Collection
 
-import utils from '../utils.js'
+import utils from '../base/utils.js'
 
 import Bow from '../shapes/Bow.coffee'
 import Circle from '../shapes/Circle.coffee'
@@ -38,7 +38,7 @@ geometryAlgorithm = G =
 				G.pointInCircle @, circle
 			Point::distanceTo = (point) ->
 				G.distanceFromPointToPoint @, point
-			Point::isNear = (target, limit = Bu.DEFAULT_NEAR_DIST) ->
+			Point::isNear = (target, limit = utils.DEFAULT_NEAR_DIST) ->
 				switch target.type
 					when 'Point'
 						G.pointNearPoint @, target, limit
@@ -108,10 +108,10 @@ geometryAlgorithm = G =
 
 	# Point in shapes
 
-	pointNearPoint: (point, target, limit = Bu.DEFAULT_NEAR_DIST) ->
+	pointNearPoint: (point, target, limit = utils.DEFAULT_NEAR_DIST) ->
 		point.distanceTo(target) < limit
 
-	pointNearLine: (point, line, limit = Bu.DEFAULT_NEAR_DIST) ->
+	pointNearLine: (point, line, limit = utils.DEFAULT_NEAR_DIST) ->
 		verticalDist = line.distanceTo point
 		footPoint = line.footPointFrom point
 
@@ -120,7 +120,7 @@ geometryAlgorithm = G =
 
 		return verticalDist < limit and isBetween1 and isBetween2
 
-	pointNearPolyline: (point, polyline, limit = Bu.DEFAULT_NEAR_DIST) ->
+	pointNearPolyline: (point, polyline, limit = utils.DEFAULT_NEAR_DIST) ->
 		for line in polyline.lines
 			return yes if G.pointNearLine point, line, limit
 		no
@@ -148,7 +148,7 @@ geometryAlgorithm = G =
 		dx = point.x - fan.cx
 		dy = point.y - fan.cy
 		a = Math.atan2(point.y - fan.cy, point.x - fan.cx)
-		a += Bu.TWO_PI while a < fan.aFrom
+		a += utils.TWO_PI while a < fan.aFrom
 		return utils.bevel(dx, dy) < fan.radius && a > fan.aFrom && a < fan.aTo
 
 	pointInBow: (point, bow) ->
@@ -289,7 +289,7 @@ geometryAlgorithm = G =
 				[pA, pM] = compressed[-2..-1]
 				pB = polyline.vertices[i]
 				obliqueAngle = Math.abs(Math.atan2(pA.y - pM.y, pA.x - pM.x) - Math.atan2(pM.y - pB.y, pM.x - pB.x))
-				if obliqueAngle < strength * strength * Bu.HALF_PI
+				if obliqueAngle < strength * strength * utils.HALF_PI
 					compressed[compressed.length - 1] = pB
 				else
 					compressed.push pB

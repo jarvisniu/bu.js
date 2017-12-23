@@ -1,6 +1,9 @@
-import Bu from './Bu.coffee'
+// Entry of bu.js
 
-# math
+// main
+import utils from './base/utils.js'
+
+// math
 import Bounds from './math/Bounds.coffee'
 import Color from './math/Color.coffee'
 import Size from './math/Size.coffee'
@@ -11,7 +14,7 @@ Bu.Color = Color
 Bu.Size = Size
 Bu.Vector = Vector
 
-# base
+// base
 import Event from './base/Event.js'
 import Object2D from './base/Object2D.js'
 import Styled from './base/Styled.js'
@@ -20,7 +23,7 @@ Bu.Event = Event
 Bu.Object2D = Object2D
 Bu.Styled = Styled
 
-# core
+// core
 import App from './core/App.coffee'
 import Audio from './core/Audio.coffee'
 import Camera from './core/Camera.coffee'
@@ -33,7 +36,7 @@ Bu.Camera = Camera
 Bu.Renderer = Renderer
 Bu.Scene = Scene
 
-# shapes
+// shapes
 import Bow from './shapes/Bow.coffee'
 import Circle from './shapes/Circle.coffee'
 import Ellipse from './shapes/Ellipse.coffee'
@@ -58,38 +61,58 @@ Bu.Rectangle = Rectangle
 Bu.Spline = Spline
 Bu.Triangle = Triangle
 
-# drawable
+// drawable
 import Image from './drawable/Image.coffee'
 import PointText from './drawable/PointText.coffee'
 
 Bu.Image = Image
 Bu.PointText = PointText
 
-# animation
 import Animation from './anim/Animation.coffee'
 import AnimationRunner from './anim/AnimationRunner.coffee'
 import AnimationTask from './anim/AnimationTask.coffee'
 import DashFlowManager from './anim/DashFlowManager.coffee'
 import SpriteSheet from './anim/SpriteSheet.coffee'
 
+// animation
 Bu.Animation = Animation
 Bu.AnimationRunner = AnimationRunner
 Bu.AnimationTask = AnimationTask
 Bu.DashFlowManager = DashFlowManager
 Bu.SpriteSheet = SpriteSheet
 
-# input
+// input
 import InputManager from './input/InputManager.coffee'
 import MouseControl from './input/MouseControl.coffee'
 
 Bu.InputManager = InputManager
 Bu.MouseControl = MouseControl
 
-# extra
+// extra
 import geometryAlgorithm from './extra/geometryAlgorithm.coffee'
 import ShapeRandomizer from './extra/ShapeRandomizer.coffee'
 
 Bu.geometryAlgorithm = geometryAlgorithm
 Bu.ShapeRandomizer = ShapeRandomizer
+
+// properties
+
+// Version info
+Bu.version = '0.4.0'
+
+// utils in examples
+for (let name of ['d2r', 'rand']) {
+	Bu[name] = utils[name]
+}
+
+// Output version info to the console, at most one time in a minute.
+let currentTime = Date.now()
+let lastTime = utils.data('version.timestamp')
+if (!lastTime || currentTime - lastTime > 60 * 1000) {
+	if (typeof console.info === "function") {
+		console.info('Bu.js v' + Bu.version + ' - [https://github.com/jarvisniu/Bu.js]')
+	}
+	utils.data('version.timestamp', currentTime)
+}
 
 export default Bu

@@ -1,6 +1,6 @@
 # animation class and preset animations
 
-import utils from '../utils.js'
+import utils from '../base/utils.js'
 
 import Color from '../math/Color.coffee'
 

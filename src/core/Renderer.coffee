@@ -1,8 +1,8 @@
 # Used to render all the drawable objects to the canvas
 
-import utils from '../utils.js'
-
+import utils from '../base/utils.js'
 import Event from '../base/Event.js'
+
 import Camera from '../core/Camera.coffee'
 import Scene from '../core/Scene.coffee'
 
@@ -215,7 +215,7 @@ class Renderer
 
 
 	drawPoint: (shape) ->
-		@context.arc shape.x, shape.y, Bu.POINT_RENDER_SIZE, 0, Bu.TWO_PI
+		@context.arc shape.x, shape.y, utils.POINT_RENDER_SIZE, 0, utils.TWO_PI
 		@
 
 
@@ -226,12 +226,12 @@ class Renderer
 
 
 	drawCircle: (shape) ->
-		@context.arc shape.cx, shape.cy, shape.radius, 0, Bu.TWO_PI
+		@context.arc shape.cx, shape.cy, shape.radius, 0, utils.TWO_PI
 		@
 
 
 	drawEllipse: (shape) ->
-		@context.ellipse 0, 0, shape.radiusX, shape.radiusY, 0, Bu.TWO_PI, no
+		@context.ellipse 0, 0, shape.radiusX, shape.radiusY, 0, utils.TWO_PI, no
 		@
 
 

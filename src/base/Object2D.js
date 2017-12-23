@@ -1,6 +1,6 @@
 // Base class of all shapes and other renderable objects
 
-import utils from '../utils.js'
+import utils from '../base/utils.js'
 
 import Bounds from '../math/Bounds.coffee'
 import Vector from '../math/Vector.coffee'
@@ -61,7 +61,7 @@ class Object2D {
 	getScene() {
 		let node = this
 		while (true) {
-			if (node instanceof Bu.Scene) { // TODO circular reference
+			if (node.type === 'Scene') { // TODO circular reference
 				break
 			}
 			node = node.parent

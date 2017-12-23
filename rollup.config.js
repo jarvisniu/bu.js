@@ -4,7 +4,7 @@ import babel from 'rollup-plugin-babel'
 import pkg from './package.json'
 
 export default {
-	input: 'src/index.coffee',
+	input: 'src/index.js',
 	output: {
 		file: 'build/bu.js',
 		format: 'iife',

@@ -1,6 +1,8 @@
 # Pan and zoom the camera by the mouse
 # Drag left mouse button to pan, wheel up/down to zoom in/out
 
+import utils from '../base/utils.js'
+
 import Vector from '../math/Vector.coffee'
 
 import Animation from '../anim/Animation.coffee'
@@ -36,7 +38,7 @@ class MouseControl
 		dom.addEventListener 'mousewheel', @onMouseWheel
 
 	onMouseMove: (e) =>
-		if e.buttons == Bu.MOUSE.LEFT
+		if e.buttons == utils.MOUSE.LEFT
 			scale = @camera.scale.x
 			dx = -e.movementX * scale
 			dy = -e.movementY * scale

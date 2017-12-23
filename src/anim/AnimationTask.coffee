@@ -1,6 +1,6 @@
 # AnimationTask is an instance of Animation, run by AnimationRunner
 
-import utils from '../utils.js'
+import utils from '../base/utils.js'
 
 import Color from '../math/Color.coffee'
 import Vector from '../math/Vector.coffee'

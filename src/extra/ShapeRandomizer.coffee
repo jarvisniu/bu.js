@@ -1,6 +1,6 @@
 # Used to generate random shapes
 
-import utils from '../utils.js'
+import utils from '../base/utils.js'
 
 import Bow from '../shapes/Bow.coffee'
 import Circle from '../shapes/Circle.coffee'
@@ -102,8 +102,8 @@ class ShapeRandomizer
 		@
 
 	generateBow: ->
-		aFrom = utils.rand Bu.TWO_PI
-		aTo = aFrom + utils.rand Bu.HALF_PI, Bu.TWO_PI
+		aFrom = utils.rand utils.TWO_PI
+		aTo = aFrom + utils.rand utils.HALF_PI, utils.TWO_PI
 
 		bow = new Bow @randomX(), @randomY(), @randomRadius(), aFrom, aTo
 		bow.string.points[0].label = 'A'
@@ -111,8 +111,8 @@ class ShapeRandomizer
 		bow
 
 	randomizeBow: (bow) ->
-		aFrom = utils.rand Bu.TWO_PI
-		aTo = aFrom + utils.rand Bu.HALF_PI, Bu.TWO_PI
+		aFrom = utils.rand utils.TWO_PI
+		aTo = aFrom + utils.rand utils.HALF_PI, utils.TWO_PI
 
 		bow.cx = @randomX()
 		bow.cy = @randomY()
@@ -123,8 +123,8 @@ class ShapeRandomizer
 		@
 
 	generateFan: ->
-		aFrom = utils.rand Bu.TWO_PI
-		aTo = aFrom + utils.rand Bu.HALF_PI, Bu.TWO_PI
+		aFrom = utils.rand utils.TWO_PI
+		aTo = aFrom + utils.rand utils.HALF_PI, utils.TWO_PI
 
 		fan = new Fan @randomX(), @randomY(), @randomRadius(), aFrom, aTo
 		fan.center.label = 'O'

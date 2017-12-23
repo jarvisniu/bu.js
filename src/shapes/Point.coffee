@@ -1,5 +1,6 @@
 # point shape
 
+import utils from '../base/utils.js'
 import Object2D from '../base/Object2D.js'
 
 import PointText from '../drawable/PointText.coffee'
@@ -21,7 +22,7 @@ class Point extends Object2D
 		get: -> if @_labelIndex > -1 then @children[@_labelIndex].text else ''
 		set: (val) ->
 			if @_labelIndex == -1
-				pointText = new PointText val, @x + Bu.POINT_LABEL_OFFSET, @y, {align: '+0'}
+				pointText = new PointText val, @x + utils.POINT_LABEL_OFFSET, @y, {align: '+0'}
 				@children.push pointText
 				@_labelIndex = @children.length - 1
 			else
@@ -53,7 +54,7 @@ class Point extends Object2D
 
 	updateLabel: ->
 		if @_labelIndex > -1
-			@children[@_labelIndex].x = @x + Bu.POINT_LABEL_OFFSET
+			@children[@_labelIndex].x = @x + utils.POINT_LABEL_OFFSET
 			@children[@_labelIndex].y = @y
 		@
 

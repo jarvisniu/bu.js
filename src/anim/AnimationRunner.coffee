@@ -1,6 +1,6 @@
 # Run the animation tasks
 
-import utils from '../utils.js'
+import utils from '../base/utils.js'
 
 class AnimationRunner
 
@@ -69,11 +69,11 @@ class AnimationRunner
 			else
 				4 * (t - 1) ** 3 + 1
 
-		sineIn: (t) -> Math.sin((t - 1) * Bu.HALF_PI) + 1
-		sineOut: (t) -> Math.sin t * Bu.HALF_PI
+		sineIn: (t) -> Math.sin((t - 1) * utils.HALF_PI) + 1
+		sineOut: (t) -> Math.sin t * utils.HALF_PI
 		sine: (t) ->
 			if t < 0.5
-				(Math.sin((t * 2 - 1) * Bu.HALF_PI) + 1) / 2
+				(Math.sin((t * 2 - 1) * utils.HALF_PI) + 1) / 2
 			else
 				Math.sin((t - 0.5) * Math.PI) / 2 + 0.5
 
