@@ -47,7 +47,7 @@
 				this.circle.translate(100, 100).rotate(Bu.d2r(30));
 				this.triangle.translate(200, 100).rotate(Bu.d2r(40));
 
-				new Bu.MouseControl(this.$renderer.camera, this.$renderer.dom);
+				new Bu.MouseControl(this.$renderer);
 			},
 			methods: {
 				regenerateShapes: function () {
@@ -55,11 +55,11 @@
 				},
 			},
 			events: {
-				mousemove: function (e) {
+				mousemove: function (ev) {
 					var shapes = this.$renderer.scene.children;
 
 					shapes.forEach(shape => {
-						this.mousePos.set(e.offsetX, e.offsetY);
+						this.mousePos.set(ev.offsetX, ev.offsetY);
 
 						if (shape.hitTest(this.mousePos))
 							shape.style('hover');

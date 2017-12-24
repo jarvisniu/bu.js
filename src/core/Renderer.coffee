@@ -114,6 +114,13 @@ class Renderer
 	continue: -> @isRunning = true
 	toggle: -> @isRunning = not @isRunning
 
+# Project from DOM coordinates to world coordinates
+	projectToWorld: (x, y) ->
+		if (!Bu.config.originAtCenter)
+			return [x, y]
+		else
+			return [x - @width / 2, y - @height / 2]
+
 # Perform the full render process
 	render: ->
 		@context.save()

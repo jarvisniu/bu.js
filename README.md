@@ -21,31 +21,21 @@ A JavaScript 2D graphics library based on HTML5 Canvas
     <script src="https://cdn.rawgit.com/jarvisniu/bu.js/v0.4.0/build/bu.min.js"></script>
     <script type="text/javascript">
         var bu = new Bu.App({
-            renderer: {
-                width: 600,
-                height: 600,
-            },
             objects: {
                 sun: new Bu.Circle(40).fill("#F40").stroke("#820"),
                 earth: new Bu.Circle(20).fill("#06F").stroke("#038"),
                 moon: new Bu.Circle(10).fill("#FF0").stroke("#880"),
             },
-            hierarchy: {
+            scene: {
                 sun: {
                     earth: {
                         moon: {}
                     }
                 }
             },
-            init: function () {
-                var o = this.$objects;
-                o.sun.position.set(300, 300);
-                o.earth.position.x = 150;
-                o.moon.position.x = 50;
-            },
             update: function () {
-                this.$objects.sun.rotation += 0.02;
-                this.$objects.earth.rotation += 0.1;
+                this.sun.rotation += 0.02;
+                this.earth.rotation += 0.1;
             },
         });
     </script>
@@ -77,7 +67,7 @@ A JavaScript 2D graphics library based on HTML5 Canvas
     - `js/` - 3rd lib
     - `lib/` - Extension of this lib used in the examples
     - `assets/` - Asset files used in the examples
-    - `index.html` - Entry file of examples
+    - `index.html` - Homepage of examples
 - `src/` - Source code of this lib
     - `core/` - Core components
     - `math/` - Math related stuff like vector and matrix
@@ -85,6 +75,7 @@ A JavaScript 2D graphics library based on HTML5 Canvas
     - `drawable/` - Other thing like Image, Text etc. that can be displayed on the screen
     - `anim/` - Animation system
     - `extra/` - Utils components
+    - `input/` - Deal with the mouse and keyboard inputs
 
 
 ## License

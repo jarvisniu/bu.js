@@ -124,9 +124,7 @@ class Object2D {
 	// Hit testing with unprojections
 	hitTest(v) {
 		let renderer = this.getScene().renderer
-		if (Bu.config.originAtCenter) {
-			v.offset(-renderer.width / 2, -renderer.height / 2)
-		}
+		v.set(...renderer.projectToWorld(v.x, v.y))
 		v.project(renderer.camera)
 		v.unProject(this)
 		return this.containsPoint(v)

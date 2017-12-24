@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="css/example.css">
 	<script type="text/javascript">
 		var bu = new Bu({
-			objects: function() {
+			objects: function () {
 				var stroke = '#442', fill = '#884';
 				var circle = new Bu.Circle(200).fill(fill).stroke(stroke).setLineWidth(60),
 					square = new Bu.Rectangle(-50, -50, 100, 100).fill('#EEE').stroke(stroke).setLineWidth(10),
@@ -31,11 +31,11 @@
 				};
 			},
 			init: function () {
-				var r = this.$renderer,
-					control = new Bu.MouseControl(r.camera, r.dom);
+				var camera = this.$renderer.camera;
+				var control = new Bu.MouseControl(this.$renderer);
 
 				document.querySelector("#earthquake").addEventListener('click', function (e) {
-					r.camera.animate('shake');
+					camera.animate('shake');
 				});
 				document.querySelector("#smoothZoom").addEventListener('click', function (e) {
 					control.smoothZooming = this.checked;
