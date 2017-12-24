@@ -1,6 +1,6 @@
 # 2d vector
 
-import utils from '../base/utils.js'
+import utils from '../utils.js'
 
 class Vector
 

@@ -1,8 +1,8 @@
 # Used to render all the drawable objects to the canvas
 
-import Bu from '../core/Bu.js'
+import Bu from '../base/Bu.js'
 
-import utils from '../base/utils.js'
+import utils from '../utils.js'
 import Event from '../base/Event.js'
 
 import Camera from '../core/Camera.coffee'

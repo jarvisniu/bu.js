@@ -1,7 +1,7 @@
 # animation class and preset animations
 
-import Bu from '../core/Bu.js'
-import utils from '../base/utils.js'
+import Bu from '../base/Bu.js'
+import utils from '../utils.js'
 
 import Color from '../math/Color.coffee'
 

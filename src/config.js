@@ -1,9 +1,10 @@
 // global config
 
-import Bu from '../core/Bu.js'
+import Bu from './base/Bu.js'
 
 let config = {
 	font: '11px Verdana',
+	background: '#eee',
 }
 
 let cursor = 'default'

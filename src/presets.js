@@ -1,20 +1,20 @@
 // Presets
 
-import Bu from '../core/Bu.js'
+import Bu from './base/Bu.js'
 
 // Global unique instances ----------------------------------------------------
 
 Bu.$bues = []
 
-import AnimationRunner from '../anim/AnimationRunner.coffee'
-import DashFlowManager from '../anim/DashFlowManager.coffee'
+import AnimationRunner from './anim/AnimationRunner.coffee'
+import DashFlowManager from './anim/DashFlowManager.coffee'
 
 Bu.animationRunner = new AnimationRunner
 Bu.dashFlowManager = new DashFlowManager
 
 // Preset Styles --------------------------------------------------------------
 
-import Styled from './Styled.js'
+import Styled from './base/Styled.js'
 
 Bu.styles = {
 	default: new Styled().stroke().fill(),
@@ -27,8 +27,8 @@ Bu.styles = {
 
 // Preset Animations ----------------------------------------------------------
 
-import Animation from '../anim/Animation.coffee'
-import Color from '../math/Color.coffee'
+import Animation from './anim/Animation.coffee'
+import Color from './math/Color.coffee'
 
 Bu.animations = {
 

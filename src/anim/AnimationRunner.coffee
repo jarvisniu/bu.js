@@ -1,6 +1,6 @@
 # Run the animation tasks
 
-import utils from '../base/utils.js'
+import utils from '../utils.js'
 
 class AnimationRunner
 

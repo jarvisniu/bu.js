@@ -1,7 +1,7 @@
 # Pan and zoom the camera by the mouse
 # Drag left mouse button to pan, wheel up/down to zoom in/out
 
-import utils from '../base/utils.js'
+import utils from '../utils.js'
 
 import Vector from '../math/Vector.coffee'
 

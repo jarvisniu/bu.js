@@ -1,9 +1,8 @@
 // Entry of bu.js
 
 // main
-import Bu from './core/Bu.js'
-import './base/presets.js'
-import utils from './base/utils.js'
+import Bu from './base/Bu.js'
+import './presets.js'
 
 // math
 import Bounds from './math/Bounds.coffee'
@@ -20,12 +19,10 @@ Bu.Vector = Vector
 import Event from './base/Event.js'
 import Object2D from './base/Object2D.js'
 import Styled from './base/Styled.js'
-import config from './base/config.js'
 
 Bu.Event = Event
 Bu.Object2D = Object2D
 Bu.Styled = Styled
-Bu.config = config
 
 // core
 import Audio from './core/Audio.coffee'
@@ -99,8 +96,11 @@ Bu.ShapeRandomizer = ShapeRandomizer
 
 // properties -----------------------------------------------------------------
 
-// Version info
-Bu.version = '0.4.0'
+import utils from './utils.js'
+import config from './config.js'
+
+Bu.config = config		// Global config
+Bu.version = '0.4.0'	// Version info
 
 // utils in examples
 for (let name of [
@@ -117,7 +117,7 @@ let currentTime = Date.now()
 let lastTime = utils.data('version.timestamp')
 if (!lastTime || currentTime - lastTime > 60 * 1000) {
 	if (typeof console.info === "function") {
-		console.info('Bu.js v' + Bu.version + ' - [https://github.com/jarvisniu/Bu.js]')
+		console.info('bu.js v' + Bu.version + ' - [https://github.com/jarvisniu/bu.js]')
 	}
 	utils.data('version.timestamp', currentTime)
 }

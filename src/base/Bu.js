@@ -2,7 +2,6 @@
 
 // renderer:
 //   container
-//   background
 //   showKeyPoints
 // data
 // methods
@@ -42,7 +41,6 @@ class Bu {
 	init() {
 		// scene
 		let scene = new Scene
-		scene.background = this.$options.background || Scene.DEFAULT_BACKGROUND
 
 		// renderer
 		this.$renderer = new Renderer(this.$options.renderer)

@@ -1,7 +1,7 @@
 # Parse and serialize color
 # TODO Support hsl(0, 100%, 50%) format.
 
-import utils from '../base/utils.js'
+import utils from '../utils.js'
 
 class Color
 

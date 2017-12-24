@@ -1,6 +1,6 @@
 # polygon shape
 
-import utils from '../base/utils.js'
+import utils from '../utils.js'
 import Object2D from '../base/Object2D.js'
 
 import Line from '../shapes/Line.coffee'

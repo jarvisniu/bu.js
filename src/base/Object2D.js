@@ -1,7 +1,7 @@
 // Base class of all shapes and other renderable objects
 
-import Bu from '../core/Bu.js'
-import utils from '../base/utils.js'
+import Bu from '../base/Bu.js'
+import utils from '../utils.js'
 
 import Bounds from '../math/Bounds.coffee'
 import Vector from '../math/Vector.coffee'

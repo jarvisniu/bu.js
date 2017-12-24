@@ -7,9 +7,7 @@ class Scene extends Object2D
 	constructor: () ->
 		super()
 		@type = 'Scene'
-		@background = Scene.DEFAULT_BACKGROUND
+		@background = Bu.config.background
 		@renderer = null
-
-Scene.DEFAULT_BACKGROUND = '#eee'
 
 export default Scene

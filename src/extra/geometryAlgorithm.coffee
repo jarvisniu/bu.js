@@ -1,6 +1,6 @@
 # Geometry Algorithm Collection
 
-import utils from '../base/utils.js'
+import utils from '../utils.js'
 
 import Bow from '../shapes/Bow.coffee'
 import Circle from '../shapes/Circle.coffee'
