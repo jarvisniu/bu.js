@@ -17,7 +17,7 @@ Bu.styles = {
 	hover: new Styled().stroke('hsla(0, 100%, 40%, 0.75)').fill('hsla(0, 100%, 75%, 0.5)'),
 	text: new Styled().stroke(false).fill('black'),
 	line: new Styled().fill(false),
-	selected: new Styled().setLineWidth(3),
+	selected: new Styled().setLineWidth(2),
 	dash: new Styled().dash(),
 }
 

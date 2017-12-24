@@ -9,15 +9,15 @@
 		var SOURCE_URL_BASE = 'https://github.com/jarvisniu/jarvisniu.github.io/blob/master/Bu.js/examples/';
 		var hashPath, frame, source, links;
 
-		document.addEventListener("DOMContentLoaded", init);
-
-		function init() {
+		document.addEventListener("DOMContentLoaded", function () {
 			frame = document.querySelector("iframe");
 			source = document.querySelector("#source");
 			links = document.querySelectorAll("#side a");
+
 			window.addEventListener("hashchange", onHashChanged);
 			onHashChanged();
-		}
+			if (!location.hash) location.hash = "#!/hello_bu.html";
+		});
 
 		function onHashChanged() {
 			hashPath = location.hash.replace("#!/", "");

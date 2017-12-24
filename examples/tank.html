@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="../build/bu.js"></script>
 	<script type="text/javascript">
-		var bu = new Bu.App({
+		var bu = new Bu({
 			renderer: {
 				width: 512,
 				height: 512,
@@ -87,7 +87,7 @@
 			init: function () {
 				this.$renderer.scene = this.sceneMenu;
 
-				Bu.DEFAULT_FONT = this.font;
+				Bu.config.font = this.font;
 				this.sheet.once('loaded', () => {
 					this.tank1P.image = this.selector.image = this.sheet.getFrameImage('tank_p1');
 					this.base.image = this.sheet.getFrameImage('base');

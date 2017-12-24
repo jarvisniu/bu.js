@@ -26,7 +26,7 @@ import Scene from '../core/Scene.coffee'
 
 import InputManager from '../input/InputManager.coffee'
 
-class App
+class Bu
 
 	constructor: (@$options = {}) ->
 		for k in ["renderer", "data", "objects", "methods", "events"]
@@ -38,7 +38,7 @@ class App
 
 	init: () ->
 
-		# scene
+# scene
 		scene = new Scene
 		scene.background = @$options.background or Scene.DEFAULT_BACKGROUND
 
@@ -87,4 +87,4 @@ class App
 		if @$options.update?
 			@$renderer.on 'update', => @$options.update.apply this, arguments
 
-export default App
+export default Bu

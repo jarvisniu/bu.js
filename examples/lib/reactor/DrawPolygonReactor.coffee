@@ -63,7 +63,6 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 				guideLineStart.setPoint2 mousePos
 
 		@onMouseUp = (e) =>
-			e.buttons = Bu.MOUSE.NONE
 			if polygon?
 				guideLineEnd.setPoint2 guideLineEnd.points[0]
 				guideLineEnd.setPoint1 mousePos

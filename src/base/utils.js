@@ -1,7 +1,5 @@
 // Constants and Utils Functions
 
-window.Bu = {}  // TODO remove it
-
 // Math
 const HALF_PI = Math.PI / 2
 const TWO_PI = Math.PI * 2
@@ -40,17 +38,6 @@ const MOUSE = {
 
 Function.prototype.property = function (prop, desc) {
 	return Object.defineProperty(this.prototype, prop, desc)
-}
-
-// Execute a callback function when the document is ready
-function ready(cb, context, args) {
-	if (document.readyState === 'complete') {
-		cb.apply(context, args)
-	} else {
-		document.addEventListener('DOMContentLoaded', () => {
-			cb.apply(context, args)
-		})
-	}
 }
 
 // Calculate the mean value of numbers
@@ -206,7 +193,6 @@ export default {
 	DEFAULT_NEAR_DIST,
 	MOUSE,
 
-	ready,
 	average,
 	bevel,
 	clamp,

@@ -1,8 +1,9 @@
 // Entry of bu.js
 
 // main
-import utils from './base/utils.js'
+import './bu.js'
 import './base/presets.js'
+import utils from './base/utils.js'
 
 // math
 import Bounds from './math/Bounds.coffee'
@@ -19,19 +20,20 @@ Bu.Vector = Vector
 import Event from './base/Event.js'
 import Object2D from './base/Object2D.js'
 import Styled from './base/Styled.js'
+import config from './base/config.js'
 
 Bu.Event = Event
 Bu.Object2D = Object2D
 Bu.Styled = Styled
+Bu.config = config
 
 // core
-import App from './core/App.coffee'
+import Bu from './core/Bu.js'
 import Audio from './core/Audio.coffee'
 import Camera from './core/Camera.coffee'
 import Renderer from './core/Renderer.coffee'
 import Scene from './core/Scene.coffee'
 
-Bu.App = App
 Bu.Audio = Audio
 Bu.Camera = Camera
 Bu.Renderer = Renderer
@@ -96,13 +98,18 @@ import ShapeRandomizer from './extra/ShapeRandomizer.coffee'
 Bu.geometryAlgorithm = geometryAlgorithm
 Bu.ShapeRandomizer = ShapeRandomizer
 
-// properties
+// properties -----------------------------------------------------------------
 
 // Version info
 Bu.version = '0.4.0'
 
 // utils in examples
-for (let name of ['d2r', 'rand']) {
+for (let name of [
+	'd2r',
+	'rand',
+	'MOUSE',
+	'POINT_RENDER_SIZE',
+]) {
 	Bu[name] = utils[name]
 }
 

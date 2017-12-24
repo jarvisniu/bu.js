@@ -78,7 +78,7 @@ body {
     border: solid 1px silver;
     padding: 4px 8px;
     cursor: pointer;
-    transition: all 0.5s;
+    transition: all 0.3s;
     color: black;
     text-decoration: none;
 

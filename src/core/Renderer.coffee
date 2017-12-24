@@ -317,7 +317,7 @@ class Renderer
 
 
 	drawPointText: (shape) ->
-		font = shape.font or '11px Verdana'
+		font = shape.font or Bu.config.font
 
 		if typeof font == 'string'
 			@context.textAlign = shape.textAlign
