@@ -25,13 +25,11 @@ class Renderer
 		# Receive options
 		options = utils.combineOptions arguments,
 			container: 'body'
-			showKeyPoints: no
 			showBounds: no
-			originAtCenter: no
 			imageSmoothing: yes
 
 		# Copy options
-		for name in ['container', 'width', 'height', 'showKeyPoints', 'showBounds', 'originAtCenter']
+		for name in ['container', 'width', 'height', 'showBounds']
 			@[name] = options[name]
 
 		# If options.width is not given, then fillParent is true
@@ -111,12 +109,10 @@ class Renderer
 		Bu.animationRunner.hookUp @
 		Bu.dashFlowManager.hookUp @
 
-
 # Pause/continue/toggle the rendering loop
 	pause: -> @isRunning = false
 	continue: -> @isRunning = true
 	toggle: -> @isRunning = not @isRunning
-
 
 # Perform the full render process
 	render: ->
@@ -126,7 +122,7 @@ class Renderer
 		@clearCanvas()
 
 		# Move center from left-top corner to screen center
-		@context.translate @pixelWidth / 2, @pixelHeight / 2 if @originAtCenter
+		@context.translate @pixelWidth / 2, @pixelHeight / 2 if Bu.config.originAtCenter
 
 		# Zoom the canvas with devicePixelRatio to support high definition screen
 		@context.scale @pixelRatio, @pixelRatio
@@ -196,7 +192,6 @@ class Renderer
 			else
 				console.log 'drawShapes(): unknown shape: ', shape.type, shape
 
-
 		if shape.fillStyle? and shape.fillable
 			@context.fillStyle = shape.fillStyle
 			@context.fill()
@@ -210,32 +205,26 @@ class Renderer
 			@context.stroke()
 
 		@drawShapes shape.children if shape.children?
-		@drawShapes shape.keyPoints if @showKeyPoints
+		@drawShapes shape.keyPoints if Bu.config.showKeyPoints
 		@drawBounds shape.bounds if @showBounds and shape.bounds?
 		@
-
-
 
 	drawPoint: (shape) ->
 		@context.arc shape.x, shape.y, utils.POINT_RENDER_SIZE, 0, utils.TWO_PI
 		@
-
 
 	drawLine: (shape) ->
 		@context.moveTo shape.points[0].x, shape.points[0].y
 		@context.lineTo shape.points[1].x, shape.points[1].y
 		@
 
-
 	drawCircle: (shape) ->
 		@context.arc shape.cx, shape.cy, shape.radius, 0, utils.TWO_PI
 		@
 
-
 	drawEllipse: (shape) ->
 		@context.ellipse 0, 0, shape.radiusX, shape.radiusY, 0, utils.TWO_PI, no
 		@
-
 
 	drawTriangle: (shape) ->
 		@context.lineTo shape.points[0].x, shape.points[0].y
@@ -244,12 +233,10 @@ class Renderer
 		@context.closePath()
 		@
 
-
 	drawRectangle: (shape) ->
 		return @drawRoundRectangle shape if shape.cornerRadius != 0
 		@context.rect shape.pointLT.x, shape.pointLT.y, shape.size.width, shape.size.height
 		@
-
 
 	drawRoundRectangle: (shape) ->
 		x1 = shape.pointLT.x
@@ -271,13 +258,11 @@ class Renderer
 		@context.setLineDash? shape.dashStyle if shape.strokeStyle? and shape.dashStyle
 		@
 
-
 	drawFan: (shape) ->
 		@context.arc shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo
 		@context.lineTo shape.cx, shape.cy
 		@context.closePath()
 		@
-
 
 	drawBow: (shape) ->
 		@context.arc shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo
@@ -291,12 +276,10 @@ class Renderer
 		@context.closePath()
 		@
 
-
 	drawPolyline: (shape) ->
 		for point in shape.vertices
 			@context.lineTo point.x, point.y
 		@
-
 
 	drawSpline: (shape) ->
 		if shape.strokeStyle?
@@ -316,7 +299,6 @@ class Renderer
 						shape.vertices[i].y
 					)
 		@
-
 
 	drawPointText: (shape) ->
 		font = shape.font or Bu.config.font
@@ -351,7 +333,6 @@ class Renderer
 					xOffset += 10
 		@
 
-
 	drawImage: (shape) ->
 		if shape.ready
 			w = shape.size.width
@@ -360,7 +341,6 @@ class Renderer
 			dy = -h * shape.pivot.y
 			@context.drawImage shape.image, dx, dy, w, h
 		@
-
 
 	drawBounds: (bounds) ->
 		@context.beginPath()

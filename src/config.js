@@ -5,6 +5,7 @@ import Bu from './base/Bu.js'
 let config = {
 	font: '11px Verdana',
 	background: '#eee',
+	showKeyPoints: false,
 }
 
 let cursor = 'default'

@@ -19,11 +19,9 @@
 	<script src="./lib/reactor/DrawFreelineReactor.js"></script>
 	<link rel="stylesheet" href="css/example.css">
 	<script>
+		Bu.config.cursor = 'crosshair'
+		Bu.config.showKeyPoints = true
 		var bu = new Bu({
-			renderer: {
-				showKeyPoints: true,
-				cursor: 'crosshair',
-			},
 			data: function () {
 				var reactors = {
 					point: new Bu.DrawPointReactor(this.$renderer),

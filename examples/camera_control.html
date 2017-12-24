@@ -7,10 +7,8 @@
 	<script src="../build/bu.js"></script>
 	<link rel="stylesheet" href="css/example.css">
 	<script type="text/javascript">
+		Bu.config.originAtCenter = true
 		var bu = new Bu({
-			renderer: {
-				originAtCenter: true,
-			},
 			objects: function() {
 				var stroke = '#442', fill = '#884';
 				var circle = new Bu.Circle(200).fill(fill).stroke(stroke).setLineWidth(60),

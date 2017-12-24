@@ -1,8 +1,8 @@
 // Bu
 
 // renderer:
-//   container
-//   showKeyPoints
+//   width/height
+//	 imageSmoothing
 // data
 // methods
 // objects
@@ -32,6 +32,9 @@ class Bu {
 		this.$options = $options
 		for (let k of ["renderer", "data", "objects", "methods", "events"]) {
 			this.$options[k] = this.$options[k] || {}
+		}
+		if (this.$options.el) {
+			this.$options.renderer.container = this.$options.el
 		}
 		this.$inputManager = new InputManager
 		ready(this.init, this)

@@ -39,12 +39,12 @@
 		var OFFSET = GRID_SIZE + GAP_SIZE;
 
 		// Bu app
+		Bu.config.cursor = 'crosshair'
 		var app = new Bu({
+			el: '#container',
 			renderer: {
-				container: "#container",
 				width: OFFSET * WIDTH + MARGIN * 2,
 				height: OFFSET * HEIGHT + MARGIN * 2,
-				cursor: 'crosshair',
 			},
 			data: function () {
 

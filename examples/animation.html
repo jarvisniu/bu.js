@@ -18,8 +18,10 @@
 
 		document.addEventListener('DOMContentLoaded', init);
 
+		Bu.config.originAtCenter = true
+
 		function init() {
-			bu = new Bu.Renderer({ originAtCenter: true });
+			bu = new Bu.Renderer();
 
 			bunny = new Bu.Image(imageUrl);
 			bunny.scale = 2;
