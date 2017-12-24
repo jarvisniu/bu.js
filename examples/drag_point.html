@@ -10,17 +10,17 @@
   <link rel="stylesheet" href="css/example.css">
   <script type="text/javascript">
     Bu.config.originAtCenter = false
-    var bu = new Bu({
+    let bu = new Bu({
       data: function () {
-        var POINT_COUNT = 10,
-          points = [];
+        let POINT_COUNT = 10,
+          points = []
 
-        for (var i = 0; i < POINT_COUNT; i++) {
+        for (let i = 0; i < POINT_COUNT; i++) {
           points[i] = new Bu.Point(
             Bu.rand(this.$renderer.width),
             Bu.rand(this.$renderer.height),
-          );
-          points[i].label = "P" + i;
+          )
+          points[i].label = 'P' + i
         }
         return {
           POINT_COUNT,
@@ -28,12 +28,12 @@
         }
       },
       init: function () {
-        this.movePointReactor = new Bu.MovePointReactor(this.$renderer);
-        this.movePointReactor.enable();
+        this.movePointReactor = new Bu.MovePointReactor(this.$renderer)
+        this.movePointReactor.enable()
 
-        this.$renderer.scene.addChild(this.points);
+        this.$renderer.scene.addChild(this.points)
       },
-    });
+    })
   </script>
 </head>
 <body>

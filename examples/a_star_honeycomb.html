@@ -21,29 +21,29 @@
   <script src="./lib/a-star/NetHoneycomb.js"></script>
   <script>
     // net info
-    var WIDTH = 14;
-    var HEIGHT = 10;
-    var START_POS = {
+    let WIDTH = 14;
+    let HEIGHT = 10;
+    let START_POS = {
       x: 2,
-      y: 2
+      y: 2,
     };
-    var END_POS = {
+    let END_POS = {
       x: 11,
-      y: 7
+      y: 7,
     };
 
     // rendering config
-    var MARGIN = 40.5;
-    var GRID_SIZE = 50;
-    var GAP_SIZE = 4;
-    var GRID_SIZE_X = GRID_SIZE * 1.732 / 2;
-    var OFFSET_X = GRID_SIZE_X + GAP_SIZE;
-    var OFFSET_Y = OFFSET_X * 1.732 / 2;
+    let MARGIN = 40.5;
+    let GRID_SIZE = 50;
+    let GAP_SIZE = 4;
+    let GRID_SIZE_X = GRID_SIZE * 1.732 / 2;
+    let OFFSET_X = GRID_SIZE_X + GAP_SIZE;
+    let OFFSET_Y = OFFSET_X * 1.732 / 2;
 
     // Bu app
     Bu.config.originAtCenter = false
     Bu.config.cursor = 'crosshair'
-    var app = new Bu({
+    let app = new Bu({
       el: '#container',
       renderer: {
         width: OFFSET_X * WIDTH + OFFSET_Y * HEIGHT / 2 + MARGIN * 2,
@@ -51,8 +51,8 @@
       },
       data: function () {
 
-        var net = new AStar.NetHoneycomb(WIDTH, HEIGHT);
-        var engine = new AStar.Engine(net);
+        let net = new AStar.NetHoneycomb(WIDTH, HEIGHT);
+        let engine = new AStar.Engine(net);
         net.engine = engine;
 
         return {
@@ -106,10 +106,10 @@
         });
 
         // temporary variables
-        var i, j;
-        var xCount = this.net.width;
-        var yCount = this.net.height;
-        var cx, cy;
+        let i, j;
+        let xCount = this.net.width;
+        let yCount = this.net.height;
+        let cx, cy;
 
         // add grid hexagons
         for (i = 0; i < xCount; i++) {
@@ -207,17 +207,17 @@
       },
       methods: {
         refreshNode: function (i, j) {
-          var node = this.net.getNode(i, j);
-          var line = this.lineRows[i][j];
+          let node = this.net.getNode(i, j);
+          let line = this.lineRows[i][j];
 
-          var hexagon = this.hexagonRows[i][j];
+          let hexagon = this.hexagonRows[i][j];
           hexagon.strokeStyle = "gray";
           hexagon.animate('discolor', AStar.getStateColor(node.state));
 
           // draw path with prevNode
           if (node.prevNode) {
-            var x = this.getCentralX(node.prevNode.position.x, node.prevNode.position.y);
-            var y = this.getCentralY(node.prevNode.position.x, node.prevNode.position.y);
+            let x = this.getCentralX(node.prevNode.position.x, node.prevNode.position.y);
+            let y = this.getCentralY(node.prevNode.position.x, node.prevNode.position.y);
             line.setPoint2(x, y);
           } else {
             line.setPoint2(line.points[0]);
@@ -257,11 +257,11 @@
         mousedown: function (e) {
           this.isMouseDown = true;
 
-          var x = this.pixelToIndexX(e.offsetX, e.offsetY);
-          var y = this.pixelToIndexY(e.offsetX, e.offsetY);
+          let x = this.pixelToIndexX(e.offsetX, e.offsetY);
+          let y = this.pixelToIndexY(e.offsetX, e.offsetY);
           if (x < 0 || y < 0 || x >= this.net.width || y >= this.net.height) return;
 
-          var node = this.net.getNode(x, y);
+          let node = this.net.getNode(x, y);
           if (e.button == 0) {
             // left button
             if (node.state == AStar.NODE_STATE_DEFAULT) {
@@ -279,11 +279,11 @@
         },
         mousemove: function (e) {
           if (this.isMouseDown && e.button == 0) {
-            var x = this.pixelToIndexX(e.offsetX, e.offsetY);
-            var y = this.pixelToIndexY(e.offsetX, e.offsetY);
+            let x = this.pixelToIndexX(e.offsetX, e.offsetY);
+            let y = this.pixelToIndexY(e.offsetX, e.offsetY);
             if (x < 0 || y < 0 || x >= this.net.width || y >= this.net.height) return;
 
-            var node = this.net.getNode(x, y);
+            let node = this.net.getNode(x, y);
             // left button
             if (this.isClearing) {
               if (node.state == AStar.NODE_STATE_OBSTACLE)

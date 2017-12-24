@@ -9,7 +9,7 @@
   <script type="text/javascript">
     Bu.config.originAtCenter = false
     Bu.config.showKeyPoints = true
-    var bu = new Bu({
+    let bu = new Bu({
       objects: {
         circle: new Bu.Circle(50, 100, 100),
         line: new Bu.Line(200, 50, 250, 150),
@@ -22,7 +22,7 @@
           new Bu.Point(500, 200),
           new Bu.Point(650, 200),
           new Bu.Point(620, 280),
-          new Bu.Point(550, 300)
+          new Bu.Point(550, 300),
         ]),
         polyline: new Bu.Polyline([
           new Bu.Point(50, 420),
@@ -30,7 +30,7 @@
           new Bu.Point(150, 400),
           new Bu.Point(75, 500),
           new Bu.Point(165, 500),
-          new Bu.Point(175, 480)
+          new Bu.Point(175, 480),
         ]),
         spline: new Bu.Spline([
           new Bu.Point(200, 420),
@@ -38,7 +38,7 @@
           new Bu.Point(300, 400),
           new Bu.Point(225, 500),
           new Bu.Point(315, 500),
-          new Bu.Point(325, 480)
+          new Bu.Point(325, 480),
         ]),
         roundedRect: new Bu.Rectangle(365, 400, 120, 80, 16),
         ellipse: new Bu.Ellipse(45, 60).translate(580, 440),
@@ -59,19 +59,19 @@
       methods: {
         setDashStroke: function (on) {
           this.$renderer.scene.children.forEach(function (shape) {
-            shape.dash(on ? true : false);
-          });
+            shape.dash(on ? true : false)
+          })
         }
       },
       init: function () {
         document.querySelector('#btnKeyPoints').addEventListener('click', function () {
-          bu.$renderer.showKeyPoints = this.checked;
-        });
+          bu.$renderer.showKeyPoints = this.checked
+        })
         document.querySelector('#btnDashStroke').addEventListener('click', function () {
-          bu.setDashStroke(this.checked);
-        });
+          bu.setDashStroke(this.checked)
+        })
       },
-    });
+    })
   </script>
 </head>
 <body>

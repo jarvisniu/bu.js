@@ -10,43 +10,43 @@
     Bu.config.originAtCenter = false
     Bu.config.cursor = 'crosshair'
     Bu.config.showKeyPoints = true
-    var bu = new Bu({
+    let bu = new Bu({
       data: {
         mousePos: new Bu.Point(),
         randomizer: new Bu.ShapeRandomizer(),
       },
       objects: function () {
-        var line = this.randomizer.generateLine();
-        var polyline = this.randomizer.generatePolyline();
+        let line = this.randomizer.generateLine()
+        let polyline = this.randomizer.generatePolyline()
         return {
           line,
           polyline,
-        };
+        }
       },
       init: function () {
-        this.randomizer.setRange(this.$renderer.width, this.$renderer.height);
+        this.randomizer.setRange(this.$renderer.width, this.$renderer.height)
       },
       events: {
         mouseup: function (e) {
           // Randomize the lines
-          this.randomizer.randomize([this.line, this.polyline]);
+          this.randomizer.randomize([this.line, this.polyline])
         },
         mousemove: function (e) {
-          this.mousePos.x = e.offsetX;
-          this.mousePos.y = e.offsetY;
+          this.mousePos.x = e.offsetX
+          this.mousePos.y = e.offsetY
 
           if (this.mousePos.isNear(this.line))
-            this.line.style('hover');
+            this.line.style('hover')
           else
-            this.line.style();
+            this.line.style()
 
           if (this.mousePos.isNear(this.polyline))
-            this.polyline.style('hover');
+            this.polyline.style('hover')
           else
-            this.polyline.style();
+            this.polyline.style()
         },
       },
-    });
+    })
   </script>
 </head>
 <body>

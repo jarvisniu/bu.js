@@ -8,17 +8,17 @@
   <link rel="stylesheet" href="css/example.css">
   <script type="text/javascript">
 
-    var bu = new Bu({
+    let bu = new Bu({
       data: function () {
-        var COUNT = 30, T = 0.1;
-        var arr = [], stepCount = 0, value;
+        let COUNT = 30, T = 0.1
+        let arr = [], stepCount = 0, value
 
-        for (var i = 0; i < COUNT; i++) {
-          value = Math.random() * 100 - 50;
+        for (let i = 0; i < COUNT; i++) {
+          value = Math.random() * 100 - 50
           arr[i] = {
             value,
             line: new Bu.Line(value, 0, 0, 50).translate((i - COUNT / 2) * 10, 0),
-          };
+          }
         }
 
         return {
@@ -33,42 +33,42 @@
         labelStep: new Bu.PointText('', 50, -20),
       },
       init: function () {
-        for (var i = 0; i < this.COUNT; i++) {
-          this.$renderer.scene.addChild(this.arr[i].line);
+        for (let i = 0; i < this.COUNT; i++) {
+          this.$renderer.scene.addChild(this.arr[i].line)
         }
-        Bu.animations['moveTo'].duration = this.T;
-        Bu.animations['moveTo'].easing = true;
-        setInterval(this.nextStep.bind(this), this.T * 1000);
+        Bu.animations['moveTo'].duration = this.T
+        Bu.animations['moveTo'].easing = true
+        setInterval(this.nextStep.bind(this), this.T * 1000)
       },
       methods: {
         nextStep: function () {
           if (this.trySort()) {
-            this.stepCount += 1;
-            this.labelStep.text = 'Step: ' + this.stepCount;
+            this.stepCount += 1
+            this.labelStep.text = 'Step: ' + this.stepCount
           } else {
-            this.labelStatus.text = 'Finished!';
+            this.labelStatus.text = 'Finished!'
           }
         },
         trySort: function () {
-          for (var i = 0; i < this.COUNT - 1; i++) {
+          for (let i = 0; i < this.COUNT - 1; i++) {
             if (this.arr[i].value > this.arr[i + 1].value) {
-              this.swap(i, i + 1);
-              return true;
+              this.swap(i, i + 1)
+              return true
             }
           }
-          return false;
+          return false
         },
         swap: function (i, j) {
-          var A = this.arr;
+          let A = this.arr;
 
           [A[i].value, A[i + 1].value] = [A[i + 1].value, A[i].value];
-          [A[i].line, A[i + 1].line] = [A[i + 1].line, A[i].line];
+          [A[i].line, A[i + 1].line] = [A[i + 1].line, A[i].line]
 
-          A[i].line.animate('moveTo', A[j].line.position.x);
-          A[j].line.animate('moveTo', A[i].line.position.x);
+          A[i].line.animate('moveTo', A[j].line.position.x)
+          A[j].line.animate('moveTo', A[i].line.position.x)
         },
       },
-    });
+    })
 
   </script>
 </head>

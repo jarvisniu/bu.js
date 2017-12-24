@@ -10,38 +10,38 @@
     Bu.config.originAtCenter = false
     Bu.config.cursor = 'crosshair'
     Bu.config.showKeyPoints = true
-    var bu = new Bu({
+    let bu = new Bu({
       data: {
         mousePos: new Bu.Point(),
         randomizer: new Bu.ShapeRandomizer(),
       },
       objects: function () {
-        var line = this.randomizer.generateLine();
-        var lineVertical = new Bu.Line().dash();
-        lineVertical.points[1].label = "T";
+        let line = this.randomizer.generateLine()
+        let lineVertical = new Bu.Line().dash()
+        lineVertical.points[1].label = 'T'
         return {
           line,
           lineVertical,
-        };
+        }
       },
       init: function () {
-        this.randomizer.setRange(this.$renderer.width, this.$renderer.height);
+        this.randomizer.setRange(this.$renderer.width, this.$renderer.height)
       },
       events: {
         mousemove: function (e) {
-          this.mousePos.x = e.offsetX;
-          this.mousePos.y = e.offsetY;
+          this.mousePos.x = e.offsetX
+          this.mousePos.y = e.offsetY
 
-          var dist = this.line.distanceTo(this.mousePos);
-          this.lineVertical.points[0].copy(this.mousePos);
-          this.line.footPointFrom(this.mousePos, this.lineVertical.points[1]);
-          this.lineVertical.points[0].label = "Distance: " + Math.round(dist);
+          let dist = this.line.distanceTo(this.mousePos)
+          this.lineVertical.points[0].copy(this.mousePos)
+          this.line.footPointFrom(this.mousePos, this.lineVertical.points[1])
+          this.lineVertical.points[0].label = 'Distance: ' + Math.round(dist)
         },
         mouseup: function (e) {
-          this.randomizer.randomize(this.line);
+          this.randomizer.randomize(this.line)
         },
       },
-    });
+    })
   </script>
 </head>
 <body>

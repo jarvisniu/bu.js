@@ -8,69 +8,69 @@
   <script src="../build/bu.js"></script>
   <link rel="stylesheet" href="css/example.css">
   <script type="text/javascript">
-    var POINT_COUNT = 64;
-    var LINE_COUNT = 50;
+    let POINT_COUNT = 64
+    let LINE_COUNT = 50
 
-    var bu;
-    var points = [];
-    var lines = [];
+    let bu
+    let points = []
+    let lines = []
 
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', init)
 
-    function init() {
-      bu = new Bu.Renderer();
-      generatePoints();
-      document.getElementById("btnRandom").onclick = randomLines;
-      document.getElementById("btnAll").onclick = allLines;
-      document.getElementById("btnNoCross").onclick = noCrossLines;
-      document.getElementById("btnDelaunay").onclick = delaunayLines;
+    function init () {
+      bu = new Bu.Renderer()
+      generatePoints()
+      document.getElementById('btnRandom').onclick = randomLines
+      document.getElementById('btnAll').onclick = allLines
+      document.getElementById('btnNoCross').onclick = noCrossLines
+      document.getElementById('btnDelaunay').onclick = delaunayLines
     }
 
-    function generatePoints() {
-      for (var i = 0; i < POINT_COUNT; i++) {
-        var x = Bu.rand(-bu.width / 2 + 20, bu.width / 2 - 20);
-        var y = Bu.rand(-bu.width / 2 + 20, bu.height / 2 - 20);
-        points[i] = new Bu.Point(x, y);
-        points[i].label = i;
-        bu.scene.addChild(points[i]);
+    function generatePoints () {
+      for (let i = 0; i < POINT_COUNT; i++) {
+        let x = Bu.rand(-bu.width / 2 + 20, bu.width / 2 - 20)
+        let y = Bu.rand(-bu.width / 2 + 20, bu.height / 2 - 20)
+        points[i] = new Bu.Point(x, y)
+        points[i].label = i
+        bu.scene.addChild(points[i])
       }
     }
 
     // generate lines
 
-    function randomLines() {
-      lines = [];
-      for (var i = 0; i < LINE_COUNT; i++) {
-        var p1 = points[Math.floor(Bu.rand(POINT_COUNT))];
-        var p2 = points[Math.floor(Bu.rand(POINT_COUNT))];
-        var line = new Bu.Line(p1, p2);
-        line.strokeStyle = "#f40";
-        lines.push(line);
-        bu.scene.addChild(line);
+    function randomLines () {
+      lines = []
+      for (let i = 0; i < LINE_COUNT; i++) {
+        let p1 = points[Math.floor(Bu.rand(POINT_COUNT))]
+        let p2 = points[Math.floor(Bu.rand(POINT_COUNT))]
+        let line = new Bu.Line(p1, p2)
+        line.strokeStyle = '#f40'
+        lines.push(line)
+        bu.scene.addChild(line)
       }
     }
 
-    function allLines() {
-      lines = [];
-      for (var i = 0; i < POINT_COUNT; i++) {
-        for (var j = i + 1; j < POINT_COUNT; j++) {
-          var line = new Bu.Line(points[i], points[j]);
-          line.strokeStyle = "rgba(0, 0, 0, 0.1)";
-          lines.push(line);
-          bu.scene.addChild(line);
+    function allLines () {
+      lines = []
+      for (let i = 0; i < POINT_COUNT; i++) {
+        for (let j = i + 1; j < POINT_COUNT; j++) {
+          let line = new Bu.Line(points[i], points[j])
+          line.strokeStyle = 'rgba(0, 0, 0, 0.1)'
+          lines.push(line)
+          bu.scene.addChild(line)
         }
       }
     }
 
-    function noCrossLines() {
-      lines = [];
-      for (var i = 0; i < POINT_COUNT; i++) {
-        for (var j = i + 1; j < POINT_COUNT; j++) {
-          var line = new Bu.Line(points[i], points[j]);
-          line.strokeStyle = "#808";
+    function noCrossLines () {
+      lines = []
+      for (let i = 0; i < POINT_COUNT; i++) {
+        for (let j = i + 1; j < POINT_COUNT; j++) {
+          let line = new Bu.Line(points[i], points[j])
+          line.strokeStyle = '#808'
           if (!isLineCrossWithAny(line, lines)) {
-            lines.push(line);
-            bu.scene.addChild(line);
+            lines.push(line)
+            bu.scene.addChild(line)
             // console.log("Add: ", i, j);
           } else {
             // console.log("Not add: ", i, j);
@@ -79,52 +79,52 @@
       }
     }
 
-    function delaunayLines() {
-      var i;
-      lines = [];
+    function delaunayLines () {
+      let i
+      lines = []
       for (i = 0; i < POINT_COUNT; i++) {
-        for (var j = i + 1; j < POINT_COUNT; j++) {
-          lines.push(new Bu.Line(points[i], points[j]));
+        for (let j = i + 1; j < POINT_COUNT; j++) {
+          lines.push(new Bu.Line(points[i], points[j]))
         }
       }
       for (i = 0; i < lines.length; i++) {
         while (lineTryKillOthers(lines[i], lines))
-          lineTryKillOthers(lines[i], lines);
+          lineTryKillOthers(lines[i], lines)
       }
       for (i = 0; i < lines.length; i++) {
-        lines[i].strokeStyle = "#088";
-        bu.scene.addChild(lines[i]);
+        lines[i].strokeStyle = '#088'
+        bu.scene.addChild(lines[i])
       }
     }
 
     // geometry algorithm
-    function isLineCrossWithAny(line, lines) {
-      for (var i = 0; i < lines.length; i++) {
+    function isLineCrossWithAny (line, lines) {
+      for (let i = 0; i < lines.length; i++) {
         if (line.isCrossWithLine(lines[i])) {
           // console.log("crossed with line: [" + lineGroup[i].p1.index + " - " + lineGroup[i].p2.index + "]");
-          return true;
+          return true
         }
       }
-      return false;
+      return false
     }
 
-    function lineTryKillOthers(line, lines) {
+    function lineTryKillOthers (line, lines) {
       // step 1: To see whether itself will be killed
-      for (var i = 0; i < lines.length; i++) {
+      for (let i = 0; i < lines.length; i++) {
         if (line.isCrossWithLine(lines[i]) && line.length > lines[i].length) {
           // console.log("[" + line.p1.index + "-" + line.p2.index + "] suicide by [" + lines[i].p1.index + "-" + lines[i].p2.index + "]");
-          lines.splice(lines.indexOf(line), 1); // willBeenKilled
-          return true;
+          lines.splice(lines.indexOf(line), 1) // willBeenKilled
+          return true
         }
       }
       // console.log("[" + line.p1.index + "-" + line.p2.index + "] killing its crosses.");
-      for (var i = 0; i < lines.length; i++) {
+      for (let i = 0; i < lines.length; i++) {
         if (line.isCrossWithLine(lines[i])) {
           // console.log("    [" + lines[i].p1.index + "-" + lines[i].p2.index + "] be killing");
-          lines.splice(i, 1);
+          lines.splice(i, 1)
         }
       }
-      return false;
+      return false
     }
   </script>
 </head>

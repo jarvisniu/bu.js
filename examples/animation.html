@@ -12,68 +12,67 @@
     }
   </style>
   <script type="text/javascript">
-    var bu, bunny, circle;
-    var animSpin, animHelical;
-    var imageUrl = "./assets/textures/bunny.png";
+    let bu, bunny, circle
+    let animSpin, animHelical
+    let imageUrl = './assets/textures/bunny.png'
 
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', init)
 
-    function init() {
-      bu = new Bu.Renderer();
+    function init () {
+      bu = new Bu.Renderer()
 
-      bunny = new Bu.Image(imageUrl);
-      bunny.scale = 2;
+      bunny = new Bu.Image(imageUrl)
+      bunny.scale = 2
 
-      circle = new Bu.Circle(60).fill("white");
+      circle = new Bu.Circle(60).fill('white')
 
-      bu.scene.addChild([circle, bunny]);
+      bu.scene.addChild([circle, bunny])
 
       // custom animation
       animHelical = new Bu.Animation({
         duration: 2,
         init: function (anim) {
-          anim.data.ox = this.position.x;
-          anim.data.oy = this.position.y;
-          anim.data.or = this.rotation;
+          anim.data.ox = this.position.x
+          anim.data.oy = this.position.y
+          anim.data.or = this.rotation
         },
         update: function (anim) {
-          var theta = Math.PI * 8 * anim.t;
-          var radius = 300 * anim.t;
-          this.position.x = radius * Math.cos(theta) + anim.data.ox;
-          this.position.y = radius * Math.sin(theta) + anim.data.oy;
-          this.rotation = theta;
+          let theta = Math.PI * 8 * anim.t
+          let radius = 300 * anim.t
+          this.position.x = radius * Math.cos(theta) + anim.data.ox
+          this.position.y = radius * Math.sin(theta) + anim.data.oy
+          this.rotation = theta
         },
         finish: function (anim) {
-          this.position.x = anim.data.ox;
-          this.position.y = anim.data.oy;
-          this.rotation = anim.data.or;
+          this.position.x = anim.data.ox
+          this.position.y = anim.data.oy
+          this.rotation = anim.data.or
         }
-      });
+      })
 
-
-      var prefabButtons = document.querySelectorAll('#prefab button');
+      let prefabButtons = document.querySelectorAll('#prefab button')
       prefabButtons.forEach(function (button) {
-        button.setAttribute('onclick', 'prefabAnim(this.innerText);');
-      });
-      document.querySelector('#moveBy').setAttribute('onclick', 'bunny.animate("moveBy", document.querySelector("#inputMove").value);');
-      document.querySelector('#moveTo').setAttribute('onclick', 'bunny.animate("moveTo", document.querySelector("#inputMove").value);');
-      document.querySelector('#blink').setAttribute('onclick', 'circle.animate("blink");');
-      document.querySelector('#discolor').setAttribute('onclick', 'circle.animate("discolor", document.querySelector("#inputDiscolor").value);');
-      document.querySelector('#spinIn').setAttribute('onclick', 'bunny.animate("spinIn", 2);');
-      document.querySelector('#helical').addEventListener('click', applyHelical);
-      document.querySelector('#multiple').addEventListener('click', applyMultiple);
+        button.setAttribute('onclick', 'prefabAnim(this.innerText);')
+      })
+      document.querySelector('#moveBy').setAttribute('onclick', 'bunny.animate("moveBy", document.querySelector("#inputMove").value);')
+      document.querySelector('#moveTo').setAttribute('onclick', 'bunny.animate("moveTo", document.querySelector("#inputMove").value);')
+      document.querySelector('#blink').setAttribute('onclick', 'circle.animate("blink");')
+      document.querySelector('#discolor').setAttribute('onclick', 'circle.animate("discolor", document.querySelector("#inputDiscolor").value);')
+      document.querySelector('#spinIn').setAttribute('onclick', 'bunny.animate("spinIn", 2);')
+      document.querySelector('#helical').addEventListener('click', applyHelical)
+      document.querySelector('#multiple').addEventListener('click', applyMultiple)
     }
 
-    function prefabAnim(type) {
-      bunny.animate(type);
+    function prefabAnim (type) {
+      bunny.animate(type)
     }
 
-    function applyHelical() {
-      bunny.animate(animHelical);
+    function applyHelical () {
+      bunny.animate(animHelical)
     }
 
-    function applyMultiple() {
-      bunny.animate(['moveBy', 'spin'], document.querySelector("#inputMove").value);
+    function applyMultiple () {
+      bunny.animate(['moveBy', 'spin'], document.querySelector('#inputMove').value)
     }
   </script>
 </head>

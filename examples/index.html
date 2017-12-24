@@ -6,31 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/index.css">
   <script type="text/javascript">
-    var SOURCE_URL_BASE = 'https://github.com/jarvisniu/jarvisniu.github.io/blob/master/bu.js/examples/';
-    var hashPath, frame, source, links;
+    let SOURCE_URL_BASE = 'https://github.com/jarvisniu/jarvisniu.github.io/blob/master/bu.js/examples/'
+    let hashPath, frame, source, links
 
-    document.addEventListener("DOMContentLoaded", function () {
-      frame = document.querySelector("iframe");
-      source = document.querySelector("#source");
-      links = document.querySelectorAll("#side a");
+    document.addEventListener('DOMContentLoaded', function () {
+      frame = document.querySelector('iframe')
+      source = document.querySelector('#source')
+      links = document.querySelectorAll('#side a')
 
-      window.addEventListener("hashchange", onHashChanged);
-      onHashChanged();
-      if (!location.hash) location.hash = "#!/hello_bu.html";
-    });
+      window.addEventListener('hashchange', onHashChanged)
+      onHashChanged()
+      if (!location.hash) location.hash = '#!/hello_bu.html'
+    })
 
-    function onHashChanged() {
-      hashPath = location.hash.replace("#!/", "");
+    function onHashChanged () {
+      hashPath = location.hash.replace('#!/', '')
       if (hashPath.length > 0) {
-        frame.src = hashPath;
-        source.setAttribute('href', SOURCE_URL_BASE + hashPath);
+        frame.src = hashPath
+        source.setAttribute('href', SOURCE_URL_BASE + hashPath)
       }
 
-      for (var i = 0; i < links.length; i++) {
+      for (let i = 0; i < links.length; i++) {
         if (location.hash.length > 0 && links[i].href.indexOf(location.hash) > -1)
-          links[i].style.backgroundColor = '#CCC';
+          links[i].style.backgroundColor = '#CCC'
         else
-          links[i].style.backgroundColor = '';
+          links[i].style.backgroundColor = ''
       }
     }
   </script>

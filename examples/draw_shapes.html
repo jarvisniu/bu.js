@@ -22,9 +22,9 @@
     Bu.config.originAtCenter = false
     Bu.config.cursor = 'crosshair'
     Bu.config.showKeyPoints = true
-    var bu = new Bu({
+    let bu = new Bu({
       data: function () {
-        var reactors = {
+        let reactors = {
           point: new Bu.DrawPointReactor(this.$renderer),
           circleRadius: new Bu.DrawCircleReactor(this.$renderer),
           circleDiameter: new Bu.DrawCircleDiameterReactor(this.$renderer),
@@ -32,29 +32,29 @@
           polygon: new Bu.DrawPolygonReactor(this.$renderer),
           freeline: new Bu.DrawFreelineReactor(this.$renderer),
           smoothFreeline: new Bu.DrawFreelineReactor(this.$renderer, true),
-        };
-        return {reactors};
+        }
+        return {reactors}
       },
       init: function () {
-        this.reactors.point.enable();
+        this.reactors.point.enable()
 
-        var radios = document.querySelectorAll('#control input');
+        let radios = document.querySelectorAll('#control input')
         radios.forEach(function (radio) {
           radio.addEventListener('click', function () {
-            for (var k in bu.reactors) {
+            for (let k in bu.reactors) {
               if (k == this.id)
-                bu.reactors[k].enable();
+                bu.reactors[k].enable()
               else
-                bu.reactors[k].disable();
+                bu.reactors[k].disable()
             }
-          });
-        });
+          })
+        })
 
         document.querySelector('#btnShowKeyPoints').addEventListener('click', function () {
-          bu.$renderer.showKeyPoints = this.checked;
-        });
+          bu.$renderer.showKeyPoints = this.checked
+        })
       },
-    });
+    })
   </script>
 </head>
 <body>

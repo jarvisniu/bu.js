@@ -7,19 +7,19 @@
   <script src="../build/bu.js"></script>
   <link rel="stylesheet" href="css/example.css">
   <script type="text/javascript">
-    var bu = new Bu({
+    let bu = new Bu({
       objects: function () {
-        var stroke = '#442', fill = '#884';
-        var circle = new Bu.Circle(200).fill(fill).stroke(stroke).setLineWidth(60),
-          square = new Bu.Rectangle(-50, -50, 100, 100).fill('#EEE').stroke(stroke).setLineWidth(10),
-          labelUp = new Bu.PointText('乾', 0, -110),
-          labelDown = new Bu.PointText('隆', 0, 110),
-          labelRight = new Bu.PointText('通', 110, -0),
-          labelLeft = new Bu.PointText('寳', -110, 0);
+        let stroke = '#442', fill = '#884'
+        let circle = new Bu.Circle(200).fill(fill).stroke(stroke).setLineWidth(60)
+        let square = new Bu.Rectangle(-50, -50, 100, 100).fill('#EEE').stroke(stroke).setLineWidth(10)
+        let labelUp = new Bu.PointText('乾', 0, -110)
+        let labelDown = new Bu.PointText('隆', 0, 110)
+        let labelRight = new Bu.PointText('通', 110, -0)
+        let labelLeft = new Bu.PointText('寳', -110, 0)
 
-        labelUp.fontSize = labelDown.fontSize = labelRight.fontSize = labelLeft.fontSize = 100;
-        labelUp.fontFamily = labelDown.fontFamily = labelRight.fontFamily = labelLeft.fontFamily = 'SimHei';
-        labelUp.fillStyle = labelDown.fillStyle = labelRight.fillStyle = labelLeft.fillStyle = stroke;
+        labelUp.fontSize = labelDown.fontSize = labelRight.fontSize = labelLeft.fontSize = 100
+        labelUp.fontFamily = labelDown.fontFamily = labelRight.fontFamily = labelLeft.fontFamily = 'SimHei'
+        labelUp.fillStyle = labelDown.fillStyle = labelRight.fillStyle = labelLeft.fillStyle = stroke
 
         return {
           circle,
@@ -28,20 +28,20 @@
           labelDown,
           labelRight,
           labelLeft,
-        };
+        }
       },
       init: function () {
-        var camera = this.$renderer.camera;
-        var control = new Bu.MouseControl(this.$renderer);
+        let camera = this.$renderer.camera
+        let control = new Bu.MouseControl(this.$renderer)
 
-        document.querySelector("#earthquake").addEventListener('click', function (e) {
-          camera.animate('shake');
-        });
-        document.querySelector("#smoothZoom").addEventListener('click', function (e) {
-          control.smoothZooming = this.checked;
-        });
+        document.querySelector('#earthquake').addEventListener('click', function (e) {
+          camera.animate('shake')
+        })
+        document.querySelector('#smoothZoom').addEventListener('click', function (e) {
+          control.smoothZooming = this.checked
+        })
       },
-    });
+    })
   </script>
 </head>
 <body>
