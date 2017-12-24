@@ -35,163 +35,163 @@
 
 class AStar.Engine
 
-	constructor: (net) ->
-		Bu.Event.apply this
+  constructor: (net) ->
+    Bu.Event.apply this
 
-		_net = net
+    _net = net
 
-		@finished = false
-		@isRunning = false
+    @finished = false
+    @isRunning = false
 
-		@fps = 10
+    @fps = 10
 
-		listOpen = []
-		listClose = []
+    listOpen = []
+    listClose = []
 
-		nodeId = 0 # Add an id to every node for comparing when their "f" is equal: recent node is prior.
+    nodeId = 0 # Add an id to every node for comparing when their "f" is equal: recent node is prior.
 
-		startTime = 0
-		stepCount = 0
+    startTime = 0
+    stepCount = 0
 
-		@result = {}
+    @result = {}
 
-		@init = =>
-			# for node in listClose
-			# 	node.state = AStar.NODE_STATE_DEFAULT
-			# 	node.prevNode = null
-			# 	@trigger 'nodeChanged', node.position
-			for i in [0.._net.width]
-				for j in [0.._net.height]
-					node = _net.nodes[i]?[j]
-					continue unless node?
-					if node.state > AStar.NODE_STATE_END and node.state < AStar.NODE_STATE_OBSTACLE
-						node.state = AStar.NODE_STATE_DEFAULT
-					node.prevNode = null
-					node.neighbours = null
-					@trigger 'nodeChanged', node.position
-			listOpen = []
-			listClose = []
+    @init = =>
+# for node in listClose
+# 	node.state = AStar.NODE_STATE_DEFAULT
+# 	node.prevNode = null
+# 	@trigger 'nodeChanged', node.position
+      for i in [0.._net.width]
+        for j in [0.._net.height]
+          node = _net.nodes[i]?[j]
+          continue unless node?
+          if node.state > AStar.NODE_STATE_END and node.state < AStar.NODE_STATE_OBSTACLE
+            node.state = AStar.NODE_STATE_DEFAULT
+          node.prevNode = null
+          node.neighbours = null
+          @trigger 'nodeChanged', node.position
+      listOpen = []
+      listClose = []
 
-			stepCount = 0
-			@finished = false
+      stepCount = 0
+      @finished = false
 
-			_net.startNode.g = 0
-			_net.startNode.h = parseInt(_net.calcShortestDistance(_net.startNode, _net.endNode))
-			@trigger 'nodeChanged', _net.startNode.position
+      _net.startNode.g = 0
+      _net.startNode.h = parseInt(_net.calcShortestDistance(_net.startNode, _net.endNode))
+      @trigger 'nodeChanged', _net.startNode.position
 
-			listOpen.push _net.startNode
+      listOpen.push _net.startNode
 
-		# run the engine by one step
-		@step = =>
-			if !@finished
-				_step()
-			else
-				console.log 'It has been finished.'
+    # run the engine by one step
+    @step = =>
+      if !@finished
+        _step()
+      else
+        console.log 'It has been finished.'
 
-		# run the engine all the way to finish
-		@run = (fps) =>
-			@fps = fps if fps?
-			if not @isRunning
-				@init()
-				@isRunning = true
-				startTime = Date.now()
-				if fps
-					autoStep()
-				else
-					while not @finished
-						_step()
+    # run the engine all the way to finish
+    @run = (fps) =>
+      @fps = fps if fps?
+      if not @isRunning
+        @init()
+        @isRunning = true
+        startTime = Date.now()
+        if fps
+          autoStep()
+        else
+          while not @finished
+            _step()
 
-		autoStep = =>
-			if not @finished
-				_step()
-				setTimeout autoStep, 1000 / @fps
+    autoStep = =>
+      if not @finished
+        _step()
+        setTimeout autoStep, 1000 / @fps
 
-		_step = =>
-			currentNode = listOpen.shift()
-			if not currentNode?
-				_end false
-				return
+    _step = =>
+      currentNode = listOpen.shift()
+      if not currentNode?
+        _end false
+        return
 
-			if currentNode.state != AStar.NODE_STATE_START
-				currentNode.state = AStar.NODE_STATE_DETECTED
-				@trigger 'nodeChanged', currentNode.position
+      if currentNode.state != AStar.NODE_STATE_START
+        currentNode.state = AStar.NODE_STATE_DETECTED
+        @trigger 'nodeChanged', currentNode.position
 
-			listClose.push currentNode
+      listClose.push currentNode
 
-			recalculateLastNode currentNode
+      recalculateLastNode currentNode
 
-			neighbours = _net.getNeighboursOf(currentNode)
+      neighbours = _net.getNeighboursOf(currentNode)
 
-			for own i of neighbours
-				neighbour = neighbours[i]
+      for own i of neighbours
+        neighbour = neighbours[i]
 
-				if listClose.indexOf(neighbour) > -1
-				else if listOpen.indexOf(neighbour) > -1
-				else
-					neighbour.prevNode = currentNode
-					neighbour.id = nodeId++
+        if listClose.indexOf(neighbour) > -1
+        else if listOpen.indexOf(neighbour) > -1
+        else
+          neighbour.prevNode = currentNode
+          neighbour.id = nodeId++
 
-					if neighbour.state != AStar.NODE_STATE_END
-						neighbour.state = AStar.NODE_STATE_REACHABLE
+          if neighbour.state != AStar.NODE_STATE_END
+            neighbour.state = AStar.NODE_STATE_REACHABLE
 
-					neighbour.g = currentNode.g + neighbour.calcShortestDistanceTo(currentNode)
-					neighbour.h = neighbour.calcShortestDistanceTo(_net.endNode)
-					@trigger 'nodeChanged', neighbour.position
+          neighbour.g = currentNode.g + neighbour.calcShortestDistanceTo(currentNode)
+          neighbour.h = neighbour.calcShortestDistanceTo(_net.endNode)
+          @trigger 'nodeChanged', neighbour.position
 
-					recalculateLastNode neighbour
-					listOpen.push neighbour
+          recalculateLastNode neighbour
+          listOpen.push neighbour
 
-			listOpen.sort compareNodes
+      listOpen.sort compareNodes
 
-			# detect end
-			if listOpen[0] == _net.endNode
-				_net.endNode.state = AStar.NODE_STATE_END
-				@trigger 'nodeChanged', _net.endNode.position
+      # detect end
+      if listOpen[0] == _net.endNode
+        _net.endNode.state = AStar.NODE_STATE_END
+        @trigger 'nodeChanged', _net.endNode.position
 
-				traceShortestPath()
-				_end true
+        traceShortestPath()
+        _end true
 
-			stepCount++
+      stepCount++
 
-		_end = (success) =>
-			@finished = true
-			@isRunning = false
+    _end = (success) =>
+      @finished = true
+      @isRunning = false
 
-			@result.success = success
-			@result.time = Math.round(Date.now() - startTime) + 'ms'
-			@result.step = stepCount
+      @result.success = success
+      @result.time = Math.round(Date.now() - startTime) + 'ms'
+      @result.step = stepCount
 
-			@trigger 'finished', @result
+      @trigger 'finished', @result
 
 
-		compareNodes = (node1, node2) ->
-			delta = node1.f() - node2.f()
-			# without this step it will shows some random which seems stupid
-			delta = node2.id - (node1.id) if delta == 0
-			return delta
+    compareNodes = (node1, node2) ->
+      delta = node1.f() - node2.f()
+      # without this step it will shows some random which seems stupid
+      delta = node2.id - (node1.id) if delta == 0
+      return delta
 
-		recalculateLastNode = (node) =>
-			neighbours = _net.getNeighboursOf(node)
+    recalculateLastNode = (node) =>
+      neighbours = _net.getNeighboursOf(node)
 
-			# detect from its neighbours to see whether there is a nearer node to be its parent node
-			for own i of neighbours
-				neighbour = neighbours[i]
-				# reached nodes: start node, being reaching, has reached
-				if neighbour.state > AStar.NODE_STATE_DEFAULT and neighbour.state < AStar.NODE_STATE_OBSTACLE and neighbour.state != AStar.NODE_STATE_END
+      # detect from its neighbours to see whether there is a nearer node to be its parent node
+      for own i of neighbours
+        neighbour = neighbours[i]
+        # reached nodes: start node, being reaching, has reached
+        if neighbour.state > AStar.NODE_STATE_DEFAULT and neighbour.state < AStar.NODE_STATE_OBSTACLE and neighbour.state != AStar.NODE_STATE_END
 
-					g0 = node.g
-					g1 = neighbour.g + node.calcShortestDistanceTo(neighbour)
-					if g0 > g1
-						node.prevNode = neighbour
-						node.g = g1
-						@trigger 'nodeChanged', node.position
+          g0 = node.g
+          g1 = neighbour.g + node.calcShortestDistanceTo(neighbour)
+          if g0 > g1
+            node.prevNode = neighbour
+            node.g = g1
+            @trigger 'nodeChanged', node.position
 
-		# trace the shortest path and change the state from DETECTED to SHORTEST
-		traceShortestPath = =>
-			middleNode = _net.endNode.prevNode
+    # trace the shortest path and change the state from DETECTED to SHORTEST
+    traceShortestPath = =>
+      middleNode = _net.endNode.prevNode
 
-			while middleNode != _net.startNode
-				middleNode.state = AStar.NODE_STATE_SHORTEST
+      while middleNode != _net.startNode
+        middleNode.state = AStar.NODE_STATE_SHORTEST
 
-				@trigger 'nodeChanged', middleNode.position
-				middleNode = middleNode.prevNode
+        @trigger 'nodeChanged', middleNode.position
+        middleNode = middleNode.prevNode

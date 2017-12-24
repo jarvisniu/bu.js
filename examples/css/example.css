@@ -1,41 +1,41 @@
 /* The uniform style for examples */
 
 html {
-	user-select: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 
-	user-drag: none;
-	-webkit-user-drag: none;
-	-moz-user-drag: none;
-	-ms-user-drag: none;
+  user-drag: none;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+  -ms-user-drag: none;
 }
 
 body {
-	margin: 0;
+  margin: 0;
 }
 
 #info {
-	position: absolute;
-	width: 100%;
-	text-align: center;
-	padding: 4px 0;
-	border-bottom: solid 1px gray;
-	color: white;
-	background-color: hsla(0, 0%, 0%, 0.5);
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  padding: 4px 0;
+  border-bottom: solid 1px gray;
+  color: white;
+  background-color: hsla(0, 0%, 0%, 0.5);
 }
 
 #control {
-	position: fixed;
-	border: solid 1px silver;
-	background-color: white;
-	top: 24px;
-	left: 8px;
-	padding: 8px;
+  position: fixed;
+  border: solid 1px silver;
+  background-color: white;
+  top: 24px;
+  left: 8px;
+  padding: 8px;
 }
 
 button, input {
-	padding: 2px 4px;
-	margin: 2px;
+  padding: 2px 4px;
+  margin: 2px;
 }

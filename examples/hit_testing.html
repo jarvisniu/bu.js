@@ -1,86 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>Hit Testing</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="../build/bu.js"></script>
-	<link rel="stylesheet" href="css/example.css">
-	<script type="text/javascript">
-		Bu.config.cursor = 'crosshair'
-		Bu.config.showKeyPoints = true
-		var bu = new Bu({
-			renderer: {
-				showBounds: true,
-			},
-			data: {
-				mousePos: new Bu.Vector(),
-				randomizer: new Bu.ShapeRandomizer(),
-			},
-			objects: function () {
-				var r = this.randomizer.setRange(
-					-this.$renderer.width / 2,
-					-this.$renderer.height / 2,
-					this.$renderer.width,
-					this.$renderer.height
-				);
-				return {
-					circle: r.generateCircle().createBounds(),
-					ellipse: r.generateEllipse().createBounds(),
-					triangle: r.generateTriangle().createBounds(),
-					rectangle: r.generateRectangle(),
-					fan: r.generateFan().createBounds(),
-					bow: r.generateBow().createBounds(),
-					polygon: r.generatePolygon().createBounds(),
-				};
-			},
-			init: function () {
-				document.querySelector("#btnShowBounds").addEventListener('click', function () {
-					bu.$renderer.showBounds = this.checked;
-				});
+  <meta charset="utf-8">
+  <title>Hit Testing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../build/bu.js"></script>
+  <link rel="stylesheet" href="css/example.css">
+  <script type="text/javascript">
+    Bu.config.cursor = 'crosshair'
+    Bu.config.showKeyPoints = true
+    var bu = new Bu({
+      renderer: {
+        showBounds: true,
+      },
+      data: {
+        mousePos: new Bu.Vector(),
+        randomizer: new Bu.ShapeRandomizer(),
+      },
+      objects: function () {
+        var r = this.randomizer.setRange(
+          -this.$renderer.width / 2,
+          -this.$renderer.height / 2,
+          this.$renderer.width,
+          this.$renderer.height
+        );
+        return {
+          circle: r.generateCircle().createBounds(),
+          ellipse: r.generateEllipse().createBounds(),
+          triangle: r.generateTriangle().createBounds(),
+          rectangle: r.generateRectangle(),
+          fan: r.generateFan().createBounds(),
+          bow: r.generateBow().createBounds(),
+          polygon: r.generatePolygon().createBounds(),
+        };
+      },
+      init: function () {
+        document.querySelector("#btnShowBounds").addEventListener('click', function () {
+          bu.$renderer.showBounds = this.checked;
+        });
 
-				document.querySelector("#randomize").addEventListener('click', function () {
-					bu.regenerateShapes();
-				});
+        document.querySelector("#randomize").addEventListener('click', function () {
+          bu.regenerateShapes();
+        });
 
-				// Hit-testing still works fine after transformations
-				this.circle.translate(100, 100).rotate(Bu.d2r(30));
-				this.triangle.translate(200, 100).rotate(Bu.d2r(40));
+        // Hit-testing still works fine after transformations
+        this.circle.translate(100, 100).rotate(Bu.d2r(30));
+        this.triangle.translate(200, 100).rotate(Bu.d2r(40));
 
-				new Bu.MouseControl(this.$renderer);
-			},
-			methods: {
-				regenerateShapes: function () {
-					this.randomizer.randomize(this.$renderer.scene.children);
-				},
-			},
-			events: {
-				mousemove: function (ev) {
-					var shapes = this.$renderer.scene.children;
+        new Bu.MouseControl(this.$renderer);
+      },
+      methods: {
+        regenerateShapes: function () {
+          this.randomizer.randomize(this.$renderer.scene.children);
+        },
+      },
+      events: {
+        mousemove: function (ev) {
+          var shapes = this.$renderer.scene.children;
 
-					shapes.forEach(shape => {
-						this.mousePos.set(ev.offsetX, ev.offsetY);
+          shapes.forEach(shape => {
+            this.mousePos.set(ev.offsetX, ev.offsetY);
 
-						if (shape.hitTest(this.mousePos))
-							shape.style('hover');
-						else
-							shape.style();
-					});
-				},
-			},
-		});
+            if (shape.hitTest(this.mousePos))
+              shape.style('hover');
+            else
+              shape.style();
+          });
+        },
+      },
+    });
 
-	</script>
+  </script>
 </head>
 <body>
 <div id="info">
-	<span>Move the cursor to perform hit-testing.</span>
+  <span>Move the cursor to perform hit-testing.</span>
 </div>
 <div id="control">
-	<button id="randomize">Randomize</button>
-	<br>
-	<input id="btnShowBounds" type="checkbox" checked>
-	<label for="btnShowBounds">Show Bounds</label>
+  <button id="randomize">Randomize</button>
+  <br>
+  <input id="btnShowBounds" type="checkbox" checked>
+  <label for="btnShowBounds">Show Bounds</label>
 </div>
 </body>
 </html>

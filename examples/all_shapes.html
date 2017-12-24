@@ -1,89 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>All shapes</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="../build/bu.js"></script>
-	<link rel="stylesheet" href="css/example.css">
-	<script type="text/javascript">
-		Bu.config.originAtCenter = false
-		Bu.config.showKeyPoints = true
-		var bu = new Bu({
-			objects: {
-				circle: new Bu.Circle(50, 100, 100),
-				line: new Bu.Line(200, 50, 250, 150),
-				rectangle: new Bu.Rectangle(315, 60, 120, 80),
-				triangle: new Bu.Triangle(600, 50, 500, 150, 650, 150),
-				fan: new Bu.Fan(100, 275, 60, -Math.PI * 5 / 6, -Math.PI / 6),
-				bow: new Bu.Bow(185, 250, 60, Math.PI / 3, -Math.PI / 3),
-				polygon: new Bu.Polygon(375, 250, 50, 6),
-				polygon2: new Bu.Polygon([
-					new Bu.Point(500, 200),
-					new Bu.Point(650, 200),
-					new Bu.Point(620, 280),
-					new Bu.Point(550, 300)
-				]),
-				polyline: new Bu.Polyline([
-					new Bu.Point(50, 420),
-					new Bu.Point(60, 400),
-					new Bu.Point(150, 400),
-					new Bu.Point(75, 500),
-					new Bu.Point(165, 500),
-					new Bu.Point(175, 480)
-				]),
-				spline: new Bu.Spline([
-					new Bu.Point(200, 420),
-					new Bu.Point(210, 400),
-					new Bu.Point(300, 400),
-					new Bu.Point(225, 500),
-					new Bu.Point(315, 500),
-					new Bu.Point(325, 480)
-				]),
-				roundedRect: new Bu.Rectangle(365, 400, 120, 80, 16),
-				ellipse: new Bu.Ellipse(45, 60).translate(580, 440),
+  <meta charset="utf-8">
+  <title>All shapes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../build/bu.js"></script>
+  <link rel="stylesheet" href="css/example.css">
+  <script type="text/javascript">
+    Bu.config.originAtCenter = false
+    Bu.config.showKeyPoints = true
+    var bu = new Bu({
+      objects: {
+        circle: new Bu.Circle(50, 100, 100),
+        line: new Bu.Line(200, 50, 250, 150),
+        rectangle: new Bu.Rectangle(315, 60, 120, 80),
+        triangle: new Bu.Triangle(600, 50, 500, 150, 650, 150),
+        fan: new Bu.Fan(100, 275, 60, -Math.PI * 5 / 6, -Math.PI / 6),
+        bow: new Bu.Bow(185, 250, 60, Math.PI / 3, -Math.PI / 3),
+        polygon: new Bu.Polygon(375, 250, 50, 6),
+        polygon2: new Bu.Polygon([
+          new Bu.Point(500, 200),
+          new Bu.Point(650, 200),
+          new Bu.Point(620, 280),
+          new Bu.Point(550, 300)
+        ]),
+        polyline: new Bu.Polyline([
+          new Bu.Point(50, 420),
+          new Bu.Point(60, 400),
+          new Bu.Point(150, 400),
+          new Bu.Point(75, 500),
+          new Bu.Point(165, 500),
+          new Bu.Point(175, 480)
+        ]),
+        spline: new Bu.Spline([
+          new Bu.Point(200, 420),
+          new Bu.Point(210, 400),
+          new Bu.Point(300, 400),
+          new Bu.Point(225, 500),
+          new Bu.Point(315, 500),
+          new Bu.Point(325, 480)
+        ]),
+        roundedRect: new Bu.Rectangle(365, 400, 120, 80, 16),
+        ellipse: new Bu.Ellipse(45, 60).translate(580, 440),
 
-				circleLabel: new Bu.PointText('Circle', 100, 170),
-				lineLabel: new Bu.PointText('Line', 225, 170),
-				rectangleLabel: new Bu.PointText('Rectangle', 375, 170, 20),
-				triangleLabel: new Bu.PointText('Triangle', 575, 170),
-				fanLabel: new Bu.PointText('Fan', 100, 325),
-				bowLabel: new Bu.PointText('Bow', 225, 325),
-				polygonLabel: new Bu.PointText('Polygon (Regular)', 375, 325),
-				polygon2Label: new Bu.PointText('Polygon (Normal)', 575, 325),
-				polylineLabel: new Bu.PointText('Polyline', 125, 525),
-				splineLabel: new Bu.PointText('Spline', 275, 525),
-				roundedRectLabel: new Bu.PointText('Rectangle (Round)', 425, 525),
-				ellipseLabel: new Bu.PointText('Ellipse', 580, 525),
-			},
-			methods: {
-				setDashStroke: function (on) {
-					this.$renderer.scene.children.forEach(function (shape) {
-						shape.dash(on ? true : false);
-					});
-				}
-			},
-			init: function () {
-				document.querySelector('#btnKeyPoints').addEventListener('click', function () {
-					bu.$renderer.showKeyPoints = this.checked;
-				});
-				document.querySelector('#btnDashStroke').addEventListener('click', function () {
-					bu.setDashStroke(this.checked);
-				});
-			},
-		});
-	</script>
+        circleLabel: new Bu.PointText('Circle', 100, 170),
+        lineLabel: new Bu.PointText('Line', 225, 170),
+        rectangleLabel: new Bu.PointText('Rectangle', 375, 170, 20),
+        triangleLabel: new Bu.PointText('Triangle', 575, 170),
+        fanLabel: new Bu.PointText('Fan', 100, 325),
+        bowLabel: new Bu.PointText('Bow', 225, 325),
+        polygonLabel: new Bu.PointText('Polygon (Regular)', 375, 325),
+        polygon2Label: new Bu.PointText('Polygon (Normal)', 575, 325),
+        polylineLabel: new Bu.PointText('Polyline', 125, 525),
+        splineLabel: new Bu.PointText('Spline', 275, 525),
+        roundedRectLabel: new Bu.PointText('Rectangle (Round)', 425, 525),
+        ellipseLabel: new Bu.PointText('Ellipse', 580, 525),
+      },
+      methods: {
+        setDashStroke: function (on) {
+          this.$renderer.scene.children.forEach(function (shape) {
+            shape.dash(on ? true : false);
+          });
+        }
+      },
+      init: function () {
+        document.querySelector('#btnKeyPoints').addEventListener('click', function () {
+          bu.$renderer.showKeyPoints = this.checked;
+        });
+        document.querySelector('#btnDashStroke').addEventListener('click', function () {
+          bu.setDashStroke(this.checked);
+        });
+      },
+    });
+  </script>
 </head>
 <body>
 <div id="info">
-	<span>All supported shapes.</span>
+  <span>All supported shapes.</span>
 </div>
 <div id="control">
-	<input type="checkbox" id="btnKeyPoints" checked>
-	<label for="btnKeyPoints">Show key points</label>
-	<br>
-	<input type="checkbox" id="btnDashStroke">
-	<label for="btnDashStroke">Dashed stroke</label>
+  <input type="checkbox" id="btnKeyPoints" checked>
+  <label for="btnKeyPoints">Show key points</label>
+  <br>
+  <input type="checkbox" id="btnDashStroke">
+  <label for="btnDashStroke">Dashed stroke</label>
 </div>
 </body>
 </html>

@@ -1,79 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Bu.js Examples</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="css/index.css">
-	<script type="text/javascript">
-		var SOURCE_URL_BASE = 'https://github.com/jarvisniu/jarvisniu.github.io/blob/master/Bu.js/examples/';
-		var hashPath, frame, source, links;
+  <meta charset="utf-8">
+  <title>bu.js Examples</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/index.css">
+  <script type="text/javascript">
+    var SOURCE_URL_BASE = 'https://github.com/jarvisniu/jarvisniu.github.io/blob/master/bu.js/examples/';
+    var hashPath, frame, source, links;
 
-		document.addEventListener("DOMContentLoaded", function () {
-			frame = document.querySelector("iframe");
-			source = document.querySelector("#source");
-			links = document.querySelectorAll("#side a");
+    document.addEventListener("DOMContentLoaded", function () {
+      frame = document.querySelector("iframe");
+      source = document.querySelector("#source");
+      links = document.querySelectorAll("#side a");
 
-			window.addEventListener("hashchange", onHashChanged);
-			onHashChanged();
-			if (!location.hash) location.hash = "#!/hello_bu.html";
-		});
+      window.addEventListener("hashchange", onHashChanged);
+      onHashChanged();
+      if (!location.hash) location.hash = "#!/hello_bu.html";
+    });
 
-		function onHashChanged() {
-			hashPath = location.hash.replace("#!/", "");
-			if (hashPath.length > 0) {
-				frame.src = hashPath;
-				source.setAttribute('href', SOURCE_URL_BASE + hashPath);
-			}
+    function onHashChanged() {
+      hashPath = location.hash.replace("#!/", "");
+      if (hashPath.length > 0) {
+        frame.src = hashPath;
+        source.setAttribute('href', SOURCE_URL_BASE + hashPath);
+      }
 
-			for (var i = 0; i < links.length; i++) {
-				if (location.hash.length > 0 && links[i].href.indexOf(location.hash) > -1)
-					links[i].style.backgroundColor = '#CCC';
-				else
-					links[i].style.backgroundColor = '';
-			}
-		}
-	</script>
+      for (var i = 0; i < links.length; i++) {
+        if (location.hash.length > 0 && links[i].href.indexOf(location.hash) > -1)
+          links[i].style.backgroundColor = '#CCC';
+        else
+          links[i].style.backgroundColor = '';
+      }
+    }
+  </script>
 </head>
 <body>
 <div id="side">
-	<a href="https://github.com/jarvisniu/Bu.js" target="_blank">
-		<img id="logo" src="../logo.png">
-	</a>
-	<h1>Bu.js Examples</h1>
+  <a href="https://github.com/jarvisniu/bu.js" target="_blank">
+    <img id="logo" src="../logo.png">
+  </a>
+  <h1>bu.js Examples</h1>
 
-	<h2>Graphics</h2>
-	<a href="#!/hello_bu.html">Hello Bu.js</a>
-	<a href="#!/all_shapes.html">All Shapes</a>
-	<a href="#!/all_styles.html">All Styles</a>
-	<a href="#!/bitmap_font.html">Bitmap Font</a>
-	<a href="#!/animation.html">Animation</a>
+  <h2>Graphics</h2>
+  <a href="#!/hello_bu.html">Hello bu.js</a>
+  <a href="#!/all_shapes.html">All Shapes</a>
+  <a href="#!/all_styles.html">All Styles</a>
+  <a href="#!/bitmap_font.html">Bitmap Font</a>
+  <a href="#!/animation.html">Animation</a>
 
-	<h2>Interactive</h2>
-	<a href="#!/keyboard_control.html">Keyboard Control</a>
-	<a href="#!/camera_control.html">Camera Control</a>
-	<a href="#!/drag_point.html">Drag to Move Point</a>
-	<a href="#!/draw_shapes.html">Draw Shapes</a>
+  <h2>Interactive</h2>
+  <a href="#!/keyboard_control.html">Keyboard Control</a>
+  <a href="#!/camera_control.html">Camera Control</a>
+  <a href="#!/drag_point.html">Drag to Move Point</a>
+  <a href="#!/draw_shapes.html">Draw Shapes</a>
 
-	<h2>Geometry</h2>
-	<a href="#!/hit_testing.html">Hit Testing</a>
-	<a href="#!/line_near_point.html">Point Near Line Test</a>
-	<a href="#!/point_to_line_distance.html">Distance of Point To Line</a>
+  <h2>Geometry</h2>
+  <a href="#!/hit_testing.html">Hit Testing</a>
+  <a href="#!/line_near_point.html">Point Near Line Test</a>
+  <a href="#!/point_to_line_distance.html">Distance of Point To Line</a>
 
-	<h2>Algorithm Visualization</h2>
-	<a href="#!/bubble_sort.html">Bubble Sort</a>
-	<a href="#!/indoor_navigation.html">Indoor Navigation</a>
-	<a href="#!/a_star_grid.html">A Star Grid</a>
-	<a href="#!/a_star_honeycomb.html">A Star Honeycomb</a>
-	<a href="#!/delaunay_triangulation.html">Delaunay Triangulation</a>
-	<a href="#!/polyline_morph.html">Polyline Morph</a>
+  <h2>Algorithm Visualization</h2>
+  <a href="#!/bubble_sort.html">Bubble Sort</a>
+  <a href="#!/indoor_navigation.html">Indoor Navigation</a>
+  <a href="#!/a_star_grid.html">A Star Grid</a>
+  <a href="#!/a_star_honeycomb.html">A Star Honeycomb</a>
+  <a href="#!/delaunay_triangulation.html">Delaunay Triangulation</a>
+  <a href="#!/polyline_morph.html">Polyline Morph</a>
 
-	<h2>Game</h2>
-	<a href="#!/tank.html">Tank (In Progress)</a>
+  <h2>Game</h2>
+  <a href="#!/tank.html">Tank (In Progress)</a>
 </div>
 <div id="container">
-	<iframe name="web" src="about:blank" frameborder="0"></iframe>
-	<a id="source" href="http://github.com/jarvisniu" target="_blank">Source</a>
+  <iframe name="web" src="about:blank" frameborder="0"></iframe>
+  <a id="source" href="http://github.com/jarvisniu" target="_blank">Source</a>
 </div>
 </body>
 </html>

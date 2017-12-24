@@ -1,135 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>All styles</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="../build/bu.js"></script>
-	<link rel="stylesheet" href="css/example.css">
-	<script type="text/javascript">
-		Bu.config.originAtCenter = false
-		var bu = new Bu({
-			objects: function () {
-				var circle = new Bu.Circle(30).translate(50, 90 * 3);
+  <meta charset="utf-8">
+  <title>All styles</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../build/bu.js"></script>
+  <link rel="stylesheet" href="css/example.css">
+  <script type="text/javascript">
+    Bu.config.originAtCenter = false
+    var bu = new Bu({
+      objects: function () {
+        var circle = new Bu.Circle(30).translate(50, 90 * 3);
 
-				var circleLineWidth = circle.clone().translate(300, 90);
-				var circleStrokeStyle = circle.clone().translate(300, 90 * 2);
-				var circleFillStyle = circle.clone().translate(300, 90 * 3);
-				var circleOpacity = circle.clone().translate(300, 90 * 4);
-				var circleDashStyle1 = circle.clone().translate(300, 90 * 5);
-				var circleDashStyle2 = circle.clone().translate(400, 90 * 5);
+        var circleLineWidth = circle.clone().translate(300, 90);
+        var circleStrokeStyle = circle.clone().translate(300, 90 * 2);
+        var circleFillStyle = circle.clone().translate(300, 90 * 3);
+        var circleOpacity = circle.clone().translate(300, 90 * 4);
+        var circleDashStyle1 = circle.clone().translate(300, 90 * 5);
+        var circleDashStyle2 = circle.clone().translate(400, 90 * 5);
 
-				var polyline = new Bu.Polyline(0, -20, -30, 20, 30, 20).translate(50, 90 * 6.5);
-				polyline.lineWidth = 10;
+        var polyline = new Bu.Polyline(0, -20, -30, 20, 30, 20).translate(50, 90 * 6.5);
+        polyline.lineWidth = 10;
 
-				var polylineLineCap = polyline.clone().translate(300, 90 * 6);
-				var polylineLineJoin = polyline.clone().translate(300, 90 * 7);
+        var polylineLineCap = polyline.clone().translate(300, 90 * 6);
+        var polylineLineJoin = polyline.clone().translate(300, 90 * 7);
 
-				return {
-					circleBase: circle,
-					circleBaseText: new Bu.PointText('circle', 55, 0),
-					circleBaseSplitLine: new Bu.Line(90, -90 * 2, 90, 90 * 2),
+        return {
+          circleBase: circle,
+          circleBaseText: new Bu.PointText('circle', 55, 0),
+          circleBaseSplitLine: new Bu.Line(90, -90 * 2, 90, 90 * 2),
 
-					circleLineWidth: circleLineWidth,
-					circleLineWidthLabelAttr: new Bu.PointText('.lineWidth', -100, 0),
-					circleLineWidthLabelVal: new Bu.PointText('=5', 0, 40),
+          circleLineWidth: circleLineWidth,
+          circleLineWidthLabelAttr: new Bu.PointText('.lineWidth', -100, 0),
+          circleLineWidthLabelVal: new Bu.PointText('=5', 0, 40),
 
-					circleStrokeStyle: circleStrokeStyle,
-					circleStrokeStyleLabelAttr: new Bu.PointText('.strokeStyle', -100, 0),
-					circleStrokeStyleLabelVal: new Bu.PointText('="red"', 0, 40),
+          circleStrokeStyle: circleStrokeStyle,
+          circleStrokeStyleLabelAttr: new Bu.PointText('.strokeStyle', -100, 0),
+          circleStrokeStyleLabelVal: new Bu.PointText('="red"', 0, 40),
 
-					circleFillStyle: circleFillStyle,
-					circleFillStyleLabelAttr: new Bu.PointText('.fillStyle', -100, 0),
-					circleFillStyleLabelVal: new Bu.PointText('="pink"', 0, 40),
+          circleFillStyle: circleFillStyle,
+          circleFillStyleLabelAttr: new Bu.PointText('.fillStyle', -100, 0),
+          circleFillStyleLabelVal: new Bu.PointText('="pink"', 0, 40),
 
-					circleOpacity: circleOpacity,
-					circleOpacityLabelAttr: new Bu.PointText('.opacity', -100, 0),
-					circleOpacityLabelVal: new Bu.PointText('=0.5', 0, 40),
+          circleOpacity: circleOpacity,
+          circleOpacityLabelAttr: new Bu.PointText('.opacity', -100, 0),
+          circleOpacityLabelVal: new Bu.PointText('=0.5', 0, 40),
 
-					circleDashStyle1: circleDashStyle1,
-					circleDashStyle1LabelAttr: new Bu.PointText('.dashStyle', -100, 0),
-					circleDashStyle1LabelVal: new Bu.PointText('=[10, 10]', 0, 40),
+          circleDashStyle1: circleDashStyle1,
+          circleDashStyle1LabelAttr: new Bu.PointText('.dashStyle', -100, 0),
+          circleDashStyle1LabelVal: new Bu.PointText('=[10, 10]', 0, 40),
 
-					circleDashStyle2: circleDashStyle2,
-					circleDashStyle2LabelVal: new Bu.PointText('dashOffset++', 0, 40),
+          circleDashStyle2: circleDashStyle2,
+          circleDashStyle2LabelVal: new Bu.PointText('dashOffset++', 0, 40),
 
-					polylineBase: polyline,
-					polylineBaseText: new Bu.PointText('polyline', 55, 0),
-					polylineBaseSplitLine: new Bu.Line(90, -90 * 0.5, 90, 90 * 0.5),
-					polylineLineCap: polylineLineCap,
-					polylineLineCapLabelAttr: new Bu.PointText('.lineCap', -100, 0),
-					polylineLineCapLabelVal: new Bu.PointText('="round"', 0, 40),
+          polylineBase: polyline,
+          polylineBaseText: new Bu.PointText('polyline', 55, 0),
+          polylineBaseSplitLine: new Bu.Line(90, -90 * 0.5, 90, 90 * 0.5),
+          polylineLineCap: polylineLineCap,
+          polylineLineCapLabelAttr: new Bu.PointText('.lineCap', -100, 0),
+          polylineLineCapLabelVal: new Bu.PointText('="round"', 0, 40),
 
-					polylineLineJoin: polylineLineJoin,
-					polylineLineJoinLabelAttr: new Bu.PointText('.lineJoin', -100, 0),
-					polylineLineJoinLabelVal: new Bu.PointText('="round"', 0, 40),
-				}
-			},
-			scene: {
-				circleBase: {
-					circleBaseText: {},
-					circleBaseSplitLine: {},
-				},
-				polylineBase: {
-					polylineBaseText: {},
-					polylineBaseSplitLine: {},
-				},
-				circleLineWidth: {
-					circleLineWidthLabelAttr: {},
-					circleLineWidthLabelVal: {},
-				},
-				circleStrokeStyle: {
-					circleStrokeStyleLabelAttr: {},
-					circleStrokeStyleLabelVal: {},
-				},
-				circleFillStyle: {
-					circleFillStyleLabelAttr: {},
-					circleFillStyleLabelVal: {},
-				},
-				circleOpacity: {
-					circleOpacityLabelAttr: {},
-					circleOpacityLabelVal: {},
-				},
-				circleDashStyle1: {
-					circleDashStyle1LabelAttr: {},
-					circleDashStyle1LabelVal: {},
-				},
-				circleDashStyle2: {
-					circleDashStyle2LabelVal: {},
-				},
-				polylineLineCap: {
-					polylineLineCapLabelAttr: {},
-					polylineLineCapLabelVal: {},
-				},
-				polylineLineJoin: {
-					polylineLineJoinLabelAttr: {},
-					polylineLineJoinLabelVal: {},
-				},
-			},
-			init: function () {
-				// lineWidth
-				this.circleLineWidth.lineWidth = 5;
-				// strokeStyle
-				this.circleStrokeStyle.strokeStyle = 'red';
-				// fillStyle
-				this.circleFillStyle.fillStyle = 'pink';
-				// opacity
-				this.circleOpacity.opacity = 0.5;
-				// dashStyle
-				this.circleDashStyle1.dashStyle = this.circleDashStyle2.dashStyle = [10, 10];
-				// dashFlow
-				this.circleDashStyle2.dashFlow(true);
-				// lineCap
-				this.polylineLineCap.lineCap = 'round';
-				// lineJoin
-				this.polylineLineJoin.lineJoin = 'round';
-			},
-		});
-	</script>
+          polylineLineJoin: polylineLineJoin,
+          polylineLineJoinLabelAttr: new Bu.PointText('.lineJoin', -100, 0),
+          polylineLineJoinLabelVal: new Bu.PointText('="round"', 0, 40),
+        }
+      },
+      scene: {
+        circleBase: {
+          circleBaseText: {},
+          circleBaseSplitLine: {},
+        },
+        polylineBase: {
+          polylineBaseText: {},
+          polylineBaseSplitLine: {},
+        },
+        circleLineWidth: {
+          circleLineWidthLabelAttr: {},
+          circleLineWidthLabelVal: {},
+        },
+        circleStrokeStyle: {
+          circleStrokeStyleLabelAttr: {},
+          circleStrokeStyleLabelVal: {},
+        },
+        circleFillStyle: {
+          circleFillStyleLabelAttr: {},
+          circleFillStyleLabelVal: {},
+        },
+        circleOpacity: {
+          circleOpacityLabelAttr: {},
+          circleOpacityLabelVal: {},
+        },
+        circleDashStyle1: {
+          circleDashStyle1LabelAttr: {},
+          circleDashStyle1LabelVal: {},
+        },
+        circleDashStyle2: {
+          circleDashStyle2LabelVal: {},
+        },
+        polylineLineCap: {
+          polylineLineCapLabelAttr: {},
+          polylineLineCapLabelVal: {},
+        },
+        polylineLineJoin: {
+          polylineLineJoinLabelAttr: {},
+          polylineLineJoinLabelVal: {},
+        },
+      },
+      init: function () {
+        // lineWidth
+        this.circleLineWidth.lineWidth = 5;
+        // strokeStyle
+        this.circleStrokeStyle.strokeStyle = 'red';
+        // fillStyle
+        this.circleFillStyle.fillStyle = 'pink';
+        // opacity
+        this.circleOpacity.opacity = 0.5;
+        // dashStyle
+        this.circleDashStyle1.dashStyle = this.circleDashStyle2.dashStyle = [10, 10];
+        // dashFlow
+        this.circleDashStyle2.dashFlow(true);
+        // lineCap
+        this.polylineLineCap.lineCap = 'round';
+        // lineJoin
+        this.polylineLineJoin.lineJoin = 'round';
+      },
+    });
+  </script>
 </head>
 <body>
 <div id="info">
-	<span>All supported styles.</span>
+  <span>All supported styles.</span>
 </div>
 </body>
 </html>

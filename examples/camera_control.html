@@ -1,57 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Camera Control</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="../build/bu.js"></script>
-	<link rel="stylesheet" href="css/example.css">
-	<script type="text/javascript">
-		var bu = new Bu({
-			objects: function () {
-				var stroke = '#442', fill = '#884';
-				var circle = new Bu.Circle(200).fill(fill).stroke(stroke).setLineWidth(60),
-					square = new Bu.Rectangle(-50, -50, 100, 100).fill('#EEE').stroke(stroke).setLineWidth(10),
-					labelUp = new Bu.PointText('乾', 0, -110),
-					labelDown = new Bu.PointText('隆', 0, 110),
-					labelRight = new Bu.PointText('通', 110, -0),
-					labelLeft = new Bu.PointText('寳', -110, 0);
+  <meta charset="utf-8">
+  <title>Camera Control</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../build/bu.js"></script>
+  <link rel="stylesheet" href="css/example.css">
+  <script type="text/javascript">
+    var bu = new Bu({
+      objects: function () {
+        var stroke = '#442', fill = '#884';
+        var circle = new Bu.Circle(200).fill(fill).stroke(stroke).setLineWidth(60),
+          square = new Bu.Rectangle(-50, -50, 100, 100).fill('#EEE').stroke(stroke).setLineWidth(10),
+          labelUp = new Bu.PointText('乾', 0, -110),
+          labelDown = new Bu.PointText('隆', 0, 110),
+          labelRight = new Bu.PointText('通', 110, -0),
+          labelLeft = new Bu.PointText('寳', -110, 0);
 
-				labelUp.fontSize = labelDown.fontSize = labelRight.fontSize = labelLeft.fontSize = 100;
-				labelUp.fontFamily = labelDown.fontFamily = labelRight.fontFamily = labelLeft.fontFamily = 'SimHei';
-				labelUp.fillStyle = labelDown.fillStyle = labelRight.fillStyle = labelLeft.fillStyle = stroke;
+        labelUp.fontSize = labelDown.fontSize = labelRight.fontSize = labelLeft.fontSize = 100;
+        labelUp.fontFamily = labelDown.fontFamily = labelRight.fontFamily = labelLeft.fontFamily = 'SimHei';
+        labelUp.fillStyle = labelDown.fillStyle = labelRight.fillStyle = labelLeft.fillStyle = stroke;
 
-				return {
-					circle,
-					square,
-					labelUp,
-					labelDown,
-					labelRight,
-					labelLeft,
-				};
-			},
-			init: function () {
-				var camera = this.$renderer.camera;
-				var control = new Bu.MouseControl(this.$renderer);
+        return {
+          circle,
+          square,
+          labelUp,
+          labelDown,
+          labelRight,
+          labelLeft,
+        };
+      },
+      init: function () {
+        var camera = this.$renderer.camera;
+        var control = new Bu.MouseControl(this.$renderer);
 
-				document.querySelector("#earthquake").addEventListener('click', function (e) {
-					camera.animate('shake');
-				});
-				document.querySelector("#smoothZoom").addEventListener('click', function (e) {
-					control.smoothZooming = this.checked;
-				});
-			},
-		});
-	</script>
+        document.querySelector("#earthquake").addEventListener('click', function (e) {
+          camera.animate('shake');
+        });
+        document.querySelector("#smoothZoom").addEventListener('click', function (e) {
+          control.smoothZooming = this.checked;
+        });
+      },
+    });
+  </script>
 </head>
 <body>
 <div id="info">Drag to pan, scroll to zoom, with your mouse.</div>
 <div id="control">
-	<div>Camera effects:</div>
-	<button id="earthquake">Earthquake</button>
-	<hr>
-	<input id="smoothZoom" type="checkbox" checked="checked">
-	<label for="smoothZoom">Smooth Zoom</label>
+  <div>Camera effects:</div>
+  <button id="earthquake">Earthquake</button>
+  <hr>
+  <input id="smoothZoom" type="checkbox" checked="checked">
+  <label for="smoothZoom">Smooth Zoom</label>
 </div>
 </body>
 </html>

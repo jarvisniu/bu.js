@@ -2,84 +2,84 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<title>Draw Shapes</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="../build/bu.js"></script>
-	<script src="js/ClipMeter.min.js"></script>
+  <meta charset="utf-8">
+  <title>Draw Shapes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../build/bu.js"></script>
+  <script src="js/ClipMeter.min.js"></script>
 
-	<script src="./lib/reactor/ReactorBase.js"></script>
-	<script src="./lib/reactor/MovePointReactor.js"></script>
-	<script src="./lib/reactor/ReactorBase.js"></script>
-	<script src="./lib/reactor/DrawPointReactor.js"></script>
-	<script src="./lib/reactor/DrawCircleReactor.js"></script>
-	<script src="./lib/reactor/DrawCircleDiameterReactor.js"></script>
-	<script src="./lib/reactor/DrawPolylineReactor.js"></script>
-	<script src="./lib/reactor/DrawPolygonReactor.js"></script>
-	<script src="./lib/reactor/DrawFreelineReactor.js"></script>
-	<link rel="stylesheet" href="css/example.css">
-	<script>
-		Bu.config.originAtCenter = false
-		Bu.config.cursor = 'crosshair'
-		Bu.config.showKeyPoints = true
-		var bu = new Bu({
-			data: function () {
-				var reactors = {
-					point: new Bu.DrawPointReactor(this.$renderer),
-					circleRadius: new Bu.DrawCircleReactor(this.$renderer),
-					circleDiameter: new Bu.DrawCircleDiameterReactor(this.$renderer),
-					polyline: new Bu.DrawPolylineReactor(this.$renderer),
-					polygon: new Bu.DrawPolygonReactor(this.$renderer),
-					freeline: new Bu.DrawFreelineReactor(this.$renderer),
-					smoothFreeline: new Bu.DrawFreelineReactor(this.$renderer, true),
-				};
-				return { reactors };
-			},
-			init: function () {
-				this.reactors.point.enable();
+  <script src="./lib/reactor/ReactorBase.js"></script>
+  <script src="./lib/reactor/MovePointReactor.js"></script>
+  <script src="./lib/reactor/ReactorBase.js"></script>
+  <script src="./lib/reactor/DrawPointReactor.js"></script>
+  <script src="./lib/reactor/DrawCircleReactor.js"></script>
+  <script src="./lib/reactor/DrawCircleDiameterReactor.js"></script>
+  <script src="./lib/reactor/DrawPolylineReactor.js"></script>
+  <script src="./lib/reactor/DrawPolygonReactor.js"></script>
+  <script src="./lib/reactor/DrawFreelineReactor.js"></script>
+  <link rel="stylesheet" href="css/example.css">
+  <script>
+    Bu.config.originAtCenter = false
+    Bu.config.cursor = 'crosshair'
+    Bu.config.showKeyPoints = true
+    var bu = new Bu({
+      data: function () {
+        var reactors = {
+          point: new Bu.DrawPointReactor(this.$renderer),
+          circleRadius: new Bu.DrawCircleReactor(this.$renderer),
+          circleDiameter: new Bu.DrawCircleDiameterReactor(this.$renderer),
+          polyline: new Bu.DrawPolylineReactor(this.$renderer),
+          polygon: new Bu.DrawPolygonReactor(this.$renderer),
+          freeline: new Bu.DrawFreelineReactor(this.$renderer),
+          smoothFreeline: new Bu.DrawFreelineReactor(this.$renderer, true),
+        };
+        return {reactors};
+      },
+      init: function () {
+        this.reactors.point.enable();
 
-				var radios = document.querySelectorAll('#control input');
-				radios.forEach(function (radio) {
-					radio.addEventListener('click', function () {
-						for (var k in bu.reactors) {
-							if (k == this.id)
-								bu.reactors[k].enable();
-							else
-								bu.reactors[k].disable();
-						}
-					});
-				});
+        var radios = document.querySelectorAll('#control input');
+        radios.forEach(function (radio) {
+          radio.addEventListener('click', function () {
+            for (var k in bu.reactors) {
+              if (k == this.id)
+                bu.reactors[k].enable();
+              else
+                bu.reactors[k].disable();
+            }
+          });
+        });
 
-				document.querySelector('#btnShowKeyPoints').addEventListener('click', function () {
-					bu.$renderer.showKeyPoints = this.checked;
-				});
-			},
-		});
-	</script>
+        document.querySelector('#btnShowKeyPoints').addEventListener('click', function () {
+          bu.$renderer.showKeyPoints = this.checked;
+        });
+      },
+    });
+  </script>
 </head>
 <body>
 <div id="info">
-	This is a geometry drawing board, kind like a CAD program.
+  This is a geometry drawing board, kind like a CAD program.
 </div>
 <div id="control">
-	<div style="">Toolbox:</div>
-	<input type="radio" name="type" id="point" checked>
-	<label for="point">Point</label><br>
-	<input type="radio" name="type" id="circleRadius">
-	<label for="circleRadius">Circle(Radius)</label><br>
-	<input type="radio" name="type" id="circleDiameter">
-	<label for="circleDiameter">Circle(Diameter)</label><br>
-	<input type="radio" name="type" id="polyline">
-	<label for="polyline">Polyline</label><br>
-	<input type="radio" name="type" id="polygon">
-	<label for="polygon">Polygon</label><br>
-	<input type="radio" name="type" id="freeline">
-	<label for="freeline">Freeline</label><br>
-	<input type="radio" name="type" id="smoothFreeline">
-	<label for="smoothFreeline">Smooth Freeline</label>
-	<hr>
-	<input id="btnShowKeyPoints" type="checkbox" checked>
-	<label for="btnShowKeyPoints">Show key points</label>
+  <div style="">Toolbox:</div>
+  <input type="radio" name="type" id="point" checked>
+  <label for="point">Point</label><br>
+  <input type="radio" name="type" id="circleRadius">
+  <label for="circleRadius">Circle(Radius)</label><br>
+  <input type="radio" name="type" id="circleDiameter">
+  <label for="circleDiameter">Circle(Diameter)</label><br>
+  <input type="radio" name="type" id="polyline">
+  <label for="polyline">Polyline</label><br>
+  <input type="radio" name="type" id="polygon">
+  <label for="polygon">Polygon</label><br>
+  <input type="radio" name="type" id="freeline">
+  <label for="freeline">Freeline</label><br>
+  <input type="radio" name="type" id="smoothFreeline">
+  <label for="smoothFreeline">Smooth Freeline</label>
+  <hr>
+  <input id="btnShowKeyPoints" type="checkbox" checked>
+  <label for="btnShowKeyPoints">Show key points</label>
 </div>
 </body>
 

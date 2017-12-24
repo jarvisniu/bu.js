@@ -1,114 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Animation</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="../build/bu.js"></script>
-	<link rel="stylesheet" href="css/example.css">
-	<style>
-		input {
-			width: 50px;
-		}
-	</style>
-	<script type="text/javascript">
-		var bu, bunny, circle;
-		var animSpin, animHelical;
-		var imageUrl = "./assets/textures/bunny.png";
+  <meta charset="utf-8">
+  <title>Animation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../build/bu.js"></script>
+  <link rel="stylesheet" href="css/example.css">
+  <style>
+    input {
+      width: 50px;
+    }
+  </style>
+  <script type="text/javascript">
+    var bu, bunny, circle;
+    var animSpin, animHelical;
+    var imageUrl = "./assets/textures/bunny.png";
 
-		document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', init);
 
-		function init() {
-			bu = new Bu.Renderer();
+    function init() {
+      bu = new Bu.Renderer();
 
-			bunny = new Bu.Image(imageUrl);
-			bunny.scale = 2;
+      bunny = new Bu.Image(imageUrl);
+      bunny.scale = 2;
 
-			circle = new Bu.Circle(60).fill("white");
+      circle = new Bu.Circle(60).fill("white");
 
-			bu.scene.addChild([circle, bunny]);
+      bu.scene.addChild([circle, bunny]);
 
-			// custom animation
-			animHelical = new Bu.Animation({
-				duration: 2,
-				init: function (anim) {
-					anim.data.ox = this.position.x;
-					anim.data.oy = this.position.y;
-					anim.data.or = this.rotation;
-				},
-				update: function (anim) {
-					var theta = Math.PI * 8 * anim.t;
-					var radius = 300 * anim.t;
-					this.position.x = radius * Math.cos(theta) + anim.data.ox;
-					this.position.y = radius * Math.sin(theta) + anim.data.oy;
-					this.rotation = theta;
-				},
-				finish: function (anim) {
-					this.position.x = anim.data.ox;
-					this.position.y = anim.data.oy;
-					this.rotation = anim.data.or;
-				}
-			});
+      // custom animation
+      animHelical = new Bu.Animation({
+        duration: 2,
+        init: function (anim) {
+          anim.data.ox = this.position.x;
+          anim.data.oy = this.position.y;
+          anim.data.or = this.rotation;
+        },
+        update: function (anim) {
+          var theta = Math.PI * 8 * anim.t;
+          var radius = 300 * anim.t;
+          this.position.x = radius * Math.cos(theta) + anim.data.ox;
+          this.position.y = radius * Math.sin(theta) + anim.data.oy;
+          this.rotation = theta;
+        },
+        finish: function (anim) {
+          this.position.x = anim.data.ox;
+          this.position.y = anim.data.oy;
+          this.rotation = anim.data.or;
+        }
+      });
 
 
-			var prefabButtons = document.querySelectorAll('#prefab button');
-			prefabButtons.forEach(function (button) {
-				button.setAttribute('onclick', 'prefabAnim(this.innerText);');
-			});
-			document.querySelector('#moveBy').setAttribute('onclick', 'bunny.animate("moveBy", document.querySelector("#inputMove").value);');
-			document.querySelector('#moveTo').setAttribute('onclick', 'bunny.animate("moveTo", document.querySelector("#inputMove").value);');
-			document.querySelector('#blink').setAttribute('onclick', 'circle.animate("blink");');
-			document.querySelector('#discolor').setAttribute('onclick', 'circle.animate("discolor", document.querySelector("#inputDiscolor").value);');
-			document.querySelector('#spinIn').setAttribute('onclick', 'bunny.animate("spinIn", 2);');
-			document.querySelector('#helical').addEventListener('click', applyHelical);
-			document.querySelector('#multiple').addEventListener('click', applyMultiple);
-		}
+      var prefabButtons = document.querySelectorAll('#prefab button');
+      prefabButtons.forEach(function (button) {
+        button.setAttribute('onclick', 'prefabAnim(this.innerText);');
+      });
+      document.querySelector('#moveBy').setAttribute('onclick', 'bunny.animate("moveBy", document.querySelector("#inputMove").value);');
+      document.querySelector('#moveTo').setAttribute('onclick', 'bunny.animate("moveTo", document.querySelector("#inputMove").value);');
+      document.querySelector('#blink').setAttribute('onclick', 'circle.animate("blink");');
+      document.querySelector('#discolor').setAttribute('onclick', 'circle.animate("discolor", document.querySelector("#inputDiscolor").value);');
+      document.querySelector('#spinIn').setAttribute('onclick', 'bunny.animate("spinIn", 2);');
+      document.querySelector('#helical').addEventListener('click', applyHelical);
+      document.querySelector('#multiple').addEventListener('click', applyMultiple);
+    }
 
-		function prefabAnim(type) {
-			bunny.animate(type);
-		}
+    function prefabAnim(type) {
+      bunny.animate(type);
+    }
 
-		function applyHelical() {
-			bunny.animate(animHelical);
-		}
+    function applyHelical() {
+      bunny.animate(animHelical);
+    }
 
-		function applyMultiple() {
-			bunny.animate(['moveBy', 'spin'], document.querySelector("#inputMove").value);
-		}
-	</script>
+    function applyMultiple() {
+      bunny.animate(['moveBy', 'spin'], document.querySelector("#inputMove").value);
+    }
+  </script>
 </head>
 <body>
 <div id="info">
-	<span>Click the buttons to play the animations.</span>
+  <span>Click the buttons to play the animations.</span>
 </div>
 <div id="control">
-	<div id="prefab">Prefab:
-		<button>fadeOut</button>
-		<button>fadeIn</button>
-		<button>spin</button>
-		<button>spinOut</button>
-		<button id="spinIn">spinIn</button>
-		<button>shake</button>
-		<br><span>Toggle (need to click twice):</span>
-		<button>puff</button>
-		<button>clip</button>
-		<button>flipX</button>
-	</div>
-	<div>With arguments:
-		<button id="moveBy">moveBy</button>
-		<button id="moveTo">moveTo</button>
-		<input type="text" id="inputMove" name="move" value="160">
-	</div>
-	<div>Background Color:
-		<button id="blink">blink</button>
-		<button id="discolor">discolor</button>
-		<input type="text" id="inputDiscolor" name="move" value="red">
-	</div>
-	<div>Multiple(Mix):
-		<button id="multiple">move + spin</button>
-		Custom:
-		<button id="helical">helical</button>
-	</div>
+  <div id="prefab">Prefab:
+    <button>fadeOut</button>
+    <button>fadeIn</button>
+    <button>spin</button>
+    <button>spinOut</button>
+    <button id="spinIn">spinIn</button>
+    <button>shake</button>
+    <br><span>Toggle (need to click twice):</span>
+    <button>puff</button>
+    <button>clip</button>
+    <button>flipX</button>
+  </div>
+  <div>With arguments:
+    <button id="moveBy">moveBy</button>
+    <button id="moveTo">moveTo</button>
+    <input type="text" id="inputMove" name="move" value="160">
+  </div>
+  <div>Background Color:
+    <button id="blink">blink</button>
+    <button id="discolor">discolor</button>
+    <input type="text" id="inputDiscolor" name="move" value="red">
+  </div>
+  <div>Multiple(Mix):
+    <button id="multiple">move + spin</button>
+    Custom:
+    <button id="helical">helical</button>
+  </div>
 </div>
 </body>
 </html>

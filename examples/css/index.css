@@ -1,94 +1,94 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 html,
 body {
-    height: 100%;
-    font-family: "Calibri Light", Calibri, Arial, sans-serif;
-    overflow: hidden;
+  height: 100%;
+  font-family: "Calibri Light", Calibri, Arial, sans-serif;
+  overflow: hidden;
 }
 
 /* side */
 
 #side {
-    position: absolute;
-    overflow-y: auto;
-    box-sizing: border-box;
-    padding: 16px;
-    width: 250px;
-    height: 100%;
-    border-right: solid #bbb 2px;
+  position: absolute;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 16px;
+  width: 250px;
+  height: 100%;
+  border-right: solid #bbb 2px;
 }
 
 #side #logo {
-    width: 180px;
-    height: 180px;
+  width: 180px;
+  height: 180px;
 }
 
 #side a {
-    display: block;
-    padding: 2px 4px;
-    text-decoration: none;
-    color: #28b;
-    transition: background-color 0.3s;
+  display: block;
+  padding: 2px 4px;
+  text-decoration: none;
+  color: #28b;
+  transition: background-color 0.3s;
 }
 
 #side a:hover {
-    background-color: #EEE;
+  background-color: #EEE;
 }
 
 #side h1 {
-    font-size: 28px;
-    padding-bottom: 8px;
+  font-size: 28px;
+  padding-bottom: 8px;
 }
 
 #side h1 a {
-    display: inline;
+  display: inline;
 }
 
 #side h1 a :hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 #side h2 {
-    padding: 12px 0;
-    color: #666;
-    font-size: 20px;
+  padding: 12px 0;
+  color: #666;
+  font-size: 20px;
 }
 
 /* container */
 
 #container {
-    padding-left: 250px;
-    width: calc(100% - 250px);
-    height: 100%;
+  padding-left: 250px;
+  width: calc(100% - 250px);
+  height: 100%;
 }
 
 #container iframe {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 #source {
-    position: fixed;
-    right: 12px;
-    bottom: 12px;
-    border: solid 1px silver;
-    padding: 4px 8px;
-    cursor: pointer;
-    transition: all 0.3s;
-    color: black;
-    text-decoration: none;
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  border: solid 1px silver;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: black;
+  text-decoration: none;
 
-    background-color: #DDD;
+  background-color: #DDD;
 }
 
 #source:hover {
-    background-color: #FFF;
+  background-color: #FFF;
 }
 
 #source:active {
-    background-color: #BBB;
+  background-color: #BBB;
 }

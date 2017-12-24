@@ -1,53 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>Point on Line Test</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="../build/bu.js"></script>
-	<link rel="stylesheet" href="css/example.css">
-	<script type="text/javascript">
-		Bu.config.originAtCenter = false
-		Bu.config.cursor = 'crosshair'
-		Bu.config.showKeyPoints = true
-		var bu = new Bu({
-			data: {
-				mousePos: new Bu.Point(),
-				randomizer: new Bu.ShapeRandomizer(),
-			},
-			objects: function () {
-				var line = this.randomizer.generateLine();
-				var polyline = this.randomizer.generatePolyline();
-				return {
-					line,
-					polyline,
-				};
-			},
-			init: function () {
-				this.randomizer.setRange(this.$renderer.width, this.$renderer.height);
-			},
-			events: {
-				mouseup: function (e) {
-					// Randomize the lines
-					this.randomizer.randomize([this.line, this.polyline]);
-				},
-				mousemove: function (e) {
-					this.mousePos.x = e.offsetX;
-					this.mousePos.y = e.offsetY;
+  <meta charset="utf-8">
+  <title>Point on Line Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../build/bu.js"></script>
+  <link rel="stylesheet" href="css/example.css">
+  <script type="text/javascript">
+    Bu.config.originAtCenter = false
+    Bu.config.cursor = 'crosshair'
+    Bu.config.showKeyPoints = true
+    var bu = new Bu({
+      data: {
+        mousePos: new Bu.Point(),
+        randomizer: new Bu.ShapeRandomizer(),
+      },
+      objects: function () {
+        var line = this.randomizer.generateLine();
+        var polyline = this.randomizer.generatePolyline();
+        return {
+          line,
+          polyline,
+        };
+      },
+      init: function () {
+        this.randomizer.setRange(this.$renderer.width, this.$renderer.height);
+      },
+      events: {
+        mouseup: function (e) {
+          // Randomize the lines
+          this.randomizer.randomize([this.line, this.polyline]);
+        },
+        mousemove: function (e) {
+          this.mousePos.x = e.offsetX;
+          this.mousePos.y = e.offsetY;
 
-					if (this.mousePos.isNear(this.line))
-						this.line.style('hover');
-					else
-						this.line.style();
+          if (this.mousePos.isNear(this.line))
+            this.line.style('hover');
+          else
+            this.line.style();
 
-					if (this.mousePos.isNear(this.polyline))
-						this.polyline.style('hover');
-					else
-						this.polyline.style();
-				},
-			},
-		});
-	</script>
+          if (this.mousePos.isNear(this.polyline))
+            this.polyline.style('hover');
+          else
+            this.polyline.style();
+        },
+      },
+    });
+  </script>
 </head>
 <body>
 <div id="info">Move cursor over the line to test. Click to change another group of lines.</div>

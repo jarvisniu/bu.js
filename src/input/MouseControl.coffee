@@ -9,63 +9,63 @@ import Animation from '../anim/Animation.coffee'
 
 class MouseControl
 
-	scaleAnimation = new Animation
-		duration: 0.2
-		init: (anim) ->
-			anim.arg = 1 unless anim.arg?
-			anim.from = @scale.clone()
-			anim.to = @scale.clone().multiplyScalar parseFloat anim.arg
-		update: (anim) ->
-			@scale = anim.current
+  scaleAnimation = new Animation
+    duration: 0.2
+    init: (anim) ->
+      anim.arg = 1 unless anim.arg?
+      anim.from = @scale.clone()
+      anim.to = @scale.clone().multiplyScalar parseFloat anim.arg
+    update: (anim) ->
+      @scale = anim.current
 
-	translateAnimation = new Animation
-		duration: 0.2
-		init: (anim) ->
-			anim.arg = new Vector unless anim.arg?
-			anim.from = @position.clone()
-			anim.to = @position.clone().add anim.arg
-		update: (anim) ->
-			@position.copy anim.current
+  translateAnimation = new Animation
+    duration: 0.2
+    init: (anim) ->
+      anim.arg = new Vector unless anim.arg?
+      anim.from = @position.clone()
+      anim.to = @position.clone().add anim.arg
+    update: (anim) ->
+      @position.copy anim.current
 
-	constructor: (@renderer) ->
-		@camera = @renderer.camera
-		@zoomScaleAnim = scaleAnimation.applyTo @camera
-		@zoomTransAnim = translateAnimation.applyTo @camera
+  constructor: (@renderer) ->
+    @camera = @renderer.camera
+    @zoomScaleAnim = scaleAnimation.applyTo @camera
+    @zoomTransAnim = translateAnimation.applyTo @camera
 
-		@smoothZooming = yes
-		@desScale = new Vector 1, 1
+    @smoothZooming = yes
+    @desScale = new Vector 1, 1
 
-		@renderer.dom.addEventListener 'mousemove', @onMouseMove
-		@renderer.dom.addEventListener 'mousewheel', @onMouseWheel
+    @renderer.dom.addEventListener 'mousemove', @onMouseMove
+    @renderer.dom.addEventListener 'mousewheel', @onMouseWheel
 
-	onMouseMove: (e) =>
-		if e.buttons == utils.MOUSE.LEFT
-			scale = @camera.scale.x
-			dx = -e.movementX * scale
-			dy = -e.movementY * scale
+  onMouseMove: (e) =>
+    if e.buttons == utils.MOUSE.LEFT
+      scale = @camera.scale.x
+      dx = -e.movementX * scale
+      dy = -e.movementY * scale
 
-			@camera.translate dx, dy
+      @camera.translate dx, dy
 
-	onMouseWheel: (e) =>
-		[x, y] = @renderer.projectToWorld(e.offsetX, e.offsetY)
-		deltaScaleStep = Math.pow(1.25, -e.wheelDelta / 120)
-		@desScale.multiplyScalar deltaScaleStep
-		deltaScaleAll = @desScale.x / @camera.scale.x
+  onMouseWheel: (e) =>
+    [x, y] = @renderer.projectToWorld(e.offsetX, e.offsetY)
+    deltaScaleStep = Math.pow(1.25, -e.wheelDelta / 120)
+    @desScale.multiplyScalar deltaScaleStep
+    deltaScaleAll = @desScale.x / @camera.scale.x
 
-		targetStyle = getComputedStyle(e.target)
-		dx = -x * (deltaScaleAll - 1) * @camera.scale.x
-		dy = -y * (deltaScaleAll - 1) * @camera.scale.y
+    targetStyle = getComputedStyle(e.target)
+    dx = -x * (deltaScaleAll - 1) * @camera.scale.x
+    dy = -y * (deltaScaleAll - 1) * @camera.scale.y
 
-		if @smoothZooming
-			@zoomScaleAnim.from.copy @camera.scale
-			@zoomScaleAnim.to.copy @desScale
-			@zoomScaleAnim.restart()
+    if @smoothZooming
+      @zoomScaleAnim.from.copy @camera.scale
+      @zoomScaleAnim.to.copy @desScale
+      @zoomScaleAnim.restart()
 
-			@zoomTransAnim.from.copy @camera.position
-			@zoomTransAnim.to.set @camera.position.x + dx, @camera.position.y + dy
-			@zoomTransAnim.restart()
-		else
-			@camera.translate dx, dy
-			@camera.scale.copy this.desScale
+      @zoomTransAnim.from.copy @camera.position
+      @zoomTransAnim.to.set @camera.position.x + dx, @camera.position.y + dy
+      @zoomTransAnim.restart()
+    else
+      @camera.translate dx, dy
+      @camera.scale.copy this.desScale
 
 export default MouseControl

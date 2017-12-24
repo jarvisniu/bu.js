@@ -26,29 +26,29 @@ var BU_VER = require('./package.json').version;
 var port = 3000;
 var header = '// Bu.js v' + BU_VER + ' - https://github.com/jarvisniu/Bu.js\n';
 var paths = {
-    src: 'src/**/*.coffee',
-    ext: [
-        'examples/lib/**/*.coffee',
-    ],
-    clean: [
-        'build/*',
-        'src/**/*.js',
-        'src/**/*.js.map',
-        'examples/lib/*/*.js',
-        'examples/lib/*/*.js.map',
-    ],
-    dist: [
-        'logo.png',
-        'build/bu.min.js',
-        'examples/assets/**',
-        'examples/css/*.css',
-        'examples/js/*.js',
-        'examples/lib/a-star/*.js*',
-        'examples/lib/morph/*.js*',
-        'examples/lib/reactor/*.js*',
-    ],
-    dist_html: 'examples/*.html',
-    distTo: 'dist/',
+  src: 'src/**/*.coffee',
+  ext: [
+    'examples/lib/**/*.coffee',
+  ],
+  clean: [
+    'build/*',
+    'src/**/*.js',
+    'src/**/*.js.map',
+    'examples/lib/*/*.js',
+    'examples/lib/*/*.js.map',
+  ],
+  dist: [
+    'logo.png',
+    'build/bu.min.js',
+    'examples/assets/**',
+    'examples/css/*.css',
+    'examples/js/*.js',
+    'examples/lib/a-star/*.js*',
+    'examples/lib/morph/*.js*',
+    'examples/lib/reactor/*.js*',
+  ],
+  dist_html: 'examples/*.html',
+  distTo: 'dist/',
 };
 var rollupConfig = {
   input: 'src/index.js',
@@ -61,55 +61,55 @@ var rollupConfig = {
 // ------------------------------------------------------------
 
 gulp.task('clean', function () {
-    del(paths.clean);
-    del(paths.distTo + '**');
+  del(paths.clean);
+  del(paths.distTo + '**');
 });
 
 gulp.task('max', function () {
-    return gulp.src(paths.src)
-        .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.coffeescript({bare: true}))
-        .pipe(plugins.rollup(rollupConfig))
-        .pipe(plugins.babel({presets: ['env']}))
-        .pipe(plugins.header(header))
-        .pipe(plugins.rename('bu.js'))
-        .pipe(plugins.sourcemaps.write('./'))
-        .pipe(gulp.dest('build/'));
+  return gulp.src(paths.src)
+    .pipe(plugins.sourcemaps.init())
+    .pipe(plugins.coffeescript({bare: true}))
+    .pipe(plugins.rollup(rollupConfig))
+    .pipe(plugins.babel({presets: ['env']}))
+    .pipe(plugins.header(header))
+    .pipe(plugins.rename('bu.js'))
+    .pipe(plugins.sourcemaps.write('./'))
+    .pipe(gulp.dest('build/'));
 });
 
 gulp.task('min', function () {
-    return gulp.src(paths.src)
-        .pipe(plugins.coffeescript({bare: true}))
-        .pipe(plugins.rollup(rollupConfig))
-        .pipe(plugins.babel({presets: ['env']}))
-        .pipe(plugins.uglify())
-        .pipe(plugins.header(header))
-        .pipe(plugins.rename('bu.min.js'))
-        .pipe(gulp.dest('build/'));
+  return gulp.src(paths.src)
+    .pipe(plugins.coffeescript({bare: true}))
+    .pipe(plugins.rollup(rollupConfig))
+    .pipe(plugins.babel({presets: ['env']}))
+    .pipe(plugins.uglify())
+    .pipe(plugins.header(header))
+    .pipe(plugins.rename('bu.min.js'))
+    .pipe(gulp.dest('build/'));
 });
 
 gulp.task('ext', function () {
-    return gulp.src(paths['ext'])
-        .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.coffeescript())
-        .pipe(plugins.babel({presets: ['env']}))
-        .pipe(plugins.sourcemaps.write())
-        .pipe(gulp.dest('examples/lib/'));
+  return gulp.src(paths['ext'])
+    .pipe(plugins.sourcemaps.init())
+    .pipe(plugins.coffeescript())
+    .pipe(plugins.babel({presets: ['env']}))
+    .pipe(plugins.sourcemaps.write())
+    .pipe(gulp.dest('examples/lib/'));
 });
 
 gulp.task('serve_examples', ['build'], function () {
-    plugins.liveServer.static('./', port).start();
+  plugins.liveServer.static('./', port).start();
 });
 
 gulp.task('open_examples', ['serve_examples'], function () {
-    open('http://localhost:' + port + '/examples/');
+  open('http://localhost:' + port + '/examples/');
 });
 
 gulp.task('build', ['clean', 'max', 'min', 'ext']);
 
 gulp.task('watch', function () {
-    gulp.watch(paths.src, ['max']);
-    gulp.watch(paths.ext, ['ext']);
+  gulp.watch(paths.src, ['max']);
+  gulp.watch(paths.ext, ['ext']);
 });
 
 gulp.task('run', ['build', 'serve_examples', 'open_examples']);
@@ -120,15 +120,15 @@ gulp.task('run', ['build', 'serve_examples', 'open_examples']);
 
 // Distribution the lib and examples
 gulp.task('dist', ['build'], function () {
-    for (var i in paths.dist)
-        gulp.src(paths.dist[i])
-            .pipe(gulp.dest(paths.distTo + path.dirname(paths.dist[i])));
-    gulp.src(paths.dist_html)
-        .pipe(plugins.replace('../build/bu.js', '../build/bu.min.js'))
-        .pipe(gulp.dest(paths.distTo + path.dirname(paths.dist_html)));
+  for (var i in paths.dist)
+    gulp.src(paths.dist[i])
+      .pipe(gulp.dest(paths.distTo + path.dirname(paths.dist[i])));
+  gulp.src(paths.dist_html)
+    .pipe(plugins.replace('../build/bu.js', '../build/bu.min.js'))
+    .pipe(gulp.dest(paths.distTo + path.dirname(paths.dist_html)));
 
-    plugins.liveServer.static('./', port).start();
-    open('http://localhost:' + port + '/' + paths.distTo + 'examples/');
+  plugins.liveServer.static('./', port).start();
+  open('http://localhost:' + port + '/' + paths.distTo + 'examples/');
 });
 
 // Build two versions (dev and min) of the library

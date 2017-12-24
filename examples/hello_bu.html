@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Hello Bu.js</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="../build/bu.js"></script>
-	<script src="js/ClipMeter.min.js"></script>
-	<link rel="stylesheet" href="css/example.css">
-	<script type="text/javascript">
-		var bu = new Bu({
-			objects: {
-				sun: new Bu.Circle(40).fill("#F40"),
-				earth: new Bu.Circle(20).translate(150, 0).fill("#06F"),
-				moon: new Bu.Circle(10).translate(50, 0).fill("#FF0"),
-			},
-			scene: {
-				sun: {
-					earth: {
-						moon: {}
-					}
-				}
-			},
-			update: function () {
-				this.sun.rotation += 0.02;
-				this.earth.rotation += 0.1;
-			},
-		});
-	</script>
+  <meta charset="utf-8">
+  <title>Hello Bu.js</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../build/bu.js"></script>
+  <script src="js/ClipMeter.min.js"></script>
+  <link rel="stylesheet" href="css/example.css">
+  <script type="text/javascript">
+    var bu = new Bu({
+      objects: {
+        sun: new Bu.Circle(40).fill("#F40"),
+        earth: new Bu.Circle(20).translate(150, 0).fill("#06F"),
+        moon: new Bu.Circle(10).translate(50, 0).fill("#FF0"),
+      },
+      scene: {
+        sun: {
+          earth: {
+            moon: {}
+          }
+        }
+      },
+      update: function () {
+        this.sun.rotation += 0.02;
+        this.earth.rotation += 0.1;
+      },
+    });
+  </script>
 </head>
 <body>
 <div id="info">This is a HelloWorld demo which simulated a solar system.</div>

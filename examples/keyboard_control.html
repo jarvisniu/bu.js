@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Keyboard Control</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="../build/bu.js"></script>
-	<link rel="stylesheet" href="css/example.css">
-	<script>
-		Bu.config.background = 'lightblue'
-		var bu = new Bu({
-			data: {
-				moveSpeed: 0,
-				moo: new Bu.Audio('./assets/audio/cow.ogg'),
-			},
-			objects: {
-				sun: new Bu.Circle(40, 80, -150).fill('orange').stroke('red')
-					.setLineWidth(20).dash([4, 8]).dashFlow(),
-				bunny: new Bu.Image("./assets/textures/bunny.png").scaleTo(2),
-				ground: new Bu.Rectangle(-1000, 40, 2000, 1000).fill('lightgreen'),
-			},
-			init: function () {
-				window.focus();
-			},
-			update: function () {
-				if (this.$inputManager.isKeyDown('Left')) this.moveSpeed -= 1;
-				if (this.$inputManager.isKeyDown('Right')) this.moveSpeed += 1;
-				this.bunny.position.x += this.moveSpeed;
-				this.moveSpeed *= 0.9;
-			},
-			events: {
-				'keydown.Up': function (e) {
-					this.bunny.animate('jump', 80);
-				},
-				'keydown.Down': function (e) {
-					this.bunny.animate('shake');
-					this.moo.play();
-				},
-			},
-		});
-	</script>
+  <meta charset="UTF-8">
+  <title>Keyboard Control</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../build/bu.js"></script>
+  <link rel="stylesheet" href="css/example.css">
+  <script>
+    Bu.config.background = 'lightblue'
+    var bu = new Bu({
+      data: {
+        moveSpeed: 0,
+        moo: new Bu.Audio('./assets/audio/cow.ogg'),
+      },
+      objects: {
+        sun: new Bu.Circle(40, 80, -150).fill('orange').stroke('red')
+          .setLineWidth(20).dash([4, 8]).dashFlow(),
+        bunny: new Bu.Image("./assets/textures/bunny.png").scaleTo(2),
+        ground: new Bu.Rectangle(-1000, 40, 2000, 1000).fill('lightgreen'),
+      },
+      init: function () {
+        window.focus();
+      },
+      update: function () {
+        if (this.$inputManager.isKeyDown('Left')) this.moveSpeed -= 1;
+        if (this.$inputManager.isKeyDown('Right')) this.moveSpeed += 1;
+        this.bunny.position.x += this.moveSpeed;
+        this.moveSpeed *= 0.9;
+      },
+      events: {
+        'keydown.Up': function (e) {
+          this.bunny.animate('jump', 80);
+        },
+        'keydown.Down': function (e) {
+          this.bunny.animate('shake');
+          this.moo.play();
+        },
+      },
+    });
+  </script>
 </head>
 <body>
 <div id="info">Control the bunny with arrow keys.</div>
