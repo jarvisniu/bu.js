@@ -173,9 +173,9 @@ function debounce(fn, delay = 0.5) {
 // TODO rename to store
 function data(key, value) {
 	if (value) {
-		return localStorage['Bu.' + key] = JSON.stringify(value)
+		return localStorage['Bu:' + key] = JSON.stringify(value)
 	} else {
-		value = localStorage['Bu.' + key]
+		value = localStorage['Bu:' + key]
 		if (value) {
 			return JSON.parse(value)
 		} else {

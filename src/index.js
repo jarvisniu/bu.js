@@ -1,7 +1,7 @@
 // Entry of bu.js
 
 // main
-import './bu.js'
+import Bu from './core/Bu.js'
 import './base/presets.js'
 import utils from './base/utils.js'
 
@@ -28,7 +28,6 @@ Bu.Styled = Styled
 Bu.config = config
 
 // core
-import Bu from './core/Bu.js'
 import Audio from './core/Audio.coffee'
 import Camera from './core/Camera.coffee'
 import Renderer from './core/Renderer.coffee'

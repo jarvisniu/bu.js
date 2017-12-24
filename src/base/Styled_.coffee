@@ -1,6 +1,8 @@
 # Add color to the shapes
 # This object is dedicated to mixed-in the Object2D.
 
+import Bu from '../core/Bu.js'
+
 Styled = () ->
 	@strokeStyle = Styled.DEFAULT_STROKE_STYLE
 	@fillStyle = Styled.DEFAULT_FILL_STYLE

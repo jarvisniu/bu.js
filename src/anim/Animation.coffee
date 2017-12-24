@@ -1,5 +1,6 @@
 # animation class and preset animations
 
+import Bu from '../core/Bu.js'
 import utils from '../base/utils.js'
 
 import Color from '../math/Color.coffee'
@@ -21,7 +22,7 @@ class Animation
 	applyTo: (target, args) ->
 		args = [args] unless utils.isArray args
 		task = new AnimationTask @, target, args
-		Bu.animationRunner.add task # TODO use module
+		Bu.animationRunner.add task
 		task
 
 	isLegal: ->

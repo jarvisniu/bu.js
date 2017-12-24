@@ -1,5 +1,6 @@
 // Base class of all shapes and other renderable objects
 
+import Bu from '../core/Bu.js'
 import utils from '../base/utils.js'
 
 import Bounds from '../math/Bounds.coffee'
@@ -21,7 +22,7 @@ class Object2D {
 		this.rotation = 0
 		this._scale = new Vector(1, 1)
 		this.skew = new Vector
-		// this.toWorldMatrix = new Bu.Matrix()
+		// this.toWorldMatrix = new Matrix()
 
 		// geometry related
 		this.bounds = null // used to accelerate the hit testing

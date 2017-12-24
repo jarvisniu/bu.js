@@ -1,5 +1,17 @@
 // Bu
 
+// renderer:
+//   container
+//   background
+//   showKeyPoints
+// data
+// methods
+// objects
+// scene
+// events
+// init
+// update
+
 import Renderer from '../core/Renderer.coffee'
 import Scene from '../core/Scene.coffee'
 
@@ -24,6 +36,7 @@ class Bu {
 		}
 		this.$inputManager = new InputManager
 		ready(this.init, this)
+		Bu.$bues.push(this)
 	}
 
 	init() {

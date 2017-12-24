@@ -6,7 +6,6 @@ All supported constructor options:
 {
     renderer: # settings to the renderer
     	container: '#container' # css selector of the container dom or itself
-        cursor: 'crosshand' # the default cursor style on the <canvas>
         background: 'pink' # the default background of the <canvas>
     	showKeyPoints: true # whether to show the key points of shapes (if they have).
     data: { var } # variables of this Bu.js app, will be copied to the app object

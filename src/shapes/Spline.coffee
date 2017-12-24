@@ -71,7 +71,7 @@ class Spline extends Object2D
 				spline.controlPointsBehind[i] = new Point xB, yB
 
 				# add control lines for debugging
-				#spline.children[i * 2 - 2] = new Bu.Line spline.vertices[i], spline.controlPointsAhead[i]
-				#spline.children[i * 2 - 1] =  new Bu.Line spline.vertices[i], spline.controlPointsBehind[i]
+				#spline.children[i * 2 - 2] = new Line spline.vertices[i], spline.controlPointsAhead[i]
+				#spline.children[i * 2 - 1] =  new Line spline.vertices[i], spline.controlPointsBehind[i]
 
 export default Spline

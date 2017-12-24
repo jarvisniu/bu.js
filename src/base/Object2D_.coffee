@@ -26,7 +26,7 @@ class Object2D
 		@_scale = new Vector 1, 1
 		@skew = new Vector
 
-		#@toWorldMatrix = new Bu.Matrix()
+		#@toWorldMatrix = new Matrix()
 		#@updateMatrix ->
 
 		# geometry related

@@ -1,5 +1,7 @@
 # Used to render all the drawable objects to the canvas
 
+import Bu from '../core/Bu.js'
+
 import utils from '../base/utils.js'
 import Event from '../base/Event.js'
 
@@ -41,7 +43,7 @@ class Renderer
 
 		# Set canvas dom
 		@dom = document.createElement 'canvas'
-		@dom.style.cursor = options.cursor or 'default'
+		@dom.style.cursor = Bu.config.cursor
 		@dom.style.boxSizing = 'content-box'
 		@dom.oncontextmenu = -> false
 

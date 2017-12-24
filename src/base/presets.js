@@ -1,6 +1,10 @@
 // Presets
 
+import Bu from '../core/Bu.js'
+
 // Global unique instances ----------------------------------------------------
+
+Bu.$bues = []
 
 import AnimationRunner from '../anim/AnimationRunner.coffee'
 import DashFlowManager from '../anim/DashFlowManager.coffee'
@@ -159,7 +163,7 @@ Bu.animations = {
 
 	moveTo: new Animation({
 		init: function (anim) {
-			if (anim.arg) {
+			if (anim.arg != null) {
 				anim.from = this.position.x
 				return anim.to = parseFloat(anim.arg)
 			} else {
@@ -173,7 +177,7 @@ Bu.animations = {
 
 	moveBy: new Animation({
 		init: function (anim) {
-			if (anim.args) {
+			if (anim.args != null) {
 				anim.from = this.position.x
 				return anim.to = this.position.x + parseFloat(anim.args)
 			} else {
