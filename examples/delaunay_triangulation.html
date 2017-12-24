@@ -28,8 +28,8 @@
 
 		function generatePoints() {
 			for (var i = 0; i < POINT_COUNT; i++) {
-				var x = Bu.rand(20, bu.width - 40);
-				var y = Bu.rand(20, bu.height - 40);
+				var x = Bu.rand(-bu.width / 2 + 20, bu.width / 2 - 20);
+				var y = Bu.rand(-bu.width / 2 + 20, bu.height / 2 - 20);
 				points[i] = new Bu.Point(x, y);
 				points[i].label = i;
 				bu.scene.addChild(points[i]);

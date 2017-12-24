@@ -9,13 +9,17 @@
 	<script src="./lib/reactor/MovePointReactor.js"></script>
 	<link rel="stylesheet" href="css/example.css">
 	<script type="text/javascript">
+		Bu.config.originAtCenter = false
 		var bu = new Bu({
 			data: function () {
 				var POINT_COUNT = 10,
 					points = [];
 
 				for (var i = 0; i < POINT_COUNT; i++) {
-					points[i] = new Bu.Point(Bu.rand(this.$renderer.width), Bu.rand(this.$renderer.height));
+					points[i] = new Bu.Point(
+					  Bu.rand(this.$renderer.width),
+						Bu.rand(this.$renderer.height),
+					);
 					points[i].label = "P" + i;
 				}
 				return {

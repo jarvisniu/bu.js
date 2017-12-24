@@ -19,7 +19,7 @@ class Bu.DrawPolygonReactor extends Bu.ReactorBase
 			if e.buttons == Bu.MOUSE.LEFT
 				if not polygon?
 					polygon = new Bu.Polygon
-					polygon.style 'hover'
+					polygon.style 'selcted'
 					@bu.scene.addChild polygon
 
 				if not guideLineEnd?

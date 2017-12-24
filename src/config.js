@@ -3,6 +3,7 @@
 import Bu from './base/Bu.js'
 
 let config = {
+	originAtCenter: true,
 	font: '11px Verdana',
 	background: '#eee',
 	showKeyPoints: false,
