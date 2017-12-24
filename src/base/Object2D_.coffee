@@ -7,7 +7,7 @@ import Vector from '../math/Vector.coffee'
 #import Scene from '../core/Scene.coffee'
 
 import Styled from './Styled.coffee'
-import Event from './Event.coffee'
+import Event from './Event.js'
 
 class Object2D
 

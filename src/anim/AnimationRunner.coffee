@@ -79,7 +79,4 @@ class AnimationRunner
 
 		# TODO add quart, quint, expo, circ, back, elastic, bounce
 
-# Define the global unique instance of this class
-Bu.animationRunner = new AnimationRunner
-
 export default AnimationRunner

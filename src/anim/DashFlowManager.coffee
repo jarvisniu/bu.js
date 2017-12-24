@@ -21,7 +21,4 @@ class DashFlowManager
 	hookUp: (renderer) ->
 		renderer.on 'update', => @update()
 
-# Global unique instance
-Bu.dashFlowManager = new DashFlowManager
-
 export default DashFlowManager

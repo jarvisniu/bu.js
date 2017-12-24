@@ -2,6 +2,7 @@
 
 // main
 import utils from './base/utils.js'
+import './base/presets.js'
 
 // math
 import Bounds from './math/Bounds.coffee'
