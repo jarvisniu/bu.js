@@ -6,7 +6,7 @@ import Object2D from '../base/Object2D.js'
 
 # TODO add global settings
 DEFAULT_FONT_FAMILY = 'Verdana'
-DEFAULT_FONT_SIZE = 11
+DEFAULT_FONT_SIZE = 12
 
 class PointText extends Object2D
 

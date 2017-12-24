@@ -99,27 +99,27 @@ Bu.ShapeRandomizer = ShapeRandomizer
 import utils from './utils.js'
 import config from './config.js'
 
-Bu.config = config		// Global config
-Bu.version = '0.4.0'	// Version info
+Bu.config = config // Global config
+Bu.version = '0.4.0' // Version info
 
 // utils in examples
 for (let name of [
-	'd2r',
-	'rand',
-	'MOUSE',
-	'POINT_RENDER_SIZE',
+  'd2r',
+  'rand',
+  'MOUSE',
+  'POINT_RENDER_SIZE',
 ]) {
-	Bu[name] = utils[name]
+  Bu[name] = utils[name]
 }
 
 // Output version info to the console, at most one time in a minute.
 let currentTime = Date.now()
 let lastTime = utils.data('version.timestamp')
 if (!lastTime || currentTime - lastTime > 60 * 1000) {
-	if (typeof console.info === "function") {
-		console.info('bu.js v' + Bu.version + ' - [https://github.com/jarvisniu/bu.js]')
-	}
-	utils.data('version.timestamp', currentTime)
+  if (typeof console.info === 'function') {
+    console.info('bu.js v' + Bu.version + ' - [https://github.com/jarvisniu/bu.js]')
+  }
+  utils.data('version.timestamp', currentTime)
 }
 
 export default Bu
