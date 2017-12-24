@@ -12,10 +12,10 @@ class Bu.DrawPolylineReactor extends Bu.ReactorBase
     polyline = null
     line = null
 
-    @onMouseDown = (e) =>
-      mouseDownPos.set e.offsetX, e.offsetY
+    @onMouseDown = (ev) =>
+      mouseDownPos.set ev.offsetX, ev.offsetY
 
-      if e.buttons == Bu.MOUSE.LEFT
+      if ev.buttons == Bu.MOUSE.LEFT
         if not polyline?
           polyline = new Bu.Polyline
           polyline.style 'selected'
@@ -32,13 +32,13 @@ class Bu.DrawPolylineReactor extends Bu.ReactorBase
 
         line.setPoint1 line.points[1]
         polyline.addPoint mousePos.clone()
-      else if e.buttons == Bu.MOUSE.RIGHT
+      else if ev.buttons == Bu.MOUSE.RIGHT
         polyline.style()
         polyline = null
         line.visible = off
 
-    @onMouseMove = (e) =>
-      mousePos.set e.offsetX, e.offsetY
+    @onMouseMove = (ev) =>
+      mousePos.set ev.offsetX, ev.offsetY
       if polyline?
         line.setPoint2 mousePos
 

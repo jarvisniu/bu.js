@@ -14,12 +14,12 @@ class Bu.DrawCircleReactor extends Bu.ReactorBase
     line = null
 
     # create new circles every time
-    @onMouseDown = (e) =>
+    @onMouseDown = (ev) =>
       if not isConfirmed
         circle = null
         isConfirmed = yes
       else
-        mousePosDown.set e.offsetX, e.offsetY
+        mousePosDown.set ev.offsetX, ev.offsetY
         circle = new Bu.Circle 1, mousePosDown.x, mousePosDown.y
         @bu.scene.addChild circle
 
@@ -29,9 +29,9 @@ class Bu.DrawCircleReactor extends Bu.ReactorBase
         isConfirmed = no
 
     # change radius
-    @onMouseMove = (e) =>
-      mousePos.set e.offsetX, e.offsetY
-      if (not isConfirmed) or (e.buttons == Bu.MOUSE.LEFT and circle?)
+    @onMouseMove = (ev) =>
+      mousePos.set ev.offsetX, ev.offsetY
+      if (not isConfirmed) or (ev.buttons == Bu.MOUSE.LEFT and circle?)
         circle.radius = mousePos.distanceTo mousePosDown
         line.setPoint1 mousePos
 

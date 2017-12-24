@@ -12,8 +12,8 @@ class Bu.MovePointReactor extends Bu.ReactorBase
     hoveredPoint = null
 
     # record the delta
-    @onMouseDown = (e) ->
-      mousePosDown.set e.offsetX, e.offsetY
+    @onMouseDown = (ev) ->
+      mousePosDown.set ev.offsetX, ev.offsetY
 
       if hoveredPoint?
         mousePosDownDelta.set(
@@ -22,9 +22,9 @@ class Bu.MovePointReactor extends Bu.ReactorBase
         )
 
     # change x, y
-    @onMouseMove = (e) =>
-      mousePos.set e.offsetX, e.offsetY
-      if e.buttons == Bu.MOUSE.LEFT
+    @onMouseMove = (ev) =>
+      mousePos.set ev.offsetX, ev.offsetY
+      if ev.buttons == Bu.MOUSE.LEFT
         hoveredPoint.set(
           mousePos.x - mousePosDownDelta.x
           mousePos.y - mousePosDownDelta.y

@@ -7,19 +7,19 @@
   <script src="../build/bu.js"></script>
   <link rel="stylesheet" href="css/example.css">
   <script type="text/javascript">
-    Bu.config.originAtCenter = false
     let bu = new Bu({
+      renderer: {
+        imageSmoothing: false,
+      },
       data: {
-        x: 300,
-        y: 200,
-        radius: 15,
         url: 'assets/sprite-sheets/nes-font.json',
         text: 'Hello, Bu.js!',
       },
       objects: function () {
         return {
-          pointText: new Bu.PointText('', this.x, this.y),
-          pivot: new Bu.Circle(this.radius, this.x, this.y),
+          pointText: new Bu.PointText(''),
+          pivotCircle: new Bu.Circle(12),
+          pivotDot: new Bu.Circle().stroke('red'),
         }
       },
       init: function () {

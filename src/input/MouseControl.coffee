@@ -38,21 +38,21 @@ class MouseControl
     @renderer.dom.addEventListener 'mousemove', @onMouseMove
     @renderer.dom.addEventListener 'mousewheel', @onMouseWheel
 
-  onMouseMove: (e) =>
-    if e.buttons == utils.MOUSE.LEFT
+  onMouseMove: (ev) =>
+    if ev.buttons == utils.MOUSE.LEFT
       scale = @camera.scale.x
-      dx = -e.movementX * scale
-      dy = -e.movementY * scale
+      dx = -ev.movementX * scale
+      dy = -ev.movementY * scale
 
       @camera.translate dx, dy
 
-  onMouseWheel: (e) =>
-    [x, y] = @renderer.projectToWorld(e.offsetX, e.offsetY)
-    deltaScaleStep = Math.pow(1.25, -e.wheelDelta / 120)
+  onMouseWheel: (ev) =>
+    [x, y] = @renderer.projectToWorld(ev.offsetX, ev.offsetY)
+    deltaScaleStep = Math.pow(1.25, -ev.wheelDelta / 120)
     @desScale.multiplyScalar deltaScaleStep
     deltaScaleAll = @desScale.x / @camera.scale.x
 
-    targetStyle = getComputedStyle(e.target)
+    targetStyle = getComputedStyle(ev.target)
     dx = -x * (deltaScaleAll - 1) * @camera.scale.x
     dy = -y * (deltaScaleAll - 1) * @camera.scale.y
 

@@ -16,7 +16,7 @@ const DEFAULT_SPLINE_SMOOTH = 0.25
 // How close a point to a line is regarded that the point is **ON** the line.
 const DEFAULT_NEAR_DIST = 5
 
-// Enumeration of mouse buttons, used to compare with `e.buttons` of mouse events
+// Enumeration of mouse buttons, used to compare with `ev.buttons` of mouse events
 const MOUSE = {
   NONE: 0,
   LEFT: 1,
@@ -97,7 +97,7 @@ function combineOptions (args, defaultOptions) {
   let givenOptions = args[args.length - 1]
   if (isPlainObject(givenOptions)) {
     for (let i in givenOptions) {
-      if (givenOptions[i]) defaultOptions[i] = givenOptions[i]
+      if (givenOptions[i] != null) defaultOptions[i] = givenOptions[i]
     }
   }
   return defaultOptions

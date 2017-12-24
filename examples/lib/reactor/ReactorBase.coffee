@@ -13,14 +13,14 @@ class Bu.ReactorBase
     @removeListeners()
     @enabled = false
 
-  _onMouseDown: (e) =>
-    @onMouseDown? e
+  _onMouseDown: (ev) =>
+    @onMouseDown? ev
 
-  _onMouseMove: (e) =>
-    @onMouseMove? e
+  _onMouseMove: (ev) =>
+    @onMouseMove? ev
 
-  _onMouseUp: (e) =>
-    @onMouseUp? e
+  _onMouseUp: (ev) =>
+    @onMouseUp? ev
 
   addListeners: ->
     @bu.dom.addEventListener 'mousedown', @_onMouseDown

@@ -29,10 +29,10 @@
         this.moveSpeed *= 0.9
       },
       events: {
-        'keydown.Up': function (e) {
+        'keydown.Up': function (ev) {
           this.bunny.animate('jump', 80)
         },
-        'keydown.Down': function (e) {
+        'keydown.Down': function (ev) {
           this.bunny.animate('shake')
           this.moo.play()
         },

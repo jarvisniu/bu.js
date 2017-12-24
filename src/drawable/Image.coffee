@@ -24,7 +24,7 @@ class Image extends Object2D
     @_image = new window.Image
     @ready = false
 
-    @_image.onload = (e) =>
+    @_image.onload = (ev) =>
       if @autoSize
         @size.set @_image.width, @_image.height
       @ready = true

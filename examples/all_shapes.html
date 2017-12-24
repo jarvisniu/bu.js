@@ -7,7 +7,6 @@
   <script src="../build/bu.js"></script>
   <link rel="stylesheet" href="css/example.css">
   <script type="text/javascript">
-    Bu.config.originAtCenter = false
     Bu.config.showKeyPoints = true
     let bu = new Bu({
       objects: {
@@ -64,6 +63,7 @@
         }
       },
       init: function () {
+        this.$renderer.scene.translate(-350, -280)
         document.querySelector('#btnKeyPoints').addEventListener('click', function () {
           bu.$renderer.showKeyPoints = this.checked
         })

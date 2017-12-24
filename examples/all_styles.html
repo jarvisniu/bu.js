@@ -9,41 +9,46 @@
   <script type="text/javascript">
     let bu = new Bu({
       objects: function () {
-        let circle = new Bu.Circle(30)
+        let circle = new Bu.Circle(25)
         let polyline = new Bu.Polyline(0, -20, -30, 20, 30, 20)
         polyline.lineWidth = 10
 
-        let shapes = [
+        let circles = [
           circle.clone(),
           circle.clone(),
           circle.clone(),
           circle.clone(),
           circle.clone(),
           circle.clone(),
+        ]
+        let polylines = [
           polyline.clone(),
           polyline.clone(),
         ]
-        for (let i in shapes) {
-          shapes[i].translate(-100, 90 * (i - 4))
+        for (let i in circles) {
+          circles[i].translate(-150, 90 * (i - 2.5))
+        }
+        for (let i in polylines) {
+          polylines[i].translate(0, 90 * (i - 0.5))
         }
 
         return {
-          circleLineWidth: shapes[0],
-          circleLineWidthLabel: new Bu.PointText('lineWidth=5', 0, 40),
-          circleStrokeStyle: shapes[1],
-          circleStrokeStyleLabel: new Bu.PointText('strokeStyle="red"', 0, 40),
-          circleFillStyle: shapes[2],
-          circleFillStyleLabel: new Bu.PointText('fillStyle="pink"', 0, 40),
-          circleOpacity: shapes[3],
-          circleOpacityLabel: new Bu.PointText('opacity=0.5', 0, 40),
-          circleDashStyle: shapes[4],
-          circleDashStyleLabel: new Bu.PointText('dashStyle=[10, 10]', 0, 40),
-          circleDashFlow: shapes[5],
-          circleDashFlowLabel: new Bu.PointText('dashFlow(true)', 0, 40),
-          polylineLineCap: shapes[6],
-          polylineLineCapLabel: new Bu.PointText('lineCap="round"', 0, 40),
-          polylineLineJoin: shapes[7],
-          polylineLineJoinLabel: new Bu.PointText('lineJoin="round"', 0, 40),
+          circleLineWidth: circles[0],
+          circleLineWidthLabel: new Bu.PointText('.lineWidth=5', 0, 40),
+          circleStrokeStyle: circles[1],
+          circleStrokeStyleLabel: new Bu.PointText('.strokeStyle="red"', 0, 40),
+          circleFillStyle: circles[2],
+          circleFillStyleLabel: new Bu.PointText('.fillStyle="pink"', 0, 40),
+          circleOpacity: circles[3],
+          circleOpacityLabel: new Bu.PointText('.opacity=0.5', 0, 40),
+          circleDashStyle: circles[4],
+          circleDashStyleLabel: new Bu.PointText('.dashStyle=[10, 10]', 0, 40),
+          circleDashFlow: circles[5],
+          circleDashFlowLabel: new Bu.PointText('.dashFlow(true)', 0, 40),
+          polylineLineCap: polylines[0],
+          polylineLineCapLabel: new Bu.PointText('.lineCap="round"', 0, 40),
+          polylineLineJoin: polylines[1],
+          polylineLineJoinLabel: new Bu.PointText('.lineJoin="round"', 0, 40),
         }
       },
       scene: {
@@ -90,10 +95,10 @@
         // lineJoin
         this.polylineLineJoin.lineJoin = 'round'
 
-        let index = -4
+        let index = -2.5
         for (let style in Bu.styles) {
-          let circle = new Bu.Circle(30).translate(100, index * 90).style(style)
-          let label = new Bu.PointText(style, 100, index * 90 + 40)
+          let circle = new Bu.Circle(25).translate(150, index * 90).style(style)
+          let label = new Bu.PointText('.style(\'' + style + '\')', 150, index * 90 + 40)
           this.$renderer.scene.addChild([circle, label])
           index += 1
         }

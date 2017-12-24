@@ -10,14 +10,14 @@ class Bu.DrawPointReactor extends Bu.ReactorBase
 
     drawingPoint = null
 
-    @onMouseDown = (e) =>
-      mouseDownPos.set e.offsetX, e.offsetY
-      drawingPoint = new Bu.Point e.offsetX, e.offsetY
+    @onMouseDown = (ev) =>
+      mouseDownPos.set ev.offsetX, ev.offsetY
+      drawingPoint = new Bu.Point ev.offsetX, ev.offsetY
       @bu.scene.addChild drawingPoint
 
-    @onMouseMove = (e) =>
-      mousePos.set e.offsetX, e.offsetY
-      if e.buttons == Bu.MOUSE.LEFT
+    @onMouseMove = (ev) =>
+      mousePos.set ev.offsetX, ev.offsetY
+      if ev.buttons == Bu.MOUSE.LEFT
         drawingPoint.set mousePos.x, mousePos.y
 
     @onMouseUp = =>

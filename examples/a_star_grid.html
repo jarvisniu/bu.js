@@ -186,12 +186,12 @@
           )
           this.$renderer.scene.addChild(this.axisTextY[i])
         }
-        this.engine.on('nodeChanged', (e) => {
-          this.refreshNode(e.x, e.y)
+        this.engine.on('nodeChanged', (ev) => {
+          this.refreshNode(ev.x, ev.y)
         })
-        this.engine.on('finished', function (e) {
-          console.log('result: ', e)
-          if (!e.success) alert('no solution!')
+        this.engine.on('finished', function (ev) {
+          console.log('result: ', ev)
+          if (!ev.success) alert('no solution!')
 
           document.querySelector('#btnInit').removeAttribute('disabled')
           document.querySelector('#btnRun').setAttribute('disabled', '')
@@ -243,14 +243,14 @@
         },
       },
       events: {
-        mousedown: function (e) {
+        mousedown: function (ev) {
           this.isMouseDown = true
-          let x = this.pixelToIndexX(e.offsetX, e.offsetY)
-          let y = this.pixelToIndexY(e.offsetX, e.offsetY)
+          let x = this.pixelToIndexX(ev.offsetX, ev.offsetY)
+          let y = this.pixelToIndexY(ev.offsetX, ev.offsetY)
           if (x < 0 || y < 0 || x >= this.net.width || y >= this.net.height) return
 
           let node = this.net.getNode(x, y)
-          if (e.button == 0) {
+          if (ev.button == 0) {
             // left button
             if (node.state == AStar.NODE_STATE_DEFAULT) {
               node.state = AStar.NODE_STATE_OBSTACLE
@@ -265,10 +265,10 @@
             console.log('prevNode', node.prevNode)
           }
         },
-        mousemove: function (e) {
-          if (this.isMouseDown && e.button == 0) {
-            let x = this.pixelToIndexX(e.offsetX, e.offsetY)
-            let y = this.pixelToIndexY(e.offsetX, e.offsetY)
+        mousemove: function (ev) {
+          if (this.isMouseDown && ev.button == 0) {
+            let x = this.pixelToIndexX(ev.offsetX, ev.offsetY)
+            let y = this.pixelToIndexY(ev.offsetX, ev.offsetY)
             if (x < 0 || y < 0 || x >= this.net.width || y >= this.net.height) return
 
             let node = this.net.getNode(x, y)

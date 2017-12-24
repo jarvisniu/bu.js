@@ -121,12 +121,12 @@
             }
           }
 
-          this.engine.on('nodeChanged', (e) => {
-            this.refreshNode(e.x, e.y)
+          this.engine.on('nodeChanged', (ev) => {
+            this.refreshNode(ev.x, ev.y)
           })
-          this.engine.on('finished', function (e) {
-            console.log('result: ', e)
-            if (!e.success) alert('no solution!')
+          this.engine.on('finished', function (ev) {
+            console.log('result: ', ev)
+            if (!ev.success) alert('no solution!')
           })
         },
         refreshNode: function (i, j) {

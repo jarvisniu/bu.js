@@ -34,10 +34,10 @@
         let camera = this.$renderer.camera
         let control = new Bu.MouseControl(this.$renderer)
 
-        document.querySelector('#earthquake').addEventListener('click', function (e) {
+        document.querySelector('#earthquake').addEventListener('click', function (ev) {
           camera.animate('shake')
         })
-        document.querySelector('#smoothZoom').addEventListener('click', function (e) {
+        document.querySelector('#smoothZoom').addEventListener('click', function (ev) {
           control.smoothZooming = this.checked
         })
       },

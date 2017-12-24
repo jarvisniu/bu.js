@@ -7,7 +7,6 @@
   <script src="../build/bu.js"></script>
   <link rel="stylesheet" href="css/example.css">
   <script type="text/javascript">
-    Bu.config.originAtCenter = false
     Bu.config.cursor = 'crosshair'
     Bu.config.showKeyPoints = true
     let bu = new Bu({
@@ -24,16 +23,20 @@
         }
       },
       init: function () {
-        this.randomizer.setRange(this.$renderer.width, this.$renderer.height)
+        this.randomizer.setRange(
+          -this.$renderer.width / 2,
+          -this.$renderer.height / 2,
+          this.$renderer.width,
+          this.$renderer.height,
+        )
+        this.randomizer.randomize([this.line, this.polyline])
       },
       events: {
-        mouseup: function (e) {
-          // Randomize the lines
+        mouseup: function (ev) {
           this.randomizer.randomize([this.line, this.polyline])
         },
-        mousemove: function (e) {
-          this.mousePos.x = e.offsetX
-          this.mousePos.y = e.offsetY
+        mousemove: function (ev) {
+          [this.mousePos.x, this.mousePos.y] = this.$renderer.projectToWorld(ev.offsetX, ev.offsetY)
 
           if (this.mousePos.isNear(this.line))
             this.line.style('hover')

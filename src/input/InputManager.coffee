@@ -5,10 +5,10 @@ class InputManager
   constructor: () ->
     @keyStates = []
 
-    window.addEventListener 'keydown', (e) =>
-      @keyStates[e.keyCode] = yes
-    window.addEventListener 'keyup', (e) =>
-      @keyStates[e.keyCode] = no
+    window.addEventListener 'keydown', (ev) =>
+      @keyStates[ev.keyCode] = yes
+    window.addEventListener 'keyup', (ev) =>
+      @keyStates[ev.keyCode] = no
 
 # To detect whether a key is pressed down
   isKeyDown: (key) ->
@@ -25,10 +25,10 @@ class InputManager
     keydownListeners = {}
     keyupListeners = {}
 
-    window.addEventListener 'keydown', (e) =>
-      keydownListeners[e.keyCode]?.call app, e
-    window.addEventListener 'keyup', (e) =>
-      keyupListeners[e.keyCode]?.call app, e
+    window.addEventListener 'keydown', (ev) =>
+      keydownListeners[ev.keyCode]?.call app, ev
+    window.addEventListener 'keyup', (ev) =>
+      keyupListeners[ev.keyCode]?.call app, ev
 
     for type of events
       if type in ['mousedown', 'mousemove', 'mouseup', 'mousewheel']
