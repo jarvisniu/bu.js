@@ -87,8 +87,9 @@
         }
       }
       for (i = 0; i < lines.length; i++) {
-        while (lineTryKillOthers(lines[i], lines))
+        while (lineTryKillOthers(lines[i], lines)) {
           lineTryKillOthers(lines[i], lines)
+        }
       }
       for (i = 0; i < lines.length; i++) {
         lines[i].strokeStyle = '#088'

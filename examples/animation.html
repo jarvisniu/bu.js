@@ -12,7 +12,7 @@
   </style>
   <script type="text/javascript">
     let bu, bunny, circle
-    let animSpin, animHelical
+    let animHelical
     let imageUrl = './assets/textures/bunny.png'
 
     document.addEventListener('DOMContentLoaded', init)
@@ -46,7 +46,7 @@
           this.position.x = anim.data.ox
           this.position.y = anim.data.oy
           this.rotation = anim.data.or
-        }
+        },
       })
 
       let prefabButtons = document.querySelectorAll('#prefab button')

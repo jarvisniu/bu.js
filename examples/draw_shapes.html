@@ -41,10 +41,11 @@
         radios.forEach(function (radio) {
           radio.addEventListener('click', function () {
             for (let k in bu.reactors) {
-              if (k == this.id)
+              if (k === this.id) {
                 bu.reactors[k].enable()
-              else
+              } else {
                 bu.reactors[k].disable()
+              }
             }
           })
         })

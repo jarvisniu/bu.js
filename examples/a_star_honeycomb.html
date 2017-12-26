@@ -20,39 +20,38 @@
   <script src="./lib/a-star/NetHoneycomb.js"></script>
   <script>
     // net info
-    let WIDTH = 14;
-    let HEIGHT = 10;
+    let WIDTH = 14
+    let HEIGHT = 10
     let START_POS = {
       x: 2,
       y: 2,
-    };
+    }
     let END_POS = {
       x: 11,
       y: 7,
-    };
+    }
 
     // rendering config
-    let MARGIN = 40.5;
-    let GRID_SIZE = 50;
-    let GAP_SIZE = 4;
-    let GRID_SIZE_X = GRID_SIZE * 1.732 / 2;
-    let OFFSET_X = GRID_SIZE_X + GAP_SIZE;
-    let OFFSET_Y = OFFSET_X * 1.732 / 2;
+    let MARGIN = 40.5
+    let GRID_SIZE = 50
+    let GAP_SIZE = 4
+    let GRID_SIZE_X = GRID_SIZE * 1.732 / 2
+    let OFFSET_X = GRID_SIZE_X + GAP_SIZE
+    let OFFSET_Y = OFFSET_X * 1.732 / 2
 
     // Bu app
     Bu.config.originAtCenter = false
     Bu.config.cursor = 'crosshair'
-    let app = new Bu({
+    let bu = new Bu({
       el: '#container',
       renderer: {
         width: OFFSET_X * WIDTH + OFFSET_Y * HEIGHT / 2 + MARGIN * 2,
         height: OFFSET_Y * HEIGHT + MARGIN * 2,
       },
       data: function () {
-
-        let net = new AStar.NetHoneycomb(WIDTH, HEIGHT);
-        let engine = new AStar.Engine(net);
-        net.engine = engine;
+        let net = new AStar.NetHoneycomb(WIDTH, HEIGHT)
+        let engine = new AStar.Engine(net)
+        net.engine = engine
 
         return {
           // components
@@ -61,7 +60,7 @@
           // interactive
           isMouseDown: false,
           isClearing: false,
-        };
+        }
       },
       objects: {
         hexagonRows: [],
@@ -73,103 +72,101 @@
         axisTextY: [],
       },
       init: function () {
-        Bu.animations.discolor.duration = 0.2;
+        Bu.animations.discolor.duration = 0.2
 
         // set the map
-        this.net.setStart(START_POS.x, START_POS.y);
-        this.net.setEnd(END_POS.x, END_POS.y);
+        this.net.setStart(START_POS.x, START_POS.y)
+        this.net.setEnd(END_POS.x, END_POS.y)
         // bind events
-        document.querySelector("#btnInit").addEventListener("click", () => {
-          this.engine.init();
-          document.querySelector("#btnInit").setAttribute("disabled", "");
-          document.querySelector("#btnRun").removeAttribute("disabled");
-          document.querySelector("#btnRunInSteps").removeAttribute("disabled");
-          document.querySelector("#btnNextStep").removeAttribute("disabled");
-        });
-        document.querySelector("#btnRun").addEventListener("click", () => {
-          this.engine.run();
-          document.querySelector("#btnRunInSteps").setAttribute("disabled", "");
-          document.querySelector("#btnNextStep").setAttribute("disabled", "");
-        });
-        document.querySelector("#btnRunInSteps").addEventListener("click", () => {
-          this.engine.run(10);
-          document.querySelector("#btnRun").setAttribute("disabled", "");
-          document.querySelector("#btnRunInSteps").setAttribute("disabled", "");
-          document.querySelector("#btnNextStep").setAttribute("disabled", "");
-        });
-        document.querySelector("#btnNextStep").addEventListener("click", () => {
-          this.engine.step();
-          document.querySelector("#btnRun").setAttribute("disabled", "");
-          document.querySelector("#btnRunInSteps").setAttribute("disabled", "");
-          document.querySelector("#btnInit").removeAttribute("disabled");
-        });
+        document.querySelector('#btnInit').addEventListener('click', () => {
+          this.engine.init()
+          document.querySelector('#btnInit').setAttribute('disabled', '')
+          document.querySelector('#btnRun').removeAttribute('disabled')
+          document.querySelector('#btnRunInSteps').removeAttribute('disabled')
+          document.querySelector('#btnNextStep').removeAttribute('disabled')
+        })
+        document.querySelector('#btnRun').addEventListener('click', () => {
+          this.engine.run()
+          document.querySelector('#btnRunInSteps').setAttribute('disabled', '')
+          document.querySelector('#btnNextStep').setAttribute('disabled', '')
+        })
+        document.querySelector('#btnRunInSteps').addEventListener('click', () => {
+          this.engine.run(10)
+          document.querySelector('#btnRun').setAttribute('disabled', '')
+          document.querySelector('#btnRunInSteps').setAttribute('disabled', '')
+          document.querySelector('#btnNextStep').setAttribute('disabled', '')
+        })
+        document.querySelector('#btnNextStep').addEventListener('click', () => {
+          this.engine.step()
+          document.querySelector('#btnRun').setAttribute('disabled', '')
+          document.querySelector('#btnRunInSteps').setAttribute('disabled', '')
+          document.querySelector('#btnInit').removeAttribute('disabled')
+        })
 
         // temporary variables
-        let i, j;
-        let xCount = this.net.width;
-        let yCount = this.net.height;
-        let cx, cy;
+        let i, j
+        let xCount = this.net.width
+        let yCount = this.net.height
+        let cx, cy
 
         // add grid hexagons
         for (i = 0; i < xCount; i++) {
-          this.hexagonRows[i] = [];
+          this.hexagonRows[i] = []
           for (j = 0; j < yCount; j++) {
-            cx = this.getCentralX(i, j);
-            cy = this.getCentralY(i, j);
+            cx = this.getCentralX(i, j)
+            cy = this.getCentralY(i, j)
             this.hexagonRows[i][j] = new Bu.Polygon(cx, cy, GRID_SIZE / 2, 6, {
-              angle: Math.PI / 6
-            });
-            this.$renderer.scene.addChild(this.hexagonRows[i][j]);
+              angle: Math.PI / 6,
+            })
+            this.$renderer.scene.addChild(this.hexagonRows[i][j])
           }
         }
-
 
         // add grid path lines
         for (i = 0; i < xCount; i++) {
-          this.lineRows[i] = [];
+          this.lineRows[i] = []
           for (j = 0; j < yCount; j++) {
-            cx = this.getCentralX(i, j);
-            cy = this.getCentralY(i, j);
-            this.lineRows[i][j] = new Bu.Line(cx, cy, cx, cy);
-            //this.lineRows[i][j].stroke("rgba(0, 128, 255, 0.5");
-            this.lineRows[i][j].lineWidth = 0.5;
-            this.$renderer.scene.addChild(this.lineRows[i][j]);
+            cx = this.getCentralX(i, j)
+            cy = this.getCentralY(i, j)
+            this.lineRows[i][j] = new Bu.Line(cx, cy, cx, cy)
+            // this.lineRows[i][j].stroke("rgba(0, 128, 255, 0.5");
+            this.lineRows[i][j].lineWidth = 0.5
+            this.$renderer.scene.addChild(this.lineRows[i][j])
           }
         }
 
-
         // add grid labels
         for (i = 0; i < xCount; i++) {
-          this.labelGRows[i] = [];
-          this.labelHRows[i] = [];
-          this.labelFRows[i] = [];
+          this.labelGRows[i] = []
+          this.labelHRows[i] = []
+          this.labelFRows[i] = []
           for (j = 0; j < yCount; j++) {
-            cx = this.getCentralX(i, j);
-            cy = this.getCentralY(i, j);
-            this.labelGRows[i][j] = new Bu.PointText("",
+            cx = this.getCentralX(i, j)
+            cy = this.getCentralY(i, j)
+            this.labelGRows[i][j] = new Bu.PointText('',
               cx - OFFSET_X / 2 + 3,
               cy, {
-                align: '++'
+                align: '++',
               }
-            );
-            this.labelHRows[i][j] = new Bu.PointText("",
+            )
+            this.labelHRows[i][j] = new Bu.PointText('',
               cx + OFFSET_X / 2 - 3,
               cy, {
-                align: '-+'
+                align: '-+',
               }
-            );
-            this.labelFRows[i][j] = new Bu.PointText("",
+            )
+            this.labelFRows[i][j] = new Bu.PointText('',
               cx,
               cy - GRID_SIZE / 4, {
-                align: '00'
+                align: '00',
               }
-            );
-            this.labelGRows[i][j].fillStyle = this.labelHRows[i][j].fillStyle = "#666";
-            this.labelGRows[i][j].fontFamily = this.labelHRows[i][j].fontFamily = this.labelFRows[i][j].fontFamily = "SimSun";
-            this.$renderer.scene.addChild(this.labelGRows[i][j]);
-            this.$renderer.scene.addChild(this.labelHRows[i][j]);
-            this.$renderer.scene.addChild(this.labelFRows[i][j]);
-            this.refreshNode(i, j);
+            )
+            this.labelGRows[i][j].fillStyle = this.labelHRows[i][j].fillStyle = '#666'
+            this.labelGRows[i][j].fontFamily = this.labelHRows[i][j].fontFamily = this.labelFRows[i][j].fontFamily = 'SimSun'
+            this.$renderer.scene.addChild(this.labelGRows[i][j])
+            this.$renderer.scene.addChild(this.labelHRows[i][j])
+            this.$renderer.scene.addChild(this.labelFRows[i][j])
+            this.refreshNode(i, j)
           }
         }
 
@@ -179,126 +176,129 @@
             i + 1,
             this.getCentralX(i, -1),
             MARGIN / 2
-          );
-          this.$renderer.scene.addChild(this.axisTextX[i]);
+          )
+          this.$renderer.scene.addChild(this.axisTextX[i])
         }
         for (i = 0; i < yCount; i++) {
           this.axisTextY[i] = new Bu.PointText(
             i + 1,
             this.getCentralX(-1, i),
             this.getCentralY(-1, i)
-          );
-          this.$renderer.scene.addChild(this.axisTextY[i]);
+          )
+          this.$renderer.scene.addChild(this.axisTextY[i])
         }
-        this.engine.on("nodeChanged", (ev) => {
-          this.refreshNode(ev.x, ev.y);
-        });
-        this.engine.on("finished", function (ev) {
-          console.log('result: ', ev);
-          if (!ev.success) alert("no solution!");
+        this.engine.on('nodeChanged', (ev) => {
+          this.refreshNode(ev.x, ev.y)
+        })
+        this.engine.on('finished', function (ev) {
+          console.log('result: ', ev)
+          if (!ev.success) alert('no solution!')
 
-          document.querySelector("#btnInit").removeAttribute("disabled");
-          document.querySelector("#btnRun").setAttribute("disabled", "");
-          document.querySelector("#btnRunInSteps").setAttribute("disabled", "");
-          document.querySelector("#btnNextStep").setAttribute("disabled", "");
-        });
-        this.engine.init();
+          document.querySelector('#btnInit').removeAttribute('disabled')
+          document.querySelector('#btnRun').setAttribute('disabled', '')
+          document.querySelector('#btnRunInSteps').setAttribute('disabled', '')
+          document.querySelector('#btnNextStep').setAttribute('disabled', '')
+        })
+        this.engine.init()
       },
       methods: {
         refreshNode: function (i, j) {
-          let node = this.net.getNode(i, j);
-          let line = this.lineRows[i][j];
+          let node = this.net.getNode(i, j)
+          let line = this.lineRows[i][j]
 
-          let hexagon = this.hexagonRows[i][j];
-          hexagon.strokeStyle = "gray";
-          hexagon.animate('discolor', AStar.getStateColor(node.state));
+          let hexagon = this.hexagonRows[i][j]
+          hexagon.strokeStyle = 'gray'
+          hexagon.animate('discolor', AStar.getStateColor(node.state))
 
           // draw path with prevNode
           if (node.prevNode) {
-            let x = this.getCentralX(node.prevNode.position.x, node.prevNode.position.y);
-            let y = this.getCentralY(node.prevNode.position.x, node.prevNode.position.y);
-            line.setPoint2(x, y);
+            let x = this.getCentralX(node.prevNode.position.x, node.prevNode.position.y)
+            let y = this.getCentralY(node.prevNode.position.x, node.prevNode.position.y)
+            line.setPoint2(x, y)
           } else {
-            line.setPoint2(line.points[0]);
+            line.setPoint2(line.points[0])
           }
 
           // set shortest path lineWidth
-          if (node.state == AStar.NODE_STATE_SHORTEST || node.state == AStar.NODE_STATE_END)
-            line.lineWidth = 5;
-          else
-            line.lineWidth = 1;
+          if (node.state === AStar.NODE_STATE_SHORTEST || node.state === AStar.NODE_STATE_END) {
+            line.lineWidth = 5
+          } else {
+            line.lineWidth = 1
+          }
 
           // set text
-          if (node.state != AStar.NODE_STATE_OBSTACLE && node.state != AStar.NODE_STATE_DEFAULT) {
-            this.labelGRows[i][j].text = Math.round(node.g * 10);
-            this.labelHRows[i][j].text = Math.round(node.h * 10);
-            this.labelFRows[i][j].text = Math.round(node.f() * 10);
+          if (node.state !== AStar.NODE_STATE_OBSTACLE && node.state !== AStar.NODE_STATE_DEFAULT) {
+            this.labelGRows[i][j].text = Math.round(node.g * 10)
+            this.labelHRows[i][j].text = Math.round(node.h * 10)
+            this.labelFRows[i][j].text = Math.round(node.f() * 10)
           } else {
-            this.labelGRows[i][j].text = "";
-            this.labelHRows[i][j].text = "";
-            this.labelFRows[i][j].text = "";
+            this.labelGRows[i][j].text = ''
+            this.labelHRows[i][j].text = ''
+            this.labelFRows[i][j].text = ''
           }
         },
         pixelToIndexX: function (x, y) {
-          return Math.round((x - MARGIN * 0.75) / OFFSET_X - y / OFFSET_Y / 2);
+          return Math.round((x - MARGIN * 0.75) / OFFSET_X - y / OFFSET_Y / 2)
         },
         pixelToIndexY: function (x, y) {
-          return Math.round((y - MARGIN - GRID_SIZE_X / 2) / OFFSET_Y);
+          return Math.round((y - MARGIN - GRID_SIZE_X / 2) / OFFSET_Y)
         },
         getCentralX: function (i, j) {
-          return MARGIN + OFFSET_X * i + (OFFSET_X / 2) * j + GRID_SIZE_X / 2;
+          return MARGIN + OFFSET_X * i + (OFFSET_X / 2) * j + GRID_SIZE_X / 2
         },
         getCentralY: function (i, j) {
-          return MARGIN + OFFSET_Y * j + GRID_SIZE_X / 2;
+          return MARGIN + OFFSET_Y * j + GRID_SIZE_X / 2
         },
       },
       events: {
         mousedown: function (ev) {
-          this.isMouseDown = true;
+          this.isMouseDown = true
 
-          let x = this.pixelToIndexX(ev.offsetX, ev.offsetY);
-          let y = this.pixelToIndexY(ev.offsetX, ev.offsetY);
-          if (x < 0 || y < 0 || x >= this.net.width || y >= this.net.height) return;
+          let x = this.pixelToIndexX(ev.offsetX, ev.offsetY)
+          let y = this.pixelToIndexY(ev.offsetX, ev.offsetY)
+          if (x < 0 || y < 0 || x >= this.net.width || y >= this.net.height) return
 
-          let node = this.net.getNode(x, y);
-          if (ev.button == 0) {
+          let node = this.net.getNode(x, y)
+          if (ev.button === 0) {
             // left button
-            if (node.state == AStar.NODE_STATE_DEFAULT) {
-              node.state = AStar.NODE_STATE_OBSTACLE;
-              this.isClearing = false;
-            } else if (node.state == AStar.NODE_STATE_OBSTACLE) {
-              node.state = AStar.NODE_STATE_DEFAULT;
-              this.isClearing = true;
+            if (node.state === AStar.NODE_STATE_DEFAULT) {
+              node.state = AStar.NODE_STATE_OBSTACLE
+              this.isClearing = false
+            } else if (node.state === AStar.NODE_STATE_OBSTACLE) {
+              node.state = AStar.NODE_STATE_DEFAULT
+              this.isClearing = true
             }
-            this.engine.trigger("nodeChanged", node.position);
+            this.engine.trigger('nodeChanged', node.position)
           } else {
             // right button
-            console.log("prevNode", node.prevNode);
+            console.log('prevNode', node.prevNode)
           }
         },
         mousemove: function (ev) {
-          if (this.isMouseDown && ev.button == 0) {
-            let x = this.pixelToIndexX(ev.offsetX, ev.offsetY);
-            let y = this.pixelToIndexY(ev.offsetX, ev.offsetY);
-            if (x < 0 || y < 0 || x >= this.net.width || y >= this.net.height) return;
+          if (this.isMouseDown && ev.button === 0) {
+            let x = this.pixelToIndexX(ev.offsetX, ev.offsetY)
+            let y = this.pixelToIndexY(ev.offsetX, ev.offsetY)
+            if (x < 0 || y < 0 || x >= this.net.width || y >= this.net.height) return
 
-            let node = this.net.getNode(x, y);
+            let node = this.net.getNode(x, y)
             // left button
             if (this.isClearing) {
-              if (node.state == AStar.NODE_STATE_OBSTACLE)
-                node.state = AStar.NODE_STATE_DEFAULT;
+              if (node.state === AStar.NODE_STATE_OBSTACLE) {
+                node.state = AStar.NODE_STATE_DEFAULT
+              }
             } else {
-              if (node.state == AStar.NODE_STATE_DEFAULT)
-                node.state = AStar.NODE_STATE_OBSTACLE;
+              if (node.state === AStar.NODE_STATE_DEFAULT) {
+                node.state = AStar.NODE_STATE_OBSTACLE
+              }
             }
-            this.engine.trigger("nodeChanged", node.position);
+            this.engine.trigger('nodeChanged', node.position)
           }
         },
         mouseup: function () {
-          this.isMouseDown = false;
+          this.isMouseDown = false
         },
       },
-    });
+    })
   </script>
 </head>
 <body>

@@ -57,9 +57,9 @@
       methods: {
         setDashStroke: function (on) {
           this.$renderer.scene.children.forEach(function (shape) {
-            shape.dash(on ? true : false)
+            shape.dash(!!on)
           })
-        }
+        },
       },
       init: function () {
         this.$renderer.scene.translate(-350, -280)

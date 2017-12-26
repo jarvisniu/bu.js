@@ -10,7 +10,6 @@
   <script src="./lib/a-star/NetGrid.js"></script>
   <link rel="stylesheet" href="css/example.css">
   <script type="text/javascript">
-
     // net info
     let WIDTH = 20
     let HEIGHT = 20
@@ -36,7 +35,6 @@
         height: 500,
       },
       data: function () {
-
         let net = new AStar.NetGrid(WIDTH, HEIGHT)
         let engine = new AStar.Engine(net)
         net.engine = engine
@@ -80,8 +78,9 @@
         astar: {},
       },
       init: function () {
-        for (let i of ['line1', 'line2', 'line3', 'line4', 'line5', 'line6'])
-          this[i].style(this.wallStyle);
+        for (let i of ['line1', 'line2', 'line3', 'line4', 'line5', 'line6']) {
+          this[i].style(this.wallStyle)
+        }
 
         this.path.addPoint(this.start)
         this.path.addPoint(this.end)
@@ -172,11 +171,10 @@
                   node.state = AStar.NODE_STATE_OBSTACLE
                   this.engine.trigger('nodeChanged', node.position)
                 }
-
               }
             }
           }
-        }
+        },
       },
       events: {
         mousedown: function (ev) {
@@ -191,15 +189,17 @@
             this.start.y = this.path.vertices[0].y = ev.offsetY - 50
             this.start.updateLabel()
 
-            if (this.net.getNode(ix, iy).state === AStar.NODE_STATE_DEFAULT)
+            if (this.net.getNode(ix, iy).state === AStar.NODE_STATE_DEFAULT) {
               this.net.setStart(ix, iy)
+            }
           } else if (ev.buttons === Bu.MOUSE.RIGHT) {
             this.end.x = this.path.vertices[1].x = ev.offsetX - 50
             this.end.y = this.path.vertices[1].y = ev.offsetY - 50
             this.end.updateLabel()
 
-            if (this.net.getNode(ix, iy).state === AStar.NODE_STATE_DEFAULT)
+            if (this.net.getNode(ix, iy).state === AStar.NODE_STATE_DEFAULT) {
               this.net.setEnd(ix, iy)
+            }
           }
           this.engine.run()
         },

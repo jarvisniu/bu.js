@@ -37,15 +37,14 @@
         mousemove: function (ev) {
           [this.mousePos.x, this.mousePos.y] = this.$renderer.projectToWorld(ev.offsetX, ev.offsetY)
 
-          if (this.mousePos.isNear(this.line))
-            this.line.style('hover')
-          else
-            this.line.style()
+          if (this.mousePos.isNear(this.line)) this.line.style('hover')
+          else this.line.style()
 
-          if (this.mousePos.isNear(this.polyline))
+          if (this.mousePos.isNear(this.polyline)) {
             this.polyline.style('hover')
-          else
+          } else {
             this.polyline.style()
+          }
         },
       },
     })

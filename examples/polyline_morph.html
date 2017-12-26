@@ -68,7 +68,7 @@
             if (!this.polylineA.vertices.hasOwnProperty(i)) continue
             this.polylineA.vertices[i].label = i
           }
-          for (i in this.polylineB.vertices) {
+          for (let i in this.polylineB.vertices) {
             if (!this.polylineB.vertices.hasOwnProperty(i)) continue
             this.polylineB.vertices[i].label = i
           }
@@ -87,7 +87,7 @@
         mousedown: function (ev) {
           let [x, y] = this.$renderer.projectToWorld(ev.offsetX, ev.offsetY)
           let newPoint = new Bu.Point(x, y)
-          if (ev.button == 0) {
+          if (ev.button === 0) {
             this.polylineA.addPoint(newPoint)
           } else {
             this.polylineB.addPoint(newPoint)

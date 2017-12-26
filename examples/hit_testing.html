@@ -61,15 +61,15 @@
           shapes.forEach(shape => {
             this.mousePos.set(ev.offsetX, ev.offsetY)
 
-            if (shape.hitTest(this.mousePos))
+            if (shape.hitTest(this.mousePos)) {
               shape.style('hover')
-            else
+            } else {
               shape.style()
+            }
           })
         },
       },
     })
-
   </script>
 </head>
 <body>

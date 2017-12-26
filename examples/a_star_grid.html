@@ -40,14 +40,13 @@
     // Bu app
     Bu.config.cursor = 'crosshair'
     Bu.config.originAtCenter = false
-    let app = new Bu({
+    let bu = new Bu({
       el: '#container',
       renderer: {
         width: OFFSET * WIDTH + MARGIN * 2,
         height: OFFSET * HEIGHT + MARGIN * 2,
       },
       data: function () {
-
         let net = new AStar.NetGrid(WIDTH, HEIGHT)
         let engine = new AStar.Engine(net)
         net.engine = engine
@@ -131,7 +130,7 @@
               MARGIN + OFFSET * i + GRID_SIZE / 2,
               MARGIN + OFFSET * j + GRID_SIZE / 2
             )
-            //this.lineRows[i][j].stroke("rgba(0, 128, 255, 0.5");
+            // this.lineRows[i][j].stroke("rgba(0, 128, 255, 0.5");
             this.lineRows[i][j].lineWidth = 0.5
             this.$renderer.scene.addChild(this.lineRows[i][j])
           }
@@ -145,19 +144,19 @@
             this.labelGRows[i][j] = new Bu.PointText('',
               MARGIN + OFFSET * i + 2,
               MARGIN + OFFSET * j + GRID_SIZE - 2, {
-                align: '+-'
+                align: '+-',
               }
             )
             this.labelHRows[i][j] = new Bu.PointText('',
               MARGIN + OFFSET * i + GRID_SIZE - 2,
               MARGIN + OFFSET * j + GRID_SIZE - 2, {
-                align: '--'
+                align: '--',
               }
             )
             this.labelFRows[i][j] = new Bu.PointText('',
               MARGIN + OFFSET * i + GRID_SIZE / 2,
               MARGIN + OFFSET * j + 2, {
-                align: '0+'
+                align: '0+',
               }
             )
             this.labelGRows[i][j].fillStyle = this.labelHRows[i][j].fillStyle = '#666'
@@ -218,13 +217,14 @@
           }
 
           // set shortest path lineWidth
-          if (node.state == AStar.NODE_STATE_SHORTEST || node.state == AStar.NODE_STATE_END)
+          if (node.state === AStar.NODE_STATE_SHORTEST || node.state === AStar.NODE_STATE_END) {
             line.lineWidth = 5
-          else
+          } else {
             line.lineWidth = 1
+          }
 
           // set text
-          if (node.state != AStar.NODE_STATE_OBSTACLE && node.state != AStar.NODE_STATE_DEFAULT) {
+          if (node.state !== AStar.NODE_STATE_OBSTACLE && node.state !== AStar.NODE_STATE_DEFAULT) {
             this.labelGRows[i][j].text = Math.round(node.g * 10)
             this.labelHRows[i][j].text = Math.round(node.h * 10)
             this.labelFRows[i][j].text = Math.round(node.f() * 10)
@@ -249,12 +249,12 @@
           if (x < 0 || y < 0 || x >= this.net.width || y >= this.net.height) return
 
           let node = this.net.getNode(x, y)
-          if (ev.button == 0) {
+          if (ev.button === 0) {
             // left button
-            if (node.state == AStar.NODE_STATE_DEFAULT) {
+            if (node.state === AStar.NODE_STATE_DEFAULT) {
               node.state = AStar.NODE_STATE_OBSTACLE
               this.isClearing = false
-            } else if (node.state == AStar.NODE_STATE_OBSTACLE) {
+            } else if (node.state === AStar.NODE_STATE_OBSTACLE) {
               node.state = AStar.NODE_STATE_DEFAULT
               this.isClearing = true
             }
@@ -265,7 +265,7 @@
           }
         },
         mousemove: function (ev) {
-          if (this.isMouseDown && ev.button == 0) {
+          if (this.isMouseDown && ev.button === 0) {
             let x = this.pixelToIndexX(ev.offsetX, ev.offsetY)
             let y = this.pixelToIndexY(ev.offsetX, ev.offsetY)
             if (x < 0 || y < 0 || x >= this.net.width || y >= this.net.height) return
@@ -273,11 +273,13 @@
             let node = this.net.getNode(x, y)
             // left button
             if (this.isClearing) {
-              if (node.state == AStar.NODE_STATE_OBSTACLE)
+              if (node.state === AStar.NODE_STATE_OBSTACLE) {
                 node.state = AStar.NODE_STATE_DEFAULT
+              }
             } else {
-              if (node.state == AStar.NODE_STATE_DEFAULT)
+              if (node.state === AStar.NODE_STATE_DEFAULT) {
                 node.state = AStar.NODE_STATE_OBSTACLE
+              }
             }
             this.engine.trigger('nodeChanged', node.position)
           }

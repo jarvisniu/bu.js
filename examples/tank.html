@@ -20,8 +20,9 @@
         scrollAnim: new Bu.Animation({
           duration: 3,
           update: function (anim) {
-            return this.position.y = (1 - anim.t) * 512
-          }
+            this.position.y = (1 - anim.t) * 512
+            return this.position.y
+          },
         }),
         selectedMenu: 0,
         level: 1,
@@ -100,7 +101,7 @@
         this.sceneLevel.background = this.scenePlay.background = 'silver'
       },
       update: function () {
-        if (this.scenes.selected == this.scenes.PLAY) {
+        if (this.scenes.selected === this.scenes.PLAY) {
           if (this.$inputManager.isKeyDown('Left')) {
             this.tank1P.position.x += -this.tankMoveSpeed
             this.tank1P.rotation = Bu.d2r(180)
@@ -116,18 +117,17 @@
           } else if (this.$inputManager.isKeyDown('Down')) {
             this.tank1P.position.y += this.tankMoveSpeed
             this.tank1P.rotation = Bu.d2r(90)
-            if (this.tank1P.position.y > this.field.size.height - 16)
+            if (this.tank1P.position.y > this.field.size.height - 16) {
               this.tank1P.position.y = this.field.size.height - 16
+            }
           }
         }
       },
       methods: {
         switchMenu: function (delta) {
           this.selectedMenu += delta
-          if (this.selectedMenu < 0)
-            this.selectedMenu = 2
-          else if (this.selectedMenu > 2)
-            this.selectedMenu = 0
+          if (this.selectedMenu < 0) this.selectedMenu = 2
+          else if (this.selectedMenu > 2) this.selectedMenu = 0
           this.selector.position.y = 32 * (10.25 + this.selectedMenu)
         },
       },
@@ -136,30 +136,30 @@
           this.scrollAnimTask.end()
         },
         'keydown.Up': function () {
-          if (this.scenes.selected == this.scenes.MENU) {
+          if (this.scenes.selected === this.scenes.MENU) {
             if (this.scrollAnimTask.finished) this.switchMenu(-1)
-          } else if (this.scenes.selected == this.scenes.LEVEL) {
+          } else if (this.scenes.selected === this.scenes.LEVEL) {
             this.level += 1
             this.txtStage.text = 'Stage ' + this.level
           }
         },
         'keydown.Down': function () {
-          if (this.scenes.selected == this.scenes.MENU) {
+          if (this.scenes.selected === this.scenes.MENU) {
             if (this.scrollAnimTask.finished) this.switchMenu(1)
-          } else if (this.scenes.selected == this.scenes.LEVEL) {
+          } else if (this.scenes.selected === this.scenes.LEVEL) {
             this.level -= 1
             this.txtStage.text = 'Stage ' + this.level
           }
         },
         'keydown.Enter': function () {
-          if (this.scenes.selected == this.scenes.MENU) {
+          if (this.scenes.selected === this.scenes.MENU) {
             if (this.scrollAnimTask.finished) {
               this.$renderer.scene = this.sceneLevel
               this.scenes.selected = this.scenes.LEVEL
             } else {
               this.scrollAnimTask.end()
             }
-          } else if (this.scenes.selected == this.scenes.LEVEL) {
+          } else if (this.scenes.selected === this.scenes.LEVEL) {
             this.$renderer.scene = this.scenePlay
             this.scenes.selected = this.scenes.PLAY
           } else {
