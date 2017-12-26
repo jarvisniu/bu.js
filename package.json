@@ -44,6 +44,8 @@
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-coffee-script": "^2.0.0",
     "rollup-plugin-eslint": "^4.0.0",
+    "rollup-plugin-livereload": "^0.6.0",
+    "rollup-plugin-serve": "^0.4.2",
     "uglify-js": "^3.2.2"
   }
 }

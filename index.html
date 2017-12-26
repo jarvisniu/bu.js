@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>bu.js Examples</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="examples/css/index.css">
   <script type="text/javascript">
     let SOURCE_URL_BASE = 'https://github.com/jarvisniu/jarvisniu.github.io/blob/master/bu.js/examples/'
     let hashPath, frame, source, links
@@ -22,7 +22,7 @@
     function onHashChanged () {
       hashPath = location.hash.replace('#!/', '')
       if (hashPath.length > 0) {
-        frame.src = hashPath
+        frame.src = 'examples/' + hashPath
         source.setAttribute('href', SOURCE_URL_BASE + hashPath)
       }
 
@@ -38,7 +38,7 @@
 <body>
 <div id="side">
   <a href="https://github.com/jarvisniu/bu.js" target="_blank">
-    <img id="logo" src="../logo.png">
+    <img id="logo" src="logo.png">
   </a>
   <h1>bu.js Examples</h1>
 
