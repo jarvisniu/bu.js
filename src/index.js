@@ -5,10 +5,10 @@ import Bu from './base/Bu.js'
 import './presets.js'
 
 // math
-import Bounds from './math/Bounds.coffee'
+import Bounds from './math/Bounds.js'
 import Color from './math/Color.coffee'
-import Size from './math/Size.coffee'
-import Vector from './math/Vector.coffee'
+import Size from './math/Size.js'
+import Vector from './math/Vector.js'
 
 Bu.Bounds = Bounds
 Bu.Color = Color
@@ -25,10 +25,10 @@ Bu.Object2D = Object2D
 Bu.Styled = Styled
 
 // core
-import Audio from './core/Audio.coffee'
-import Camera from './core/Camera.coffee'
+import Audio from './core/Audio.js'
+import Camera from './core/Camera.js'
 import Renderer from './core/Renderer.coffee'
-import Scene from './core/Scene.coffee'
+import Scene from './core/Scene.js'
 
 Bu.Audio = Audio
 Bu.Camera = Camera

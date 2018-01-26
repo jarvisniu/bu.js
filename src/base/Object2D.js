@@ -3,8 +3,8 @@
 import Bu from '../base/Bu.js'
 import utils from '../utils.js'
 
-import Bounds from '../math/Bounds.coffee'
-import Vector from '../math/Vector.coffee'
+import Bounds from '../math/Bounds.js'
+import Vector from '../math/Vector.js'
 
 import Styled from './Styled.js'
 import Event from './Event.js'

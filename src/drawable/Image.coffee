@@ -1,7 +1,7 @@
 # Used to render bitmap to the screen
 
-import Size from '../math/Size.coffee'
-import Vector from '../math/Vector.coffee'
+import Size from '../math/Size.js'
+import Vector from '../math/Vector.js'
 
 import Object2D from '../base/Object2D.js'
 

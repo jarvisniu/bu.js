@@ -12,7 +12,7 @@
 // update
 
 import Renderer from '../core/Renderer.coffee'
-import Scene from '../core/Scene.coffee'
+import Scene from '../core/Scene.js'
 
 import InputManager from '../input/InputManager.coffee'
 

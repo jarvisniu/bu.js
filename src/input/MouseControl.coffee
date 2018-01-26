@@ -3,7 +3,7 @@
 
 import utils from '../utils.js'
 
-import Vector from '../math/Vector.coffee'
+import Vector from '../math/Vector.js'
 
 import Animation from '../anim/Animation.coffee'
 

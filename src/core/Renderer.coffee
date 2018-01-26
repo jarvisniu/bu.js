@@ -5,8 +5,8 @@ import Bu from '../base/Bu.js'
 import utils from '../utils.js'
 import Event from '../base/Event.js'
 
-import Camera from '../core/Camera.coffee'
-import Scene from '../core/Scene.coffee'
+import Camera from '../core/Camera.js'
+import Scene from '../core/Scene.js'
 
 class Renderer
 
