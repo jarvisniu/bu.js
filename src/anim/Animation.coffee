@@ -3,7 +3,7 @@
 import Bu from '../base/Bu.js'
 import utils from '../utils.js'
 
-import Color from '../math/Color.coffee'
+import Color from '../math/Color.js'
 
 import AnimationTask from './AnimationTask.coffee'
 

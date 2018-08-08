@@ -2,7 +2,7 @@
 
 import utils from '../utils.js'
 
-import Color from '../math/Color.coffee'
+import Color from '../math/Color.js'
 import Vector from '../math/Vector.js'
 
 class AnimationTask

@@ -16,21 +16,23 @@
 
       window.addEventListener('hashchange', onHashChanged)
       onHashChanged()
-      if (!location.hash) location.hash = '#!/hello_bu.html'
+      if (!window.location.hash) window.location.hash = '#!/hello_bu.html'
     })
 
     function onHashChanged () {
-      hashPath = location.hash.replace('#!/', '')
+      let hash = window.location.hash
+      hashPath = hash.replace('#!/', '')
       if (hashPath.length > 0) {
         frame.src = 'examples/' + hashPath
         source.setAttribute('href', SOURCE_URL_BASE + hashPath)
       }
 
       for (let i = 0; i < links.length; i++) {
-        if (location.hash.length > 0 && links[i].href.indexOf(location.hash) > -1)
+        if (hash.length > 0 && links[i].href.indexOf(hash) > -1) {
           links[i].style.backgroundColor = '#CCC'
-        else
+        } else {
           links[i].style.backgroundColor = ''
+        }
       }
     }
   </script>

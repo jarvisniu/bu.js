@@ -1,0 +1,17 @@
+root: true
+extends:
+- standard
+globals:
+  alert: true
+  Bu: true
+  AStar: true
+plugins:
+- html
+rules:
+  no-extend-native: off
+  no-new: off
+  no-unused-vars: off
+  comma-dangle: [error, always-multiline]
+  object-curly-spacing: [error, always]
+  template-curly-spacing: [error, always]
+  no-multi-spaces: [error, { ignoreEOLComments: true }]

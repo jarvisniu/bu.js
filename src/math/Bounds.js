@@ -50,7 +50,7 @@ class Bounds {
         this.y2 = this.target.radiusY
         break
       default:
-        console.warn(`Bu.Bounds: not supported shape type ${this.target.type}`)
+        console.warn(`Bu.Bounds: not supported shape type ${ this.target.type }`)
     }
   }
 

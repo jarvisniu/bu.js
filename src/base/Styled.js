@@ -18,7 +18,7 @@ let Styled = function () {
       style = Bu.styles[style]
       if (!style) {
         style = Bu.styles.default
-        console.warn(`Styled: Bu.styles.${style} doesn't exists, fell back to default.`)
+        console.warn(`Styled: Bu.styles.${ style } doesn't exists, fell back to default.`)
       }
     } else if (!style) {
       style = Bu.styles['default']

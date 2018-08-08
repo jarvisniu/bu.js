@@ -101,7 +101,7 @@ class Object2D {
       if (anim in Bu.animations) {
         Bu.animations[anim].applyTo(this, args)
       } else {
-        console.warn(`Bu.animations["${anim}"] doesn't exists.`)
+        console.warn(`Bu.animations["${ anim }"] doesn't exists.`)
       }
     } else if (utils.isArray(anim)) {
       for (let i in anim) {

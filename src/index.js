@@ -6,34 +6,20 @@ import './presets.js'
 
 // math
 import Bounds from './math/Bounds.js'
-import Color from './math/Color.coffee'
+import Color from './math/Color.js'
 import Size from './math/Size.js'
 import Vector from './math/Vector.js'
-
-Bu.Bounds = Bounds
-Bu.Color = Color
-Bu.Size = Size
-Bu.Vector = Vector
 
 // base
 import Event from './base/Event.js'
 import Object2D from './base/Object2D.js'
 import Styled from './base/Styled.js'
 
-Bu.Event = Event
-Bu.Object2D = Object2D
-Bu.Styled = Styled
-
 // core
 import Audio from './core/Audio.js'
 import Camera from './core/Camera.js'
 import Renderer from './core/Renderer.coffee'
 import Scene from './core/Scene.js'
-
-Bu.Audio = Audio
-Bu.Camera = Camera
-Bu.Renderer = Renderer
-Bu.Scene = Scene
 
 // shapes
 import Bow from './shapes/Bow.coffee'
@@ -48,6 +34,46 @@ import Rectangle from './shapes/Rectangle.coffee'
 import Spline from './shapes/Spline.coffee'
 import Triangle from './shapes/Triangle.coffee'
 
+// drawable
+import Image from './drawable/Image.coffee'
+import PointText from './drawable/PointText.coffee'
+
+// animation
+import Animation from './anim/Animation.coffee'
+import AnimationRunner from './anim/AnimationRunner.coffee'
+import AnimationTask from './anim/AnimationTask.coffee'
+import DashFlowManager from './anim/DashFlowManager.coffee'
+import SpriteSheet from './anim/SpriteSheet.coffee'
+
+// input
+import InputManager from './input/InputManager.coffee'
+import MouseControl from './input/MouseControl.coffee'
+
+// extra
+import geometryAlgorithm from './extra/geometryAlgorithm.coffee'
+import ShapeRandomizer from './extra/ShapeRandomizer.coffee'
+
+// properties -----------------------------------------------------------------
+
+import utils from './utils.js'
+import config from './config.js'
+
+const VERSION = '0.5.0-wip'
+
+Bu.Bounds = Bounds
+Bu.Color = Color
+Bu.Size = Size
+Bu.Vector = Vector
+
+Bu.Event = Event
+Bu.Object2D = Object2D
+Bu.Styled = Styled
+
+Bu.Audio = Audio
+Bu.Camera = Camera
+Bu.Renderer = Renderer
+Bu.Scene = Scene
+
 Bu.Bow = Bow
 Bu.Circle = Circle
 Bu.Ellipse = Ellipse
@@ -60,47 +86,23 @@ Bu.Rectangle = Rectangle
 Bu.Spline = Spline
 Bu.Triangle = Triangle
 
-// drawable
-import Image from './drawable/Image.coffee'
-import PointText from './drawable/PointText.coffee'
-
 Bu.Image = Image
 Bu.PointText = PointText
 
-import Animation from './anim/Animation.coffee'
-import AnimationRunner from './anim/AnimationRunner.coffee'
-import AnimationTask from './anim/AnimationTask.coffee'
-import DashFlowManager from './anim/DashFlowManager.coffee'
-import SpriteSheet from './anim/SpriteSheet.coffee'
-
-// animation
 Bu.Animation = Animation
 Bu.AnimationRunner = AnimationRunner
 Bu.AnimationTask = AnimationTask
 Bu.DashFlowManager = DashFlowManager
 Bu.SpriteSheet = SpriteSheet
 
-// input
-import InputManager from './input/InputManager.coffee'
-import MouseControl from './input/MouseControl.coffee'
-
 Bu.InputManager = InputManager
 Bu.MouseControl = MouseControl
-
-// extra
-import geometryAlgorithm from './extra/geometryAlgorithm.coffee'
-import ShapeRandomizer from './extra/ShapeRandomizer.coffee'
 
 Bu.geometryAlgorithm = geometryAlgorithm
 Bu.ShapeRandomizer = ShapeRandomizer
 
-// properties -----------------------------------------------------------------
-
-import utils from './utils.js'
-import config from './config.js'
-
 Bu.config = config // Global config
-Bu.version = '0.4.0' // Version info
+Bu.version = VERSION // Version info
 
 // utils in examples
 for (let name of [

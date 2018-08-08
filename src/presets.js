@@ -4,17 +4,22 @@ import Bu from './base/Bu.js'
 
 // Global unique instances ----------------------------------------------------
 
-Bu.$bues = []
-
 import AnimationRunner from './anim/AnimationRunner.coffee'
 import DashFlowManager from './anim/DashFlowManager.coffee'
-
-Bu.animationRunner = new AnimationRunner()
-Bu.dashFlowManager = new DashFlowManager()
 
 // Preset Styles --------------------------------------------------------------
 
 import Styled from './base/Styled.js'
+
+// Preset Animations ----------------------------------------------------------
+
+import Animation from './anim/Animation.coffee'
+import Color from './math/Color.js'
+
+Bu.$bues = []
+
+Bu.animationRunner = new AnimationRunner()
+Bu.dashFlowManager = new DashFlowManager()
 
 Bu.styles = {
   default: new Styled().stroke().fill(),
@@ -24,11 +29,6 @@ Bu.styles = {
   selected: new Styled().setLineWidth(2),
   dash: new Styled().dash(),
 }
-
-// Preset Animations ----------------------------------------------------------
-
-import Animation from './anim/Animation.coffee'
-import Color from './math/Color.coffee'
 
 Bu.animations = {
 
@@ -77,7 +77,7 @@ Bu.animations = {
     to: 512,
     update: function (anim) {
       let d = Math.floor(Math.abs(anim.current - 256))
-      this.fillStyle = `rgb(${d}, ${d}, ${d})`
+      this.fillStyle = `rgb(${ d }, ${ d }, ${ d })`
     },
   }),
 

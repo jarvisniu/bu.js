@@ -21,7 +21,7 @@ class Audio {
     if (this.ready) {
       this.audio.play()
     } else {
-      console.warn(`The audio file [${this.url}] is not ready.`)
+      console.warn(`The audio file [${ this.url }] is not ready.`)
     }
   }
 }
