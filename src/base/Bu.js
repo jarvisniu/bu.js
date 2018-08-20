@@ -14,7 +14,7 @@
 import Renderer from '../core/Renderer.coffee'
 import Scene from '../core/Scene.js'
 
-import InputManager from '../input/InputManager.coffee'
+import InputManager from '../input/InputManager.js'
 
 // Execute a callback function when the document is ready
 function ready (cb, context, args) {

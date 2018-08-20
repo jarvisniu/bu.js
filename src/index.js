@@ -46,8 +46,8 @@ import DashFlowManager from './anim/DashFlowManager.coffee'
 import SpriteSheet from './anim/SpriteSheet.coffee'
 
 // input
-import InputManager from './input/InputManager.coffee'
-import MouseControl from './input/MouseControl.coffee'
+import InputManager from './input/InputManager.js'
+import MouseControl from './input/MouseControl.js'
 
 // extra
 import geometryAlgorithm from './extra/geometryAlgorithm.coffee'

@@ -1,6 +1,7 @@
 .idea/
+
 node_modules/
-dist/
+build/
+
 examples/lib/**/*.js
 examples/lib/**/*.js.map
-package-lock.json
