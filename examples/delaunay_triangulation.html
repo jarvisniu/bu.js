@@ -27,8 +27,8 @@
 
     function generatePoints () {
       for (let i = 0; i < POINT_COUNT; i++) {
-        let x = Bu.rand(-bu.width / 2 + 20, bu.width / 2 - 20)
-        let y = Bu.rand(-bu.width / 2 + 20, bu.height / 2 - 20)
+        let x = Bu.rand(-bu.pixelWidth / 2 + 20, bu.pixelWidth / 2 - 20)
+        let y = Bu.rand(-bu.pixelHeight / 2 + 20, bu.pixelHeight / 2 - 20)
         points[i] = new Bu.Point(x, y)
         points[i].label = i
         bu.scene.addChild(points[i])

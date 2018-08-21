@@ -60,7 +60,7 @@ class MouseControl {
 let scaleAnimation = new Animation({
   duration: 0.2,
   init (anim) {
-    if (anim.arg == null) { anim.arg = 1 }
+    if (anim.arg == null) anim.arg = 1
     anim.from = this.scale.clone()
     anim.to = this.scale.clone().multiplyScalar(parseFloat(anim.arg))
   },
@@ -72,7 +72,7 @@ let scaleAnimation = new Animation({
 let translateAnimation = new Animation({
   duration: 0.2,
   init (anim) {
-    if (anim.arg == null) { anim.arg = new Vector() }
+    if (anim.arg == null) anim.arg = new Vector()
     anim.from = this.position.clone()
     anim.to = this.position.clone().add(anim.arg)
   },

@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "rollup -cw",
     "build": "rollup -c",
+    "compile-example-lib": "npx coffee -c examples/lib",
     "fix": "eslint --fix src examples",
     "min": "uglifyjs build/bu.js -mco build/bu.min.js"
   },

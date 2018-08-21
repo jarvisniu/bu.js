@@ -28,7 +28,7 @@ class Bounds {
       case 'Line':
       case 'Triangle':
       case 'Rectangle':
-        for (let v in this.target.points) {
+        for (let v of this.target.points) {
           this.expandByPoint(v)
         }
         break
@@ -39,7 +39,7 @@ class Bounds {
         break
       case 'Polyline':
       case 'Polygon':
-        for (let v in this.target.vertices) {
+        for (let v of this.target.vertices) {
           this.expandByPoint(v)
         }
         break
@@ -54,23 +54,23 @@ class Bounds {
     }
   }
 
+  clear () {
+    this.x1 = this.y1 = this.x2 = this.y2 = 0
+    this.isEmpty = true
+    return this
+  }
+
   bindEvent () {
     switch (this.target.type) {
       case 'Circle':
       case 'Bow':
       case 'Fan':
-        this.target.on('centerChanged', this.update)
-        this.target.on('radiusChanged', this.update)
+        this.target.on('centerChanged', this.update.bind(this))
+        this.target.on('radiusChanged', this.update.bind(this))
         break
       case 'Ellipse':
-        this.target.on('changed', this.update)
+        this.target.on('changed', this.update.bind(this))
     }
-  }
-
-  clear () {
-    this.x1 = this.y1 = this.x2 = this.y2 = 0
-    this.isEmpty = true
-    return this
   }
 
   expandByPoint (v) {

@@ -62,7 +62,7 @@ class Vector {
     this.y -= obj.position.y
     // rotation
     let len = utils.bevel(this.x, this.y)
-    let a = Math.atan2(this.y, this.x) - obj.rotaion
+    let a = Math.atan2(this.y, this.x) - obj.rotation
     this.x = len * Math.cos(a)
     this.y = len * Math.sin(a)
     // scale

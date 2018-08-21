@@ -64,7 +64,7 @@
       init: function () {
         this.$renderer.scene.translate(-350, -280)
         document.querySelector('#btnKeyPoints').addEventListener('click', function () {
-          bu.$renderer.showKeyPoints = this.checked
+          Bu.config.showKeyPoints = this.checked
         })
         document.querySelector('#btnDashStroke').addEventListener('click', function () {
           bu.setDashStroke(this.checked)

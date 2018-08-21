@@ -192,38 +192,38 @@ function hsl2rgb (h, s, l) {
   return rgb
 }
 
-// Private functions
+// Private functions -----------------------------------------------------------
 
-function rgb2hsl (r, g, b) {
-  let max = Math.max(r, g, b)
-  let min = Math.min(r, g, b)
+// function rgb2hsl (r, g, b) {
+//   let max = Math.max(r, g, b)
+//   let min = Math.min(r, g, b)
 
-  let h
-  if (max === min) {
-    h = 0
-  } else if (max === r && g >= b) {
-    h = 60 * (g - b) / (max - min)
-  } else if (max === r && g < b) {
-    h = 60 * (g - b) / (max - min) + 360
-  } else if (max === g) {
-    h = 60 * (b - r) / (max - min) + 120
-  } else { // if max == b
-    h = 60 * (r - g) / (max - min) + 240
-  }
+//   let h
+//   if (max === min) {
+//     h = 0
+//   } else if (max === r && g >= b) {
+//     h = 60 * (g - b) / (max - min)
+//   } else if (max === r && g < b) {
+//     h = 60 * (g - b) / (max - min) + 360
+//   } else if (max === g) {
+//     h = 60 * (b - r) / (max - min) + 120
+//   } else { // if max == b
+//     h = 60 * (r - g) / (max - min) + 240
+//   }
 
-  let l = 0.5 * (max + min)
+//   let l = 0.5 * (max + min)
 
-  let s
-  if (l === 0 || max === min) {
-    s = 0
-  } else if (l > 0 && l <= 0.5) {
-    s = (max - min) / (2 * l)
-  } else { // if l > 0.5
-    s = (max - min) / (2 - 2 * l)
-  }
+//   let s
+//   if (l === 0 || max === min) {
+//     s = 0
+//   } else if (l > 0 && l <= 0.5) {
+//     s = (max - min) / (2 * l)
+//   } else { // if l > 0.5
+//     s = (max - min) / (2 - 2 * l)
+//   }
 
-  return [h, s, l]
-}
+//   return [h, s, l]
+// }
 
 function clampAlpha (a) {
   return utils.clamp(a, 0, 1)
@@ -343,7 +343,9 @@ class Color {
       this.g = CSS3_COLORS[str][1]
       this.b = CSS3_COLORS[str][2]
       this.a = CSS3_COLORS[str][3]
-      if (this.a == null) this.a = 1
+      if (this.a == null) {
+        this.a = 1
+      }
       return this
     }
 

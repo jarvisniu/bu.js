@@ -2,16 +2,16 @@
 
 import utils from '../utils.js'
 
-import Bow from '../shapes/Bow.coffee'
-import Circle from '../shapes/Circle.coffee'
-import Ellipse from '../shapes/Ellipse.coffee'
-import Fan from '../shapes/Fan.coffee'
-import Line from '../shapes/Line.coffee'
-import Point from '../shapes/Point.coffee'
-import Polyline from '../shapes/Polyline.coffee'
-import Polygon from '../shapes/Polygon.coffee'
-import Rectangle from '../shapes/Rectangle.coffee'
-import Triangle from '../shapes/Triangle.coffee'
+import Bow from '../shapes/Bow.js'
+import Circle from '../shapes/Circle.js'
+import Ellipse from '../shapes/Ellipse.js'
+import Fan from '../shapes/Fan.js'
+import Line from '../shapes/Line.js'
+import Point from '../shapes/Point.js'
+import Polyline from '../shapes/Polyline.js'
+import Polygon from '../shapes/Polygon.js'
+import Rectangle from '../shapes/Rectangle.js'
+import Triangle from '../shapes/Triangle.js'
 
 class ShapeRandomizer
 
