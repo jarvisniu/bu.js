@@ -19,10 +19,10 @@
       },
       objects: function () {
         let r = this.randomizer.setRange(
-          -this.$renderer.width / 2,
-          -this.$renderer.height / 2,
-          this.$renderer.width,
-          this.$renderer.height
+          -this.$renderer.pixelWidth / 2,
+          -this.$renderer.pixelHeight / 2,
+          this.$renderer.pixelWidth,
+          this.$renderer.pixelHeight
         )
         return {
           circle: r.generateCircle().createBounds(),

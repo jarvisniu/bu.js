@@ -11,7 +11,7 @@
 // init
 // update
 
-import Renderer from '../core/Renderer.coffee'
+import Renderer from '../core/Renderer.js'
 import Scene from '../core/Scene.js'
 
 import InputManager from '../input/InputManager.js'

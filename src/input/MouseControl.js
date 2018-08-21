@@ -5,7 +5,7 @@ import utils from '../utils.js'
 
 import Vector from '../math/Vector.js'
 
-import Animation from '../anim/Animation.coffee'
+import Animation from '../anim/Animation.js'
 
 class MouseControl {
   constructor (renderer) {

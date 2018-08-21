@@ -6,7 +6,7 @@ import livereload from 'rollup-plugin-livereload'
 
 import pkg from './package.json'
 
-let banner = `// bu.js v${pkg.version} - https://github.com/jarvisniu/bu.js\n`
+let banner = `// bu.js v${ pkg.version } - https://github.com/jarvisniu/bu.js\n`
 
 export default {
   input: 'src/index.js',
@@ -18,13 +18,13 @@ export default {
     banner,
   },
   plugins: [
-    eslint({include: 'src/**/*.js'}),
+    eslint({ include: 'src/**/*.js' }),
     coffeescript(),
-    babel({babelrc: false, presets: ['es2015-rollup']}),
+    babel({ babelrc: false, presets: ['es2015-rollup'] }),
     serve({
       contentBase: '',
       port: 3000,
-      open: true,
+      // open: true,
     }),
     livereload({
       watch: ['build', 'examples'],

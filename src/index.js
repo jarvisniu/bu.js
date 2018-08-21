@@ -18,7 +18,7 @@ import Styled from './base/Styled.js'
 // core
 import Audio from './core/Audio.js'
 import Camera from './core/Camera.js'
-import Renderer from './core/Renderer.coffee'
+import Renderer from './core/Renderer.js'
 import Scene from './core/Scene.js'
 
 // shapes
@@ -35,23 +35,23 @@ import Spline from './shapes/Spline.js'
 import Triangle from './shapes/Triangle.js'
 
 // drawable
-import Image from './drawable/Image.coffee'
-import PointText from './drawable/PointText.coffee'
+import Image from './drawable/Image.js'
+import PointText from './drawable/PointText.js'
 
 // animation
-import Animation from './anim/Animation.coffee'
-import AnimationRunner from './anim/AnimationRunner.coffee'
-import AnimationTask from './anim/AnimationTask.coffee'
-import DashFlowManager from './anim/DashFlowManager.coffee'
-import SpriteSheet from './anim/SpriteSheet.coffee'
+import Animation from './anim/Animation.js'
+import AnimationRunner from './anim/AnimationRunner.js'
+import AnimationTask from './anim/AnimationTask.js'
+import DashFlowManager from './anim/DashFlowManager.js'
+import SpriteSheet from './anim/SpriteSheet.js'
 
 // input
 import InputManager from './input/InputManager.js'
 import MouseControl from './input/MouseControl.js'
 
 // extra
-import geometryAlgorithm from './extra/geometryAlgorithm.coffee'
-import ShapeRandomizer from './extra/ShapeRandomizer.coffee'
+import geometryAlgorithm from './extra/geometryAlgorithm.js'
+import ShapeRandomizer from './extra/ShapeRandomizer.js'
 
 // properties -----------------------------------------------------------------
 

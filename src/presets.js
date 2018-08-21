@@ -4,8 +4,8 @@ import Bu from './base/Bu.js'
 
 // Global unique instances ----------------------------------------------------
 
-import AnimationRunner from './anim/AnimationRunner.coffee'
-import DashFlowManager from './anim/DashFlowManager.coffee'
+import AnimationRunner from './anim/AnimationRunner.js'
+import DashFlowManager from './anim/DashFlowManager.js'
 
 // Preset Styles --------------------------------------------------------------
 
@@ -13,7 +13,7 @@ import Styled from './base/Styled.js'
 
 // Preset Animations ----------------------------------------------------------
 
-import Animation from './anim/Animation.coffee'
+import Animation from './anim/Animation.js'
 import Color from './math/Color.js'
 
 Bu.$bues = []

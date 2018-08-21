@@ -3,7 +3,7 @@
 import utils from '../utils.js'
 import Object2D from '../base/Object2D.js'
 
-import PointText from '../drawable/PointText.coffee'
+import PointText from '../drawable/PointText.js'
 
 class Point extends Object2D {
   static initClass () {
