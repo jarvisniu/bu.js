@@ -24,22 +24,6 @@ const MOUSE = {
   MIDDLE: 4,
 }
 
-// Shortcut to define a property for a class. This is used to solve the problem
-// that CoffeeScript didn't support getters and setters.
-// TODO rewrite in js
-// class Person
-//   @constructor: (age) ->
-//     @_age = age
-
-//   @property 'age',
-//     get: -> @_age
-//     set: (val) ->
-//       @_age = val
-
-Function.prototype.property = function (prop, desc) {
-  return Object.defineProperty(this.prototype, prop, desc)
-}
-
 // Calculate the mean value of numbers
 function average () {
   let ns = arguments

@@ -9,20 +9,6 @@ import Camera from '../core/Camera.js'
 import Scene from '../core/Scene.js'
 
 class Renderer {
-  static initClass () {
-    // property
-
-    this.property('imageSmoothing', {
-      get () {
-        return this._imageSmoothing
-      },
-      set (val) {
-        this._imageSmoothing = (this.context.imageSmoothingEnabled = val)
-      },
-    },
-    )
-  }
-
   constructor () {
     Event.apply(this)
     this.type = 'Renderer'
@@ -139,6 +125,13 @@ class Renderer {
     // Hook up with running components
     Bu.animationRunner.hookUp(this)
     Bu.dashFlowManager.hookUp(this)
+  }
+
+  get imageSmoothing () {
+    return this._imageSmoothing
+  }
+  set imageSmoothing (val) {
+    this._imageSmoothing = (this.context.imageSmoothingEnabled = val)
   }
 
   // Pause/continue/toggle the rendering loop
@@ -468,7 +461,6 @@ class Renderer {
     return this
   }
 }
-Renderer.initClass()
 
 // Static Properties -----------------------------------------------------------
 

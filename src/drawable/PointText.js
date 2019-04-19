@@ -9,41 +9,6 @@ const DEFAULT_FONT_FAMILY = 'Verdana'
 const DEFAULT_FONT_SIZE = 12
 
 class PointText extends Object2D {
-  static initClass () {
-    this.property('align', {
-      get () {
-        return this._align
-      },
-      set (val) {
-        this._align = val
-        return this.setAlign(this._align)
-      },
-    },
-    )
-
-    this.property('fontFamily', {
-      get () {
-        return this._fontFamily
-      },
-      set (val) {
-        this._fontFamily = val
-        this.font = `${ this._fontSize }px ${ this._fontFamily }`
-      },
-    },
-    )
-
-    this.property('fontSize', {
-      get () {
-        return this._fontSize
-      },
-      set (val) {
-        this._fontSize = val
-        this.font = `${ this._fontSize }px ${ this._fontFamily }`
-      },
-    },
-    )
-  }
-
   /*
   options.align:
   ----------------------
@@ -80,6 +45,30 @@ class PointText extends Object2D {
     }
   }
 
+  get align () {
+    return this._align
+  }
+  set align (val) {
+    this._align = val
+    return this.setAlign(this._align)
+  }
+
+  get fontFamily () {
+    return this._fontFamily
+  }
+  set fontFamily (val) {
+    this._fontFamily = val
+    this.font = `${ this._fontSize }px ${ this._fontFamily }`
+  }
+
+  get fontSize () {
+    return this._fontSize
+  }
+  set fontSize (val) {
+    this._fontSize = val
+    this.font = `${ this._fontSize }px ${ this._fontFamily }`
+  }
+
   setAlign (align) {
     if (align.length === 1) align = `${ align }${ align }`
     let alignX = align.substring(0, 1)
@@ -111,6 +100,5 @@ class PointText extends Object2D {
     return this
   }
 }
-PointText.initClass()
 
 export default PointText

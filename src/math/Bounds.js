@@ -1,4 +1,4 @@
-// axis aligned bounding box
+// Axis-aligned bounding box
 
 import Vector from '../math/Vector.js'
 
@@ -6,8 +6,10 @@ class Bounds {
   constructor (target) {
     this.target = target
 
-    // TODO use min, max: Vector
-    this.x1 = this.y1 = this.x2 = this.y2 = 0
+    this.x1 = 0
+    this.y1 = 0
+    this.x2 = 0
+    this.y2 = 0
     this.isEmpty = true
 
     this.point1 = new Vector()

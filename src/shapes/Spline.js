@@ -7,25 +7,6 @@ import Point from '../shapes/Point.js'
 import Polyline from '../shapes/Polyline.js'
 
 class Spline extends Object2D {
-  static initClass () {
-    this.prototype.type = 'Spline'
-    this.prototype.fillable = false
-
-    this.property('smoother', {
-      get () {
-        return this._smoother
-      },
-      set (val) {
-        let oldVal = this._smoother
-        this._smoother = val
-        if (oldVal !== this._smoother) {
-          return calcControlPoints(this)
-        }
-      },
-    },
-    )
-  }
-
   constructor (vertices) {
     super()
 
@@ -51,6 +32,17 @@ class Spline extends Object2D {
     calcControlPoints(this)
   }
 
+  get smoother () {
+    return this._smoother
+  }
+  set smoother (val) {
+    let oldVal = this._smoother
+    this._smoother = val
+    if (oldVal !== this._smoother) {
+      return calcControlPoints(this)
+    }
+  }
+
   clone () {
     return new Spline(this.vertices)
   }
@@ -60,7 +52,9 @@ class Spline extends Object2D {
     return calcControlPoints(this)
   }
 }
-Spline.initClass()
+
+Spline.prototype.type = 'Spline'
+Spline.prototype.fillable = false
 
 function calcControlPoints (spline) {
   spline.keyPoints = spline.vertices

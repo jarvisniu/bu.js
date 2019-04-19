@@ -45,6 +45,20 @@ class Object2D {
     return this
   }
 
+  // Scale an object
+  get scale () {
+    return this._scale
+  }
+  set scale (val) {
+    if (typeof val === 'number') {
+      this._scale.x = this._scale.y = val
+      return this
+    } else {
+      this._scale = val
+      return this
+    }
+  }
+
   // Scale an object by
   scaleBy (ds) {
     this.scale *= ds
@@ -143,20 +157,5 @@ class Object2D {
 
 Object2D.prototype.type = 'Object2D'
 Object2D.prototype.fillable = false
-
-Object2D.property('scale', {
-  get: function () {
-    return this._scale
-  },
-  set: function (val) {
-    if (typeof val === 'number') {
-      this._scale.x = this._scale.y = val
-      return this
-    } else {
-      this._scale = val
-      return this
-    }
-  },
-})
 
 export default Object2D

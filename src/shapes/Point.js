@@ -6,36 +6,6 @@ import Object2D from '../base/Object2D.js'
 import PointText from '../drawable/PointText.js'
 
 class Point extends Object2D {
-  static initClass () {
-    this.prototype.type = 'Point'
-    this.prototype.fillable = true
-
-    this.property('label', {
-      get () {
-        if (this._labelIndex > -1) {
-          return this.children[this._labelIndex].text
-        } else {
-          return ''
-        }
-      },
-      set (val) {
-        if (this._labelIndex === -1) {
-          const pointText = new PointText(
-            val,
-            this.x + utils.POINT_LABEL_OFFSET,
-            this.y,
-            { align: '+0' },
-          )
-          this.children.push(pointText)
-          this._labelIndex = this.children.length - 1
-        } else {
-          this.children[this._labelIndex].text = val
-        }
-      },
-    },
-    )
-  }
-
   constructor (x = 0, y = 0) {
     super()
 
@@ -44,6 +14,28 @@ class Point extends Object2D {
 
     this.lineWidth = 0.5
     this._labelIndex = -1
+  }
+
+  get label () {
+    if (this._labelIndex > -1) {
+      return this.children[this._labelIndex].text
+    } else {
+      return ''
+    }
+  }
+  set label (val) {
+    if (this._labelIndex === -1) {
+      const pointText = new PointText(
+        val,
+        this.x + utils.POINT_LABEL_OFFSET,
+        this.y,
+        { align: '+0' },
+      )
+      this.children.push(pointText)
+      this._labelIndex = this.children.length - 1
+    } else {
+      this.children[this._labelIndex].text = val
+    }
   }
 
   clone () {
@@ -88,6 +80,8 @@ class Point extends Object2D {
     return this
   }
 }
-Point.initClass()
+
+Point.prototype.type = 'Point'
+Point.prototype.fillable = true
 
 export default Point

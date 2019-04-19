@@ -6,19 +6,6 @@ import Vector from '../math/Vector.js'
 import Object2D from '../base/Object2D.js'
 
 class Image extends Object2D {
-  static initClass () {
-    this.property('image', {
-      get () {
-        return this._image
-      },
-      set (val) {
-        this._image = val
-        this.ready = true
-      },
-    },
-    )
-  }
-
   constructor (url, x = 0, y = 0, width, height) {
     super()
 
@@ -50,7 +37,14 @@ class Image extends Object2D {
       this._image.src = this.url
     }
   }
+
+  get image () {
+    return this._image
+  }
+  set image (val) {
+    this._image = val
+    this.ready = true
+  }
 }
-Image.initClass()
 
 export default Image

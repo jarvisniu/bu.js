@@ -24,7 +24,7 @@ class InputManager {
     return keyToKeyCodeMap[key]
   }
 
-  // Recieve and bind the mouse/keyboard events listeners
+  // Receive and bind the mouse/keyboard events listeners
   handleAppEvents (app, events) {
     const keydownListeners = {}
     const keyupListeners = {}
