@@ -3,46 +3,46 @@
 import utils from '../utils.js'
 
 class Vector {
-  constructor (x = 0, y = 0) {
+  constructor(x = 0, y = 0) {
     this.x = x
     this.y = y
   }
 
-  clone () {
+  clone() {
     return new Vector(this.x, this.y)
   }
 
-  add (v) {
+  add(v) {
     this.x += v.x
     this.y += v.y
     return this
   }
 
-  set (x, y) {
+  set(x, y) {
     this.x = x
     this.y = y
     return this
   }
 
-  offset (dx, dy) {
+  offset(dx, dy) {
     this.x += dx
     this.y += dy
     return this
   }
 
-  copy (v) {
+  copy(v) {
     this.x = v.x
     this.y = v.y
     return this
   }
 
-  multiplyScalar (scalar) {
+  multiplyScalar(scalar) {
     this.x *= scalar
     this.y *= scalar
     return this
   }
 
-  project (obj) {
+  project(obj) {
     this.x *= obj.scale.x
     this.y *= obj.scale.y
     // rotation
@@ -56,7 +56,7 @@ class Vector {
     return this
   }
 
-  unProject (obj) {
+  unProject(obj) {
     // translate
     this.x -= obj.position.x
     this.y -= obj.position.y

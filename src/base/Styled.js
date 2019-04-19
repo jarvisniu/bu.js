@@ -3,7 +3,7 @@
 
 import Bu from '../base/Bu.js'
 
-let Styled = function () {
+let Styled = function() {
   this.strokeStyle = Styled.DEFAULT_STROKE_STYLE
   this.fillStyle = Styled.DEFAULT_FILL_STYLE
   this.dashStyle = false
@@ -13,24 +13,32 @@ let Styled = function () {
   this.dashOffset = 0
 
   // Set/copy style from other style
-  this.style = function (style) {
+  this.style = function(style) {
     if (typeof style === 'string') {
       style = Bu.styles[style]
       if (!style) {
         style = Bu.styles.default
-        console.warn(`Styled: Bu.styles.${ style } doesn't exists, fell back to default.`)
+        console.warn(
+          `Styled: Bu.styles.${style} doesn't exists, fell back to default.`,
+        )
       }
     } else if (!style) {
       style = Bu.styles['default']
     }
-    for (let k of ['strokeStyle', 'fillStyle', 'dashStyle', 'dashFlowSpeed', 'lineWidth']) {
+    for (let k of [
+      'strokeStyle',
+      'fillStyle',
+      'dashStyle',
+      'dashFlowSpeed',
+      'lineWidth',
+    ]) {
       this[k] = style[k]
     }
     return this
   }
 
   // Set the stroke style
-  this.stroke = function (v) {
+  this.stroke = function(v) {
     if (v == null) v = true
     if (Bu.styles && v in Bu.styles) v = Bu.styles[v].strokeStyle
 
@@ -48,7 +56,7 @@ let Styled = function () {
   }
 
   // Set the fill style
-  this.fill = function (v) {
+  this.fill = function(v) {
     if (v == null) v = true
     if (Bu.styles && v in Bu.styles) v = Bu.styles[v].fillStyle
 
@@ -66,7 +74,7 @@ let Styled = function () {
   }
 
   // Set the dash style
-  this.dash = function (v) {
+  this.dash = function(v) {
     if (v == null) v = true
     else if (Bu.styles && v in Bu.styles) v = Bu.styles[v].dashStyle
     else if (typeof v === 'number') v = [v, v]
@@ -85,7 +93,7 @@ let Styled = function () {
   }
 
   // Set the dash flowing speed
-  this.dashFlow = function (speed) {
+  this.dashFlow = function(speed) {
     if (speed === true || speed == null) speed = 1
     else if (speed === false) speed = 0
 
@@ -94,7 +102,7 @@ let Styled = function () {
   }
 
   // Set the lineWidth
-  this.setLineWidth = function (w) {
+  this.setLineWidth = function(w) {
     this.lineWidth = w
     return this
   }

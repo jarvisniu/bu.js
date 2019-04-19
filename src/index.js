@@ -105,12 +105,7 @@ Bu.config = config // Global config
 Bu.version = VERSION // Version info
 
 // utils in examples
-for (let name of [
-  'd2r',
-  'rand',
-  'MOUSE',
-  'POINT_RENDER_SIZE',
-]) {
+for (let name of ['d2r', 'rand', 'MOUSE', 'POINT_RENDER_SIZE']) {
   Bu[name] = utils[name]
 }
 
@@ -119,7 +114,7 @@ let currentTime = Date.now()
 let lastTime = utils.data('version.timestamp')
 if (!lastTime || currentTime - lastTime > 60 * 1000) {
   if (typeof console.info === 'function') {
-    console.info('bu.js v' + Bu.version + ' - [https://github.com/jarvisniu/bu.js]')
+    console.info(`bu.js v${Bu.version} - [https://github.com/jarvisniu/bu.js]`)
   }
   utils.data('version.timestamp', currentTime)
 }

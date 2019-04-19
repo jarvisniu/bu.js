@@ -5,22 +5,23 @@ import utils from '../utils.js'
 import Color from '../math/Color.js'
 import Vector from '../math/Vector.js'
 
-let interpolateNum = (a, b, t) => (b * t) - (a * (t - 1))
+let interpolateNum = (a, b, t) => b * t - a * (t - 1)
 
-let interpolateColor = (a, b, t, c) => c.setRGBA(
-  interpolateNum(a.r, b.r, t),
-  interpolateNum(a.g, b.g, t),
-  interpolateNum(a.b, b.b, t),
-  interpolateNum(a.a, b.a, t),
-)
+let interpolateColor = (a, b, t, c) =>
+  c.setRGBA(
+    interpolateNum(a.r, b.r, t),
+    interpolateNum(a.g, b.g, t),
+    interpolateNum(a.b, b.b, t),
+    interpolateNum(a.a, b.a, t),
+  )
 
-let interpolateVector = function (a, b, t, c) {
+let interpolateVector = function(a, b, t, c) {
   c.x = interpolateNum(a.x, b.x, t)
   c.y = interpolateNum(a.y, b.y, t)
 }
 
 class AnimationTask {
-  constructor (animation, target, args) {
+  constructor(animation, target, args) {
     this.animation = animation
     this.target = target
     if (args == null) {
@@ -37,7 +38,7 @@ class AnimationTask {
     this.arg = this.args[0]
   }
 
-  init () {
+  init() {
     if (this.animation.init != null) {
       this.animation.init.call(this.target, this)
     }
@@ -45,18 +46,18 @@ class AnimationTask {
   }
 
   // Change the animation progress to the start
-  restart () {
+  restart() {
     this.startTime = utils.now()
     this.finished = false
   }
 
   // Change the animation progress to the end
-  end () {
-    this.startTime = utils.now() - (this.animation.duration * 1000)
+  end() {
+    this.startTime = utils.now() - this.animation.duration * 1000
   }
 
   // Interpolate `current` according `from`, `to` and `t`
-  interpolate () {
+  interpolate() {
     if (this.from == null) return
 
     if (typeof this.from === 'number') {
@@ -68,14 +69,20 @@ class AnimationTask {
     } else if (utils.isPlainObject(this.from)) {
       for (let key of Object.keys(this.from || {})) {
         if (typeof this.from[key] === 'number') {
-          this.current[key] = interpolateNum(this.from[key], this.to[key], this.t)
+          this.current[key] = interpolateNum(
+            this.from[key],
+            this.to[key],
+            this.t,
+          )
         } else {
           console.warning('NOT SUPPORTED')
           // interpolateObject(this.from[key], this.to[key], this.t, this.current[key])
         }
       }
     } else {
-      return console.error('Animation not support interpolate type: ', this.from)
+      return console.error(
+        `Animation not support interpolate type: ${this.from}`,
+      )
     }
   }
 }

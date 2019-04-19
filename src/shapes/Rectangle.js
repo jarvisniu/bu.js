@@ -6,10 +6,10 @@ import Object2D from '../base/Object2D.js'
 import Point from '../shapes/Point.js'
 
 class Rectangle extends Object2D {
-  constructor (x, y, width, height, cornerRadius = 0) {
+  constructor(x, y, width, height, cornerRadius = 0) {
     super()
 
-    this.center = new Point(x + (width / 2), y + (height / 2))
+    this.center = new Point(x + width / 2, y + height / 2)
     this.size = new Size(width, height)
 
     this.pointLT = new Point(x, y)
@@ -25,20 +25,25 @@ class Rectangle extends Object2D {
     })
   }
 
-  get cornerRadius () {
+  get cornerRadius() {
     return this._cornerRadius
   }
-  set cornerRadius (val) {
+  set cornerRadius(val) {
     this._cornerRadius = val
     this.keyPoints = val > 0 ? [] : this.points
   }
 
-  clone () {
-    return new Rectangle(this.pointLT.x, this.pointLT.y, this.size.width, this.size.height)
+  clone() {
+    return new Rectangle(
+      this.pointLT.x,
+      this.pointLT.y,
+      this.size.width,
+      this.size.height,
+    )
   }
 
-  set (x, y, width, height) {
-    this.center.set(x + (width / 2), y + (height / 2))
+  set(x, y, width, height) {
+    this.center.set(x + width / 2, y + height / 2)
     this.size.set(width, height)
 
     this.pointLT.set(x, y)

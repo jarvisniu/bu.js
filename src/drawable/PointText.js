@@ -20,7 +20,7 @@ class PointText extends Object2D {
   ----------------------
   for example: text is in the right top of the point, then align = "+-"
   */
-  constructor (text, x = 0, y = 0) {
+  constructor(text, x = 0, y = 0) {
     super()
 
     this.text = text
@@ -36,66 +36,72 @@ class PointText extends Object2D {
     this.align = options.align
     if (options.font != null) {
       this.font = options.font
-    } else if ((options.fontFamily != null) || (options.fontSize != null)) {
+    } else if (options.fontFamily != null || options.fontSize != null) {
       this._fontFamily = options.fontFamily || DEFAULT_FONT_FAMILY
       this._fontSize = options.fontSize || DEFAULT_FONT_SIZE
-      this.font = `${ this._fontSize }px ${ this._fontFamily }`
+      this.font = `${this._fontSize}px ${this._fontFamily}`
     } else {
       this.font = null
     }
   }
 
-  get align () {
+  get align() {
     return this._align
   }
-  set align (val) {
+  set align(val) {
     this._align = val
     return this.setAlign(this._align)
   }
 
-  get fontFamily () {
+  get fontFamily() {
     return this._fontFamily
   }
-  set fontFamily (val) {
+  set fontFamily(val) {
     this._fontFamily = val
-    this.font = `${ this._fontSize }px ${ this._fontFamily }`
+    this.font = `${this._fontSize}px ${this._fontFamily}`
   }
 
-  get fontSize () {
+  get fontSize() {
     return this._fontSize
   }
-  set fontSize (val) {
+  set fontSize(val) {
     this._fontSize = val
-    this.font = `${ this._fontSize }px ${ this._fontFamily }`
+    this.font = `${this._fontSize}px ${this._fontFamily}`
   }
 
-  setAlign (align) {
-    if (align.length === 1) align = `${ align }${ align }`
+  setAlign(align) {
+    if (align.length === 1) align = `${align}${align}`
     let alignX = align.substring(0, 1)
     let alignY = align.substring(1, 2)
     this.textAlign = (() => {
       switch (alignX) {
-        case '-': return 'right'
-        case '0': return 'center'
-        case '+': return 'left'
+        case '-':
+          return 'right'
+        case '0':
+          return 'center'
+        case '+':
+          return 'left'
       }
     })()
     this.textBaseline = (() => {
       switch (alignY) {
-        case '-': return 'bottom'
-        case '0': return 'middle'
-        case '+': return 'top'
+        case '-':
+          return 'bottom'
+        case '0':
+          return 'middle'
+        case '+':
+          return 'top'
       }
     })()
     return this
   }
 
-  setFontFamily (family) {
+  setFontFamily(family) {
     this.fontFamily = family
     return this
   }
 
-  setFontSize (size) {
+  setFontSize(size) {
     this.fontSize = size
     return this
   }

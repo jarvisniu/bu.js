@@ -5,7 +5,7 @@ import Object2D from '../base/Object2D.js'
 import Point from '../shapes/Point.js'
 
 class Circle extends Object2D {
-  constructor (_radius, cx, cy) {
+  constructor(_radius, cx, cy) {
     super()
 
     if (_radius == null) {
@@ -26,26 +26,26 @@ class Circle extends Object2D {
     this.on('centerChanged', this.updateKeyPoints)
   }
 
-  get cx () {
+  get cx() {
     return this._center.x
   }
-  set cx (val) {
+  set cx(val) {
     this._center.x = val
     return this.trigger('centerChanged', this)
   }
 
-  get cy () {
+  get cy() {
     return this._center.y
   }
-  set cy (val) {
+  set cy(val) {
     this._center.y = val
     return this.trigger('centerChanged', this)
   }
 
-  get center () {
+  get center() {
     return this._center
   }
-  set center (val) {
+  set center(val) {
     this._center = val
     this.cx = val.x
     this.cy = val.y
@@ -53,20 +53,20 @@ class Circle extends Object2D {
     return this.trigger('centerChanged', this)
   }
 
-  get radius () {
+  get radius() {
     return this._radius
   }
-  set radius (val) {
+  set radius(val) {
     this._radius = val
     this.trigger('radiusChanged', this)
     return this
   }
 
-  clone () {
+  clone() {
     return new Circle(this.radius, this.cx, this.cy)
   }
 
-  updateKeyPoints () {
+  updateKeyPoints() {
     return this.keyPoints[0].set(this.cx, this.cy)
   }
 }

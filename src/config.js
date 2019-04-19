@@ -7,19 +7,16 @@ let config = {
   font: '12px Verdana',
   background: '#eee',
   showKeyPoints: false,
-}
-
-let cursor = 'default'
-Object.defineProperty(config, 'cursor', {
-  get () {
-    return cursor
+  _cursor: 'default',
+  get cursor() {
+    return this._cursor
   },
-  set (val) {
-    cursor = val
+  set cursor(val) {
+    this._cursor = val
     for (let bu of Bu.$bues) {
-      bu.$renderer.dom.style.cursor = cursor
+      bu.$renderer.dom.style.cursor = this._cursor
     }
   },
-})
+}
 
 export default config

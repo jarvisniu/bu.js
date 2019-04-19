@@ -3,7 +3,7 @@
 import Vector from '../math/Vector.js'
 
 class Bounds {
-  constructor (target) {
+  constructor(target) {
     this.target = target
 
     this.x1 = 0
@@ -19,12 +19,11 @@ class Bounds {
     this.bindEvent()
   }
 
-  containsPoint (p) {
-    return this.x1 < p.x && this.x2 > p.x &&
-      this.y1 < p.y && this.y2 > p.y
+  containsPoint(p) {
+    return this.x1 < p.x && this.x2 > p.x && this.y1 < p.y && this.y2 > p.y
   }
 
-  update () {
+  update() {
     this.clear()
     switch (this.target.type) {
       case 'Line':
@@ -52,17 +51,17 @@ class Bounds {
         this.y2 = this.target.radiusY
         break
       default:
-        console.warn(`Bu.Bounds: not supported shape type ${ this.target.type }`)
+        console.warn(`Bu.Bounds: not supported shape type ${this.target.type}`)
     }
   }
 
-  clear () {
+  clear() {
     this.x1 = this.y1 = this.x2 = this.y2 = 0
     this.isEmpty = true
     return this
   }
 
-  bindEvent () {
+  bindEvent() {
     switch (this.target.type) {
       case 'Circle':
       case 'Bow':
@@ -75,7 +74,7 @@ class Bounds {
     }
   }
 
-  expandByPoint (v) {
+  expandByPoint(v) {
     if (this.isEmpty) {
       this.isEmpty = false
       this.x1 = this.x2 = v.x
@@ -89,7 +88,7 @@ class Bounds {
     return this
   }
 
-  expandByCircle (c) {
+  expandByCircle(c) {
     let center = c.center
     let radius = c.radius
     if (this.isEmpty) {

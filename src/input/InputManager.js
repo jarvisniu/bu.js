@@ -1,7 +1,7 @@
 // Manage the user input, like mouse, keyboard, touchscreen etc
 
 class InputManager {
-  constructor () {
+  constructor() {
     this.keyStates = []
 
     window.addEventListener('keydown', ev => {
@@ -13,19 +13,19 @@ class InputManager {
   }
 
   // To detect whether a key is pressed down
-  isKeyDown (key) {
+  isKeyDown(key) {
     const keyCode = this.keyToKeyCode(key)
     return this.keyStates[keyCode]
   }
 
   // Convert from keyIdentifiers/keyValues to keyCode
-  keyToKeyCode (key) {
+  keyToKeyCode(key) {
     key = keyAliasToKeyMap[key] || key
     return keyToKeyCodeMap[key]
   }
 
   // Receive and bind the mouse/keyboard events listeners
-  handleAppEvents (app, events) {
+  handleAppEvents(app, events) {
     const keydownListeners = {}
     const keyupListeners = {}
 
@@ -44,18 +44,22 @@ class InputManager {
       const result = []
       for (let type in events) {
         var key, keyCode
-        if (['mousedown', 'mousemove', 'mouseup', 'mousewheel'].includes(type)) {
-          result.push(app.$renderer.dom.addEventListener(type, events[type].bind(app)))
+        if (
+          ['mousedown', 'mousemove', 'mouseup', 'mousewheel'].includes(type)
+        ) {
+          result.push(
+            app.$renderer.dom.addEventListener(type, events[type].bind(app)),
+          )
         } else if (['keydown', 'keyup'].includes(type)) {
           result.push(window.addEventListener(type, events[type].bind(app)))
         } else if (type.indexOf('keydown.') === 0) {
           key = type.substring(8)
           keyCode = this.keyToKeyCode(key)
-          result.push(keydownListeners[keyCode] = events[type])
+          result.push((keydownListeners[keyCode] = events[type]))
         } else if (type.indexOf('keyup.') === 0) {
           key = type.substring(6)
           keyCode = this.keyToKeyCode(key)
-          result.push(keyupListeners[keyCode] = events[type])
+          result.push((keyupListeners[keyCode] = events[type]))
         } else {
           result.push(undefined)
         }
@@ -75,7 +79,7 @@ const keyToKeyCodeMap = {
   Alt: 18,
   CapsLock: 20,
   Escape: 27,
-  ' ': 32,  // Space
+  ' ': 32, // Space
   PageUp: 33,
   PageDown: 34,
   End: 35,
@@ -150,19 +154,19 @@ const keyToKeyCodeMap = {
 
 // Map from not standard, but commonly known keyValues/keyIdentifiers to keyCode
 const keyAliasToKeyMap = {
-  Ctrl: 'Control',          // 17
-  Ctl: 'Control',           // 17
-  Esc: 'Escape',            // 27
-  Space: ' ',               // 32
-  PgUp: 'PageUp',           // 33
-  'Page Up': 'PageUp',      // 33
-  PgDn: 'PageDown',         // 34
-  'Page Down': 'PageDown',  // 34
-  Left: 'ArrowLeft',        // 37
-  Up: 'ArrowUp',            // 38
-  Right: 'ArrowRight',      // 39
-  Down: 'ArrowDown',        // 40
-  Del: 'Delete',            // 46
+  Ctrl: 'Control', // 17
+  Ctl: 'Control', // 17
+  Esc: 'Escape', // 27
+  Space: ' ', // 32
+  PgUp: 'PageUp', // 33
+  'Page Up': 'PageUp', // 33
+  PgDn: 'PageDown', // 34
+  'Page Down': 'PageDown', // 34
+  Left: 'ArrowLeft', // 37
+  Up: 'ArrowUp', // 38
+  Right: 'ArrowRight', // 39
+  Down: 'ArrowDown', // 40
+  Del: 'Delete', // 46
 }
 
 export default InputManager

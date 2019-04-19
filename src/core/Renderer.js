@@ -9,7 +9,7 @@ import Camera from '../core/Camera.js'
 import Scene from '../core/Scene.js'
 
 class Renderer {
-  constructor () {
+  constructor() {
     Event.apply(this)
     this.type = 'Renderer'
 
@@ -28,8 +28,7 @@ class Renderer {
       container: 'body',
       showBounds: false,
       imageSmoothing: true,
-    },
-    )
+    })
 
     // Copy options
     for (let name of ['container', 'width', 'height', 'showBounds']) {
@@ -57,19 +56,20 @@ class Renderer {
     if (typeof this.container === 'string') {
       this.container = document.querySelector(this.container)
     }
-    if (this.fillParent && (this.container === document.body)) {
+    if (this.fillParent && this.container === document.body) {
       const domHtml = document.querySelector('html')
       const domBody = document.querySelector('body')
       domBody.style.margin = '0'
       domBody.style.overflow = 'hidden'
-      domHtml.style.width = (domHtml.style.height =
-        (domBody.style.width = (domBody.style.height = '100%')))
+      domHtml.style.width = domHtml.style.height = domBody.style.width = domBody.style.height =
+        '100%'
     }
 
     // Set sizes for renderer property, dom attribute and dom style
     const onResize = () => {
       const canvasRatio = this.dom.height / this.dom.width
-      const containerRatio = this.container.clientHeight / this.container.clientWidth
+      const containerRatio =
+        this.container.clientHeight / this.container.clientWidth
       if (containerRatio < canvasRatio) {
         this.height = this.container.clientHeight
         this.width = this.height / containerRatio
@@ -77,8 +77,8 @@ class Renderer {
         this.width = this.container.clientWidth
         this.height = this.width * containerRatio
       }
-      this.pixelWidth = (this.dom.width = this.width * this.pixelRatio)
-      this.pixelHeight = (this.dom.height = this.height * this.pixelRatio)
+      this.pixelWidth = this.dom.width = this.width * this.pixelRatio
+      this.pixelHeight = this.dom.height = this.height * this.pixelRatio
       this.dom.style.width = this.width + 'px'
       this.dom.style.height = this.height + 'px'
       return this.render()
@@ -127,35 +127,35 @@ class Renderer {
     Bu.dashFlowManager.hookUp(this)
   }
 
-  get imageSmoothing () {
+  get imageSmoothing() {
     return this._imageSmoothing
   }
-  set imageSmoothing (val) {
-    this._imageSmoothing = (this.context.imageSmoothingEnabled = val)
+  set imageSmoothing(val) {
+    this._imageSmoothing = this.context.imageSmoothingEnabled = val
   }
 
   // Pause/continue/toggle the rendering loop
-  pause () {
+  pause() {
     this.isRunning = false
   }
-  continue () {
+  continue() {
     this.isRunning = true
   }
-  toggle () {
+  toggle() {
     this.isRunning = !this.isRunning
   }
 
   // Project from DOM coordinates to world coordinates
-  projectToWorld (x, y) {
+  projectToWorld(x, y) {
     if (!Bu.config.originAtCenter) {
       return [x, y]
     } else {
-      return [x - (this.width / 2), y - (this.height / 2)]
+      return [x - this.width / 2, y - this.height / 2]
     }
   }
 
   // Perform the full render process
-  render () {
+  render() {
     this.context.save()
 
     // Clear the canvas
@@ -181,14 +181,14 @@ class Renderer {
   }
 
   // Clear the canvas
-  clearCanvas () {
+  clearCanvas() {
     this.context.fillStyle = this.scene.background
     this.context.fillRect(0, 0, this.pixelWidth, this.pixelHeight)
     return this
   }
 
   // Draw an array of drawables
-  drawShapes (shapes) {
+  drawShapes(shapes) {
     if (shapes != null) {
       for (let shape of Array.from(shapes)) {
         this.context.save()
@@ -200,7 +200,7 @@ class Renderer {
   }
 
   // Draw an drawable to the canvas
-  drawShape (shape) {
+  drawShape(shape) {
     if (!shape.visible) {
       return this
     }
@@ -234,26 +234,53 @@ class Renderer {
     this.context.beginPath()
 
     switch (shape.type) {
-      case 'Point': this.drawPoint(shape); break
-      case 'Line': this.drawLine(shape); break
-      case 'Circle': this.drawCircle(shape); break
-      case 'Ellipse': this.drawEllipse(shape); break
-      case 'Triangle': this.drawTriangle(shape); break
-      case 'Rectangle': this.drawRectangle(shape); break
-      case 'Fan': this.drawFan(shape); break
-      case 'Bow': this.drawBow(shape); break
-      case 'Polygon': this.drawPolygon(shape); break
-      case 'Polyline': this.drawPolyline(shape); break
-      case 'Spline': this.drawSpline(shape); break
-      case 'PointText': this.drawPointText(shape); break
-      case 'Image': this.drawImage(shape); break
-      case 'Object2D': case 'Scene': // then do nothing
+      case 'Point':
+        this.drawPoint(shape)
+        break
+      case 'Line':
+        this.drawLine(shape)
+        break
+      case 'Circle':
+        this.drawCircle(shape)
+        break
+      case 'Ellipse':
+        this.drawEllipse(shape)
+        break
+      case 'Triangle':
+        this.drawTriangle(shape)
+        break
+      case 'Rectangle':
+        this.drawRectangle(shape)
+        break
+      case 'Fan':
+        this.drawFan(shape)
+        break
+      case 'Bow':
+        this.drawBow(shape)
+        break
+      case 'Polygon':
+        this.drawPolygon(shape)
+        break
+      case 'Polyline':
+        this.drawPolyline(shape)
+        break
+      case 'Spline':
+        this.drawSpline(shape)
+        break
+      case 'PointText':
+        this.drawPointText(shape)
+        break
+      case 'Image':
+        this.drawImage(shape)
+        break
+      case 'Object2D':
+      case 'Scene': // then do nothing
         break
       default:
         console.log('drawShapes(): unknown shape: ', shape.type, shape)
     }
 
-    if ((shape.fillStyle != null) && shape.fillable) {
+    if (shape.fillStyle != null && shape.fillable) {
       this.context.fillStyle = shape.fillStyle
       this.context.fill()
     }
@@ -275,34 +302,42 @@ class Renderer {
     if (Bu.config.showKeyPoints) {
       this.drawShapes(shape.keyPoints)
     }
-    if (this.showBounds && (shape.bounds != null)) {
+    if (this.showBounds && shape.bounds != null) {
       this.drawBounds(shape.bounds)
     }
     return this
   }
 
-  drawPoint (shape) {
+  drawPoint(shape) {
     this.context.arc(shape.x, shape.y, utils.POINT_RENDER_SIZE, 0, utils.TWO_PI)
     return this
   }
 
-  drawLine (shape) {
+  drawLine(shape) {
     this.context.moveTo(shape.points[0].x, shape.points[0].y)
     this.context.lineTo(shape.points[1].x, shape.points[1].y)
     return this
   }
 
-  drawCircle (shape) {
+  drawCircle(shape) {
     this.context.arc(shape.cx, shape.cy, shape.radius, 0, utils.TWO_PI)
     return this
   }
 
-  drawEllipse (shape) {
-    this.context.ellipse(0, 0, shape.radiusX, shape.radiusY, 0, utils.TWO_PI, false)
+  drawEllipse(shape) {
+    this.context.ellipse(
+      0,
+      0,
+      shape.radiusX,
+      shape.radiusY,
+      0,
+      utils.TWO_PI,
+      false,
+    )
     return this
   }
 
-  drawTriangle (shape) {
+  drawTriangle(shape) {
     this.context.lineTo(shape.points[0].x, shape.points[0].y)
     this.context.lineTo(shape.points[1].x, shape.points[1].y)
     this.context.lineTo(shape.points[2].x, shape.points[2].y)
@@ -310,15 +345,20 @@ class Renderer {
     return this
   }
 
-  drawRectangle (shape) {
+  drawRectangle(shape) {
     if (shape.cornerRadius !== 0) {
       return this.drawRoundRectangle(shape)
     }
-    this.context.rect(shape.pointLT.x, shape.pointLT.y, shape.size.width, shape.size.height)
+    this.context.rect(
+      shape.pointLT.x,
+      shape.pointLT.y,
+      shape.size.width,
+      shape.size.height,
+    )
     return this
   }
 
-  drawRoundRectangle (shape) {
+  drawRoundRectangle(shape) {
     const x1 = shape.pointLT.x
     const x2 = shape.pointRB.x
     const y1 = shape.pointLT.y
@@ -335,7 +375,7 @@ class Renderer {
     this.context.arcTo(x1, y2, x1, y2 - r, r)
     this.context.closePath()
 
-    if ((shape.strokeStyle != null) && shape.dashStyle) {
+    if (shape.strokeStyle != null && shape.dashStyle) {
       if (typeof this.context.setLineDash === 'function') {
         this.context.setLineDash(shape.dashStyle)
       }
@@ -343,20 +383,20 @@ class Renderer {
     return this
   }
 
-  drawFan (shape) {
+  drawFan(shape) {
     this.context.arc(shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo)
     this.context.lineTo(shape.cx, shape.cy)
     this.context.closePath()
     return this
   }
 
-  drawBow (shape) {
+  drawBow(shape) {
     this.context.arc(shape.cx, shape.cy, shape.radius, shape.aFrom, shape.aTo)
     this.context.closePath()
     return this
   }
 
-  drawPolygon (shape) {
+  drawPolygon(shape) {
     for (let point of Array.from(shape.vertices)) {
       this.context.lineTo(point.x, point.y)
     }
@@ -364,14 +404,14 @@ class Renderer {
     return this
   }
 
-  drawPolyline (shape) {
+  drawPolyline(shape) {
     for (let point of Array.from(shape.vertices)) {
       this.context.lineTo(point.x, point.y)
     }
     return this
   }
 
-  drawSpline (shape) {
+  drawSpline(shape) {
     if (shape.strokeStyle != null) {
       const len = shape.vertices.length
       if (len === 2) {
@@ -379,7 +419,11 @@ class Renderer {
         this.context.lineTo(shape.vertices[1].x, shape.vertices[1].y)
       } else if (len > 2) {
         this.context.moveTo(shape.vertices[0].x, shape.vertices[0].y)
-        for (let i = 1, end = len - 1, asc = end >= 1; asc ? i <= end : i >= end; asc ? i++ : i--) {
+        for (
+          let i = 1, end = len - 1, asc = end >= 1;
+          asc ? i <= end : i >= end;
+          asc ? i++ : i--
+        ) {
           this.context.bezierCurveTo(
             shape.controlPointsBehind[i - 1].x,
             shape.controlPointsBehind[i - 1].y,
@@ -394,7 +438,7 @@ class Renderer {
     return this
   }
 
-  drawPointText (shape) {
+  drawPointText(shape) {
     const font = shape.font || Bu.config.font
 
     if (typeof font === 'string') {
@@ -413,23 +457,33 @@ class Renderer {
       const textWidth = font.measureTextWidth(shape.text)
       let xOffset = (() => {
         switch (shape.textAlign) {
-          case 'left': return 0
-          case 'center': return -textWidth / 2
-          case 'right': return -textWidth
+          case 'left':
+            return 0
+          case 'center':
+            return -textWidth / 2
+          case 'right':
+            return -textWidth
         }
       })()
       const yOffset = (() => {
         switch (shape.textBaseline) {
-          case 'top': return 0
-          case 'middle': return -font.height / 2
-          case 'bottom': return -font.height
+          case 'top':
+            return 0
+          case 'middle':
+            return -font.height / 2
+          case 'bottom':
+            return -font.height
         }
       })()
       for (let i = 0; i < shape.text.length; i++) {
         const char = shape.text[i]
         const charBitmap = font.getFrameImage(char)
         if (charBitmap != null) {
-          this.context.drawImage(charBitmap, shape.x + xOffset, shape.y + yOffset)
+          this.context.drawImage(
+            charBitmap,
+            shape.x + xOffset,
+            shape.y + yOffset,
+          )
           xOffset += charBitmap.width
         } else {
           xOffset += 10
@@ -439,7 +493,7 @@ class Renderer {
     return this
   }
 
-  drawImage (shape) {
+  drawImage(shape) {
     if (shape.ready) {
       const w = shape.size.width
       const h = shape.size.height
@@ -450,13 +504,18 @@ class Renderer {
     return this
   }
 
-  drawBounds (bounds) {
+  drawBounds(bounds) {
     this.context.beginPath()
     this.context.strokeStyle = Renderer.BOUNDS_STROKE_STYLE
     if (typeof this.context.setLineDash === 'function') {
       this.context.setLineDash(Renderer.BOUNDS_DASH_STYLE)
     }
-    this.context.rect(bounds.x1, bounds.y1, bounds.x2 - bounds.x1, bounds.y2 - bounds.y1)
+    this.context.rect(
+      bounds.x1,
+      bounds.y1,
+      bounds.x2 - bounds.x1,
+      bounds.y2 - bounds.y1,
+    )
     this.context.stroke()
     return this
   }

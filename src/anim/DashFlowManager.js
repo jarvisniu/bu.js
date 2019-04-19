@@ -1,11 +1,11 @@
 // Manage an Object2D list and update its dashOffset
 
 class DashFlowManager {
-  constructor () {
+  constructor() {
     this.flowingObjects = []
   }
 
-  setSpeed (target, speed) {
+  setSpeed(target, speed) {
     target.dashFlowSpeed = speed
     const i = this.flowingObjects.indexOf(target)
     if (speed !== 0) {
@@ -19,13 +19,14 @@ class DashFlowManager {
     }
   }
 
-  update () {
-    return Array.from(this.flowingObjects).map((o) =>
-      (o.dashOffset += o.dashFlowSpeed))
+  update() {
+    return Array.from(this.flowingObjects).map(
+      o => (o.dashOffset += o.dashFlowSpeed),
+    )
   }
 
   // Hook up on an renderer, remove own setInternal
-  hookUp (renderer) {
+  hookUp(renderer) {
     return renderer.on('update', () => this.update())
   }
 }

@@ -16,7 +16,7 @@ import Triangle from '../shapes/Triangle.js'
 const MARGIN = 30
 
 class ShapeRandomizer {
-  static initClass () {
+  static initClass() {
     this.prototype.rangeX = 0
     this.prototype.rangeY = 0
     this.prototype.rangeWidth = 800
@@ -25,19 +25,29 @@ class ShapeRandomizer {
     this.prototype.randomizeFan = this.prototype.randomizeBow
   }
 
-  randomX () {
-    return utils.rand(this.rangeX + MARGIN, (this.rangeX + this.rangeWidth) - (MARGIN * 2))
+  randomX() {
+    return utils.rand(
+      this.rangeX + MARGIN,
+      this.rangeX + this.rangeWidth - MARGIN * 2,
+    )
   }
 
-  randomY () {
-    return utils.rand(this.rangeY + MARGIN, (this.rangeY + this.rangeHeight) - (MARGIN * 2))
+  randomY() {
+    return utils.rand(
+      this.rangeY + MARGIN,
+      this.rangeY + this.rangeHeight - MARGIN * 2,
+    )
   }
 
-  randomRadius () {
-    return utils.rand(10, Math.min(this.rangeX + this.rangeWidth, this.rangeY + this.rangeHeight) / 2)
+  randomRadius() {
+    return utils.rand(
+      10,
+      Math.min(this.rangeX + this.rangeWidth, this.rangeY + this.rangeHeight) /
+        2,
+    )
   }
 
-  setRange (a, b, c, d) {
+  setRange(a, b, c, d) {
     if (c != null) {
       this.rangeX = a
       this.rangeY = b
@@ -50,88 +60,124 @@ class ShapeRandomizer {
     return this
   }
 
-  generate (type) {
+  generate(type) {
     switch (type) {
-      case 'circle': return this.generateCircle()
-      case 'bow': return this.generateBow()
-      case 'triangle': return this.generateTriangle()
-      case 'rectangle': return this.generateRectangle()
-      case 'fan': return this.generateFan()
-      case 'polygon': return this.generatePolygon()
-      case 'line': return this.generateLine()
-      case 'polyline': return this.generatePolyline()
+      case 'circle':
+        return this.generateCircle()
+      case 'bow':
+        return this.generateBow()
+      case 'triangle':
+        return this.generateTriangle()
+      case 'rectangle':
+        return this.generateRectangle()
+      case 'fan':
+        return this.generateFan()
+      case 'polygon':
+        return this.generatePolygon()
+      case 'line':
+        return this.generateLine()
+      case 'polyline':
+        return this.generatePolyline()
       default:
-        return console.warn(`not support shape: ${ type }`)
+        return console.warn(`not support shape: ${type}`)
     }
   }
 
-  randomize (shape) {
+  randomize(shape) {
     if (utils.isArray(shape)) {
       for (let s of Array.from(shape)) {
         this.randomize(s)
       }
     } else {
       switch (shape.type) {
-        case 'Circle': this.randomizeCircle(shape); break
-        case 'Ellipse': this.randomizeEllipse(shape); break
-        case 'Bow': this.randomizeBow(shape); break
-        case 'Triangle': this.randomizeTriangle(shape); break
-        case 'Rectangle': this.randomizeRectangle(shape); break
-        case 'Fan': this.randomizeFan(shape); break
-        case 'Polygon': this.randomizePolygon(shape); break
-        case 'Line': this.randomizeLine(shape); break
-        case 'Polyline': this.randomizePolyline(shape); break
+        case 'Circle':
+          this.randomizeCircle(shape)
+          break
+        case 'Ellipse':
+          this.randomizeEllipse(shape)
+          break
+        case 'Bow':
+          this.randomizeBow(shape)
+          break
+        case 'Triangle':
+          this.randomizeTriangle(shape)
+          break
+        case 'Rectangle':
+          this.randomizeRectangle(shape)
+          break
+        case 'Fan':
+          this.randomizeFan(shape)
+          break
+        case 'Polygon':
+          this.randomizePolygon(shape)
+          break
+        case 'Line':
+          this.randomizeLine(shape)
+          break
+        case 'Polyline':
+          this.randomizePolyline(shape)
+          break
         default:
-          console.warn(`not support shape: ${ shape.type }`)
+          console.warn(`not support shape: ${shape.type}`)
       }
     }
     return this
   }
 
-  randomizePosition (shape) {
+  randomizePosition(shape) {
     shape.position.x = this.randomX()
     shape.position.y = this.randomY()
     shape.trigger('changed')
     return this
   }
 
-  generateCircle () {
-    const circle = new Circle(this.randomRadius(), this.randomX(), this.randomY())
+  generateCircle() {
+    const circle = new Circle(
+      this.randomRadius(),
+      this.randomX(),
+      this.randomY(),
+    )
     circle.center.label = 'O'
     return circle
   }
 
-  randomizeCircle (circle) {
+  randomizeCircle(circle) {
     circle.cx = this.randomX()
     circle.cy = this.randomY()
     circle.radius = this.randomRadius()
     return this
   }
 
-  generateEllipse () {
+  generateEllipse() {
     const ellipse = new Ellipse(this.randomRadius(), this.randomRadius())
     this.randomizePosition(ellipse)
     return ellipse
   }
 
-  randomizeEllipse (ellipse) {
+  randomizeEllipse(ellipse) {
     ellipse.radiusX = this.randomRadius()
     ellipse.radiusY = this.randomRadius()
     this.randomizePosition(ellipse)
     return this
   }
 
-  generateBow () {
+  generateBow() {
     const aFrom = utils.rand(utils.TWO_PI)
     const aTo = aFrom + utils.rand(utils.HALF_PI, utils.TWO_PI)
 
-    const bow = new Bow(this.randomX(), this.randomY(), this.randomRadius(), aFrom, aTo)
+    const bow = new Bow(
+      this.randomX(),
+      this.randomY(),
+      this.randomRadius(),
+      aFrom,
+      aTo,
+    )
     bow.string.points[0].label = 'A'
     bow.string.points[1].label = 'B'
     return bow
   }
 
-  randomizeBow (bow) {
+  randomizeBow(bow) {
     const aFrom = utils.rand(utils.TWO_PI)
     const aTo = aFrom + utils.rand(utils.HALF_PI, utils.TWO_PI)
 
@@ -144,18 +190,24 @@ class ShapeRandomizer {
     return this
   }
 
-  generateFan () {
+  generateFan() {
     const aFrom = utils.rand(utils.TWO_PI)
     const aTo = aFrom + utils.rand(utils.HALF_PI, utils.TWO_PI)
 
-    const fan = new Fan(this.randomX(), this.randomY(), this.randomRadius(), aFrom, aTo)
+    const fan = new Fan(
+      this.randomX(),
+      this.randomY(),
+      this.randomRadius(),
+      aFrom,
+      aTo,
+    )
     fan.center.label = 'O'
     fan.string.points[0].label = 'A'
     fan.string.points[1].label = 'B'
     return fan
   }
 
-  generateTriangle () {
+  generateTriangle() {
     const points = []
     for (let i = 0; i <= 2; i++) {
       points[i] = new Point(this.randomX(), this.randomY())
@@ -168,7 +220,7 @@ class ShapeRandomizer {
     return triangle
   }
 
-  randomizeTriangle (triangle) {
+  randomizeTriangle(triangle) {
     for (let i = 0; i <= 2; i++) {
       triangle.points[i].set(this.randomX(), this.randomY())
     }
@@ -176,7 +228,7 @@ class ShapeRandomizer {
     return this
   }
 
-  generateRectangle () {
+  generateRectangle() {
     const rect = new Rectangle(
       utils.rand(this.rangeX + this.rangeWidth),
       utils.rand(this.rangeY + this.rangeHeight),
@@ -190,25 +242,30 @@ class ShapeRandomizer {
     return rect
   }
 
-  randomizeRectangle (rectangle) {
-    rectangle.set(this.randomX(), this.randomY(), this.randomRadius(), this.randomRadius())
+  randomizeRectangle(rectangle) {
+    rectangle.set(
+      this.randomX(),
+      this.randomY(),
+      this.randomRadius(),
+      this.randomRadius(),
+    )
     rectangle.trigger('changed')
     return this
   }
 
-  generatePolygon () {
+  generatePolygon() {
     const points = []
 
     for (let i = 0; i <= 3; i++) {
       const point = new Point(this.randomX(), this.randomY())
-      point.label = `P${ i }`
+      point.label = `P${i}`
       points.push(point)
     }
 
     return new Polygon(points)
   }
 
-  randomizePolygon (polygon) {
+  randomizePolygon(polygon) {
     for (let vertex of Array.from(polygon.vertices)) {
       vertex.set(this.randomX(), this.randomY())
     }
@@ -216,14 +273,19 @@ class ShapeRandomizer {
     return this
   }
 
-  generateLine () {
-    const line = new Line(this.randomX(), this.randomY(), this.randomX(), this.randomY())
+  generateLine() {
+    const line = new Line(
+      this.randomX(),
+      this.randomY(),
+      this.randomX(),
+      this.randomY(),
+    )
     line.points[0].label = 'A'
     line.points[1].label = 'B'
     return line
   }
 
-  randomizeLine (line) {
+  randomizeLine(line) {
     for (let point of Array.from(line.points)) {
       point.set(this.randomX(), this.randomY())
     }
@@ -231,17 +293,17 @@ class ShapeRandomizer {
     return this
   }
 
-  generatePolyline () {
+  generatePolyline() {
     const polyline = new Polyline()
     for (let i = 0; i <= 3; i++) {
       const point = new Point(this.randomX(), this.randomY())
-      point.label = `P${ i }`
+      point.label = `P${i}`
       polyline.addPoint(point)
     }
     return polyline
   }
 
-  randomizePolyline (polyline) {
+  randomizePolyline(polyline) {
     for (let vertex of Array.from(polyline.vertices)) {
       vertex.set(this.randomX(), this.randomY())
     }

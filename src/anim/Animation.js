@@ -8,7 +8,7 @@ import utils from '../utils.js'
 import AnimationTask from './AnimationTask.js'
 
 class Animation {
-  constructor (options) {
+  constructor(options) {
     this.from = options.from
     this.to = options.to
     this.duration = options.duration || 0.5
@@ -19,15 +19,15 @@ class Animation {
     this.finish = options.finish
   }
 
-  applyTo (target, args) {
+  applyTo(target, args) {
     if (!utils.isArray(args)) args = [args]
     let task = new AnimationTask(this, target, args)
     Bu.animationRunner.add(task)
     return task
   }
 
-  isLegal () {
-    if ((this.from == null) || (this.to == null)) {
+  isLegal() {
+    if (this.from == null || this.to == null) {
       return true
     }
 

@@ -25,7 +25,7 @@ const MOUSE = {
 }
 
 // Calculate the mean value of numbers
-function average () {
+function average() {
   let ns = arguments
   if (typeof ns[0] === 'object') ns = ns[0]
 
@@ -37,12 +37,12 @@ function average () {
 }
 
 // Calculate the hypotenuse from the cathetuses
-function bevel (x, y) {
+function bevel(x, y) {
   return Math.sqrt(x * x + y * y)
 }
 
 // Limit a number by minimum value and maximum value
-function clamp (x, min, max) {
+function clamp(x, min, max) {
   if (x < min) {
     x = min
   }
@@ -53,30 +53,30 @@ function clamp (x, min, max) {
 }
 
 // Generate a random number between two numbers
-function rand (from, to) {
+function rand(from, to) {
   if (!to) {
-    [from, to] = [0, from]
+    ;[from, to] = [0, from]
   }
   return Math.random() * (to - from) + from
 }
 
 // Convert an angle from radian to deg
-function r2d (r) {
-  return (r * 180 / Math.PI).toFixed(1)
+function r2d(r) {
+  return ((r * 180) / Math.PI).toFixed(1)
 }
 
 // Convert an angle from deg to radian
-function d2r (r) {
-  return r * Math.PI / 180
+function d2r(r) {
+  return (r * Math.PI) / 180
 }
 
 // Get the current timestamp
-function now () {
+function now() {
   return window.performance.now()
 }
 
 // Combine the given options (last item of arguments) with the default options
-function combineOptions (args, defaultOptions) {
+function combineOptions(args, defaultOptions) {
   if (!defaultOptions) defaultOptions = {}
   let givenOptions = args[args.length - 1]
   if (isPlainObject(givenOptions)) {
@@ -88,18 +88,22 @@ function combineOptions (args, defaultOptions) {
 }
 
 // Check if an object is an plain object, not instance of class/function
-function isPlainObject (o) {
+function isPlainObject(o) {
   return o instanceof Object && o.constructor.name === 'Object'
 }
 
 // Check if an object is a Array
-function isArray (o) {
+function isArray(o) {
   return o instanceof Array
 }
 
 // Clone an Object or Array
-function clone (target) {
-  if (typeof target !== 'object' || target === null || typeof target === 'function') {
+function clone(target) {
+  if (
+    typeof target !== 'object' ||
+    target === null ||
+    typeof target === 'function'
+  ) {
     return target
   } else {
     if (target.clone) {
@@ -123,11 +127,11 @@ function clone (target) {
 }
 
 // Make a copy of this function which has a limited shortest executing interval.
-function throttle (fn, limit = 0.5) {
+function throttle(fn, limit = 0.5) {
   let currTime = 0
   let lastTime = 0
 
-  return function () {
+  return function() {
     currTime = Date.now()
     if (currTime - lastTime > limit * 1000) {
       fn.apply(null, arguments)
@@ -138,7 +142,7 @@ function throttle (fn, limit = 0.5) {
 
 // Make a copy of this function whose execution will be continuously put off
 // after every calling of this function.
-function debounce (fn, delay = 0.5) {
+function debounce(fn, delay = 0.5) {
   let args = null
   let timeout = null
 
@@ -146,7 +150,7 @@ function debounce (fn, delay = 0.5) {
     fn.apply(null, args)
   }
 
-  return function () {
+  return function() {
     args = arguments
     clearTimeout(timeout)
     timeout = setTimeout(later, delay * 1000)
@@ -155,7 +159,7 @@ function debounce (fn, delay = 0.5) {
 
 // Use localStorage to persist data
 // TODO rename to store
-function data (key, value) {
+function data(key, value) {
   if (value) {
     window.localStorage['Bu.' + key] = JSON.stringify(value)
   } else {

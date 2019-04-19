@@ -8,7 +8,7 @@ import Point from '../shapes/Point.js'
 import Triangle from '../shapes/Triangle.js'
 
 class Polygon extends Object2D {
-  static initClass () {
+  static initClass() {
     this.prototype.type = 'Polygon'
     this.prototype.fillable = true
   }
@@ -19,7 +19,7 @@ class Polygon extends Object2D {
     2. Polygon(x, y, radius, n, options): to generate regular polygon
       options: angle - start angle of regular polygon
   */
-  constructor (points) {
+  constructor(points) {
     super()
 
     this.vertices = []
@@ -60,11 +60,11 @@ class Polygon extends Object2D {
     this.keyPoints = this.vertices
   }
 
-  clone () {
+  clone() {
     return new Polygon(this.vertices)
   }
 
-  onVerticesChanged () {
+  onVerticesChanged() {
     this.lines = []
     this.triangles = []
     // init lines
@@ -72,20 +72,28 @@ class Polygon extends Object2D {
       for (let i = 0; i < this.vertices.length - 1; i++) {
         this.lines.push(new Line(this.vertices[i], this.vertices[i + 1]))
       }
-      this.lines.push(new Line(this.vertices[this.vertices.length - 1], this.vertices[0]))
+      this.lines.push(
+        new Line(this.vertices[this.vertices.length - 1], this.vertices[0]),
+      )
     }
 
     // init triangles
     if (this.vertices.length > 2) {
       for (let i = 1; i < this.vertices.length - 1; i++) {
-        this.triangles.push(new Triangle(this.vertices[0], this.vertices[i], this.vertices[i + 1]))
+        this.triangles.push(
+          new Triangle(
+            this.vertices[0],
+            this.vertices[i],
+            this.vertices[i + 1],
+          ),
+        )
       }
     }
   }
 
   // detect
 
-  isSimple () {
+  isSimple() {
     const len = this.lines.length
     for (let i = 0; i < len; i++) {
       for (let j = i + 1; i < len; i++) {
@@ -99,8 +107,8 @@ class Polygon extends Object2D {
 
   // edit
 
-  addPoint (point, insertIndex) {
-    if ((insertIndex == null)) {
+  addPoint(point, insertIndex) {
+    if (insertIndex == null) {
       // add point
       this.vertices.push(point)
 
@@ -109,16 +117,20 @@ class Polygon extends Object2D {
         this.lines[this.lines.length - 1].points[1] = point
       }
       if (this.vertices.length > 0) {
-        this.lines.push(new Line(this.vertices[this.vertices.length - 1], this.vertices[0]))
+        this.lines.push(
+          new Line(this.vertices[this.vertices.length - 1], this.vertices[0]),
+        )
       }
 
       // add triangle
       if (this.vertices.length > 2) {
-        return this.triangles.push(new Triangle(
-          this.vertices[0],
-          this.vertices[this.vertices.length - 2],
-          this.vertices[this.vertices.length - 1],
-        ))
+        return this.triangles.push(
+          new Triangle(
+            this.vertices[0],
+            this.vertices[this.vertices.length - 2],
+            this.vertices[this.vertices.length - 1],
+          ),
+        )
       }
     } else {
       return this.vertices.splice(insertIndex, 0, point)
@@ -126,15 +138,15 @@ class Polygon extends Object2D {
   }
   // TODO add lines and triangles
 
-  static generateRegularPoints (cx, cy, radius, n, options) {
+  static generateRegularPoints(cx, cy, radius, n, options) {
     let angleDelta = options.angle
     let r = radius
     let points = []
     let angleSection = utils.TWO_PI / n
     for (let i = 0; i < n; i++) {
-      let a = (i * angleSection) + angleDelta
-      let x = cx + (r * Math.cos(a))
-      let y = cy + (r * Math.sin(a))
+      let a = i * angleSection + angleDelta
+      let x = cx + r * Math.cos(a)
+      let y = cy + r * Math.sin(a)
       points[i] = new Point(x, y)
     }
     return points

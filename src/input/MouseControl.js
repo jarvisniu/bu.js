@@ -8,7 +8,7 @@ import Vector from '../math/Vector.js'
 import Animation from '../anim/Animation.js'
 
 class MouseControl {
-  constructor (renderer) {
+  constructor(renderer) {
     this.onMouseMove = this.onMouseMove.bind(this)
     this.onMouseWheel = this.onMouseWheel.bind(this)
     this.renderer = renderer
@@ -23,7 +23,7 @@ class MouseControl {
     this.renderer.dom.addEventListener('mousewheel', this.onMouseWheel)
   }
 
-  onMouseMove (ev) {
+  onMouseMove(ev) {
     if (ev.buttons === utils.MOUSE.LEFT) {
       const scale = this.camera.scale.x
       const dx = -ev.movementX * scale
@@ -33,8 +33,10 @@ class MouseControl {
     }
   }
 
-  onMouseWheel (ev) {
-    const [x, y] = Array.from(this.renderer.projectToWorld(ev.offsetX, ev.offsetY))
+  onMouseWheel(ev) {
+    const [x, y] = Array.from(
+      this.renderer.projectToWorld(ev.offsetX, ev.offsetY),
+    )
     const deltaScaleStep = Math.pow(1.25, -ev.wheelDelta / 120)
     this.desScale.multiplyScalar(deltaScaleStep)
     const deltaScaleAll = this.desScale.x / this.camera.scale.x
@@ -48,7 +50,10 @@ class MouseControl {
       this.zoomScaleAnim.restart()
 
       this.zoomTransAnim.from.copy(this.camera.position)
-      this.zoomTransAnim.to.set(this.camera.position.x + dx, this.camera.position.y + dy)
+      this.zoomTransAnim.to.set(
+        this.camera.position.x + dx,
+        this.camera.position.y + dy,
+      )
       return this.zoomTransAnim.restart()
     } else {
       this.camera.translate(dx, dy)
@@ -59,24 +64,24 @@ class MouseControl {
 
 let scaleAnimation = new Animation({
   duration: 0.2,
-  init (anim) {
+  init(anim) {
     if (anim.arg == null) anim.arg = 1
     anim.from = this.scale.clone()
     anim.to = this.scale.clone().multiplyScalar(parseFloat(anim.arg))
   },
-  update (anim) {
+  update(anim) {
     this.scale = anim.current
   },
 })
 
 let translateAnimation = new Animation({
   duration: 0.2,
-  init (anim) {
+  init(anim) {
     if (anim.arg == null) anim.arg = new Vector()
     anim.from = this.position.clone()
     anim.to = this.position.clone().add(anim.arg)
   },
-  update (anim) {
+  update(anim) {
     this.position.copy(anim.current)
   },
 })

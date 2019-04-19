@@ -10,7 +10,7 @@ import Styled from './Styled.js'
 import Event from './Event.js'
 
 class Object2D {
-  constructor () {
+  constructor() {
     Styled.apply(this)
     Event.apply(this)
 
@@ -33,23 +33,23 @@ class Object2D {
   }
 
   // Translate an object
-  translate (dx, dy) {
+  translate(dx, dy) {
     this.position.x += dx
     this.position.y += dy
     return this
   }
 
   // Rotate an object
-  rotate (da) {
+  rotate(da) {
     this.rotation += da
     return this
   }
 
   // Scale an object
-  get scale () {
+  get scale() {
     return this._scale
   }
-  set scale (val) {
+  set scale(val) {
     if (typeof val === 'number') {
       this._scale.x = this._scale.y = val
       return this
@@ -60,22 +60,23 @@ class Object2D {
   }
 
   // Scale an object by
-  scaleBy (ds) {
+  scaleBy(ds) {
     this.scale *= ds
     return this
   }
 
   // Scale an object to
-  scaleTo (s) {
+  scaleTo(s) {
     this.scale = s
     return this
   }
 
   // Get the root node of the scene tree
-  getScene () {
+  getScene() {
     let node = this
     while (true) {
-      if (node.type === 'Scene') { // TODO circular reference
+      if (node.type === 'Scene') {
+        // TODO circular reference
         break
       }
       node = node.parent
@@ -84,7 +85,7 @@ class Object2D {
   }
 
   // Add object(s) to children
-  addChild (shape) {
+  addChild(shape) {
     if (utils.isArray(shape)) {
       for (let s of shape) {
         this.children.push(s)
@@ -98,7 +99,7 @@ class Object2D {
   }
 
   // Remove object from children
-  removeChild (shape) {
+  removeChild(shape) {
     let index = this.children.indexOf(shape)
     if (index > -1) this.children.splice(index, 1)
     return this
@@ -109,13 +110,13 @@ class Object2D {
   //     1. Preset animations: the animation name(string type), ie. key in `Bu.animations`
   //     2. Custom animations: the animation object of `Animation` type
   //     3. Multiple animations: An array whose children are above two types
-  animate (anim, args) {
+  animate(anim, args) {
     if (!utils.isArray(args)) args = [args]
     if (typeof anim === 'string') {
       if (anim in Bu.animations) {
         Bu.animations[anim].applyTo(this, args)
       } else {
-        console.warn(`Bu.animations["${ anim }"] doesn't exists.`)
+        console.warn(`Bu.animations["${anim}"] doesn't exists.`)
       }
     } else if (utils.isArray(anim)) {
       for (let i in anim) {
@@ -129,13 +130,13 @@ class Object2D {
   }
 
   // Create Bounds for this object
-  createBounds () {
+  createBounds() {
     this.bounds = new Bounds(this)
     return this
   }
 
   // Hit testing with unprojections
-  hitTest (v) {
+  hitTest(v) {
     let renderer = this.getScene().renderer
     v.set(...renderer.projectToWorld(v.x, v.y))
     v.project(renderer.camera)
@@ -144,7 +145,7 @@ class Object2D {
   }
 
   // Hit testing in the same coordinate
-  containsPoint (p) {
+  containsPoint(p) {
     if (this.bounds && !this.bounds.containsPoint(p)) {
       return false
     } else if (this._containsPoint) {

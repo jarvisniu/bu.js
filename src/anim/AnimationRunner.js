@@ -5,65 +5,68 @@ import utils from '../utils.js'
 let DEFAULT_EASING_FUNCTION = 'quad'
 
 let easingFunctions = {
-  quadIn (t) {
+  quadIn(t) {
     return t * t
   },
-  quadOut (t) {
+  quadOut(t) {
     return t * (2 - t)
   },
-  quad (t) {
+  quad(t) {
     if (t < 0.5) {
       return 2 * t * t
     } else {
-      return ((-2 * t * t) + (4 * t)) - 1
+      return -2 * t * t + 4 * t - 1
     }
   },
 
-  cubicIn (t) {
+  cubicIn(t) {
     return Math.pow(t, 3)
   },
-  cubicOut (t) {
-    return Math.pow((t - 1), 3) + 1
+  cubicOut(t) {
+    return Math.pow(t - 1, 3) + 1
   },
-  cubic (t) {
+  cubic(t) {
     if (t < 0.5) {
       return 4 * Math.pow(t, 3)
     } else {
-      return (4 * Math.pow((t - 1), 3)) + 1
+      return 4 * Math.pow(t - 1, 3) + 1
     }
   },
 
-  sineIn (t) {
+  sineIn(t) {
     return Math.sin((t - 1) * utils.HALF_PI) + 1
   },
-  sineOut (t) {
+  sineOut(t) {
     return Math.sin(t * utils.HALF_PI)
   },
-  sine (t) {
+  sine(t) {
     if (t < 0.5) {
-      return (Math.sin(((t * 2) - 1) * utils.HALF_PI) + 1) / 2
+      return (Math.sin((t * 2 - 1) * utils.HALF_PI) + 1) / 2
     } else {
-      return (Math.sin((t - 0.5) * Math.PI) / 2) + 0.5
+      return Math.sin((t - 0.5) * Math.PI) / 2 + 0.5
     }
   },
 }
 
 class AnimationRunner {
-  constructor () {
+  constructor() {
     this.runningAnimations = []
   }
 
-  add (task) {
+  add(task) {
     task.init()
     if (task.animation.isLegal()) {
       task.startTime = utils.now()
       return this.runningAnimations.push(task)
     } else {
-      return console.error('AnimationRunner: animation setting is illegal: ', task.animation)
+      return console.error(
+        'AnimationRunner: animation setting is illegal: ',
+        task.animation,
+      )
     }
   }
 
-  update () {
+  update() {
     const now = utils.now()
     for (let task of Array.from(this.runningAnimations)) {
       var finish
@@ -100,7 +103,7 @@ class AnimationRunner {
   }
 
   // Hook up on an renderer, remove own setInternal
-  hookUp (renderer) {
+  hookUp(renderer) {
     return renderer.on('update', () => this.update())
   }
 }

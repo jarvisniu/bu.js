@@ -4,7 +4,7 @@ import Event from '../base/Event.js'
 
 let canvas = document.createElement('canvas')
 let context = canvas.getContext('2d')
-let clipImage = function (image, x, y, w, h) {
+let clipImage = function(image, x, y, w, h) {
   canvas.width = w
   canvas.height = h
   context.drawImage(image, x, y, w, h, 0, 0, w, h)
@@ -15,7 +15,7 @@ let clipImage = function (image, x, y, w, h) {
 }
 
 class SpriteSheet {
-  constructor (url) {
+  constructor(url) {
     this.url = url
     Event.apply(this)
 
@@ -27,36 +27,40 @@ class SpriteSheet {
     this.frameImages = [] // Parsed frame images
 
     // load and trigger parseData()
-    ajax(this.url, { success: text => {
-      this.data = JSON.parse(text)
+    ajax(this.url, {
+      success: text => {
+        this.data = JSON.parse(text)
 
-      if ((this.data.images == null)) {
-        this.data.images = [this.url.substring(this.url.lastIndexOf('/'), this.url.length - 5) + '.png']
-      }
-
-      const baseUrl = this.url.substring(0, this.url.lastIndexOf('/') + 1)
-      return (() => {
-        const result = []
-        for (let i of Object.keys(this.data.images || {})) {
-          this.data.images[i] = baseUrl + this.data.images[i]
-
-          var countLoaded = 0
-          this.images[i] = new window.Image()
-          this.images[i].onload = () => {
-            countLoaded += 1
-            if (countLoaded === this.data.images.length) {
-              return this.parseData()
-            }
-          }
-          result.push(this.images[i].src = this.data.images[i])
+        if (this.data.images == null) {
+          this.data.images = [
+            this.url.substring(this.url.lastIndexOf('/'), this.url.length - 5) +
+              '.png',
+          ]
         }
-        return result
-      })()
-    },
+
+        const baseUrl = this.url.substring(0, this.url.lastIndexOf('/') + 1)
+        return (() => {
+          const result = []
+          for (let i of Object.keys(this.data.images || {})) {
+            this.data.images[i] = baseUrl + this.data.images[i]
+
+            var countLoaded = 0
+            this.images[i] = new window.Image()
+            this.images[i].onload = () => {
+              countLoaded += 1
+              if (countLoaded === this.data.images.length) {
+                return this.parseData()
+              }
+            }
+            result.push((this.images[i].src = this.data.images[i]))
+          }
+          return result
+        })()
+      },
     })
   }
 
-  parseData () {
+  parseData() {
     // Clip the image for every frames
     const { frames } = this.data
     for (let i = 0; i < frames.length; i++) {
@@ -80,7 +84,7 @@ class SpriteSheet {
     return this.trigger('loaded')
   }
 
-  getFrameImage (key, index) {
+  getFrameImage(key, index) {
     if (index == null) {
       index = 0
     }
@@ -95,7 +99,7 @@ class SpriteSheet {
     return this.frameImages[animation.frames[index]]
   }
 
-  measureTextWidth (text) {
+  measureTextWidth(text) {
     let width = 0
     for (let char of Array.from(text)) {
       width += this.getFrameImage(char).width
@@ -115,11 +119,11 @@ class SpriteSheet {
 //    success: function
 //    error: function
 // ----------------------------------------------------------------------
-const ajax = function (url, ops) {
+const ajax = function(url, ops) {
   if (!ops) {
     if (typeof url === 'object') {
-      ops = url;
-      ({ url } = ops)
+      ops = url
+      ;({ url } = ops)
     } else {
       ops = {}
     }
@@ -132,7 +136,7 @@ const ajax = function (url, ops) {
   }
 
   const xhr = new window.XMLHttpRequest()
-  xhr.onreadystatechange = function () {
+  xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
         if (ops.success != null) {

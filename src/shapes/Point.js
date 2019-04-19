@@ -6,7 +6,7 @@ import Object2D from '../base/Object2D.js'
 import PointText from '../drawable/PointText.js'
 
 class Point extends Object2D {
-  constructor (x = 0, y = 0) {
+  constructor(x = 0, y = 0) {
     super()
 
     this.x = x
@@ -16,14 +16,14 @@ class Point extends Object2D {
     this._labelIndex = -1
   }
 
-  get label () {
+  get label() {
     if (this._labelIndex > -1) {
       return this.children[this._labelIndex].text
     } else {
       return ''
     }
   }
-  set label (val) {
+  set label(val) {
     if (this._labelIndex === -1) {
       const pointText = new PointText(
         val,
@@ -38,19 +38,19 @@ class Point extends Object2D {
     }
   }
 
-  clone () {
+  clone() {
     return new Point(this.x, this.y)
   }
 
-  arcTo (radius, arc) {
+  arcTo(radius, arc) {
     return new Point(
-      this.x + (Math.cos(arc) * radius),
-      this.y + (Math.sin(arc) * radius),
+      this.x + Math.cos(arc) * radius,
+      this.y + Math.sin(arc) * radius,
     )
   }
 
   // copy value from other line
-  copy (point) {
+  copy(point) {
     this.x = point.x
     this.y = point.y
     this.updateLabel()
@@ -58,7 +58,7 @@ class Point extends Object2D {
   }
 
   // set value from x, y
-  set (x, y) {
+  set(x, y) {
     this.x = x
     this.y = y
     this.updateLabel()
@@ -66,13 +66,13 @@ class Point extends Object2D {
   }
 
   // set label text
-  setLabel (text) {
+  setLabel(text) {
     this.label = text
     this.updateLabel()
     return this
   }
 
-  updateLabel () {
+  updateLabel() {
     if (this._labelIndex > -1) {
       this.children[this._labelIndex].x = this.x + utils.POINT_LABEL_OFFSET
       this.children[this._labelIndex].y = this.y

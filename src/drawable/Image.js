@@ -6,7 +6,7 @@ import Vector from '../math/Vector.js'
 import Object2D from '../base/Object2D.js'
 
 class Image extends Object2D {
-  constructor (url, x = 0, y = 0, width, height) {
+  constructor(url, x = 0, y = 0, width, height) {
     super()
 
     this.url = url
@@ -15,7 +15,7 @@ class Image extends Object2D {
     this.autoSize = true
     this.size = new Size()
     this.position = new Vector(x, y)
-    this.center = new Vector(x + (width / 2), y + (height / 2))
+    this.center = new Vector(x + width / 2, y + height / 2)
     if (width != null) {
       this.size.set(width, height)
       this.autoSize = false
@@ -38,10 +38,10 @@ class Image extends Object2D {
     }
   }
 
-  get image () {
+  get image() {
     return this._image
   }
-  set image (val) {
+  set image(val) {
     this._image = val
     this.ready = true
   }

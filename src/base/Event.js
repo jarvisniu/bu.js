@@ -1,6 +1,6 @@
 // Add event listener feature to custom objects
 
-let Event = function () {
+let Event = function() {
   let types = {}
 
   this.on = (type, listener) => {

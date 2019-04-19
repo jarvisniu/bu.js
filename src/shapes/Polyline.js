@@ -6,12 +6,12 @@ import Line from '../shapes/Line.js'
 import Point from '../shapes/Point.js'
 
 class Polyline extends Object2D {
-  static initClass () {
+  static initClass() {
     this.prototype.type = 'Polyline'
     this.prototype.fillable = false
   }
 
-  constructor (vertices = []) {
+  constructor(vertices = []) {
     super()
 
     this.vertices = vertices
@@ -19,7 +19,7 @@ class Polyline extends Object2D {
     if (arguments.length > 1) {
       vertices = []
       for (let i = 0; i < arguments.length / 2; i++) {
-        vertices.push(new Point(arguments[i * 2], arguments[(i * 2) + 1]))
+        vertices.push(new Point(arguments[i * 2], arguments[i * 2 + 1]))
       }
       this.vertices = vertices
     }
@@ -43,7 +43,7 @@ class Polyline extends Object2D {
     this.trigger('changed')
   }
 
-  clone () {
+  clone() {
     const polyline = new Polyline(this.vertices)
     polyline.strokeStyle = this.strokeStyle
     polyline.fillStyle = this.fillStyle
@@ -53,8 +53,12 @@ class Polyline extends Object2D {
     return polyline
   }
 
-  updateLines () {
-    for (let i = 0, end = this.vertices.length - 1, asc = end >= 0; asc ? i < end : i > end; asc ? i++ : i--) {
+  updateLines() {
+    for (
+      let i = 0, end = this.vertices.length - 1, asc = end >= 0;
+      asc ? i < end : i > end;
+      asc ? i++ : i--
+    ) {
       if (this.lines[i] != null) {
         this.lines[i].set(this.vertices[i], this.vertices[i + 1])
       } else {
@@ -65,7 +69,7 @@ class Polyline extends Object2D {
     return this
   }
 
-  set (points) {
+  set(points) {
     // points
     for (let i = 0; i < this.vertices.length; i++) {
       this.vertices[i].copy(points[i])
@@ -80,16 +84,18 @@ class Polyline extends Object2D {
     return this
   }
 
-  addPoint (point, insertIndex) {
-    if ((insertIndex == null)) {
+  addPoint(point, insertIndex) {
+    if (insertIndex == null) {
       // add point
       this.vertices.push(point)
       // add line
       if (this.vertices.length > 1) {
-        this.lines.push(new Line(
-          this.vertices[this.vertices.length - 2],
-          this.vertices[this.vertices.length - 1],
-        ))
+        this.lines.push(
+          new Line(
+            this.vertices[this.vertices.length - 2],
+            this.vertices[this.vertices.length - 1],
+          ),
+        )
       }
     } else {
       this.vertices.splice(insertIndex, 0, point)

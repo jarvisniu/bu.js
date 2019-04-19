@@ -1,23 +1,12 @@
 root: true
-extends:
-- standard
 globals:
   alert: true
   Bu: true
   AStar: true
+parser: babel-eslint
+extends:
+- plugin:prettier/recommended
 plugins:
-- html
+- prettier
 rules:
-  no-extend-native: off
-  no-new: off
-  brace-style: [error, 1tbs, { allowSingleLine: false }]
-  comma-dangle: [error, {
-    arrays: always-multiline,
-    objects: always-multiline,
-    imports: always-multiline,
-    exports: always-multiline,
-    functions: always-multiline,
-  }]
-  object-curly-spacing: [error, always]
-  template-curly-spacing: [error, always]
-  no-multi-spaces: [error, { ignoreEOLComments: true }]
+  prettier/prettier: error

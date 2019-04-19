@@ -3,7 +3,7 @@
 import Object2D from '../base/Object2D.js'
 
 class Scene extends Object2D {
-  constructor () {
+  constructor() {
     super()
     this.type = 'Scene'
     this.background = Bu.config.background

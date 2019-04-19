@@ -163,9 +163,9 @@ const CSS3_COLORS = {
   yellowgreen: [154, 205, 50],
 }
 
-function hsl2rgb (h, s, l) {
-  let nh = h % 360 / 360
-  let q = l < 0.5 ? l * (1 + s) : l + s - (l * s)
+function hsl2rgb(h, s, l) {
+  let nh = (h % 360) / 360
+  let q = l < 0.5 ? l * (1 + s) : l + s - l * s
   let p = 2 * l - q
   let t = [nh + 1 / 3, nh, nh - 1 / 3]
   let rgb = []
@@ -225,12 +225,12 @@ function hsl2rgb (h, s, l) {
 //   return [h, s, l]
 // }
 
-function clampAlpha (a) {
+function clampAlpha(a) {
   return utils.clamp(a, 0, 1)
 }
 
 class Color {
-  constructor () {
+  constructor() {
     this.r = this.g = this.b = 255
     this.a = 1
 
@@ -251,7 +251,7 @@ class Color {
     }
   }
 
-  parse (str) {
+  parse(str) {
     let found = str.match(RE_RGB)
     if (found) {
       this.r = +found[1]
@@ -298,18 +298,18 @@ class Color {
 
     found = str.match(RE_RGBA_PER)
     if (found) {
-      this.r = +found[1] * 255 / 100
-      this.g = +found[2] * 255 / 100
-      this.b = +found[3] * 255 / 100
+      this.r = (+found[1] * 255) / 100
+      this.g = (+found[2] * 255) / 100
+      this.b = (+found[3] * 255) / 100
       this.a = +found[4]
       return this
     }
 
     found = str.match(RE_RGB_PER)
     if (found) {
-      this.r = +found[1] * 255 / 100
-      this.g = +found[2] * 255 / 100
-      this.b = +found[3] * 255 / 100
+      this.r = (+found[1] * 255) / 100
+      this.g = (+found[2] * 255) / 100
+      this.b = (+found[3] * 255) / 100
       this.a = 1
       return this
     }
@@ -349,17 +349,17 @@ class Color {
       return this
     }
 
-    console.error(`Color.parse("${ str }") error.`)
+    console.error(`Color.parse("${str}") error.`)
     return this
   }
 
-  clone () {
+  clone() {
     let color = new Color()
     color.copy(this)
     return color
   }
 
-  copy (color) {
+  copy(color) {
     this.r = color.r
     this.g = color.g
     this.b = color.b
@@ -367,7 +367,7 @@ class Color {
     return this
   }
 
-  setRGB (r, g, b) {
+  setRGB(r, g, b) {
     this.r = parseInt(r)
     this.g = parseInt(g)
     this.b = parseInt(b)
@@ -375,7 +375,7 @@ class Color {
     return this
   }
 
-  setRGBA (r, g, b, a) {
+  setRGBA(r, g, b, a) {
     this.r = parseInt(r)
     this.g = parseInt(g)
     this.b = parseInt(b)
@@ -383,12 +383,12 @@ class Color {
     return this
   }
 
-  toRGB () {
-    return `rgb(${ this.r }, ${ this.g }, ${ this.b })`
+  toRGB() {
+    return `rgb(${this.r}, ${this.g}, ${this.b})`
   }
 
-  toRGBA () {
-    return `rgba(${ this.r }, ${ this.g }, ${ this.b }, ${ this.a })`
+  toRGBA() {
+    return `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a})`
   }
 }
 

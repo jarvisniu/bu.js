@@ -17,7 +17,7 @@ import Scene from '../core/Scene.js'
 import InputManager from '../input/InputManager.js'
 
 // Execute a callback function when the document is ready
-function ready (cb, context, args) {
+function ready(cb, context, args) {
   if (document.readyState === 'complete') {
     cb.apply(context, args)
   } else {
@@ -28,7 +28,7 @@ function ready (cb, context, args) {
 }
 
 class Bu {
-  constructor ($options = {}) {
+  constructor($options = {}) {
     this.$options = $options
     for (let k of ['renderer', 'data', 'objects', 'methods', 'events']) {
       this.$options[k] = this.$options[k] || {}
@@ -41,7 +41,7 @@ class Bu {
     Bu.$bues.push(this)
   }
 
-  init () {
+  init() {
     // scene
     let scene = new Scene()
 
@@ -64,7 +64,10 @@ class Bu {
     }
 
     // objects
-    let objects = typeof this.$options.objects === 'function' ? this.$options.objects.apply(this) : this.$options.objects
+    let objects =
+      typeof this.$options.objects === 'function'
+        ? this.$options.objects.apply(this)
+        : this.$options.objects
     for (let name in objects) {
       this[name] = objects[name]
     }

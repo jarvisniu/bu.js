@@ -1,7 +1,7 @@
 // Audio
 
 class Audio {
-  constructor (url) {
+  constructor(url) {
     this.audio = document.createElement('audio')
     this.url = ''
     this.ready = false
@@ -9,7 +9,7 @@ class Audio {
     if (url) this.load(url)
   }
 
-  load (url) {
+  load(url) {
     this.url = url
     this.audio.addEventListener('canplay', () => {
       this.ready = true
@@ -17,11 +17,11 @@ class Audio {
     this.audio.src = url
   }
 
-  play () {
+  play() {
     if (this.ready) {
       this.audio.play()
     } else {
-      console.warn(`The audio file [${ this.url }] is not ready.`)
+      console.warn(`The audio file [${this.url}] is not ready.`)
     }
   }
 }
