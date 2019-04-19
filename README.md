@@ -1,16 +1,14 @@
-bu.js
-=====
+# bu.js
 
-A JavaScript 2D graphics library based on HTML5 Canvas
+A HTML5 Canvas graphics library
 
-[![](logo.png)](http://jarvisniu.com/bu.js/examples/)
+[![Bu.js Logo](logo.png)](http://jarvisniu.com/bu.js/examples/)
 
 [Demos](http://jarvisniu.com/bu.js/examples/) -
 [Guides](https://github.com/jarvisniu/bu.js/wiki/Guides) -
 [API](https://github.com/jarvisniu/bu.js/wiki/API) -
 [ChangeLog](CHANGELOG.md) -
 [Download](https://cdn.rawgit.com/jarvisniu/bu.js/v0.4.0/build/bu.min.js)
-
 
 ## Hello World
 
@@ -43,14 +41,12 @@ A JavaScript 2D graphics library based on HTML5 Canvas
 </html>
 ```
 
-
 ## Features
 
 - Object-oriented and modularization design
 - Easy-to-use API
 - Rich geometry shapes and algorithms
 - High-definition screen supported
-
 
 ## How to Build
 
@@ -64,19 +60,18 @@ A JavaScript 2D graphics library based on HTML5 Canvas
 
 - `build/` - Built library file: `bu.js` and `bu.min.js`
 - `examples/` - Examples using this lib
-    - `js/` - 3rd lib
-    - `lib/` - Extension of this lib used in the examples
-    - `assets/` - Asset files used in the examples
-    - `index.html` - Homepage of examples
+  - `js/` - 3rd lib
+  - `lib/` - Extension of this lib used in the examples
+  - `assets/` - Asset files used in the examples
+  - `index.html` - Homepage of examples
 - `src/` - Source code of this lib
-    - `core/` - Core components
-    - `math/` - Math related stuff like vector and matrix
-    - `shapes/` - Shape representation and geometry computation algorithm
-    - `drawable/` - Other thing like Image, Text etc. that can be displayed on the screen
-    - `anim/` - Animation system
-    - `extra/` - Utils components
-    - `input/` - Deal with the mouse and keyboard inputs
-
+  - `core/` - Core components
+  - `math/` - Math related stuff like vector and matrix
+  - `shapes/` - Shape representation and geometry computation algorithm
+  - `drawable/` - Other thing like Image, Text etc. that can be displayed on the screen
+  - `anim/` - Animation system
+  - `extra/` - Utils components
+  - `input/` - Deal with the mouse and keyboard inputs
 
 ## License
 
