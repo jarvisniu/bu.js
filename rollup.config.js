@@ -1,4 +1,4 @@
-import eslint from 'rollup-plugin-eslint'
+import { eslint } from 'rollup-plugin-eslint'
 import babel from 'rollup-plugin-babel'
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
@@ -18,7 +18,7 @@ export default {
   },
   plugins: [
     eslint({ include: 'src/**/*.js' }),
-    babel({ babelrc: false, presets: ['es2015-rollup'] }),
+    babel({ exclude: 'node_modules/**' }),
     serve({
       contentBase: '',
       port: 3000,

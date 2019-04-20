@@ -1,8 +1,10 @@
 // Bu
 
-// renderer:
+// config:
+//   el
 //   width/height
 //   imageSmoothing
+//   showBounds
 // data
 // methods
 // objects
@@ -30,11 +32,11 @@ function ready(cb, context, args) {
 class Bu {
   constructor($options = {}) {
     this.$options = $options
-    for (let k of ['renderer', 'data', 'objects', 'methods', 'events']) {
+    for (let k of ['config', 'data', 'objects', 'methods', 'events']) {
       this.$options[k] = this.$options[k] || {}
     }
-    if (this.$options.el) {
-      this.$options.renderer.container = this.$options.el
+    if (this.$options.config.el) {
+      this.$options.config.container = this.$options.config.el
     }
     this.$inputManager = new InputManager()
     ready(this.init, this)
@@ -46,7 +48,8 @@ class Bu {
     let scene = new Scene()
 
     // renderer
-    this.$renderer = new Renderer(this.$options.renderer)
+    // TODO: list the config props
+    this.$renderer = new Renderer(this.$options.config)
     this.$renderer.scene = scene
     scene.renderer = this.$renderer
 

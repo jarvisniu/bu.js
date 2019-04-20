@@ -107,9 +107,9 @@ class Object2D {
 
   // Apply an animation on this object
   // The type of `anim` may be:
-  //     1. Preset animations: the animation name(string type), ie. key in `Bu.animations`
-  //     2. Custom animations: the animation object of `Animation` type
-  //     3. Multiple animations: An array whose children are above two types
+  //   1. Preset animations: the animation name(string type), ie. key in `Bu.animations`
+  //   2. Custom animations: the animation object of `Animation` type
+  //   3. Multiple animations: An array whose children are above two types
   animate(anim, args) {
     if (!utils.isArray(args)) args = [args]
     if (typeof anim === 'string') {

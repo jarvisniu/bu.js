@@ -41,8 +41,8 @@
     Bu.config.cursor = 'crosshair'
     Bu.config.originAtCenter = false
     let bu = new Bu({
-      el: '#container',
-      renderer: {
+      config: {
+        el: '#container',
         width: OFFSET * WIDTH + MARGIN * 2,
         height: OFFSET * HEIGHT + MARGIN * 2,
       },
