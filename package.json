@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "rollup -cw",
     "build": "rollup -c",
-    "compile-example-lib": "npx coffee -c examples/lib/a-star",
     "fix": "eslint --fix src examples",
     "min": "uglifyjs build/bu.js -mco build/bu.min.js"
   },
@@ -18,13 +17,11 @@
     "url": "git+https://github.com/jarvisniu/bu.js.git"
   },
   "keywords": [
-    "JavaScript",
-    "2D",
-    "graphics",
     "HTML5",
     "Canvas",
-    "library",
-    "geometry"
+    "2D",
+    "graphics",
+    "library"
   ],
   "author": "Jarvis Niu",
   "license": "MIT",
@@ -36,7 +33,6 @@
     "babel-core": "^6.26.0",
     "babel-eslint": "^10.0.1",
     "babel-preset-es2015-rollup": "^3.0.0",
-    "coffeescript": "^2.1.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
