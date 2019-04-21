@@ -1,5 +1,4 @@
-Change Log
-==========
+# Change Log
 
 ## 0.5.0-wip
 
@@ -21,7 +20,6 @@ Change Log
 - Added shape ellipse
 - Added `Bu.Audio` to support sounds
 
-
 ## 0.3.5 / 2016-11-09
 
 - Changed `RandomShapeGenerator` to `ShapeRandomizer`
@@ -33,14 +31,12 @@ Change Log
 - Added `imageSmoothing` option for renderer
 - Added type checking functions `Bu.isNumber` and `Bu.isString`
 
-
 ## 0.3.4 / 2016-11-07
 
 - Added class `Bu.Color`
 - Updated `Bu.Animation` to support color transform animation
 - Added function `Bu.clamp()`
 - Added class `Bu.App`, the declarative app framework
-
 
 ## 0.3.2 / 2016-02-24
 
@@ -49,7 +45,6 @@ Change Log
 - Updated animation to support easing functions
 - Changed shapes, computational algorithms were extracted out
     and will be injected in their prototypes as need.
-
 
 ## Change Type
 

@@ -1,0 +1,9 @@
+.idea/
+.vscode/
+
+node_modules/
+package-lock.json
+yarn.lock
+
+# diff with .gitignore
+# - build/
