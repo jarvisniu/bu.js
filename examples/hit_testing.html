@@ -17,7 +17,7 @@
         mousePos: new Bu.Vector(),
         randomizer: new Bu.ShapeRandomizer(),
       },
-      objects: function () {
+      objects() {
         let r = this.randomizer.setRange(
           -this.$renderer.pixelWidth / 2,
           -this.$renderer.pixelHeight / 2,
@@ -34,7 +34,7 @@
           polygon: r.generatePolygon().createBounds(),
         }
       },
-      init: function () {
+      init() {
         document.querySelector('#btnShowBounds').addEventListener('click', function () {
           bu.$renderer.showBounds = this.checked
         })
@@ -50,12 +50,12 @@
         new Bu.MouseControl(this.$renderer)
       },
       methods: {
-        regenerateShapes: function () {
+        regenerateShapes() {
           this.randomizer.randomize(this.$renderer.scene.children)
         },
       },
       events: {
-        mousemove: function (ev) {
+        mousemove(ev) {
           let shapes = this.$renderer.scene.children
 
           shapes.forEach(shape => {

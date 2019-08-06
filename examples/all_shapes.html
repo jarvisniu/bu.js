@@ -55,13 +55,13 @@
         ellipseLabel: new Bu.PointText('Ellipse', 580, 525),
       },
       methods: {
-        setDashStroke: function (on) {
+        setDashStroke(on) {
           this.$renderer.scene.children.forEach(function (shape) {
             shape.dash(!!on)
           })
         },
       },
-      init: function () {
+      init() {
         this.$renderer.scene.translate(-350, -280)
         document.querySelector('#btnKeyPoints').addEventListener('click', function () {
           Bu.config.showKeyPoints = this.checked

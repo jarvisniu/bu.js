@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="css/example.css">
   <script type="text/javascript">
     let bu = new Bu({
-      objects: function () {
+      objects() {
         let circle = new Bu.Circle(25)
         let polyline = new Bu.Polyline(0, -20, -30, 20, 30, 20)
         polyline.lineWidth = 10
@@ -76,7 +76,7 @@
           polylineLineJoinLabel: {},
         },
       },
-      init: function () {
+      init() {
         // lineWidth
         this.circleLineWidth.lineWidth = 5
         // strokeStyle

@@ -48,7 +48,7 @@
         width: OFFSET_X * WIDTH + OFFSET_Y * HEIGHT / 2 + MARGIN * 2,
         height: OFFSET_Y * HEIGHT + MARGIN * 2,
       },
-      data: function () {
+      data() {
         let net = new AStar.NetHoneycomb(WIDTH, HEIGHT)
         let engine = new AStar.Engine(net)
         net.engine = engine
@@ -71,7 +71,7 @@
         axisTextX: [],
         axisTextY: [],
       },
-      init: function () {
+      init() {
         Bu.animations.discolor.duration = 0.2
 
         // set the map
@@ -202,7 +202,7 @@
         this.engine.init()
       },
       methods: {
-        refreshNode: function (i, j) {
+        refreshNode(i, j) {
           let node = this.net.getNode(i, j)
           let line = this.lineRows[i][j]
 
@@ -237,21 +237,21 @@
             this.labelFRows[i][j].text = ''
           }
         },
-        pixelToIndexX: function (x, y) {
+        pixelToIndexX(x, y) {
           return Math.round((x - MARGIN * 0.75) / OFFSET_X - y / OFFSET_Y / 2)
         },
-        pixelToIndexY: function (x, y) {
+        pixelToIndexY(x, y) {
           return Math.round((y - MARGIN - GRID_SIZE_X / 2) / OFFSET_Y)
         },
-        getCentralX: function (i, j) {
+        getCentralX(i, j) {
           return MARGIN + OFFSET_X * i + (OFFSET_X / 2) * j + GRID_SIZE_X / 2
         },
-        getCentralY: function (i, j) {
+        getCentralY(i, j) {
           return MARGIN + OFFSET_Y * j + GRID_SIZE_X / 2
         },
       },
       events: {
-        mousedown: function (ev) {
+        mousedown(ev) {
           this.isMouseDown = true
 
           let x = this.pixelToIndexX(ev.offsetX, ev.offsetY)
@@ -274,7 +274,7 @@
             console.log('prevNode', node.prevNode)
           }
         },
-        mousemove: function (ev) {
+        mousemove(ev) {
           if (this.isMouseDown && ev.button === 0) {
             let x = this.pixelToIndexX(ev.offsetX, ev.offsetY)
             let y = this.pixelToIndexY(ev.offsetX, ev.offsetY)
@@ -294,7 +294,7 @@
             this.engine.trigger('nodeChanged', node.position)
           }
         },
-        mouseup: function () {
+        mouseup() {
           this.isMouseDown = false
         },
       },

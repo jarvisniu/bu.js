@@ -46,7 +46,7 @@
         width: OFFSET * WIDTH + MARGIN * 2,
         height: OFFSET * HEIGHT + MARGIN * 2,
       },
-      data: function () {
+      data() {
         let net = new AStar.NetGrid(WIDTH, HEIGHT)
         let engine = new AStar.Engine(net)
         net.engine = engine
@@ -69,7 +69,7 @@
         axisTextX: [],
         axisTextY: [],
       },
-      init: function () {
+      init() {
         Bu.animations.discolor.duration = 0.2
 
         // set the map
@@ -199,7 +199,7 @@
         this.engine.init()
       },
       methods: {
-        refreshNode: function (i, j) {
+        refreshNode(i, j) {
           let node = this.net.getNode(i, j)
           let line = this.lineRows[i][j]
           let rect = this.rectRows[i][j]
@@ -234,15 +234,15 @@
             this.labelFRows[i][j].text = ''
           }
         },
-        pixelToIndexX: function (x, y) {
+        pixelToIndexX(x, y) {
           return parseInt((x - MARGIN) / OFFSET)
         },
-        pixelToIndexY: function (x, y) {
+        pixelToIndexY(x, y) {
           return parseInt((y - MARGIN) / OFFSET)
         },
       },
       events: {
-        mousedown: function (ev) {
+        mousedown(ev) {
           this.isMouseDown = true
           let x = this.pixelToIndexX(ev.offsetX, ev.offsetY)
           let y = this.pixelToIndexY(ev.offsetX, ev.offsetY)
@@ -264,7 +264,7 @@
             console.log('prevNode', node.prevNode)
           }
         },
-        mousemove: function (ev) {
+        mousemove(ev) {
           if (this.isMouseDown && ev.button === 0) {
             let x = this.pixelToIndexX(ev.offsetX, ev.offsetY)
             let y = this.pixelToIndexY(ev.offsetX, ev.offsetY)
@@ -284,7 +284,7 @@
             this.engine.trigger('nodeChanged', node.position)
           }
         },
-        mouseup: function () {
+        mouseup() {
           this.isMouseDown = false
         },
       },

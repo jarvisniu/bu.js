@@ -30,19 +30,19 @@
       // custom animation
       animHelical = new Bu.Animation({
         duration: 2,
-        init: function (anim) {
+        init(anim) {
           anim.data.ox = this.position.x
           anim.data.oy = this.position.y
           anim.data.or = this.rotation
         },
-        update: function (anim) {
+        update(anim) {
           let theta = Math.PI * 8 * anim.t
           let radius = 300 * anim.t
           this.position.x = radius * Math.cos(theta) + anim.data.ox
           this.position.y = radius * Math.sin(theta) + anim.data.oy
           this.rotation = theta
         },
-        finish: function (anim) {
+        finish(anim) {
           this.position.x = anim.data.ox
           this.position.y = anim.data.oy
           this.rotation = anim.data.or

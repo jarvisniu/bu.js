@@ -13,7 +13,7 @@
         mousePos: new Bu.Point(),
         randomizer: new Bu.ShapeRandomizer(),
       },
-      objects: function () {
+      objects() {
         let line = this.randomizer.generateLine()
         let lineVertical = new Bu.Line().dash()
         lineVertical.points[1].label = 'T'
@@ -22,7 +22,7 @@
           lineVertical,
         }
       },
-      init: function () {
+      init() {
         this.randomizer.setRange(
           -this.$renderer.width / 2,
           -this.$renderer.height / 2,
@@ -32,7 +32,7 @@
         this.randomizer.randomize(this.line)
       },
       events: {
-        mousemove: function (ev) {
+        mousemove(ev) {
           [this.mousePos.x, this.mousePos.y] = this.$renderer.projectToWorld(ev.offsetX, ev.offsetY)
 
           let dist = this.line.distanceTo(this.mousePos)
@@ -40,7 +40,7 @@
           this.line.footPointFrom(this.mousePos, this.lineVertical.points[1])
           this.lineVertical.points[0].label = 'Distance: ' + Math.round(dist)
         },
-        mouseup: function (ev) {
+        mouseup(ev) {
           this.randomizer.randomize(this.line)
         },
       },

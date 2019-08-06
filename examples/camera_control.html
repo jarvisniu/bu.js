@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="css/example.css">
   <script type="text/javascript">
     let bu = new Bu({
-      objects: function () {
+      objects() {
         let stroke = '#442'
         let fill = '#884'
         let circle = new Bu.Circle(200).fill(fill).stroke(stroke).setLineWidth(60)
@@ -30,7 +30,7 @@
           labelLeft,
         }
       },
-      init: function () {
+      init() {
         let camera = this.$renderer.camera
         let control = new Bu.MouseControl(this.$renderer)
 

@@ -10,7 +10,7 @@
   <script type="text/javascript">
     Bu.config.originAtCenter = false
     let bu = new Bu({
-      data: function () {
+      data() {
         let POINT_COUNT = 10
         let points = []
 
@@ -26,7 +26,7 @@
           points,
         }
       },
-      init: function () {
+      init() {
         this.movePointReactor = new Bu.MovePointReactor(this.$renderer)
         this.movePointReactor.enable()
 

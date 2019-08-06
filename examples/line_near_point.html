@@ -13,7 +13,7 @@
         mousePos: new Bu.Point(),
         randomizer: new Bu.ShapeRandomizer(),
       },
-      objects: function () {
+      objects() {
         let line = this.randomizer.generateLine()
         let polyline = this.randomizer.generatePolyline()
         return {
@@ -21,7 +21,7 @@
           polyline,
         }
       },
-      init: function () {
+      init() {
         this.randomizer.setRange(
           -this.$renderer.width / 2,
           -this.$renderer.height / 2,
@@ -31,10 +31,10 @@
         this.randomizer.randomize([this.line, this.polyline])
       },
       events: {
-        mouseup: function (ev) {
+        mouseup(ev) {
           this.randomizer.randomize([this.line, this.polyline])
         },
-        mousemove: function (ev) {
+        mousemove(ev) {
           [this.mousePos.x, this.mousePos.y] = this.$renderer.projectToWorld(ev.offsetX, ev.offsetY)
 
           if (this.mousePos.isNear(this.line)) this.line.style('hover')

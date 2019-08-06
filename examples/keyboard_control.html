@@ -18,20 +18,20 @@
         bunny: new Bu.Image('./assets/textures/bunny.png').scaleTo(2),
         ground: new Bu.Rectangle(-1000, 40, 2000, 1000).fill('lightgreen'),
       },
-      init: function () {
+      init() {
         window.focus()
       },
-      update: function () {
+      update() {
         if (this.$inputManager.isKeyDown('Left')) this.moveSpeed -= 1
         if (this.$inputManager.isKeyDown('Right')) this.moveSpeed += 1
         this.bunny.position.x += this.moveSpeed
         this.moveSpeed *= 0.9
       },
       events: {
-        'keydown.Up': function (ev) {
+        'keydown.Up'(ev) {
           this.bunny.animate('jump', 80)
         },
-        'keydown.Down': function (ev) {
+        'keydown.Down'(ev) {
           this.bunny.animate('shake')
           this.moo.play()
         },

@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="css/example.css">
   <script type="text/javascript">
     let bu = new Bu({
-      data: function () {
+      data() {
         let COUNT = 30
         let T = 0.1
         let arr = []
@@ -32,7 +32,7 @@
         labelStatus: new Bu.PointText('Sorting...', -50, -20),
         labelStep: new Bu.PointText('', 50, -20),
       },
-      init: function () {
+      init() {
         for (let i = 0; i < this.COUNT; i++) {
           this.$renderer.scene.addChild(this.arr[i].line)
         }
@@ -41,7 +41,7 @@
         setInterval(this.nextStep.bind(this), this.T * 1000)
       },
       methods: {
-        nextStep: function () {
+        nextStep() {
           if (this.trySort()) {
             this.stepCount += 1
             this.labelStep.text = 'Step: ' + this.stepCount
@@ -49,7 +49,7 @@
             this.labelStatus.text = 'Finished!'
           }
         },
-        trySort: function () {
+        trySort() {
           for (let i = 0; i < this.COUNT - 1; i++) {
             if (this.arr[i].value > this.arr[i + 1].value) {
               this.swap(i, i + 1)
@@ -58,7 +58,7 @@
           }
           return false
         },
-        swap: function (i, j) {
+        swap(i, j) {
           let A = this.arr;
 
           [A[i].value, A[i + 1].value] = [A[i + 1].value, A[i].value];

@@ -21,7 +21,7 @@
     Bu.config.cursor = 'crosshair'
     Bu.config.showKeyPoints = true
     let bu = new Bu({
-      data: function () {
+      data() {
         let reactors = {
           point: new Bu.DrawPointReactor(this.$renderer),
           circleRadius: new Bu.DrawCircleReactor(this.$renderer),
@@ -33,7 +33,7 @@
         }
         return {reactors}
       },
-      init: function () {
+      init() {
         this.reactors.point.enable()
 
         let radios = document.querySelectorAll('#control input')

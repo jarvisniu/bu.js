@@ -31,7 +31,7 @@ A HTML5 Canvas graphics library
           }
         }
       },
-      update: function () {
+      update() {
         this.sun.rotation += 0.02
         this.earth.rotation += 0.1
       },

@@ -14,21 +14,21 @@
         url: 'assets/sprite-sheets/nes-font.json',
         text: 'Hello, bu.js!',
       },
-      objects: function () {
+      objects() {
         return {
           pointText: new Bu.PointText(''),
           pivotCircle: new Bu.Circle(12),
           pivotDot: new Bu.Circle().stroke('red'),
         }
       },
-      init: function () {
+      init() {
         this.pointText.font = new Bu.SpriteSheet(this.url)
 
         document.querySelector('#text').value = this.text
         this.updateText(this.text)
       },
       methods: {
-        updateText: function (text) {
+        updateText(text) {
           this.pointText.text = text
         },
       },
