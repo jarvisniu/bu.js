@@ -111,12 +111,12 @@ for (let name of ['d2r', 'rand', 'MOUSE', 'POINT_RENDER_SIZE']) {
 
 // Output version info to the console, at most one time in a minute.
 let currentTime = Date.now()
-let lastTime = utils.data('version.timestamp')
+let lastTime = localStorage['bu.version.timestamp']
 if (!lastTime || currentTime - lastTime > 60 * 1000) {
   if (typeof console.info === 'function') {
     console.info(`bu.js v${Bu.version} - [https://github.com/jarvisniu/bu.js]`)
   }
-  utils.data('version.timestamp', currentTime)
+  localStorage['bu.version.timestamp'] = currentTime
 }
 
 export default Bu

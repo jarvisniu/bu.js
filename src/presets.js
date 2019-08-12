@@ -15,7 +15,7 @@ import Styled from './base/Styled.js'
 import Animation from './anim/Animation.js'
 import Color from './math/Color.js'
 
-Bu.$bues = []
+Bu.$instances = []
 
 Bu.animationRunner = new AnimationRunner()
 Bu.dashFlowManager = new DashFlowManager()

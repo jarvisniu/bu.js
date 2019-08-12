@@ -62,7 +62,7 @@ function rand(from, to) {
 
 // Convert an angle from radian to deg
 function r2d(r) {
-  return ((r * 180) / Math.PI).toFixed(1)
+  return +((r * 180) / Math.PI).toFixed(1)
 }
 
 // Convert an angle from deg to radian
@@ -157,17 +157,6 @@ function debounce(fn, delay = 0.5) {
   }
 }
 
-// Use localStorage to persist data
-// TODO rename to store
-function data(key, value) {
-  if (value) {
-    window.localStorage['Bu.' + key] = JSON.stringify(value)
-  } else {
-    value = window.localStorage['Bu.' + key]
-    return value ? JSON.parse(value) : null
-  }
-}
-
 export default {
   HALF_PI,
   TWO_PI,
@@ -190,5 +179,4 @@ export default {
   clone,
   throttle,
   debounce,
-  data,
 }

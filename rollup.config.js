@@ -1,6 +1,6 @@
 import { eslint } from 'rollup-plugin-eslint'
-import babel from 'rollup-plugin-babel'
 import json from 'rollup-plugin-json'
+import babel from 'rollup-plugin-babel'
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
 
@@ -8,7 +8,27 @@ import pkg from './package.json'
 
 let banner = `// bu.js v${pkg.version} - https://github.com/jarvisniu/bu.js\n`
 
-export default {
+// build plugins
+let plugins = [
+  eslint({ include: 'src/**/*.js' }),
+  json(),
+  babel({ exclude: 'node_modules/**' }),
+]
+
+// dev plugins
+if (process.env.ROLLUP_WATCH) {
+  plugins = plugins.concat([
+    serve({
+      contentBase: '',
+      port: 3000,
+    }),
+    livereload({
+      watch: ['build', 'examples'],
+    }),
+  ])
+}
+
+let devOptions = {
   input: 'src/index.js',
   output: {
     file: 'build/bu.js',
@@ -17,16 +37,10 @@ export default {
     sourcemap: true,
     banner,
   },
-  plugins: [
-    eslint({ include: 'src/**/*.js' }),
-    babel({ exclude: 'node_modules/**' }),
-    json(),
-    serve({
-      contentBase: '',
-      port: 3000,
-    }),
-    livereload({
-      watch: ['build', 'examples'],
-    }),
-  ],
+  plugins,
 }
+
+if (process.env.ROLLUP_WATCH) {
+}
+
+export default devOptions

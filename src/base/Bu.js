@@ -40,7 +40,7 @@ class Bu {
     }
     this.$inputManager = new InputManager()
     ready(this.init, this)
-    Bu.$bues.push(this)
+    Bu.$instances.push(this)
   }
 
   init() {

@@ -13,7 +13,7 @@ let config = {
   },
   set cursor(val) {
     this._cursor = val
-    for (let bu of Bu.$bues) {
+    for (let bu of Bu.$instances) {
       bu.$renderer.dom.style.cursor = this._cursor
     }
   },
