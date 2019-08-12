@@ -8,7 +8,7 @@ A HTML5 Canvas graphics library
 [Guides](https://github.com/jarvisniu/bu.js/wiki/Guides) -
 [API](https://github.com/jarvisniu/bu.js/wiki/API) -
 [ChangeLog](CHANGELOG.md) -
-[Download](https://cdn.rawgit.com/jarvisniu/bu.js/v0.4.0/build/bu.min.js)
+[Download](https://unpkg.com/bu.js/build/bu.js)
 
 ## Hello World
 
@@ -16,7 +16,7 @@ A HTML5 Canvas graphics library
 <!DOCTYPE html>
 <html>
 <body>
-  <script src="https://cdn.rawgit.com/jarvisniu/bu.js/v0.4.0/build/bu.min.js"></script>
+  <script src="https://unpkg.com/bu.js/build/bu.js"></script>
   <script type="text/javascript">
     var bu = new Bu({
       objects: {

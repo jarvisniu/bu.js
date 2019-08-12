@@ -1,5 +1,6 @@
 import { eslint } from 'rollup-plugin-eslint'
 import babel from 'rollup-plugin-babel'
+import json from 'rollup-plugin-json'
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
 
@@ -19,6 +20,7 @@ export default {
   plugins: [
     eslint({ include: 'src/**/*.js' }),
     babel({ exclude: 'node_modules/**' }),
+    json(),
     serve({
       contentBase: '',
       port: 3000,

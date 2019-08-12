@@ -58,7 +58,7 @@ import ShapeRandomizer from './extra/ShapeRandomizer.js'
 import utils from './utils.js'
 import config from './config.js'
 
-const VERSION = '0.5.0-wip'
+import { version } from '../package.json'
 
 Bu.Bounds = Bounds
 Bu.Color = Color
@@ -102,7 +102,7 @@ Bu.geometryAlgorithm = geometryAlgorithm
 Bu.ShapeRandomizer = ShapeRandomizer
 
 Bu.config = config // Global config
-Bu.version = VERSION // Version info
+Bu.version = version // Version info
 
 // utils in examples
 for (let name of ['d2r', 'rand', 'MOUSE', 'POINT_RENDER_SIZE']) {
