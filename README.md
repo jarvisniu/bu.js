@@ -2,10 +2,10 @@
 
 A HTML5 Canvas graphics library
 
-[![Bu.js Logo](logo.png)](http://jarvisniu.com/bu.js/)
+[![bu.js logo](logo.png)](http://jarvisniu.com/bu.js/)
 
-[Demos](https://unpkg.com/bu.js/index.html) -
-[Guides](https://github.com/jarvisniu/bu.js/wiki/Guides) -
+[Examples](https://unpkg.com/bu.js/index.html) -
+<!-- [Guides](https://github.com/jarvisniu/bu.js/wiki/Guides) - -->
 [API](https://github.com/jarvisniu/bu.js/wiki/API) -
 [ChangeLog](CHANGELOG.md) -
 [Download](https://unpkg.com/bu.js/build/bu.js)

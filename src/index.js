@@ -1,7 +1,7 @@
 // Entry of bu.js
 
 // main
-import Bu from './base/Bu.js'
+import Bu from './core/Bu.js'
 import './presets.js'
 
 // math
@@ -42,14 +42,14 @@ import PointText from './drawable/PointText.js'
 import Animation from './anim/Animation.js'
 import AnimationRunner from './anim/AnimationRunner.js'
 import AnimationTask from './anim/AnimationTask.js'
-import DashFlowManager from './anim/DashFlowManager.js'
-import SpriteSheet from './anim/SpriteSheet.js'
 
 // input
 import InputManager from './input/InputManager.js'
 import MouseControl from './input/MouseControl.js'
 
 // extra
+import DashFlowManager from './extra/DashFlowManager.js'
+import SpriteSheet from './extra/SpriteSheet.js'
 import geometryAlgorithm from './extra/geometryAlgorithm.js'
 import ShapeRandomizer from './extra/ShapeRandomizer.js'
 

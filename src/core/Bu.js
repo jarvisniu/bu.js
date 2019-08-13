@@ -13,8 +13,8 @@
 // init
 // update
 
-import Renderer from '../core/Renderer.js'
-import Scene from '../core/Scene.js'
+import Renderer from './Renderer.js'
+import Scene from './Scene.js'
 
 import InputManager from '../input/InputManager.js'
 

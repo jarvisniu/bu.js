@@ -1,6 +1,6 @@
 // Base class of all shapes and other renderable objects
 
-import Bu from '../base/Bu.js'
+import Bu from '../core/Bu.js'
 import utils from '../utils.js'
 
 import Bounds from '../math/Bounds.js'

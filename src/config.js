@@ -1,6 +1,6 @@
 // global config
 
-import Bu from './base/Bu.js'
+import Bu from './core/Bu.js'
 
 let config = {
   originAtCenter: true,

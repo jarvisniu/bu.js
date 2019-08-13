@@ -1,10 +1,10 @@
 // Presets
-import Bu from './base/Bu.js'
+import Bu from './core/Bu.js'
 
 // Global unique instances ----------------------------------------------------
 
 import AnimationRunner from './anim/AnimationRunner.js'
-import DashFlowManager from './anim/DashFlowManager.js'
+import DashFlowManager from './extra/DashFlowManager.js'
 
 // Preset Styles --------------------------------------------------------------
 
